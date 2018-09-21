@@ -4,35 +4,56 @@ using UnityEngine;
 
 public class AnimalManager : MonoBehaviour
 {
+    // singleton instance
+    private static AnimalManager instance;
+
     // prefabs
     [Header("Prefabs")]
     public GameObject sheepPrefab; // reference to sheep
     public GameObject ramPrefab; // reference to ram
+    public GameObject[] patternedSheepPrefabs; // reference to patterned sheep
 
     // sheep management
     [Header("Sheep Management")]
     [Range(0, 30)]
+    [Tooltip("Maximum number of sheep on-screen at any given time")]
     public int maximumSheep; // max number of sheep at any given time
     private GameObject[] sheepPool; // the collection of sheep
     private Queue<GameObject> availableSheep; // sheep which can be spawned
 
     // sheep spawning
-    public float sheepSpawnCooldown; // minimum time between spawns
+    [Tooltip("Minimum time (in seconds) between spawns")]
+    public float sheepSpawnRate; // minimum time between spawns
     private float sheepSpawnTimer = 0.0f; // timer used to determine cooldown
     public Transform[] sheepSpawnPoints; // spawn points
 
     // ram spawning
     [Header("Ram Management")]
-    public float ramSpawnCooldown;
-    private float ramSpawnTimer = 0.0f; 
+    [Tooltip("Minimum time (in seconds) between spawns")]
+    public float ramSpawnRate;
+    private float ramSpawnTimer = 0.0f;
     public Transform ramSpawnPoint;
+    
+    /// <summary>
+    /// getter for singleton instance of AnimalManager
+    /// </summary>
+    public static AnimalManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
 
-	/// <summary>
+    /// <summary>
     /// initialises the sheep pool, and sheep queue. Sheep are added to the
     /// pool, set to inactive and added to the queue of available sheep
     /// </summary>
-	void Awake ()
+    void Awake ()
     {
+        // assign singleton instance
+        instance = this;
+
         // initialise pool
         sheepPool = new GameObject[maximumSheep];
         availableSheep = new Queue<GameObject>();
@@ -58,11 +79,15 @@ public class AnimalManager : MonoBehaviour
     /// </summary>
 	void Update ()
     {
+        // attempt to spawn sheep or ram
+        SpawnSheep();
+        SpawnRam();
+
         // increment spawn timers
         sheepSpawnTimer += Time.deltaTime;
         ramSpawnTimer += Time.deltaTime;
 
-        DebugKeys();
+        DebugKeys(); // delete this later
     }
 
     /// <summary>
@@ -76,7 +101,7 @@ public class AnimalManager : MonoBehaviour
             return;
 
         // don't spawn sheep if the previous spawn is still on cooldown
-        if (sheepSpawnTimer < sheepSpawnCooldown)
+        if (sheepSpawnTimer < sheepSpawnRate + GetSheepCount())
             return;
 
         // get next available sheep
@@ -101,7 +126,7 @@ public class AnimalManager : MonoBehaviour
             return;
 
         // don't spawn ram if the previous spawn is still on cooldown
-        if (ramSpawnTimer < ramSpawnCooldown)
+        if (ramSpawnTimer < ramSpawnRate)
             return;
 
         // set ram position to spawn point
@@ -119,8 +144,8 @@ public class AnimalManager : MonoBehaviour
     /// <param name="sheep">the desired sheep to delete/destroy</param>
     public void DestroySheep(GameObject sheep)
     {
-        sheep.SetActive(false); // hide sheep
         availableSheep.Enqueue(sheep); // sheep is now available
+        sheep.SetActive(false); // hide sheep
     }
 
     /// <summary>
@@ -138,7 +163,7 @@ public class AnimalManager : MonoBehaviour
     public int GetSheepCount()
     {
         // sheep count = total sheep - available (inactive) sheep
-        return sheepPool.Length - availableSheep.Count;
+        return maximumSheep - availableSheep.Count;
     }
 
     /// <summary>

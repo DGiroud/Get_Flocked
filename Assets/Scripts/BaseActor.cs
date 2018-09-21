@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class BaseActor : MonoBehaviour
 {
+    [Header("Movement")]
     public float speed;
     public float strength;
 
+    [Header("Interaction")]
     public BoxCollider interactionBox;
     public float pickUpDelay;
     private float pickUpTimer = 0.0f;
@@ -21,14 +23,14 @@ public class BaseActor : MonoBehaviour
     // Update is called once per frame
     public virtual void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ReleaseSheep();
-        }
-
         pickUpTimer += Time.deltaTime;
 	}
 
+    /// <summary>
+    /// performs snapping of sheep by adjusting position, parenting the sheep
+    /// to this actor and disabling rigidbody
+    /// </summary>
+    /// <param name="sheep">the desired sheep to snap to actor</param>
     public void SnapSheep(GameObject sheep)
     {
         // safety check: if a sheep is already held, don't hold another
@@ -39,6 +41,7 @@ public class BaseActor : MonoBehaviour
         if (pickUpTimer < pickUpDelay)
             return;
 
+        // disable the actor's trigger box
         interactionBox.enabled = false;
 
         // adjust position
@@ -48,14 +51,20 @@ public class BaseActor : MonoBehaviour
         heldSheep.GetComponent<Rigidbody>().isKinematic = true;
     }
 
+    /// <summary>
+    /// performs the "detaching" of sheep. Simple unparents the sheep from
+    /// this actor and re-enables physics
+    /// </summary>
+    /// <returns>returns the released sheep, or null if no sheep was held</returns>
     public GameObject ReleaseSheep()
     {
         // safety check: if no sheep is held, then can't release nothing
         if (!heldSheep)
             return null;
 
-        pickUpTimer = 0.0f;
-        interactionBox.enabled = true;
+        // enable actor's trigger box
+        interactionBox.enabled = true; 
+        pickUpTimer = 0.0f; // reset timer
 
         // get held sheep
         GameObject releasedSheep = heldSheep;
