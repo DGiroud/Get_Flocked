@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BaseActor : MonoBehaviour
 {
+    // actor ID
     private int actorID;
     public int ActorID { get; set; }
 

@@ -11,11 +11,8 @@ public enum PlayerInput
 
 public class Player : BaseActor
 {
-    [SerializeField]
-    private PlayerInput playerInput;
-
-    // game pad index
-    private PlayerIndex controllerNumber;
+    // the type of input this player is using, e.g. keyboard
+    public PlayerInput playerInput;
 
     private Vector3 translation;
 	
@@ -24,32 +21,35 @@ public class Player : BaseActor
     /// </summary>
 	override public void Update ()
     {
-        GamePadState input = GamePad.GetState(controllerNumber);
-        
-        // movement
-        Movement(input);
+        switch (playerInput)
+        {
+            case PlayerInput.Keyboard:
+                KeyboardInput();
+                break;
 
-        // action
-        Kick(input);
+            case PlayerInput.Controller:
+                GamePadInput();
+                break;
+        }
 
         // call update on BaseActor
         base.Update();
     }
 
-    /// <summary>
-    /// set controller function, which assigns the player a controller index
-    /// </summary>
-    /// <param name="playerIndex">example input: PlayerIndex.One</param>
-    public void SetController(PlayerIndex playerIndex)
+    private void GamePadInput()
     {
-        controllerNumber = playerIndex;
+        GamePadState input = GamePad.GetState((PlayerIndex)ActorID);
+
+        GamePadMovement(input);
+        GamePadKick(input);
+        GamePadRelease(input);
     }
 
     /// <summary>
     /// placeholder movement function for player. Handles the translation and
     /// rotation of the player in the x and z axis
     /// </summary>
-    public void Movement(GamePadState gamePad)
+    private void GamePadMovement(GamePadState gamePad)
     {
         // x & z translation mapped to horizontal & vertical respectively
         if (gamePad.ThumbSticks.Left.X == 0.0f && gamePad.ThumbSticks.Left.Y == 0.0f)
@@ -68,22 +68,71 @@ public class Player : BaseActor
         transform.Translate(translation, Space.World);
     }
 
-    public void Kick(GamePadState gamePad)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="gamePad"></param>
+    private void GamePadKick(GamePadState gamePad)
     {
-        // space or A to kick sheep
-        if (Input.GetKeyDown(KeyCode.Space) || gamePad.Buttons.A == ButtonState.Pressed)
+        // A to kick sheep
+        if (gamePad.Buttons.A == ButtonState.Pressed)
         {
             GameObject sheep = ReleaseSheep();
             LaunchSheep(sheep);
         }
     }
 
-    public void Release(GamePadState gamePad)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="gamePad"></param>
+    private void GamePadRelease(GamePadState gamePad)
     {
         // B to release sheep
         if (gamePad.Buttons.B == ButtonState.Pressed)
         {
             ReleaseSheep();
         }
+    }
+
+    private void KeyboardInput()
+    {
+        KeyboardMovement();
+        KeyboardKick();
+        KeyboardRelease();
+    }
+
+    private void KeyboardMovement()
+    {
+        // x & z translation mapped to horizontal & vertical respectively
+        if (Input.GetAxisRaw("Horizontal") == 0.0f && Input.GetAxisRaw("Vertical") == 0.0f)
+            return;
+
+        translation.x = Input.GetAxisRaw("Horizontal");
+        translation.z = Input.GetAxisRaw("Vertical");
+
+        // rotation handling
+        transform.rotation = Quaternion.LookRotation(translation);
+
+        // multiply by speed and delta time
+        translation *= speed * Time.deltaTime;
+
+        // perform movement
+        transform.Translate(translation, Space.World);
+    }
+
+    private void KeyboardKick()
+    {
+        // space to kick sheep
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject sheep = ReleaseSheep();
+            LaunchSheep(sheep);
+        }
+    }
+
+    private void KeyboardRelease()
+    {
+
     }
 }

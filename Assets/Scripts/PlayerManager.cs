@@ -25,12 +25,15 @@ public class PlayerManager : MonoBehaviour
 
     // prefabs
     [Header("Prefabs")]
-    public GameObject playerPrefab; // reference to player
-    public GameObject CPUPrefab; // reference to CPU
+    [SerializeField]
+    private GameObject playerPrefab; // reference to player
+    [SerializeField]
+    private GameObject CPUPrefab; // reference to CPU
     
     // spawn settings
     [Header("Start Positions")]
-    public Transform[] actorStartPositions; // array of player spawn positions
+    [SerializeField]
+    private Transform[] actorStartPositions; // array of player spawn positions
 
     // lists of all players and their respective controllers
     private List<GameObject> players; // the players
@@ -52,11 +55,13 @@ public class PlayerManager : MonoBehaviour
 
         if (gamePads.Count == 0)
         {
-            // using keyboard
+            // use keyboard if no gamepads connected
+            AssignKeyboard();
         }
         else
         {
-            AssignGamePads(); // using controller/s
+            // use gamepad/s
+            AssignGamePads(); 
         }
     }
 
@@ -97,7 +102,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         // for every non-connected gamepad...
-        for (int i = gamePads.Count; i <= (int)PlayerIndex.Four; i++)
+        for (int i = gamePads.Count; i < actorStartPositions.Length; i++)
         {
             // ...create a CPU
             players.Add(InstantiateCPU(i));
@@ -106,9 +111,11 @@ public class PlayerManager : MonoBehaviour
 
     public void AssignKeyboard()
     {
+        // player one uses keyboard
         players.Add(InstantiatePlayer(0, PlayerInput.Keyboard));
 
-        for (int i = 1; i <= (int)PlayerIndex.Four; i++)
+        // the rest are a CPU
+        for (int i = 1; i < actorStartPositions.Length; i++)
         {
             players.Add(InstantiateCPU(i));
         }
@@ -128,10 +135,10 @@ public class PlayerManager : MonoBehaviour
         // add player to scene, then set position
         GameObject player = Instantiate(playerPrefab);
         player.transform.position = startTransform.position;
-        
 
-        // assign the player access to a controller
-        player.GetComponent<Player>().SetController((PlayerIndex)playerIndex);
+        Player script = player.GetComponent<Player>();
+        script.ActorID = playerIndex;
+        script.playerInput = playerInput;
 
         return player;
     }
@@ -148,9 +155,12 @@ public class PlayerManager : MonoBehaviour
         Transform startTransform = actorStartPositions[CPUIndex];
 
         // add CPU to scene, then set position
-        GameObject CPU = Instantiate(CPUPrefab);
-        CPU.transform.position = startTransform.position;
+        GameObject cpu = Instantiate(CPUPrefab);
+        cpu.transform.position = startTransform.position;
 
-        return CPU;
+        //CPU script = cpu.GetComponent<CPU>();
+        //script.ActorID = CPUIndex;
+
+        return cpu;
     }
 }
