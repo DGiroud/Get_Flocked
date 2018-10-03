@@ -37,6 +37,7 @@ public class PlayerManager : MonoBehaviour
 
     // lists of all players and their respective controllers
     private List<GameObject> players; // the players
+    public List<GameObject> Players { get { return players; } }
     private List<GamePadState> gamePads; // their gamepads
 
     /// <summary>

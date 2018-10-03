@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh16202
+  m_Name: pb_Mesh11832
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -751,7 +751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea23a6d3f8a817f49a1abfe8ecbe2ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ramPrefab: {fileID: 1852946289449584, guid: 6bf4308217fbbcf4ca752bc83a795d97, type: 2}
+  ramPrefab: {fileID: 1304141541234586, guid: 0224d94e21c455b46821683691f752cd, type: 2}
   ramSpawnPoint: {fileID: 920928447}
   ramSpawnRate: 45
   spawnRateVariance: 20
@@ -2883,11 +2883,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14e32325576f0246af23d7f7aa76efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sheepPrefab: {fileID: 1943144626462754, guid: 5c20a5bd14c16c74988fd622aa995158,
+  sheepPrefab: {fileID: 1207696574497258, guid: aff333a001094324696d1e4be7a212cf,
     type: 2}
   patternedSheepPrefabs:
-  - {fileID: 1080015492737228, guid: a7e0119ea4d99fd40baba0e5fdd248e2, type: 2}
-  - {fileID: 1397979869820104, guid: 50d677c08ee594b439d9bec07a98d695, type: 2}
+  - {fileID: 1207696574497258, guid: 582728760521de9468fa5108750c968e, type: 2}
+  - {fileID: 1207696574497258, guid: a8954ebf4c1554645a93058f06b03189, type: 2}
   spawnMode: 1
   spawnPoints:
   - {fileID: 465487918}
@@ -9194,7 +9194,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh16256
+  m_Name: pb_Mesh11964
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -13316,8 +13316,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f143fd05f65fade438b672425b662f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 0}
-  CPUPrefab: {fileID: 0}
+  playerPrefab: {fileID: 1006201811701030, guid: 005e21f7521d624459883cf2fd32207c,
+    type: 2}
+  CPUPrefab: {fileID: 1006201811701030, guid: 17528916a9e40ed439ee727cb24976c1, type: 2}
   actorStartPositions:
   - {fileID: 118743239}
   - {fileID: 527125933}
@@ -14785,7 +14786,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh15894
+  m_Name: pb_Mesh11624
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -18948,7 +18949,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh16118
+  m_Name: pb_Mesh11748
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -19084,6 +19085,7 @@ GameObject:
   - component: {fileID: 1652421132}
   - component: {fileID: 1652421131}
   - component: {fileID: 1652421130}
+  - component: {fileID: 1652421134}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -19154,6 +19156,17 @@ Transform:
   m_Father: {fileID: 382845324}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 75, y: 0, z: 0}
+--- !u!114 &1652421134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1652421129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22196d64e72bea0438f68c69fc830290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1747016606
 GameObject:
   m_ObjectHideFlags: 0

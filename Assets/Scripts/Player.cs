@@ -15,11 +15,16 @@ public class Player : BaseActor
     public PlayerInput playerInput;
 
     private Vector3 translation;
-	
-	/// <summary>
+    private Rigidbody rigidBody;
+
+    public void Start()
+    {
+    }
+
+    /// <summary>
     /// handle player input
     /// </summary>
-	override public void Update ()
+    override public void Update ()
     {
         switch (playerInput)
         {
@@ -31,6 +36,8 @@ public class Player : BaseActor
                 GamePadInput();
                 break;
         }
+
+        rigidBody = GetComponent<Rigidbody>();
 
         // call update on BaseActor
         base.Update();
@@ -59,13 +66,13 @@ public class Player : BaseActor
         translation.z = gamePad.ThumbSticks.Left.Y;
 
         // rotation handling
-        transform.rotation = Quaternion.LookRotation(translation);
+        GetComponentInParent<Rigidbody>().MoveRotation(Quaternion.LookRotation(translation));
 
         // multiply by speed and delta time
         translation *= speed * Time.deltaTime;
 
         // perform movement
-        transform.Translate(translation, Space.World);
+        rigidBody.MovePosition(transform.position + translation);
     }
 
     /// <summary>
