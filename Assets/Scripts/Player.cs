@@ -1,44 +1,62 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
+
+public enum PlayerInput
+{
+    Controller,
+    Keyboard
+}
 
 public class Player : BaseActor
 {
-    Vector3 translation;
+    [SerializeField]
+    private PlayerInput playerInput;
 
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
+    // game pad index
+    private PlayerIndex controllerNumber;
+
+    private Vector3 translation;
 	
 	/// <summary>
     /// handle player input
     /// </summary>
 	override public void Update ()
     {
-        // movement input
-        Movement();
+        GamePadState input = GamePad.GetState(controllerNumber);
+        
+        // movement
+        Movement(input);
 
-        // action input
-        Kick();
+        // action
+        Kick(input);
 
         // call update on BaseActor
         base.Update();
     }
 
     /// <summary>
+    /// set controller function, which assigns the player a controller index
+    /// </summary>
+    /// <param name="playerIndex">example input: PlayerIndex.One</param>
+    public void SetController(PlayerIndex playerIndex)
+    {
+        controllerNumber = playerIndex;
+    }
+
+    /// <summary>
     /// placeholder movement function for player. Handles the translation and
     /// rotation of the player in the x and z axis
     /// </summary>
-    public void Movement()
+    public void Movement(GamePadState gamePad)
     {
         // x & z translation mapped to horizontal & vertical respectively
-        if (Input.GetAxisRaw("Horizontal") == 0.0f && Input.GetAxisRaw("Vertical") == 0.0f)
+        if (gamePad.ThumbSticks.Left.X == 0.0f && gamePad.ThumbSticks.Left.Y == 0.0f)
             return;
-        
-        translation.x = Input.GetAxisRaw("Horizontal");
-        translation.z = Input.GetAxisRaw("Vertical");
+
+        translation.x = gamePad.ThumbSticks.Left.X;
+        translation.z = gamePad.ThumbSticks.Left.Y;
 
         // rotation handling
         transform.rotation = Quaternion.LookRotation(translation);
@@ -50,9 +68,20 @@ public class Player : BaseActor
         transform.Translate(translation, Space.World);
     }
 
-    public void Kick()
+    public void Kick(GamePadState gamePad)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        // space or A to kick sheep
+        if (Input.GetKeyDown(KeyCode.Space) || gamePad.Buttons.A == ButtonState.Pressed)
+        {
+            GameObject sheep = ReleaseSheep();
+            LaunchSheep(sheep);
+        }
+    }
+
+    public void Release(GamePadState gamePad)
+    {
+        // B to release sheep
+        if (gamePad.Buttons.B == ButtonState.Pressed)
         {
             ReleaseSheep();
         }

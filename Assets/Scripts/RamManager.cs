@@ -27,6 +27,7 @@ public class RamManager : MonoBehaviour
     // ram spawning variables
     #region spawning
     [Header("Spawning")]
+    private GameObject ram;
     [SerializeField]
     [Tooltip("Fill this with a transform (empty game object)")]
     private Transform ramSpawnPoint;
@@ -50,8 +51,8 @@ public class RamManager : MonoBehaviour
         instance = this;
 
         // create the ram
-        Instantiate(ramPrefab);
-        ramPrefab.SetActive(false); // hide by default
+        ram = Instantiate(ramPrefab);
+        ram.SetActive(false); // hide by default
 
         // delete me
         Assert.IsTrue(spawnRateVariance < ramSpawnRate,
@@ -72,7 +73,10 @@ public class RamManager : MonoBehaviour
 
         // spawn cooldown check
         if (ramSpawnTimer > ramSpawnRate + variance)
+        {
+            ramSpawnTimer = 0.0f;
             SpawnRam();
+        }
     }
 
     /// <summary>
@@ -81,18 +85,17 @@ public class RamManager : MonoBehaviour
     public GameObject SpawnRam()
     {
         // safety check, don't spawn ram if there's one already spawned
-        if (ramPrefab.activeSelf)
+        if (ram.activeSelf)
             return null;
 
         // set ram position to spawn point
-        ramPrefab.transform.position = ramSpawnPoint.position;
-        ramPrefab.SetActive(true); // show ram
+        ram.transform.position = ramSpawnPoint.position;
+        ram.SetActive(true); // show ram
 
-        // reset spawn timer & adjust spawn variance
-        ramSpawnTimer = 0.0f;
+        // adjust spawn variance
         variance = Random.Range(-spawnRateVariance, spawnRateVariance);
 
-        return ramPrefab;
+        return ram;
     }
 
     /// <summary>
@@ -100,6 +103,6 @@ public class RamManager : MonoBehaviour
     /// </summary>
     public void DestroyRam()
     {
-        ramPrefab.SetActive(false); // hide ram
+        ram.SetActive(false); // hide ram
     }
 }

@@ -4,23 +4,35 @@ using UnityEngine;
 
 public class BaseActor : MonoBehaviour
 {
+    private int actorID;
+    public int ActorID { get; set; }
+
+    // actor movement
     [Header("Movement")]
     public float speed;
     public float strength;
 
+    // actor interaction
     [Header("Interaction")]
-    public BoxCollider interactionBox;
-    public float pickUpDelay;
-    private float pickUpTimer = 0.0f;
-    private GameObject heldSheep = null;
+    [SerializeField]
+    private BoxCollider interactionBox;
+    [SerializeField]
+    private float pickUpDelay;
+    private float pickUpTimer;
+    private GameObject heldSheep;
 
-	// Use this for initialization
-	void Start ()
+    /// <summary>
+    /// Ensures all relevant actor variables are reset upon start-up
+    /// </summary>
+	void Awake ()
     {
-		
+        pickUpTimer = 0.0f;
+        heldSheep = null;
 	}
-
-    // Update is called once per frame
+    
+    /// <summary>
+    /// (Right now) only increments the pick-up buffer timer
+    /// </summary>
     public virtual void Update ()
     {
         pickUpTimer += Time.deltaTime;
@@ -52,7 +64,7 @@ public class BaseActor : MonoBehaviour
     }
 
     /// <summary>
-    /// performs the "detaching" of sheep. Simple unparents the sheep from
+    /// performs the "detaching" of sheep. Simply unparents the sheep from
     /// this actor and re-enables physics
     /// </summary>
     /// <returns>returns the released sheep, or null if no sheep was held</returns>
@@ -74,5 +86,14 @@ public class BaseActor : MonoBehaviour
         releasedSheep.transform.parent = null;
         releasedSheep.GetComponent<Rigidbody>().isKinematic = false;
         return releasedSheep; // return for convenience sake
+    }
+
+    /// <summary>
+    /// Performs the lobbing of the given sheep in a projectile motion
+    /// </summary>
+    /// <param name="sheep">the desired sheep to launch</param>
+    public void LaunchSheep(GameObject sheep)
+    {
+
     }
 }
