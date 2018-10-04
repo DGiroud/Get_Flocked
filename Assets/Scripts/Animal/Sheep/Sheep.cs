@@ -35,6 +35,7 @@ public class Sheep : MonoBehaviour {
     public float wanderDuration;            //How long the sheep will wander around aimlessly
     [Tooltip("Affects the interval between when a sheep will seek out a new position on the field. 1 = 1 second.")]
     public int idleDuration = 10;
+    public float rotationSpeed = 10.0f;
 
     private float growth = 0.0f;            //What will be incremented as the sheep idles, will be checked against growthRequirements
     private int currentLevel = 0;           //Reference to the current level the game is taking place in
@@ -114,6 +115,17 @@ public class Sheep : MonoBehaviour {
         agent.destination = newPos;
 
         Debug.Log(agent.destination);
+
+        RotateTowards(newPos);
+
+        //WHEN THE SHEEP IS MOVING, YOU NEED TO USE IT'S CURRENT VELOCITY TO AFFECT IT'S ROTATION
+    }
+
+    private void RotateTowards(Vector3 destination)
+    {
+        Vector3 direction = (destination - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
     }
 
     //Gets called by the idle animation when growth's incrementation matches thr sheep's current growthRequirement,
