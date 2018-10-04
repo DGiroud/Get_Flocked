@@ -8,11 +8,14 @@ using System;
 public class NavMeshNavigation : MonoBehaviour {
 
     GameObject fieldObject;     //Reference to the field, so that we can find a new position relative to it's dimensions
+    GameObject sheepObject;
     NavMeshAgent agent;         //Reference to this object
     System.Random rand;         //Random function so that we can generate random positions for the sheep
     private float timer = 0;    //Constantly counting up and resetting, determins when the sheep will search for a new location
 
     public enum SheepState { Spawn, Idle, Wander, Push, Kick }  //Easy access to the different behaviour states the sheep will have   
+
+    private SheepState currentState;
 
     //Private getter and setter for the sheep behavioural states
     private SheepState CurrentState { get; set; }
@@ -20,8 +23,9 @@ public class NavMeshNavigation : MonoBehaviour {
     [Header("Sheep Properties")]
     [Tooltip("The 3 seperate sheep models that will be interchanged as the sheep grows")]
     public Mesh[] sheepTiers;               //Container of the different sheep models, being the 3 different sizes
-    [Tooltip("An array storing how long each sized ")]
+    [Tooltip("An array storing how long each sized sheep must remain idle for before Leveling Up")]
     public float[] growthRequirements;      //Each Tier of sheep will have different requirements for growing in size, represented by a float
+    [Tooltip("The different score multipliers for each sized sheep")]
     public float[] scoreMultipliers;        //The different sizes of sheep will each have a score multiplier, affecting the score when placed into a goal
     public float wanderDuration;            //How long the sheep will wander around aimlessly
 
@@ -36,6 +40,7 @@ public class NavMeshNavigation : MonoBehaviour {
     // Use this for initialization
     void Start() {
         fieldObject = GameObject.FindWithTag("Field");
+        sheepObject = GameObject.FindWithTag("Sheep");
 
         rand = new System.Random();
 
@@ -54,6 +59,35 @@ public class NavMeshNavigation : MonoBehaviour {
         {
             GetNewDestination();
             timer = 0;
+        }
+
+        switch(currentState)
+        {
+            //Both spawn and wander will have the sheep seeking a new random position on the playArea
+            case SheepState.Spawn:
+            case SheepState.Wander:
+                if (timer >= idleDuration)
+                {
+                    GetNewDestination();
+                    timer = 0;
+                }
+
+                break;
+            
+            //As the sheep is idle, increment growth to work towards a level up
+            case SheepState.Idle:
+
+                growth++;
+
+                break;
+
+            case SheepState.Kick:
+
+                break;
+
+            case SheepState.Push:
+
+                break;
         }
     }
 
