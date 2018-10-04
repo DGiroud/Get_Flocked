@@ -23,9 +23,8 @@ GameObject:
   - component: {fileID: 136269228467097254}
   - component: {fileID: 23568523462215132}
   - component: {fileID: 54307217535399700}
-  - component: {fileID: 114823953409751364}
   m_Layer: 0
-  m_Name: Player
+  m_Name: CPU
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1006201811701030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.748257, y: 1, z: -14.692165}
+  m_LocalPosition: {x: -91.67066, y: 89.68266, z: -113.65935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4127091539355198}
@@ -125,7 +124,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4a2f7808cff707241825f2a82aee31e1, type: 2}
+  - {fileID: 2100000, guid: 2ec82251ace17c8479adbae797aa6658, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -197,22 +196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a8d608e7a6d7e4f9a780d3049ac26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114823953409751364
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1006201811701030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d108e39073bd2fc4cb7982a1bfb2c902, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  strength: 0
-  interactionBox: {fileID: 65038119658335760}
-  pickUpDelay: 1
-  playerInput: 0
 --- !u!136 &136269228467097254
 CapsuleCollider:
   m_ObjectHideFlags: 1

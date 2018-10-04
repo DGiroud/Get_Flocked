@@ -8,6 +8,10 @@ public class BaseActor : MonoBehaviour
     private int actorID;
     public int ActorID { get; set; }
 
+    private Rigidbody currentRigidbody;
+    private Rigidbody playerRigidbody;
+    private Vector3 translation;
+
     // actor movement
     [Header("Movement")]
     public float speed;
@@ -29,7 +33,10 @@ public class BaseActor : MonoBehaviour
     {
         pickUpTimer = 0.0f;
         heldSheep = null;
-	}
+
+        playerRigidbody = GetComponent<Rigidbody>();
+        currentRigidbody = playerRigidbody;
+    }
     
     /// <summary>
     /// (Right now) only increments the pick-up buffer timer
@@ -37,7 +44,27 @@ public class BaseActor : MonoBehaviour
     public virtual void Update ()
     {
         pickUpTimer += Time.deltaTime;
-	}
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="xAxis"></param>
+    /// <param name="yAxis"></param>
+    public void Move(float xAxis, float yAxis)
+    {
+        translation.x = xAxis;
+        translation.z = yAxis;
+
+        // multiply by speed and delta time
+        translation *= speed * Time.deltaTime;
+
+        // rotation handling
+        GetComponentInParent<Rigidbody>().MoveRotation(Quaternion.LookRotation(translation));
+
+        // perform movement
+        currentRigidbody.MovePosition(transform.position + translation);
+    }
 
     /// <summary>
     /// performs snapping of sheep by adjusting position, parenting the sheep
@@ -58,9 +85,18 @@ public class BaseActor : MonoBehaviour
         interactionBox.enabled = false;
 
         // adjust position
-        sheep.transform.position = interactionBox.transform.position;
-        sheep.transform.parent = transform; // player now parents sheep
         heldSheep = sheep; // update sheep reference
+
+        Sheep sheepScript = heldSheep.GetComponent<Sheep>();
+        sheepScript.CurrentState = Sheep.SheepState.Push;
+
+        //                          position              direction                         offset
+        Vector3 snapPosition = transform.position + translation.normalized * (heldSheep.transform.localScale.x);
+
+        heldSheep.transform.position = snapPosition;
+        heldSheep.transform.parent = transform; // player now parents sheep
+
+        // disable sheep
         heldSheep.GetComponent<Rigidbody>().isKinematic = true;
     }
 
@@ -83,9 +119,13 @@ public class BaseActor : MonoBehaviour
         GameObject releasedSheep = heldSheep;
         heldSheep = null; // delete reference
 
+        Sheep sheepScript = releasedSheep.GetComponent<Sheep>();
+        sheepScript.CurrentState = Sheep.SheepState.Idle;
+
         // release sheep child from this
         releasedSheep.transform.parent = null;
         releasedSheep.GetComponent<Rigidbody>().isKinematic = false;
+
         return releasedSheep; // return for convenience sake
     }
 

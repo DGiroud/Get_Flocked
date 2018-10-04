@@ -5,42 +5,46 @@ using UnityEngine.AI;   //Needed for NavMeshAgent
 using System.Timers;    //Needed for Timer
 using System;
 
-public class NavMeshNavigation : MonoBehaviour {
+[System.Serializable]
+public struct SheepTier
+{
+    public Mesh mesh;
+    public float size;
+    public float growthRequirement;
+    public float score;
+}
+
+public class Sheep : MonoBehaviour {
 
     GameObject fieldObject;     //Reference to the field, so that we can find a new position relative to it's dimensions
-    GameObject sheepObject;
     NavMeshAgent agent;         //Reference to this object
     System.Random rand;         //Random function so that we can generate random positions for the sheep
     private float timer = 0;    //Constantly counting up and resetting, determins when the sheep will search for a new location
 
     public enum SheepState { Spawn, Idle, Wander, Push, Kick }  //Easy access to the different behaviour states the sheep will have   
-
-    private SheepState currentState;
-
+    
     //Private getter and setter for the sheep behavioural states
-    private SheepState CurrentState { get; set; }
+    public SheepState CurrentState { get; set; }
 
-    [Header("Sheep Properties")]
-    [Tooltip("The 3 seperate sheep models that will be interchanged as the sheep grows")]
-    public Mesh[] sheepTiers;               //Container of the different sheep models, being the 3 different sizes
-    [Tooltip("An array storing how long each sized sheep must remain idle for before Leveling Up")]
-    public float[] growthRequirements;      //Each Tier of sheep will have different requirements for growing in size, represented by a float
-    [Tooltip("The different score multipliers for each sized sheep")]
-    public float[] scoreMultipliers;        //The different sizes of sheep will each have a score multiplier, affecting the score when placed into a goal
+    // array of sheep tiers
+    [SerializeField]
+    private SheepTier[] sheepTiers;
+    private SheepTier currentTier { get; set; }
+
+    [Header("A.I settings")]
     public float wanderDuration;            //How long the sheep will wander around aimlessly
-
-    private float growth;                   //What will be incremented as the sheep idles, will be checked against growthRequirements
-    private int currentLevel;               //Reference to the current level the game is taking place in
-
-
-
     [Tooltip("Affects the interval between when a sheep will seek out a new position on the field. 1 = 1 second.")]
     public int idleDuration = 10;
+
+    private float growth = 0.0f;            //What will be incremented as the sheep idles, will be checked against growthRequirements
+    private int currentLevel = 0;           //Reference to the current level the game is taking place in
+
+
+
 
     // Use this for initialization
     void Start() {
         fieldObject = GameObject.FindWithTag("Field");
-        sheepObject = GameObject.FindWithTag("Sheep");
 
         rand = new System.Random();
 
@@ -48,6 +52,7 @@ public class NavMeshNavigation : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = fieldObject.transform.position;
 
+        currentTier = sheepTiers[0];
     }
 
     void Update()
@@ -55,17 +60,10 @@ public class NavMeshNavigation : MonoBehaviour {
         //Simple timer that checks against the IdleDuration variable, currently used by the sheep spawner
         timer += 1 * Time.deltaTime;
 
-        if (timer >= idleDuration)
+        switch (CurrentState)
         {
-            GetNewDestination();
-            timer = 0;
-        }
-
-        switch(currentState)
-        {
-            //Both spawn and wander will have the sheep seeking a new random position on the playArea
-            case SheepState.Spawn:
             case SheepState.Wander:
+            case SheepState.Spawn:
                 if (timer >= idleDuration)
                 {
                     GetNewDestination();
@@ -73,19 +71,22 @@ public class NavMeshNavigation : MonoBehaviour {
                 }
 
                 break;
-            
-            //As the sheep is idle, increment growth to work towards a level up
             case SheepState.Idle:
+                growth += Time.deltaTime;
 
-                growth++;
+                if (currentLevel < sheepTiers.Length && growth > currentTier.growthRequirement)
+                {
+                    LevelUp();
+                    growth = 0.0f;
+                }
 
                 break;
-
-            case SheepState.Kick:
-
-                break;
-
             case SheepState.Push:
+                agent.enabled = false;
+
+                break;
+            case SheepState.Kick:
+                //
 
                 break;
         }
@@ -120,7 +121,10 @@ public class NavMeshNavigation : MonoBehaviour {
     // Affects Mesh (The sheep model will increase in size), score multiplier, mass, and speed.
     public void LevelUp()
     {
+        currentTier = sheepTiers[++currentLevel];
 
+        float size = currentTier.size;
+        transform.localScale = new Vector3(size, size, size);
     }
 }
 

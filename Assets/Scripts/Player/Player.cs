@@ -14,12 +14,6 @@ public class Player : BaseActor
     // the type of input this player is using, e.g. keyboard
     public PlayerInput playerInput;
 
-    private Vector3 translation;
-    private Rigidbody rigidBody;
-
-    public void Start()
-    {
-    }
 
     /// <summary>
     /// handle player input
@@ -36,8 +30,6 @@ public class Player : BaseActor
                 GamePadInput();
                 break;
         }
-
-        rigidBody = GetComponent<Rigidbody>();
 
         // call update on BaseActor
         base.Update();
@@ -62,17 +54,7 @@ public class Player : BaseActor
         if (gamePad.ThumbSticks.Left.X == 0.0f && gamePad.ThumbSticks.Left.Y == 0.0f)
             return;
 
-        translation.x = gamePad.ThumbSticks.Left.X;
-        translation.z = gamePad.ThumbSticks.Left.Y;
-
-        // rotation handling
-        GetComponentInParent<Rigidbody>().MoveRotation(Quaternion.LookRotation(translation));
-
-        // multiply by speed and delta time
-        translation *= speed * Time.deltaTime;
-
-        // perform movement
-        rigidBody.MovePosition(transform.position + translation);
+        Move(gamePad.ThumbSticks.Left.X, gamePad.ThumbSticks.Left.Y);
     }
 
     /// <summary>
@@ -115,17 +97,7 @@ public class Player : BaseActor
         if (Input.GetAxisRaw("Horizontal") == 0.0f && Input.GetAxisRaw("Vertical") == 0.0f)
             return;
 
-        translation.x = Input.GetAxisRaw("Horizontal");
-        translation.z = Input.GetAxisRaw("Vertical");
-
-        // rotation handling
-        transform.rotation = Quaternion.LookRotation(translation);
-
-        // multiply by speed and delta time
-        translation *= speed * Time.deltaTime;
-
-        // perform movement
-        transform.Translate(translation, Space.World);
+        Move(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     private void KeyboardKick()
