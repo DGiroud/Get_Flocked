@@ -21,7 +21,9 @@ public class Sheep : MonoBehaviour {
     System.Random rand;         //Random function so that we can generate random positions for the sheep
     private float timer = 0;    //Constantly counting up and resetting, determins when the sheep will search for a new location
 
-    public enum SheepState { Spawn, Idle, Wander, Push, Kick }  //Easy access to the different behaviour states the sheep will have   
+    public enum SheepState { Spawn, Idle, Wander, Push, Kick }  //Easy access to the different behaviour states the sheep will have 
+    //We do not need an exit state for the sheep, as the sheep will only be removed when it is used to score a goal, and this will
+    // be handled by the sheep manager, which will remove it from the scene and place it back into the object pool for later spawning
     
     //Private getter and setter for the sheep behavioural states
     public SheepState CurrentState { get; set; }
@@ -37,10 +39,8 @@ public class Sheep : MonoBehaviour {
     public int idleDuration = 10;
     public float rotationSpeed = 10.0f;
 
-    private float growth = 0.0f;            //What will be incremented as the sheep idles, will be checked against growthRequirements
+    private float growthTimer = 0.0f;            //What will be incremented as the sheep idles, will be checked against growthRequirements
     private int currentLevel = 0;           //Reference to the current level the game is taking place in
-
-
 
 
     // Use this for initialization
@@ -53,6 +53,8 @@ public class Sheep : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = fieldObject.transform.position;
 
+        StateTransition(SheepState.Spawn);
+
         currentTier = sheepTiers[0];
     }
 
@@ -63,34 +65,85 @@ public class Sheep : MonoBehaviour {
 
         switch (CurrentState)
         {
-            case SheepState.Wander:
+            //--------------------------------------|
+
             case SheepState.Spawn:
-                if (timer >= idleDuration)
+                //When the sheep spawns, we don't want it to have to wait before finding a new location, hence we immediately have it
+                // calculate a new random position to seek to
+                GetNewDestination();
+                   
+                if(transform.position == agent.destination)
                 {
-                    GetNewDestination();
-                    timer = 0;
-                }
+                    StateTransition(SheepState.Idle);
+                }                
+
+                //Add animations here (Same as Wander)
 
                 break;
-            case SheepState.Idle:
-                growth += Time.deltaTime;
 
-                if (currentLevel < sheepTiers.Length && growth > currentTier.growthRequirement)
+            //--------------------------------------|
+
+            case SheepState.Idle:
+
+                growthTimer += Time.deltaTime;
+
+                //If the sheep has remained idle for an amount of time equal to it's growth requirements, upgrade the sheep to the next tier
+                if (currentLevel + 1 < sheepTiers.Length && growthTimer >= currentTier.growthRequirement)
                 {
                     LevelUp();
-                    growth = 0.0f;
+                    growthTimer = 0.0f;
+                }                
+
+                //If the sheep has remained idle for the specified amount of time, seek a new location
+                if(timer >= idleDuration)
+                {
+                    StateTransition(SheepState.Wander);
+                    timer = 0f;
                 }
 
-                break;
-            case SheepState.Push:
-                agent.enabled = false;
+                //Add animations here
 
                 break;
+
+            //--------------------------------------|
+
+            case SheepState.Wander:
+
+                GetNewDestination();
+
+                //Add animations here (Same as Spawn)
+
+                break;         
+
+            //--------------------------------------|
+
+            case SheepState.Push:
+                agent.enabled = false;
+                //
+
+                //This state is remaining almost empty, as the pushing of the sheep is handled by the player class
+                //Add animations here
+
+                break;
+
+            //--------------------------------------|
+
             case SheepState.Kick:
                 //
 
+                //This state is remaining almost empty, as the kicking of the sheep is handled by the player class
+                //Add animations here
+
                 break;
+
+            //--------------------------------------|
         }
+    }
+
+    //Simple function to change the sheep's current state;
+    public void StateTransition(SheepState newState)
+    {
+        CurrentState = newState;
     }
 
     //Function to pull a new random position within the confines of the play field
