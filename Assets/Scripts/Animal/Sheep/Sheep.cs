@@ -22,11 +22,11 @@ public class Sheep : MonoBehaviour {
     private float timer = 0;    //Constantly counting up and resetting, determins when the sheep will search for a new location
 
     public enum SheepState { Spawn, Idle, Wander, Push, Kick }  //Easy access to the different behaviour states the sheep will have 
-    //We do not need an exit state for the sheep, as the sheep will only be removed when it is used to score a goal, and this will
-    // be handled by the sheep manager, which will remove it from the scene and place it back into the object pool for later spawning
-    
+                                                                //We do not need an exit state for the sheep, as the sheep will only be removed when it is used to score a goal, and this will
+                                                                // be handled by the sheep manager, which will remove it from the scene and place it back into the object pool for later spawning
+
     //Private getter and setter for the sheep behavioural states
-    public SheepState CurrentState { get; set; }
+    private SheepState currentState;
 
     // array of sheep tiers
     [SerializeField]
@@ -141,9 +141,14 @@ public class Sheep : MonoBehaviour {
     }
 
     //Simple function to change the sheep's current state;
-    public void StateTransition(SheepState newState)
+    public void SetState(SheepState newState)
     {
-        CurrentState = newState;
+        currentState = newState;
+    }
+
+    public SheepState GetState()
+    {
+        return currentState;
     }
 
     //Function to pull a new random position within the confines of the play field
