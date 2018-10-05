@@ -5,8 +5,8 @@ using UnityEngine;
 public class BaseActor : MonoBehaviour
 {
     // actor ID
-    private int actorID;
-    public int ActorID { get; set; }
+    [HideInInspector]
+    public int actorID;
 
     private Rigidbody currentRigidbody;
     private Rigidbody playerRigidbody;
@@ -87,8 +87,8 @@ public class BaseActor : MonoBehaviour
         // adjust position
         heldSheep = sheep; // update sheep reference
 
-        Sheep sheepScript = heldSheep.GetComponent<Sheep>();
-        sheepScript.CurrentState = Sheep.SheepState.Push;
+        Sheep sheepScript = heldSheep.GetComponentInParent<Sheep>();
+        sheepScript.SetState(Sheep.SheepState.Push);
 
         //                          position              direction                         offset
         Vector3 snapPosition = transform.position + translation.normalized * (heldSheep.transform.localScale.x);
@@ -119,8 +119,8 @@ public class BaseActor : MonoBehaviour
         GameObject releasedSheep = heldSheep;
         heldSheep = null; // delete reference
 
-        Sheep sheepScript = releasedSheep.GetComponent<Sheep>();
-        sheepScript.CurrentState = Sheep.SheepState.Idle;
+        Sheep sheepScript = releasedSheep.GetComponentInParent<Sheep>();
+        sheepScript.SetState(Sheep.SheepState.Idle);
 
         // release sheep child from this
         releasedSheep.transform.parent = null;
@@ -135,6 +135,7 @@ public class BaseActor : MonoBehaviour
     /// <param name="sheep">the desired sheep to launch</param>
     public void LaunchSheep(GameObject sheep)
     {
-
+        Sheep sheepScript = sheep.GetComponentInParent<Sheep>();
+        sheepScript.SetState(Sheep.SheepState.Kick);
     }
 }
