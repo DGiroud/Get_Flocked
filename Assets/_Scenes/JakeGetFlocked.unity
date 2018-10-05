@@ -14434,7 +14434,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114418442015632782, guid: aff333a001094324696d1e4be7a212cf, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: aff333a001094324696d1e4be7a212cf, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1221651679 stripped
@@ -21326,7 +21327,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh11542
+  m_Name: pb_Mesh11492
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2

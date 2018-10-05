@@ -53,7 +53,9 @@ public class Sheep : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = fieldObject.transform.position;
 
-        StateTransition(SheepState.Spawn);
+        GetNewDestination();
+
+        SetState(SheepState.Spawn);
 
         currentTier = sheepTiers[0];
     }
@@ -63,18 +65,17 @@ public class Sheep : MonoBehaviour {
         //Simple timer that checks against the IdleDuration variable, currently used by the sheep spawner
         timer += 1 * Time.deltaTime;
 
-        switch (CurrentState)
+        switch (currentState)
         {
             //--------------------------------------|
 
             case SheepState.Spawn:
                 //When the sheep spawns, we don't want it to have to wait before finding a new location, hence we immediately have it
                 // calculate a new random position to seek to
-                GetNewDestination();
-                   
+                                 
                 if(transform.position == agent.destination)
                 {
-                    StateTransition(SheepState.Idle);
+                    SetState(SheepState.Idle);
                 }                
 
                 //Add animations here (Same as Wander)
@@ -97,7 +98,7 @@ public class Sheep : MonoBehaviour {
                 //If the sheep has remained idle for the specified amount of time, seek a new location
                 if(timer >= idleDuration)
                 {
-                    StateTransition(SheepState.Wander);
+                    SetState(SheepState.Wander);
                     timer = 0f;
                 }
 
