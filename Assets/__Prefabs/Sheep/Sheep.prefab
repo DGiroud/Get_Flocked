@@ -86,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1433440016105926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.971126, y: 0, z: -6.962731}
+  m_LocalPosition: {x: 12.885288, y: 1.05, z: -19.781422}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4158739379191374}
@@ -227,7 +227,7 @@ MonoBehaviour:
     size: 2.5
     growthRequirement: 0
     score: 30
-  wanderDuration: 0
+  wanderDuration: 5
   idleDuration: 10
   rotationSpeed: 10
 --- !u!135 &135028655785092094
