@@ -24,7 +24,7 @@ public class BaseActor : MonoBehaviour
     [SerializeField]
     private float pickUpDelay;
     private float pickUpTimer;
-    private GameObject heldSheep;
+    private Transform heldSheep;
 
     /// <summary>
     /// Ensures all relevant actor variables are reset upon start-up
@@ -85,16 +85,16 @@ public class BaseActor : MonoBehaviour
         interactionBox.enabled = false;
 
         // adjust position
-        heldSheep = sheep; // update sheep reference
+        heldSheep = sheep.transform.parent; // update sheep reference
 
-        Sheep sheepScript = heldSheep.GetComponentInParent<Sheep>();
+        Sheep sheepScript = heldSheep.GetComponent<Sheep>();
         sheepScript.SetState(Sheep.SheepState.Push);
 
         //                          position              direction                         offset
-        Vector3 snapPosition = transform.position + translation.normalized * (heldSheep.transform.localScale.x);
+        Vector3 snapPosition = transform.position + translation.normalized * (heldSheep.localScale.x);
 
-        heldSheep.transform.position = snapPosition;
-        heldSheep.transform.parent = transform; // player now parents sheep
+        heldSheep.position = snapPosition;
+        heldSheep.parent = transform; // player now parents sheep
 
         // disable sheep
         heldSheep.GetComponent<Rigidbody>().isKinematic = true;
@@ -105,7 +105,7 @@ public class BaseActor : MonoBehaviour
     /// this actor and re-enables physics
     /// </summary>
     /// <returns>returns the released sheep, or null if no sheep was held</returns>
-    public GameObject ReleaseSheep()
+    public Transform ReleaseSheep()
     {
         // safety check: if no sheep is held, then can't release nothing
         if (!heldSheep)
@@ -116,14 +116,14 @@ public class BaseActor : MonoBehaviour
         pickUpTimer = 0.0f; // reset timer
 
         // get held sheep
-        GameObject releasedSheep = heldSheep;
+        Transform releasedSheep = heldSheep;
         heldSheep = null; // delete reference
 
-        Sheep sheepScript = releasedSheep.GetComponentInParent<Sheep>();
+        Sheep sheepScript = releasedSheep.GetComponent<Sheep>();
         sheepScript.SetState(Sheep.SheepState.Idle);
 
         // release sheep child from this
-        releasedSheep.transform.parent = null;
+        releasedSheep.parent = null;
         releasedSheep.GetComponent<Rigidbody>().isKinematic = false;
 
         return releasedSheep; // return for convenience sake
@@ -133,9 +133,9 @@ public class BaseActor : MonoBehaviour
     /// Performs the lobbing of the given sheep in a projectile motion
     /// </summary>
     /// <param name="sheep">the desired sheep to launch</param>
-    public void LaunchSheep(GameObject sheep)
+    public void LaunchSheep(Transform sheep)
     {
-        Sheep sheepScript = sheep.GetComponentInParent<Sheep>();
-        sheepScript.SetState(Sheep.SheepState.Kick);
+        //Sheep sheepScript = sheep.GetComponentInParent<Sheep>();
+        //sheepScript.SetState(Sheep.SheepState.Kick);
     }
 }

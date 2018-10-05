@@ -66,7 +66,7 @@ public class Player : BaseActor
         // A to kick sheep
         if (gamePad.Buttons.A == ButtonState.Pressed)
         {
-            GameObject sheep = ReleaseSheep();
+            Transform sheep = ReleaseSheep();
             LaunchSheep(sheep);
         }
     }
@@ -105,7 +105,7 @@ public class Player : BaseActor
         // space to kick sheep
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject sheep = ReleaseSheep();
+            Transform sheep = ReleaseSheep();
             LaunchSheep(sheep);
         }
     }

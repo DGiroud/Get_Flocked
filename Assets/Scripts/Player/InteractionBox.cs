@@ -11,7 +11,7 @@ public class InteractionBox : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // if the object is a sheep...
-        if (other.CompareTag("Sheep"))
+        if (other.transform.parent.CompareTag("Sheep"))
         {
             BaseActor parentScript = GetComponentInParent<BaseActor>();
 
