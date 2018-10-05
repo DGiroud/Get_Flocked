@@ -37,7 +37,7 @@ public class Player : BaseActor
 
     private void GamePadInput()
     {
-        GamePadState input = GamePad.GetState((PlayerIndex)ActorID);
+        GamePadState input = GamePad.GetState((PlayerIndex)actorID);
 
         GamePadMovement(input);
         GamePadKick(input);

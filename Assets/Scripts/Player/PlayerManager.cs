@@ -36,8 +36,7 @@ public class PlayerManager : MonoBehaviour
     private Transform[] actorStartPositions; // array of player spawn positions
 
     // lists of all players and their respective controllers
-    private List<GameObject> players; // the players
-    public List<GameObject> Players { get { return players; } }
+    public List<GameObject> players; // the players
     private List<GamePadState> gamePads; // their gamepads
 
     /// <summary>
@@ -138,7 +137,7 @@ public class PlayerManager : MonoBehaviour
         player.transform.position = startTransform.position;
 
         Player script = player.GetComponent<Player>();
-        script.ActorID = playerIndex;
+        script.actorID = playerIndex;
         script.playerInput = playerInput;
 
         return player;
