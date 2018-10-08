@@ -5,33 +5,56 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class DynamicCamera : MonoBehaviour
 {
-    // reference to the camera on this
+    /// <summary>
+    /// helper class which stores two vectors, representing co-ordinates
+    /// for a bounding box
+    /// </summary>
+    private class XZBounds
+    {
+        public Vector2 min, max;
+
+        public XZBounds(float xMin, float xMax, float zMin, float zMax)
+        {
+            min.x = xMin;
+            min.y = zMin; // set y to z value since vector2
+            max.x = xMax;
+            max.y = zMax; // same with this
+        }
+    }
+
+    // reference to the camera
     private Camera dynamicCamera;
 
     // reference to all the players in the scene
     private List<GameObject> players;
 
-    // min & max zoom which limits the camera zoom
-    [Range(10, 50)]
-    public float minZoom;
-    [Range(50, 179)]
-    public float maxZoom;
+    // this offsets the camera's position (for designer freedom)
+    [SerializeField]
+    [Tooltip("Offsets the camera's position")]
+    private Vector3 offset;
 
-    // min and max positions which is used to determine camera
-    // position and zoom
-    private float xMin, xMax;
-    private float zMin, zMax;
-    private float greatestDistance;
+    // camera zoom settings
+    [Header("Zoom Settings")]
+    [Range(10, 50)]
+    [Tooltip("The smaller the value; the closer the camera will zoom in when players are close")]
+    public float minFieldOfView = 40.0f;
+    [Range(50, 179)]
+    [Tooltip("The higher the value; the further the camera will zoom out when players are distant")]
+    public float maxFieldOfView = 60.0f;
+    public float zoomLimiter = 50.0f;
+
+    // velocity value used for smoothdamp buffer
+    private Vector3 velocity;
 
     /// <summary>
     /// initialise camera and player references
     /// </summary>
 	void Start ()
     {
-        // camera
+        // get camera
         dynamicCamera = GetComponent<Camera>();
 
-        // players
+        // get players
         players = PlayerManager.Instance.players;
 	}
 	
@@ -49,13 +72,86 @@ public class DynamicCamera : MonoBehaviour
 	}
 
     /// <summary>
-    /// 
+    /// gets the center point of all players and updates camera
+    /// position accordingly
     /// </summary>
     private void Move()
     {
+        Vector3 centerPoint = GetCenterPoint();
+        centerPoint += offset;
+
+        // update camera position
+        dynamicCamera.transform.position = Vector3.SmoothDamp(dynamicCamera.transform.position, 
+                                                              centerPoint, ref velocity, 0.5f);
+    }
+
+    /// <summary>
+    /// gets the greatest distance from one player to another and
+    /// uses that distance to determine the lerp step-size. Use said
+    /// lerp to smoothly adjust the camera field of view
+    /// </summary>
+    private void Zoom()
+    {
+        // get greatest distance
+        float greatestDistance = GetGreatestDistance() / zoomLimiter;
+
+        // lerp in-between min and max field of view using greatest distance
+        float newZoom = Mathf.Lerp(minFieldOfView, maxFieldOfView, greatestDistance);
+        dynamicCamera.fieldOfView = Mathf.Lerp(dynamicCamera.fieldOfView, newZoom, Time.deltaTime);
+    }
+
+    /// <summary>
+    /// gets the x and z centers by getting the difference in x and
+    /// z bounds and dividing them by 2
+    /// </summary>
+    /// <returns>a vector3 representing the center of all players on screen</returns>
+    private Vector3 GetCenterPoint()
+    {
+        // get bounding box
+        XZBounds bounds = GetXZBounds();
+
+        // find center points
+        float xCenter = (bounds.min.x + bounds.max.x) * 0.5f;
+        float zCenter = (bounds.min.y + bounds.max.y) * 0.5f;
+
+        // create center point and return it
+        return new Vector3(xCenter, 0, zCenter);
+    }
+
+    /// <summary>
+    /// gets the x and z distances by getting the difference in x and
+    /// z bounds and returning the greater distance
+    /// </summary>
+    /// <returns>the greatest distance from one player to another</returns>
+    private float GetGreatestDistance()
+    {
+        // get bounding box
+        XZBounds bounds = GetXZBounds();
+
+        // find x and y distances
+        float xDistance = bounds.max.x - bounds.min.x;
+        float zDistance = bounds.max.y - bounds.min.y;
+
+        // return the greater distance
+        if (xDistance > zDistance)
+            return xDistance;
+        else
+            return zDistance;
+    }
+
+    /// <summary>
+    /// looks at the position of all players in scene and returns the x 
+    /// and z extents for all using two pairs of x and y co-ordinates
+    /// </summary>
+    /// <returns>a piece of data containing two points (a rectangle, essentially)</returns>
+    private XZBounds GetXZBounds()
+    {
         // set minimum and maximum
-        xMin = zMin = Mathf.Infinity;
-        xMax = zMax = Mathf.NegativeInfinity;
+        float xMin = Mathf.Infinity;
+        float zMin = Mathf.Infinity;
+
+        float xMax = Mathf.NegativeInfinity;
+        float zMax = Mathf.NegativeInfinity;
 
         // iterate over all players
         for (int i = 0; i < players.Count; i++)
@@ -64,45 +160,20 @@ public class DynamicCamera : MonoBehaviour
             GameObject player = players[i];
 
             // update minimum and maximum values as required
-            if (player.transform.position.x < xMin)
+            if (player.transform.position.x<xMin)
                 xMin = player.transform.position.x;
 
             if (player.transform.position.x > xMax)
                 xMax = player.transform.position.x;
 
-            if (player.transform.position.z < zMin)
+            if (player.transform.position.z<zMin)
                 zMin = player.transform.position.z;
 
             if (player.transform.position.z > zMax)
                 zMax = player.transform.position.z;
         }
 
-        // find the midpoint between each range
-        float xPos = (xMin + xMax) * 0.5f;
-        float zPos = (zMin + zMax) * 0.5f;
-
-        // update camera position
-        dynamicCamera.transform.position = new Vector3(xPos, dynamicCamera.transform.position.y, zPos - 7);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private void Zoom()
-    {
-        // get greatest distance
-        greatestDistance = xMax - xMin;
-
-        // create new field of view floating point value
-        float newFieldOfView = greatestDistance * 2;
-
-        // check if the new field of view is outside of range
-        if (newFieldOfView > maxZoom)
-            return;
-
-        if (newFieldOfView < minZoom)
-            return;
-
-        dynamicCamera.fieldOfView = newFieldOfView;
+        // create bounding box based off min & max values and return it
+        return new XZBounds(xMin, xMax, zMin, zMax);
     }
 }
