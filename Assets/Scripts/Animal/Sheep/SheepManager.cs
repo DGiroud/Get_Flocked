@@ -59,7 +59,17 @@ public class SheepManager : MonoBehaviour
 
     [Header("Patterned Sheep")]
     [SerializeField]
-    private PatternedSheep[] patternedSheep; 
+    private PatternedSheep[] patternedSheep;
+    #endregion
+
+    // start-up variables
+    #region startup
+    [Header("Start-up")]
+
+    [SerializeField]
+    private bool spawnOnStartup = false;
+    [SerializeField]
+    private int amountToSpawn = 0;
     #endregion
 
     // spawning/management variables
@@ -120,9 +130,9 @@ public class SheepManager : MonoBehaviour
         Assert.IsTrue(spawnRateVariance < spawnRate, 
             "Please ensure spawn rate variance is less than spawn rate in the sheep manager");
 
-        // spawn a bunch of sheep right off the bat
-        for (int i = 0; i < spawnPoints.Length; i++)
-            SpawnSheep();
+        if (spawnOnStartup)
+            for (int i = 0; i < amountToSpawn; i++)
+                SpawnSheep(); // spawn a bunch of sheep right off the bat
     }
 
     /// <summary>
