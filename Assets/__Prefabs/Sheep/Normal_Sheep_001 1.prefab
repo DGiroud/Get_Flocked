@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4748062454646822}
   - component: {fileID: 33570657462894312}
-  - component: {fileID: 135690569378975132}
   - component: {fileID: 23469728753429368}
+  - component: {fileID: 135865443268426662}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -54,8 +54,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1025228206438338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.69, y: 0, z: 12.07}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalPosition: {x: -0, y: 0, z: -0}
+  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
   m_Children: []
   m_Father: {fileID: 4909879896482778}
   m_RootOrder: 0
@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1688817407654430}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.199707, y: 0.3, z: -15.501917}
+  m_LocalPosition: {x: 18.92, y: 0.1, z: -17.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4748062454646822}
@@ -143,23 +143,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sheepTiers:
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    size: 1.2
+    radius: 1
     growthRequirement: 5
     score: 0
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    size: 1.2
+    radius: 1.75
     growthRequirement: 5
     score: 0
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    size: 1.2
+    radius: 2.5
     growthRequirement: 5
     score: 0
   wanderDuration: 5
-  idleMinRange: 0
-  idleMaxRange: 0
+  idleMinRange: 0.5
+  idleMaxRange: 1
   rotationSpeed: 10
-  destCheckRadius: 0
---- !u!135 &135690569378975132
+  destCheckRadius: 2
+--- !u!135 &135865443268426662
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -169,8 +169,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 101.2
+  m_Center: {x: 0.12, y: 100.00289, z: -6.62}
 --- !u!195 &195924413221878100
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -179,7 +179,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1688817407654430}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.25
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

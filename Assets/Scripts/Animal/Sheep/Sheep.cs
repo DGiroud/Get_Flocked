@@ -9,7 +9,7 @@ using System;
 public struct SheepTier
 {
     public Mesh mesh;
-    public float size;
+    public float radius;
     public float growthRequirement;
     public int score;
 }
@@ -45,13 +45,16 @@ public class Sheep : MonoBehaviour {
     public float destCheckRadius;
     private float randomNumGen;
 
+    //Variables that we are going to use so that we can check how close the sheep is to the ground after it has been kicked by the player
+    private Collider collider;
+    private float distToGround;                 
+
     private float growthTimer = 0.0f;            //What will be incremented as the sheep idles, will be checked against growthRequirements
     private int currentLevel = 0;                //Reference to the current level the game is taking place in
 
     //Private variables so that we can peak into what an agent's destination is during runtime
     private float agentDestinationX;
     private float agentDestinationZ;
-   
 
     // Use this for initialization
     void Start() {
@@ -65,8 +68,9 @@ public class Sheep : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = fieldObject.transform.position;
 
-        GetNewDestination();
+        distToGround = agent.transform.position.y;
 
+        GetNewDestination();
 
         SetState(SheepState.Spawn);
 
@@ -89,8 +93,6 @@ public class Sheep : MonoBehaviour {
                 if((transform.position.x <= agent.destination.x + destCheckRadius || transform.position.x >= agent.destination.x - destCheckRadius) ||
                    (transform.position.z <= agent.destination.z + destCheckRadius || transform.position.z >= agent.destination.z - destCheckRadius))
                 {
-                    Debug.Log(currentState);
-
                     SetState(SheepState.Idle);
                 }                
 
@@ -154,7 +156,6 @@ public class Sheep : MonoBehaviour {
                 agent.enabled = false;
                 //
 
-                //This state is remaining almost empty, as the pushing of the sheep is handled by the player class
                 //Add animations here
 
                 break;
@@ -164,13 +165,32 @@ public class Sheep : MonoBehaviour {
             case SheepState.Kick:
                 //
 
-                //This state is remaining almost empty, as the kicking of the sheep is handled by the player class
+                //We need to disable the navMeshAgent when it's being forced off it's desired path, it has weird results otherwise
+                if (agent.enabled == true)
+                    agent.enabled = false;
+
+                //When the sheep hits the ground, change it's state to idle. We can call this a "stun" for it having been kicked
+                if (IsGrounded())
+                {
+                    float tempTimer = 0.0f;
+
+                    tempTimer += Time.deltaTime;
+
+                    if(tempTimer >= 3.0f)
+                    SetState(SheepState.Idle);
+                }
+
                 //Add animations here
 
                 break;
 
             //--------------------------------------|
         }
+    }
+
+    bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, distToGround);
     }
 
     //Checks that this object has a navMeshAgent component, and creates one if it doesn't
@@ -196,6 +216,10 @@ public class Sheep : MonoBehaviour {
     //Function to pull a new random position within the confines of the play field
     private void GetNewDestination()
     {
+        //Turn the navMeshAgent on if it isn't already
+        if (agent.enabled == false)
+            agent.enabled = true;
+
         Vector3 newPos = new Vector3();
 
         float fieldPosX = fieldObject.transform.position.x;
@@ -218,6 +242,9 @@ public class Sheep : MonoBehaviour {
 
         agent.destination = newPos;
 
+        //before we disable the agent, we need to store the position elsewhere so that we still know where to travel to, otherwise
+        // the agent will simply cease
+
         //This function is not doing as intended. It is correctly changing the rotations inline with the sheep's
         // movements, however it is not changing the rotation of the sheep model
         RotateTowards(newPos); 
@@ -237,7 +264,7 @@ public class Sheep : MonoBehaviour {
     {
         currentTier = sheepTiers[++currentLevel];
 
-        float size = currentTier.size;
+        float size = currentTier.radius;
         transform.localScale = new Vector3(size, size, size);
     }
 }

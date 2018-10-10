@@ -228,8 +228,10 @@ MonoBehaviour:
     growthRequirement: 0
     score: 50
   wanderDuration: 5
-  idleDuration: 10
+  idleMinRange: 0
+  idleMaxRange: 0
   rotationSpeed: 10
+  destCheckRadius: 0
 --- !u!135 &135028655785092094
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -262,7 +264,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1433440016105926}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
