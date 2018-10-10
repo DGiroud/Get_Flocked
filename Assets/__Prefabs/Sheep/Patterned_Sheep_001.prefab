@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 195857393658212040}
   - component: {fileID: 114600515104215616}
   m_Layer: 0
-  m_Name: Sheep 1
+  m_Name: Patterned_Sheep_001
   m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,15 +215,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sheepTiers:
-  - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 3}
     size: 1.2
     growthRequirement: 5
     score: 10
-  - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 3}
     size: 1.5
     growthRequirement: 15
     score: 25
-  - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 3}
     size: 2
     growthRequirement: 0
     score: 50

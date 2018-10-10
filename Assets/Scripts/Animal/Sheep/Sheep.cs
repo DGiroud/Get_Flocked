@@ -11,7 +11,7 @@ public struct SheepTier
     public Mesh mesh;
     public float size;
     public float growthRequirement;
-    public float score;
+    public int score;
 }
 
 public class Sheep : MonoBehaviour {
@@ -31,7 +31,8 @@ public class Sheep : MonoBehaviour {
     // array of sheep tiers
     [SerializeField]
     private SheepTier[] sheepTiers;
-    private SheepTier currentTier { get; set; }
+    private SheepTier currentTier;
+    public SheepTier CurrentTier { get { return currentTier; } }
 
     [Header("A.I settings")]
     public float wanderDuration = 5.0f;            //How long the sheep will wander around aimlessly

@@ -1,51 +1,69 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
 public class LevelManager : MonoBehaviour {
 
-    public int maxRound;               //Max rounds per game
-    public float roundLength;          //Max amount of time for the rounds
+    // singleton instance
+    #region singleton
 
-    private static int instance;       //Game Manager
-    private int currentRound;          //Show current round
-    private float roundTimer = 60.0f;          //Timer for current round (60 seconds)
-    private int playerManager;         //Player Manager
-    private int animalManager;         //Anaima Manager
-    private int goalManager;           //Goal Manager
-    private int obstacleManager;       //Obstacle Manager
-    private int lastRound;             //Last round for the game
+    private static LevelManager instance;
 
-
-    //GameManager Instance
-    public void Instance()
+    /// <summary>
+    /// getter for singleton instance of LevelManager
+    /// </summary>
+    public static LevelManager Instance
     {
-
+        get
+        {
+            return instance;
+        }
     }
 
-	// Update is called once per frame
-	void Update () {
-        //Decrement currentRound timer down to 0
-        roundTimer -= 1;
+    #endregion
 
-       if (roundTimer <= 0 || currentRound != lastRound)
-            {
-                NewRound();
-            }
-      //uncomment when SceneManager is implemented
-      //If it is the last round, the SceneManager will be loaded to the end game level 
-      // else if (currentRound == lastRound)
-      //      SceneManager.Load("endGame");
-	}
+    public int maxRounds;               //Max rounds per game
+    public float roundLength;          //Max amount of time for the rounds
+
+    private int currentRound;          //Show current round
+    private float roundTimer = 0f;     //Timer for current round
+    private float startingTime = 10.0f;
+
+    void Start()
+    {
+        roundTimer = roundLength;
+    }
+
+    // Update is called once per frame
+    void Update () {
+
+        roundTimer -= 1 * Time.deltaTime;
+        print(roundTimer);
+
+        //Decrement currentRound timer down to 0
+        roundTimer -= Time.deltaTime;
+        if (roundTimer <= 0 || currentRound != maxRounds)
+        {
+            NewRound();
+        }
+
+        //If it is the last round, the SceneManager will be loaded to the end game level 
+        else if (currentRound == maxRounds)
+            SceneManager.LoadScene("endGame");
+    }
 
     private void Awake()
     {
+        instance = this;
+        //text = GetComponent<Text>();
+
         //Setting currentRound to 0
-        currentRound = 0;
+       // currentRound = 0;
         //Setting roundTimer to roundLenght
-        roundTimer = roundLength;
+       // roundTimer = roundLength;
     }
     #region Summary(NewRound)
     //Reloading level(s)
@@ -53,19 +71,11 @@ public class LevelManager : MonoBehaviour {
     //Repositioning players back to spawn locations
     //Reset time (roundTimer)
     #endregion
-    private void NewRound()
+    public void NewRound()
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
 
-    public void GetCurrentRound()
-    {
 
-    }
-
-    public void GetRoundTimer()
-    {
-
-    }
 }
