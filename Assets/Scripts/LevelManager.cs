@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -53,9 +52,9 @@ public class LevelManager : MonoBehaviour {
     #endregion
     public void NewRound()
     {
+        currentRound++;
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
-        currentRound++;
     }
 
 

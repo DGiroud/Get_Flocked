@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BaseActor : MonoBehaviour
 {
     // actor identification labels
@@ -13,8 +14,8 @@ public class BaseActor : MonoBehaviour
     // actor movement
     [Header("Movement")]
     [SerializeField]
-    private bool canMove = true; // cause why not, right?
-    public float speed; // how fast player go
+    private bool canMove = true;       // cause why not, right?
+    public float speed;                // how fast player go
     private Rigidbody playerRigidbody; // reference to rb
     private Vector3 translation;
 
@@ -24,11 +25,15 @@ public class BaseActor : MonoBehaviour
     private bool canInteract = true;
     [SerializeField]
     private BoxCollider interactionBox; // hit box in front of player
-    private GameObject heldSheep; // null if no sheep, sheep if sheep
+    private GameObject heldSheep;       // null if no sheep, sheep if sheep
     [SerializeField]
     private float pickUpDelay;
     private float pickUpTimer;
 
+    // actor kick
+    public float kickHight = 0f;       //kick height of sheep
+    public float KickForce = 0f;       //how much force given when sheep is kicked
+ 
     /// <summary>
     /// Ensures all relevant actor variables are reset upon start-up
     /// </summary>
@@ -166,9 +171,18 @@ public class BaseActor : MonoBehaviour
     /// Performs the lobbing of the given sheep in a projectile motion
     /// </summary>
     /// <param name="sheep">the desired sheep to launch</param>
+    
     public void LaunchSheep(GameObject sheep)
     {
-        //Sheep sheepScript = sheep.GetComponentInParent<Sheep>();
-        //sheepScript.SetState(Sheep.SheepState.Kick);
+        Sheep sheepScript = sheep.GetComponentInParent<Sheep>(); //script
+        sheepScript.SetState(Sheep.SheepState.Kick);
+
+        Rigidbody sheepRigidbody = sheep.GetComponent<Rigidbody>(); //rb
+
+        //Giving the player kick force and the sheep some height when kicked
+        Vector3 kickVector = translation.normalized * KickForce;
+        kickVector.y = kickHight;
+        //Adding instant kick force
+        sheepRigidbody.AddForce(kickVector, ForceMode.Impulse);
     }
 }
