@@ -27,23 +27,26 @@ public class LevelManager : MonoBehaviour {
     public int maxRounds;               //Max rounds per game
     public float roundLength;          //Max amount of time for the rounds
 
-    public int currentRound;          //Show current round
-
+    static int currentRound = 0;          //Show current round
+    static public int GetCurrentRound()
+    { 
+        return currentRound;
+    }
 
     // Update is called once per frame
-    void Update () {
+    void Update() {
 
         //If it is the last round, the SceneManager will be loaded to the end game level 
-         if (currentRound == maxRounds)
-            SceneManager.LoadScene("endGame");
+        if (currentRound == maxRounds)
+            //SceneManager.LoadScene("endGame");
+            Debug.Log("Game Over!");
     }
 
-    private void Awake()
+    private void Start ()
     {
         instance = this;
-        //Setting currentRound to 0
-        currentRound = 0;
     }
+
     #region Summary(NewRound)
     //Reloading level(s)
     //Clearing map of sheep + reload map
@@ -56,8 +59,6 @@ public class LevelManager : MonoBehaviour {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
-
-
 
 
 }

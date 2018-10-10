@@ -30,6 +30,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private GameObject CPUPrefab; // reference to CPU
 
+    [Header("Colours")]
+    [SerializeField]
+    private Material[] actorColours;
+
     // spawn settings
     [Header("Start Positions")]
     [SerializeField] 
@@ -44,8 +48,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
 	void Awake ()
     {
-        // assign singleton instance
-        instance = this;
+        instance = this; // assign singleton instance
 
         // initialise player array
         players = new List<GameObject>();
@@ -135,6 +138,7 @@ public class PlayerManager : MonoBehaviour
         // add player to scene, then set position
         GameObject player = Instantiate(playerPrefab);
         player.transform.position = startTransform.position;
+        player.GetComponentInChildren<MeshRenderer>().material = actorColours[playerIndex];
 
         Player script = player.GetComponent<Player>();
         script.actorID = playerIndex;
@@ -157,6 +161,7 @@ public class PlayerManager : MonoBehaviour
         // add CPU to scene, then set position
         GameObject cpu = Instantiate(CPUPrefab);
         cpu.transform.position = startTransform.position;
+        cpu.GetComponentInChildren<MeshRenderer>().material = actorColours[CPUIndex];
 
         //CPU script = cpu.GetComponent<CPU>();
         //script.ActorID = CPUIndex;

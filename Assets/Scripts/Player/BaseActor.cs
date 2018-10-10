@@ -8,8 +8,6 @@ public class BaseActor : MonoBehaviour
     // actor identification labels
     [HideInInspector]
     public int actorID; // the actor's permanent ID throughout the game
-    [HideInInspector]
-    public int spawnID; // the actor's ID for goals and spawning
 
     // actor movement
     [Header("Movement")]
@@ -85,20 +83,31 @@ public class BaseActor : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
+        GameObject sheepRoot = other.transform.parent.gameObject;
+
+        // if the sheep is already being pushed then it can't be picked up
+        if (sheepRoot.GetComponent<Sheep>().GetState() == Sheep.SheepState.Push)
+            return;
+
         // if the object is a sheep...
-        if (other.transform.parent.CompareTag("Sheep"))
-        {
-            // ...snap the sheep to actor
-            SnapSheep(other.transform.parent.gameObject);
-        }
+        if (sheepRoot.CompareTag("Sheep"))
+            SnapSheep(other.transform.parent.gameObject); // ...snap the sheep to actor
     }
 
+    /// <summary>
+    /// helper function which toggles the players interactiblity
+    /// </summary>
+    /// <param name="toggle">true or false</param>
     public void SetCanInteract(bool toggle)
     {
         canInteract = toggle;
         interactionBox.enabled = toggle;
     }
 
+    /// <summary>
+    /// helper function which toggles the players mobility
+    /// </summary>
+    /// <param name="toggle">true or false</param>
     public void SetCanMove(bool toggle)
     {
         canMove = toggle;

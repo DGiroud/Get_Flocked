@@ -26,8 +26,8 @@ public class RamManager : MonoBehaviour
 
     // ram spawning variables
     #region spawning
-    [Header("Spawning")]
     private GameObject ram;
+    [Header("Spawning")]
     [SerializeField]
     [Tooltip("Fill this with a transform (empty game object)")]
     private Transform ramSpawnPoint;
