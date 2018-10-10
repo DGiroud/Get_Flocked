@@ -228,10 +228,8 @@ MonoBehaviour:
     growthRequirement: 0
     score: 50
   wanderDuration: 5
-  idleMinRange: 5
-  idleMaxRange: 10
+  idleDuration: 10
   rotationSpeed: 10
-  destCheckRadius: 0.1
 --- !u!135 &135028655785092094
 SphereCollider:
   m_ObjectHideFlags: 1
