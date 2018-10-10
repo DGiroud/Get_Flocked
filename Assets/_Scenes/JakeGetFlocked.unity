@@ -2702,7 +2702,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh11664
+  m_Name: pb_Mesh12308
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -21278,7 +21278,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh11498
+  m_Name: pb_Mesh12142
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -22373,19 +22373,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14e32325576f0246af23d7f7aa76efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sheepPrefab: {fileID: 1244009433593970, guid: aff333a001094324696d1e4be7a212cf,
-    type: 2}
-  patternedSheepPrefabs: []
+  prefab: {fileID: 1688817407654430, guid: 840a0b5f9f7c4cc44a2f92e5e7761faa, type: 2}
+  amount: 10
+  patternedSheep: []
+  spawnOnStartup: 0
+  amountToSpawn: 0
   spawnMode: 1
   spawnPoints:
   - {fileID: 524311179}
   - {fileID: 1935438835}
   - {fileID: 1044009353}
   - {fileID: 791220842}
-  maximumSheep: 10
   spawnRate: 3
   spawnRateVariance: 2
-  patternedSheepChance: 0
 --- !u!4 &2132014080
 Transform:
   m_ObjectHideFlags: 0

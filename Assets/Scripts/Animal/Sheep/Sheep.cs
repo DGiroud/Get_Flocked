@@ -51,16 +51,15 @@ public class Sheep : MonoBehaviour {
     //Private variables so that we can peak into what an agent's destination is during runtime
     private float agentDestinationX;
     private float agentDestinationZ;
-
-    //*************************************************************************************************************************************
-    //ADD A FUNCTION THAT CHECKS IF THE OBJECT THIS IS ATTACHED TO HAS A NAV MESH AGENT COMPONENT, AND IF FALSE, CREATE ONE FOR THIS OBJECT
-    //*************************************************************************************************************************************
+   
 
     // Use this for initialization
     void Start() {
         fieldObject = GameObject.FindWithTag("Field");
 
         rand = new System.Random();
+
+        CheckNavMeshAgent();
 
         //When the sheep is created, we set it's inital destination here
         agent = GetComponent<NavMeshAgent>();
@@ -171,6 +170,15 @@ public class Sheep : MonoBehaviour {
                 break;
 
             //--------------------------------------|
+        }
+    }
+
+    //Checks that this object has a navMeshAgent component, and creates one if it doesn't
+    void CheckNavMeshAgent()
+    {
+        if (this.GetComponent<NavMeshAgent>() == null)
+        {
+            gameObject.AddComponent(typeof(NavMeshAgent));
         }
     }
 
