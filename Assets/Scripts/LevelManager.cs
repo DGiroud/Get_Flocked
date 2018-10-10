@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour {
     private static LevelManager instance;
 
     /// <summary>
-    /// getter for singleton instance of LevelManager
+    /// getting for singleton instance of LevelManager
     /// </summary>
     public static LevelManager Instance
     {
