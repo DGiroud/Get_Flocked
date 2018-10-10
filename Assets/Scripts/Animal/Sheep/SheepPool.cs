@@ -7,25 +7,60 @@ public class SheepPool : MonoBehaviour
     private GameObject[] sheepPool; // the collection of sheep
     private Queue<GameObject> availableSheep; // sheep which can be spawned
 
-
     /// <summary>
     /// initialises the sheep object pool, instantiates and hides all sheep
     /// </summary>
     void Awake()
     {
+        // get sheep manager reference for easy access
+        SheepManager sheepManager = SheepManager.Instance;
+
         // initialise pool
-        sheepPool = new GameObject[SheepManager.Instance.MaximumSheep];
+        sheepPool = new GameObject[GetPoolSize()];
         availableSheep = new Queue<GameObject>();
 
-        for (int i = 0; i < SheepManager.Instance.MaximumSheep; i++)
+        // create normal sheep
+        for (int i = 0; i < sheepManager.MaximumSheep; i++)
         {
-            // create a sheep
-            GameObject sheep = Instantiate(SheepManager.Instance.SheepPrefab);
-
-            sheepPool[i] = sheep; // add sheep to pool
-            sheepPool[i].SetActive(false); // all sheep inactive on start-up
-            availableSheep.Enqueue(sheepPool[i]); // all sheep ready to spawn
+            InstantiateObject(sheepManager.SheepPrefab, i);
         }
+
+        int currentSheepCount = sheepManager.MaximumSheep;
+
+        for (int i = 0; i < sheepManager.PatternedSheeps.Length; i++)
+        {
+            PatternedSheep patternedSheep = sheepManager.PatternedSheeps[i];
+
+            for (int j = 0; j < patternedSheep.amount; j++)
+            {
+                InstantiateObject(patternedSheep.prefab, currentSheepCount++);
+            }
+        }
+    }
+
+    private int GetPoolSize()
+    {
+        SheepManager sheepManager = SheepManager.Instance;
+        int poolSize = sheepManager.MaximumSheep;
+
+        for (int i = 0; i < sheepManager.PatternedSheeps.Length; i++)
+        {
+            poolSize += sheepManager.PatternedSheeps[i].amount;
+        }
+
+        return poolSize;
+    }
+
+    private GameObject InstantiateObject(GameObject prefab, int i)
+    {
+        // create an object
+        GameObject instantiatedObject = Instantiate(prefab);
+
+        sheepPool[i] = instantiatedObject; // add sheep to pool
+        sheepPool[i].SetActive(false); // all sheep inactive on start-up
+        availableSheep.Enqueue(sheepPool[i]); // all sheep ready to spawn
+
+        return sheepPool[i];
     }
 
     /// <summary>

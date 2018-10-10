@@ -4,27 +4,30 @@ using UnityEngine;
 
 public class BaseActor : MonoBehaviour
 {
-    // actor ID
+    // actor identification labels
     [HideInInspector]
-    public int actorID;
-
-    private Rigidbody currentRigidbody;
-    private Rigidbody playerRigidbody;
-    private Vector3 translation;
+    public int actorID; // the actor's permanent ID throughout the game
+    [HideInInspector]
+    public int spawnID; // the actor's ID for goals and spawning
 
     // actor movement
     [Header("Movement")]
-    public float speed;
-    public float strength;
+    [SerializeField]
+    private bool canMove = true; // cause why not, right?
+    public float speed; // how fast player go
+    private Rigidbody playerRigidbody; // reference to rb
+    private Vector3 translation;
 
     // actor interaction
     [Header("Interaction")]
     [SerializeField]
-    private BoxCollider interactionBox;
+    private bool canInteract = true;
+    [SerializeField]
+    private BoxCollider interactionBox; // hit box in front of player
+    private GameObject heldSheep; // null if no sheep, sheep if sheep
     [SerializeField]
     private float pickUpDelay;
     private float pickUpTimer;
-    private Transform heldSheep;
 
     /// <summary>
     /// Ensures all relevant actor variables are reset upon start-up
@@ -34,8 +37,10 @@ public class BaseActor : MonoBehaviour
         pickUpTimer = 0.0f;
         heldSheep = null;
 
-        playerRigidbody = GetComponent<Rigidbody>();
-        currentRigidbody = playerRigidbody;
+        SetCanInteract(canInteract);
+        SetCanMove(canMove);
+
+        playerRigidbody = GetComponentInParent<Rigidbody>();
     }
     
     /// <summary>
@@ -53,6 +58,9 @@ public class BaseActor : MonoBehaviour
     /// <param name="yAxis"></param>
     public void Move(float xAxis, float yAxis)
     {
+        if (!canMove)
+            return; // can't move!
+
         translation.x = xAxis;
         translation.z = yAxis;
 
@@ -60,10 +68,35 @@ public class BaseActor : MonoBehaviour
         translation *= speed * Time.deltaTime;
 
         // rotation handling
-        GetComponentInParent<Rigidbody>().MoveRotation(Quaternion.LookRotation(translation));
+        playerRigidbody.MoveRotation(Quaternion.LookRotation(translation));
 
         // perform movement
-        currentRigidbody.MovePosition(transform.position + translation);
+        playerRigidbody.MovePosition(transform.position + translation);
+    }
+
+    /// <summary>
+    /// handle interaction box collision
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerEnter(Collider other)
+    {
+        // if the object is a sheep...
+        if (other.transform.parent.CompareTag("Sheep"))
+        {
+            // ...snap the sheep to actor
+            SnapSheep(other.transform.parent.gameObject);
+        }
+    }
+
+    public void SetCanInteract(bool toggle)
+    {
+        canInteract = toggle;
+        interactionBox.enabled = toggle;
+    }
+
+    public void SetCanMove(bool toggle)
+    {
+        canMove = toggle;
     }
 
     /// <summary>
@@ -85,16 +118,16 @@ public class BaseActor : MonoBehaviour
         interactionBox.enabled = false;
 
         // adjust position
-        heldSheep = sheep.transform.parent; // update sheep reference
+        heldSheep = sheep; // update sheep reference
 
         Sheep sheepScript = heldSheep.GetComponent<Sheep>();
         sheepScript.SetState(Sheep.SheepState.Push);
 
         //                          position              direction                         offset
-        Vector3 snapPosition = transform.position + translation.normalized * (heldSheep.localScale.x);
+        Vector3 snapPosition = transform.position + translation.normalized * (sheepScript.CurrentTier.size);
 
-        heldSheep.position = snapPosition;
-        heldSheep.parent = transform; // player now parents sheep
+        heldSheep.transform.position = snapPosition;
+        heldSheep.transform.SetParent(transform); // player now parents sheep
 
         // disable sheep
         heldSheep.GetComponent<Rigidbody>().isKinematic = true;
@@ -105,7 +138,7 @@ public class BaseActor : MonoBehaviour
     /// this actor and re-enables physics
     /// </summary>
     /// <returns>returns the released sheep, or null if no sheep was held</returns>
-    public Transform ReleaseSheep()
+    public GameObject ReleaseSheep()
     {
         // safety check: if no sheep is held, then can't release nothing
         if (!heldSheep)
@@ -116,15 +149,15 @@ public class BaseActor : MonoBehaviour
         pickUpTimer = 0.0f; // reset timer
 
         // get held sheep
-        Transform releasedSheep = heldSheep;
+        GameObject releasedSheep = heldSheep;
         heldSheep = null; // delete reference
 
-        Sheep sheepScript = releasedSheep.GetComponent<Sheep>();
+        Sheep sheepScript = releasedSheep.GetComponentInParent<Sheep>();
         sheepScript.SetState(Sheep.SheepState.Idle);
 
         // release sheep child from this
-        releasedSheep.parent = null;
-        releasedSheep.GetComponent<Rigidbody>().isKinematic = false;
+        releasedSheep.transform.SetParent(null);
+        releasedSheep.GetComponentInParent<Rigidbody>().isKinematic = false;
 
         return releasedSheep; // return for convenience sake
     }
@@ -133,7 +166,7 @@ public class BaseActor : MonoBehaviour
     /// Performs the lobbing of the given sheep in a projectile motion
     /// </summary>
     /// <param name="sheep">the desired sheep to launch</param>
-    public void LaunchSheep(Transform sheep)
+    public void LaunchSheep(GameObject sheep)
     {
         //Sheep sheepScript = sheep.GetComponentInParent<Sheep>();
         //sheepScript.SetState(Sheep.SheepState.Kick);

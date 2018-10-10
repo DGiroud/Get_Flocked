@@ -14,6 +14,13 @@ public enum SpawnMode
     Sequential // uses all points in the order they are linked in the editor
 }
 
+[System.Serializable]
+public struct PatternedSheep
+{
+    public GameObject prefab;
+    public int amount;
+}
+
 public class SheepManager : MonoBehaviour
 {
     // singleton instance
@@ -38,17 +45,21 @@ public class SheepManager : MonoBehaviour
     #region components
     private SheepPool sheepPool;
     private SpawnPointSelector spawnPointSelector;
-    private PatternedSheepSelector patternedSheepSelector;
     #endregion
 
     // prefabs variables
     #region prefabs
-    [Header("Prefabs")]
+    [Header("Normal Sheep")]
 
     [SerializeField]
-    private GameObject sheepPrefab; // reference to sheep
+    private GameObject prefab; // reference to sheep
     [SerializeField]
-    private GameObject[] patternedSheepPrefabs; // reference to all patterned 
+    [Tooltip("Maximum number of sheep on-screen at any given time")]
+    private int amount = 10; // maximum amount of sheep
+
+    [Header("Patterned Sheep")]
+    [SerializeField]
+    private PatternedSheep[] patternedSheep; 
     #endregion
 
     // spawning/management variables
@@ -67,9 +78,6 @@ public class SheepManager : MonoBehaviour
     private Transform[] spawnPoints; // array of transforms for sheep spawns
 
     // spawn parameters
-    [SerializeField]
-    [Tooltip("Maximum number of sheep on-screen at any given time")]
-    private int maximumSheep = 10; // max number of sheep at any given time
     [Tooltip("Minimum time (in seconds) between spawns")]
     public float spawnRate = 5.0f; // minimum time between spawns
     [Tooltip("Randomises the spawn rate a little." +
@@ -77,17 +85,15 @@ public class SheepManager : MonoBehaviour
     public float spawnRateVariance = 2.0f; // actual spawn rate = spawn rate +/- rand(variance)
     private float variance = 0.0f;
     private float sheepSpawnTimer = 0.0f; // timer used to determine cooldown
-    [Range(0, 100)]
-    public float patternedSheepChance = 5.0f;
     #endregion
 
     // variable getters
     #region getters
 
-    public GameObject SheepPrefab { get { return sheepPrefab; } }
-    public GameObject[] PatternedSheepPrefabs { get { return patternedSheepPrefabs; } }
+    public GameObject SheepPrefab { get { return prefab; } }
+    public PatternedSheep[] PatternedSheeps { get { return patternedSheep; } }
     public Transform[] SheepSpawnPoints { get { return spawnPoints; } }
-    public int MaximumSheep { get { return maximumSheep; } }
+    public int MaximumSheep { get { return amount; } }
 
     #endregion
 
@@ -108,11 +114,15 @@ public class SheepManager : MonoBehaviour
         spawnPointSelector = gameObject.AddComponent<SpawnPointSelector>();
 
         // initialise patterned sheep selector
-        patternedSheepSelector = gameObject.AddComponent<PatternedSheepSelector>();
+        //patternedSheepSelector = gameObject.AddComponent<PatternedSheepSelector>();
 
         // delete me
         Assert.IsTrue(spawnRateVariance < spawnRate, 
             "Please ensure spawn rate variance is less than spawn rate in the sheep manager");
+
+        // spawn a bunch of sheep right off the bat
+        for (int i = 0; i < spawnPoints.Length; i++)
+            SpawnSheep();
     }
 
     /// <summary>
@@ -127,12 +137,8 @@ public class SheepManager : MonoBehaviour
         // spawn cooldown check
         if (sheepSpawnTimer > spawnRate + variance)
         {
+            SpawnSheep(); // spawn normal sheep
             sheepSpawnTimer = 0.0f;
-
-            if (Random.Range(0, 100) < patternedSheepChance)
-                SpawnSheep(true);
-            else
-                SpawnSheep();
         }
     }
 
@@ -140,14 +146,10 @@ public class SheepManager : MonoBehaviour
     /// gets an available sheep from the pool if possible, places it 
     /// on the scene and sets to active.
     /// </summary>
-    public GameObject SpawnSheep(bool isPatterned = false)
+    public GameObject SpawnSheep()
     {
-        GameObject nextSheep;
-
-        if (isPatterned)
-            nextSheep = patternedSheepSelector.Select();
-        else
-            nextSheep = sheepPool.TryGetSheep(); // get next available sheep
+        // get sheep from pool
+        GameObject nextSheep = sheepPool.TryGetSheep(); 
 
         // if no available sheep, spawn was a failure
         if (!nextSheep)

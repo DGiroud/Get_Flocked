@@ -12,8 +12,12 @@ public enum PlayerInput
 public class Player : BaseActor
 {
     // the type of input this player is using, e.g. keyboard
-    public PlayerInput playerInput;
+    private PlayerInput playerInput;
 
+    public void SetPlayerInput(PlayerInput inputType)
+    {
+        playerInput = inputType;
+    }
 
     /// <summary>
     /// handle player input
@@ -66,7 +70,7 @@ public class Player : BaseActor
         // A to kick sheep
         if (gamePad.Buttons.A == ButtonState.Pressed)
         {
-            Transform sheep = ReleaseSheep();
+            GameObject sheep = ReleaseSheep();
             LaunchSheep(sheep);
         }
     }
@@ -105,7 +109,7 @@ public class Player : BaseActor
         // space to kick sheep
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Transform sheep = ReleaseSheep();
+            GameObject sheep = ReleaseSheep();
             LaunchSheep(sheep);
         }
     }

@@ -29,14 +29,14 @@ public class PlayerManager : MonoBehaviour
     private GameObject playerPrefab; // reference to player
     [SerializeField]
     private GameObject CPUPrefab; // reference to CPU
-    
+
     // spawn settings
     [Header("Start Positions")]
-    [SerializeField]
+    [SerializeField] 
     private Transform[] actorStartPositions; // array of player spawn positions
 
     // lists of all players and their respective controllers
-    public List<GameObject> players; // the players
+    public List<GameObject> players { get; private set; } // the players
     private List<GamePadState> gamePads; // their gamepads
 
     /// <summary>
@@ -98,7 +98,7 @@ public class PlayerManager : MonoBehaviour
         for (int i = 0; i < gamePads.Count; i++)
         {
             // ...create a player
-            players.Add(InstantiatePlayer(i));
+            players.Add(InstantiatePlayer(i, i));
         }
 
         // for every non-connected gamepad...
@@ -112,7 +112,7 @@ public class PlayerManager : MonoBehaviour
     public void AssignKeyboard()
     {
         // player one uses keyboard
-        players.Add(InstantiatePlayer(0, PlayerInput.Keyboard));
+        players.Add(InstantiatePlayer(0, 0, PlayerInput.Keyboard));
 
         // the rest are a CPU
         for (int i = 1; i < actorStartPositions.Length; i++)
@@ -127,7 +127,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     /// <param name="playerIndex">the controller index of the player, e.g. 0</param>
     /// <returns>the instantiated player for convenience</returns>
-    public GameObject InstantiatePlayer(int playerIndex, PlayerInput playerInput = PlayerInput.Controller)
+    public GameObject InstantiatePlayer(int playerIndex, int controllerID, PlayerInput playerInput = PlayerInput.Controller)
     {
         // get player spawn position
         Transform startTransform = actorStartPositions[playerIndex];
@@ -138,7 +138,7 @@ public class PlayerManager : MonoBehaviour
 
         Player script = player.GetComponent<Player>();
         script.actorID = playerIndex;
-        script.playerInput = playerInput;
+        script.SetPlayerInput(playerInput);
 
         return player;
     }

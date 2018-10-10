@@ -40,7 +40,6 @@ GameObject:
   - component: {fileID: 33969139095071656}
   - component: {fileID: 65844882543617470}
   - component: {fileID: 23993729666461706}
-  - component: {fileID: 114895567398843202}
   m_Layer: 0
   m_Name: Interaction Box
   m_TagString: Untagged
@@ -86,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1946791718678068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7252975, y: 0, z: -20.310684}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4076013085623334}
@@ -100,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813340880020054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03286171, y: 0, z: 1.0946598}
+  m_LocalPosition: {x: 0, y: 0, z: 1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4076013085623334}
@@ -227,22 +226,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorID: 0
+  spawnID: 0
+  canMove: 1
   speed: 10
-  strength: 0
+  canInteract: 1
   interactionBox: {fileID: 65844882543617470}
   pickUpDelay: 1
-  playerInput: 0
---- !u!114 &114895567398843202
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1813340880020054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00a8d608e7a6d7e4f9a780d3049ac26b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &136167429188734902
 CapsuleCollider:
   m_ObjectHideFlags: 1

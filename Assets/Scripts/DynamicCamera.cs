@@ -86,17 +86,17 @@ public class DynamicCamera : MonoBehaviour
     }
 
     /// <summary>
-    /// gets the greatest distance from one player to another and
+    /// gets the shortest distance from one player to another and
     /// uses that distance to determine the lerp step-size. Use said
     /// lerp to smoothly adjust the camera field of view
     /// </summary>
     private void Zoom()
     {
-        // get greatest distance
-        float greatestDistance = GetGreatestDistance() / zoomLimiter;
+        // get shortest distance
+        float shortestDistance = GetShortestDistance() / zoomLimiter;
 
         // lerp in-between min and max field of view using greatest distance
-        float newZoom = Mathf.Lerp(minFieldOfView, maxFieldOfView, greatestDistance);
+        float newZoom = Mathf.Lerp(minFieldOfView, maxFieldOfView, shortestDistance);
         dynamicCamera.fieldOfView = Mathf.Lerp(dynamicCamera.fieldOfView, newZoom, Time.deltaTime);
     }
 
@@ -120,10 +120,10 @@ public class DynamicCamera : MonoBehaviour
 
     /// <summary>
     /// gets the x and z distances by getting the difference in x and
-    /// z bounds and returning the greater distance
+    /// z bounds and returning the shorter distance
     /// </summary>
-    /// <returns>the greatest distance from one player to another</returns>
-    private float GetGreatestDistance()
+    /// <returns>the shortest distance from one player to another</returns>
+    private float GetShortestDistance()
     {
         // get bounding box
         XZBounds bounds = GetXZBounds();
@@ -132,8 +132,8 @@ public class DynamicCamera : MonoBehaviour
         float xDistance = bounds.max.x - bounds.min.x;
         float zDistance = bounds.max.y - bounds.min.y;
 
-        // return the greater distance
-        if (xDistance > zDistance)
+        // return the shorter distance
+        if (xDistance < zDistance)
             return xDistance;
         else
             return zDistance;

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
+    [SerializeField]
+    private int goalID;
+
     /// <summary>
     /// handles the collision of a sheep with the goal
     /// </summary>
@@ -11,10 +14,13 @@ public class Goal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // if the collided object is a sheep
-        if (other.CompareTag("Sheep"))
+        if (other.transform.parent.CompareTag("Sheep"))
         {
+            int sheepWorth = other.gameObject.transform.parent.GetComponent<Sheep>().CurrentTier.score;
+
             // destroy sheep
             SheepManager.Instance.DestroySheep(other.gameObject);
+            ScoreManager.Instance.AddScore(goalID, sheepWorth);
         }
     }
 }
