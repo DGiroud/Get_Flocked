@@ -88,12 +88,12 @@ public class Sheep : MonoBehaviour {
                 GetNewDestination();
 
                 ResetSheep();
-                                 
-                if((transform.position.x <= agent.destination.x + destCheckRadius || transform.position.x >= agent.destination.x - destCheckRadius) ||
+
+                if ((transform.position.x <= agent.destination.x + destCheckRadius || transform.position.x >= agent.destination.x - destCheckRadius) ||
                    (transform.position.z <= agent.destination.z + destCheckRadius || transform.position.z >= agent.destination.z - destCheckRadius))
                 {
                     SetState(SheepState.Idle);
-                }                
+                }
 
                 //Add animations here (Same as Wander)
 

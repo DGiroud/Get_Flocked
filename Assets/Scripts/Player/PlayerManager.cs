@@ -105,7 +105,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         // for every non-connected gamepad...
-        for (int i = gamePads.Count; i < actorStartPositions.Length; i++)
+        for (int i = gamePads.Count; i < actorStartPositions.Length - 1; i++)
         {
             // ...create a CPU
             players.Add(InstantiateCPU(i));
