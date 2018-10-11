@@ -150,7 +150,7 @@ public class BaseActor : MonoBehaviour
         sheepScript.SetState(Sheep.SheepState.Push);
 
         //                          position              direction                         offset
-        Vector3 snapPosition = transform.position + translation.normalized * (sheepScript.CurrentTier.radius);
+        Vector3 snapPosition = transform.position + translation.normalized * (sheepScript.CurrentTier.snapRadius);
 
         heldSheep.transform.position = snapPosition;
         heldSheep.transform.SetParent(transform); // player now parents sheep

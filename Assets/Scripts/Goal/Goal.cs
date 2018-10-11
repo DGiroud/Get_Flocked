@@ -7,6 +7,11 @@ public class Goal : MonoBehaviour
     [SerializeField]
     private int goalID;
 
+    [SerializeField]
+    private ParticleSystem fireWorksTrail;
+    [SerializeField]
+    private ParticleSystem fireWorksWhiteNoise;
+
     /// <summary>
     /// handles the collision of a sheep with the goal
     /// </summary>
@@ -19,8 +24,11 @@ public class Goal : MonoBehaviour
             int sheepWorth = other.GetComponentInParent<Sheep>().CurrentTier.score;
 
             // destroy sheep
-            SheepManager.Instance.DestroySheep(other.gameObject);
+            SheepManager.Instance.DestroySheep(other.transform.parent.gameObject);
             ScoreManager.Instance.AddScore(goalID, sheepWorth);
+
+            fireWorksTrail.Play();
+            fireWorksWhiteNoise.Play();
         }
     }
 }

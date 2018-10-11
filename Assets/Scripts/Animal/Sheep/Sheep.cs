@@ -8,7 +8,8 @@ using System;
 public struct SheepTier
 {
     public Mesh mesh;
-    public float radius;
+    public float trueRadius;
+    public float snapRadius;
     public float growthRequirement;
     public int score;
 }
@@ -68,8 +69,7 @@ public class Sheep : MonoBehaviour {
 
         distToGround = agent.transform.position.y;
 
-
-        SetState(SheepState.Spawn);
+        ResetSheep();
     }
 
     void Update()
@@ -187,11 +187,23 @@ public class Sheep : MonoBehaviour {
         }
     }
 
-    void ResetSheep()
+    private void ResetSheep()
     {
-        GetComponentInChildren<Transform>().position = transform.position;
+        SetState(SheepState.Spawn);
 
         currentTier = sheepTiers[0];
+
+        ResetTimers();
+
+        float size = currentTier.trueRadius;
+        transform.localScale = new Vector3(size, size, size);
+    }
+
+    private void ResetTimers()
+    {
+        timer = 0.0f;
+        growthTimer = 0.0f;
+        wanderTimer = 0.0f;
     }
 
     bool IsGrounded()
@@ -270,7 +282,11 @@ public class Sheep : MonoBehaviour {
     {
         currentTier = sheepTiers[++currentLevel];
 
-        float size = currentTier.radius;
+        float size = currentTier.trueRadius;
         transform.localScale = new Vector3(size, size, size);
+    }
+
+    public void ResetTier()
+    {
     }
 }
