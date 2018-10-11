@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;   //Needed for NavMeshAgent
-using System.Timers;    //Needed for Timer
 using System;
 
 [System.Serializable]
@@ -44,9 +43,8 @@ public class Sheep : MonoBehaviour {
     [Tooltip("The range that the agent needs to be in of it's desired location before it hits it's idle state")]
     public float destCheckRadius;
     private float randomNumGen;
-
-    //Variables that we are going to use so that we can check how close the sheep is to the ground after it has been kicked by the player
-    private Collider collider;
+    
+    //Float we use to keep track of when the sheep is grounded, used by the kick functionality
     private float distToGround;                 
 
     private float growthTimer = 0.0f;            //What will be incremented as the sheep idles, will be checked against growthRequirements
@@ -70,11 +68,8 @@ public class Sheep : MonoBehaviour {
 
         distToGround = agent.transform.position.y;
 
-        GetNewDestination();
 
         SetState(SheepState.Spawn);
-
-        currentTier = sheepTiers[0];
     }
 
     void Update()
@@ -89,6 +84,10 @@ public class Sheep : MonoBehaviour {
             case SheepState.Spawn:
                 //When the sheep spawns, we don't want it to have to wait before finding a new location, hence we immediately have it
                 // calculate a new random position to seek to
+
+                GetNewDestination();
+
+                ResetSheep();
                                  
                 if((transform.position.x <= agent.destination.x + destCheckRadius || transform.position.x >= agent.destination.x - destCheckRadius) ||
                    (transform.position.z <= agent.destination.z + destCheckRadius || transform.position.z >= agent.destination.z - destCheckRadius))
@@ -186,6 +185,13 @@ public class Sheep : MonoBehaviour {
 
             //--------------------------------------|
         }
+    }
+
+    void ResetSheep()
+    {
+        GetComponentInChildren<Transform>().position = transform.position;
+
+        currentTier = sheepTiers[0];
     }
 
     bool IsGrounded()

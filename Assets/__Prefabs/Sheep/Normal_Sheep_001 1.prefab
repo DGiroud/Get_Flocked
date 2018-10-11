@@ -143,15 +143,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sheepTiers:
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    size: 1.2
+    radius: 1.2
     growthRequirement: 5
     score: 10
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    size: 0.75
+    radius: 1.2
     growthRequirement: 5
     score: 15
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    size: 1
+    radius: 1.2
     growthRequirement: 5
     score: 20
   wanderDuration: 5
