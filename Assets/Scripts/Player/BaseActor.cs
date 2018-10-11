@@ -23,7 +23,10 @@ public class BaseActor : MonoBehaviour
     private bool canInteract = true;
     [SerializeField]
     private BoxCollider interactionBox; // hit box in front of player
+    private GameObject interactionSheep; // holds a sheep if there is one in front of the player
+    public GameObject InteractionSheep { get { return interactionSheep; } }
     private GameObject heldSheep;       // null if no sheep, sheep if sheep
+    public GameObject HeldSheep { get { return heldSheep; } }
     [SerializeField]
     private float pickUpDelay;
     private float pickUpTimer;
@@ -83,15 +86,24 @@ public class BaseActor : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        GameObject sheepRoot = other.transform.parent.gameObject;
-
-        // if the sheep is already being pushed then it can't be picked up
-        if (sheepRoot.GetComponent<Sheep>().GetState() == Sheep.SheepState.Push)
+        // if the colliding object isn't a sheep, ignore it
+        if (!other.CompareTag("Sheep"))
             return;
 
-        // if the object is a sheep...
-        if (sheepRoot.CompareTag("Sheep"))
-            SnapSheep(other.transform.parent.gameObject); // ...snap the sheep to actor
+        // if the sheep is already being pushed then it can't be picked up
+        if (other.GetComponentInParent<Sheep>().GetState() == Sheep.SheepState.Push)
+        {
+            //interactionSheep = other.gameObject;
+            return;
+        }
+
+        // snap the sheep to actor
+        SnapSheep(other.transform.parent.gameObject); 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        interactionSheep = null;
     }
 
     /// <summary>
@@ -166,12 +178,12 @@ public class BaseActor : MonoBehaviour
         GameObject releasedSheep = heldSheep;
         heldSheep = null; // delete reference
 
-        Sheep sheepScript = releasedSheep.GetComponentInParent<Sheep>();
+        Sheep sheepScript = releasedSheep.GetComponent<Sheep>();
         sheepScript.SetState(Sheep.SheepState.Idle);
 
         // release sheep child from this
         releasedSheep.transform.SetParent(null);
-        releasedSheep.GetComponentInParent<Rigidbody>().isKinematic = false;
+        releasedSheep.GetComponent<Rigidbody>().isKinematic = false;
 
         return releasedSheep; // return for convenience sake
     }
@@ -183,7 +195,7 @@ public class BaseActor : MonoBehaviour
     
     public void LaunchSheep(GameObject sheep)
     {
-        Sheep sheepScript = sheep.GetComponentInParent<Sheep>(); //script
+        Sheep sheepScript = sheep.GetComponent<Sheep>(); //script
         sheepScript.SetState(Sheep.SheepState.Kick);
 
         Rigidbody sheepRigidbody = sheep.GetComponent<Rigidbody>(); //rb

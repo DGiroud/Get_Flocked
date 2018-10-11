@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33675454237255410}
   - component: {fileID: 135028655785092094}
   - component: {fileID: 23101321709211846}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Temporary Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,9 +40,9 @@ GameObject:
   - component: {fileID: 54456565956979030}
   - component: {fileID: 195857393658212040}
   - component: {fileID: 114600515104215616}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patterned_Sheep_001
-  m_TagString: Sheep
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,9 +58,9 @@ GameObject:
   - component: {fileID: 33089752543984920}
   - component: {fileID: 135268942164154058}
   - component: {fileID: 23067513095746270}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -228,8 +228,10 @@ MonoBehaviour:
     growthRequirement: 0
     score: 50
   wanderDuration: 5
-  idleDuration: 10
+  idleMinRange: 2
+  idleMaxRange: 5
   rotationSpeed: 10
+  destCheckRadius: 0
 --- !u!135 &135028655785092094
 SphereCollider:
   m_ObjectHideFlags: 1

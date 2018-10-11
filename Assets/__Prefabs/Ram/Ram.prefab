@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 33066897368143766}
   - component: {fileID: 65688352557047790}
   - component: {fileID: 23170917187424548}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Ram
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4672950642868108}
   - component: {fileID: 54860644615060012}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ram
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802072337966672}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.04737, y: 7.183069, z: -12.126234}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4977455657289190}

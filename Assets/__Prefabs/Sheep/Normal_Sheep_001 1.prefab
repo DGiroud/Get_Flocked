@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 4748062454646822}
   - component: {fileID: 33570657462894312}
   - component: {fileID: 23469728753429368}
-  - component: {fileID: 135865443268426662}
-  m_Layer: 0
+  - component: {fileID: 135312832611606938}
+  m_Layer: 9
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,9 +40,9 @@ GameObject:
   - component: {fileID: 54509308235320050}
   - component: {fileID: 195924413221878100}
   - component: {fileID: 114812777016269756}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Normal_Sheep_001 1
-  m_TagString: Sheep
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,13 +53,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1025228206438338}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -0}
-  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
+  m_LocalRotation: {x: 0, y: -0.28886464, z: 0, w: 0.95737}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4909879896482778}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -33.58, z: 0}
 --- !u!4 &4909879896482778
 Transform:
   m_ObjectHideFlags: 1
@@ -67,8 +67,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1688817407654430}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.92, y: 0.1, z: -17.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5563914, y: 0.5563913, z: 0.5563913}
   m_Children:
   - {fileID: 4748062454646822}
   m_Father: {fileID: 0}
@@ -143,23 +143,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sheepTiers:
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    radius: 1
+    size: 1.2
     growthRequirement: 5
-    score: 0
+    score: 10
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    radius: 1.75
+    size: 0.75
     growthRequirement: 5
-    score: 0
+    score: 15
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    radius: 2.5
+    size: 1
     growthRequirement: 5
-    score: 0
+    score: 20
   wanderDuration: 5
-  idleMinRange: 0.5
-  idleMaxRange: 1
+  idleMinRange: 2
+  idleMaxRange: 5
   rotationSpeed: 10
-  destCheckRadius: 2
---- !u!135 &135865443268426662
+  destCheckRadius: 0
+--- !u!135 &135312832611606938
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -169,8 +169,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 101.2
-  m_Center: {x: 0.12, y: 100.00289, z: -6.62}
+  m_Radius: 97.06
+  m_Center: {x: 0, y: 100.00289, z: 0}
 --- !u!195 &195924413221878100
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -179,7 +179,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1688817407654430}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.25
+  m_Radius: 2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

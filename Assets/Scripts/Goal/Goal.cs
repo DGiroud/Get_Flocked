@@ -14,9 +14,9 @@ public class Goal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // if the collided object is a sheep
-        if (other.transform.parent.CompareTag("Sheep"))
+        if (other.CompareTag("Sheep"))
         {
-            int sheepWorth = other.gameObject.transform.parent.GetComponent<Sheep>().CurrentTier.score;
+            int sheepWorth = other.GetComponentInParent<Sheep>().CurrentTier.score;
 
             // destroy sheep
             SheepManager.Instance.DestroySheep(other.gameObject);

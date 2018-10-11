@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33340589674027526}
   - component: {fileID: 136167429188734902}
   - component: {fileID: 23690650600393180}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33969139095071656}
   - component: {fileID: 65844882543617470}
   - component: {fileID: 23993729666461706}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Interaction Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,9 +57,9 @@ GameObject:
   - component: {fileID: 4321237522564372}
   - component: {fileID: 54725606639931456}
   - component: {fileID: 114417524914426972}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_Shepherd
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1946791718678068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.17043877, y: 1, z: -4.959082}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4076013085623334}
@@ -226,7 +226,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorID: 0
-  spawnID: 0
   canMove: 1
   speed: 10
   canInteract: 1
@@ -234,7 +233,6 @@ MonoBehaviour:
   pickUpDelay: 1
   kickHight: 5
   KickForce: 5
-  kickDistance: 5
 --- !u!136 &136167429188734902
 CapsuleCollider:
   m_ObjectHideFlags: 1

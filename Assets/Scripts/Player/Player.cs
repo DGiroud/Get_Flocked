@@ -45,7 +45,6 @@ public class Player : BaseActor
 
         GamePadMovement(input);
         GamePadKick(input);
-        GamePadRelease(input);
     }
 
     /// <summary>
@@ -70,21 +69,15 @@ public class Player : BaseActor
         // A to kick sheep
         if (gamePad.Buttons.A == ButtonState.Pressed)
         {
-            GameObject sheep = ReleaseSheep();
-            LaunchSheep(sheep);
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="gamePad"></param>
-    private void GamePadRelease(GamePadState gamePad)
-    {
-        // B to release sheep
-        if (gamePad.Buttons.B == ButtonState.Pressed)
-        {
-            ReleaseSheep();
+            if (HeldSheep)
+            {
+                GameObject sheep = ReleaseSheep();
+                LaunchSheep(sheep);
+            }
+            else if (InteractionSheep)
+            {
+                LaunchSheep(InteractionSheep);
+            }
         }
     }
 
@@ -92,7 +85,6 @@ public class Player : BaseActor
     {
         KeyboardMovement();
         KeyboardKick();
-        KeyboardRelease();
     }
 
     private void KeyboardMovement()
@@ -112,10 +104,5 @@ public class Player : BaseActor
             GameObject sheep = ReleaseSheep();
             LaunchSheep(sheep);
         }
-    }
-
-    private void KeyboardRelease()
-    {
-
     }
 }
