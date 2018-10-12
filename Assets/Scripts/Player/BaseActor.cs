@@ -86,6 +86,8 @@ public class BaseActor : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("test");
+
         // if the colliding object isn't a sheep, ignore it
         if (!other.CompareTag("Sheep"))
             return;
@@ -155,7 +157,10 @@ public class BaseActor : MonoBehaviour
         heldSheep.transform.position = snapPosition;
         heldSheep.transform.SetParent(transform); // player now parents sheep
 
+        heldSheep.GetComponentInChildren<SphereCollider>().isTrigger = true;
+
         // disable sheep
+        heldSheep.GetComponent<Rigidbody>().detectCollisions = false;
         heldSheep.GetComponent<Rigidbody>().isKinematic = true;
     }
 
@@ -181,8 +186,11 @@ public class BaseActor : MonoBehaviour
         Sheep sheepScript = releasedSheep.GetComponent<Sheep>();
         sheepScript.SetState(Sheep.SheepState.Idle);
 
+        releasedSheep.GetComponentInChildren<SphereCollider>().isTrigger = false;
+
         // release sheep child from this
         releasedSheep.transform.SetParent(null);
+        releasedSheep.GetComponent<Rigidbody>().detectCollisions = true;
         releasedSheep.GetComponent<Rigidbody>().isKinematic = false;
 
         return releasedSheep; // return for convenience sake
