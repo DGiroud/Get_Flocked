@@ -6,16 +6,6 @@ public class BaseObstacle : MonoBehaviour {
 
     bool isDestroyable;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     /// <summary>
     /// checking if the tag is equaled to "Ram" then destroying 
     /// </summary>

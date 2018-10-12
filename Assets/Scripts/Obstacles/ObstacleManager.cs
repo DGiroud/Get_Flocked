@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleManager : MonoBehaviour {
-   
-    public Terrain playField;                 
-    public int numberOfObjects;               //Number of objects to be placed
-    private int currentObjects;               //Amount of objects currently placed on playField
-    public GameObject objectToPlace;          //Objects to be placed
-    private int playFieldWidth;               //Width of the playField
-    private int playFieldLength;              //Length of playField
-    private int playFieldposX;                //playField of X position
-    private int playFieldposZ;                //playField of Z position        
+[System.Serializable]
+public struct Obstacle
+{
+    public GameObject prefab;
+    public int amountPerQuadrant;
+}
 
-    public GameObject[] obstaclePrefabs;
+public class ObstacleManager : MonoBehaviour {
+
+    public GameObject[] spawnPos;
+    private float destinationX;
+    private float destinationZ;
+    
+    public Obstacle[] obstaclePrefabs;
     // singleton instance
     #region singleton
 
@@ -36,36 +38,44 @@ public class ObstacleManager : MonoBehaviour {
     private void Start ()
     {
         instance = this;
+        SpawnObjects();
+    }
 
-        //playField of X
-        playFieldWidth = (int)playField.terrainData.size.x;
-        //playField of z
-        playFieldWidth = (int)playField.terrainData.size.z;
-        //playField position of x
-        playFieldposX = (int)playField.terrainData.size.x;
-        //playField position of z
-        playFieldposZ = (int)playField.terrainData.size.z;
-    }
-	
-	// Update is called once per frame
-	void Update ()
+    void SpawnObjects()
     {
-		if(currentObjects <= numberOfObjects)
+        foreach(GameObject spawnPos in spawnPos)
         {
-            //generating a random position for both X and Z
-            int posX = Random.Range(playFieldposX, playFieldposX + playFieldWidth);
-            int posZ = Random.Range(playFieldposZ, playFieldposZ + playFieldLength);
-            //gets the hieght of the terrain
-            float posY = Terrain.activeTerrain.SampleHeight(new Vector3(posX, 0, posZ));
-            //creates a new GameObject for random positions
-            GameObject newObject = Instantiate(objectToPlace, new Vector3(posX, posY, posZ), Quaternion.identity);
-            currentObjects += 1;
+
+            //int select = Random.Range(0, spawnObj.Count);
+            //Instantiate(spawnObj[select], spawnPos.transform.position, spawnPos.transform.rotation);
+            //RandomDestination();
+            //Debug.Log("Obsatcle spawned" + spawnObj);
+
+
         }
-        #region DebugforCompletedGeneration
-        //if (currentObjects == numberOfObjects)
-        //{
-        //    Debug.Log("generate complete");
-        //}
-        #endregion
     }
+
+    void RandomDestination()
+    {
+        Vector3 newPos = new Vector3();
+        destinationX = newPos.x;
+        destinationZ = newPos.z;
+        foreach (GameObject spawnPos in spawnPos)
+        {
+            newPos.x = UnityEngine.Random.Range(Random.Range(10, -20), Random.Range(0, -0));
+            newPos.z = UnityEngine.Random.Range(Random.Range(10, -20), Random.Range(0, -0));
+
+
+
+          // float obsSpawnX = spawnPos.transform.position.x;
+          // float obsSpawnZ = spawnPos.transform.position.z;
+          //
+          // newPos.x = UnityEngine.Random.Range(obsSpawnX - spawnPos.transform.position.x / 2,
+          //                                     obsSpawnX + spawnPos.transform.position.x / 2);
+          //
+          // newPos.z = UnityEngine.Random.Range(obsSpawnZ - spawnPos.transform.position.z / 2,
+          //                                     obsSpawnZ + spawnPos.transform.position.z / 2);
+        }
+    }
+
 }
