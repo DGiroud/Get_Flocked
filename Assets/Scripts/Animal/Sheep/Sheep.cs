@@ -155,6 +155,9 @@ public class Sheep : MonoBehaviour {
                 agent.enabled = false;
                 //
 
+                //Simply testing the rotation here
+                //GetComponentInChildren<Transform>().transform.Rotate(25.0f, 25f, 25f);
+
                 //Add animations here
 
                 break;
