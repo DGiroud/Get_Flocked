@@ -18,11 +18,11 @@ public class Player : BaseActor
     {
         playerInput = inputType;
     }
-
+    
     /// <summary>
     /// handle player input
     /// </summary>
-    override public void Update ()
+    public void FixedUpdate ()
     {
         switch (playerInput)
         {
@@ -43,20 +43,20 @@ public class Player : BaseActor
     {
         GamePadState input = GamePad.GetState((PlayerIndex)actorID);
 
-        GamePadMovement(input);
         GamePadKick(input);
+        GamePadMovement(input);
     }
 
     /// <summary>
-    /// placeholder movement function for player. Handles the translation and
-    /// rotation of the player in the x and z axis
+    /// uses the gamepad joysticks to call BaseActor movement function
     /// </summary>
     private void GamePadMovement(GamePadState gamePad)
     {
-        // x & z translation mapped to horizontal & vertical respectively
+        // if no joysticks are being moved, don't move
         if (gamePad.ThumbSticks.Left.X == 0.0f && gamePad.ThumbSticks.Left.Y == 0.0f)
             return;
 
+        // x & z translation mapped to horizontal & vertical respectively
         Move(gamePad.ThumbSticks.Left.X, gamePad.ThumbSticks.Left.Y);
     }
 
@@ -76,15 +76,15 @@ public class Player : BaseActor
             }
             else if (InteractionSheep)
             {
-                LaunchSheep(InteractionSheep);
+                LaunchOpponentsSheep(InteractionSheep);
             }
         }
     }
 
     private void KeyboardInput()
     {
-        KeyboardMovement();
         KeyboardKick();
+        KeyboardMovement();
     }
 
     private void KeyboardMovement()
