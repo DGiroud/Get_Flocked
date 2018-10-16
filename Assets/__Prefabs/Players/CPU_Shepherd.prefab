@@ -55,10 +55,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4321237522564372}
   - component: {fileID: 54725606639931456}
-  - component: {fileID: 114417524914426972}
   - component: {fileID: 136055936573568870}
   m_Layer: 8
-  m_Name: Player_Shepherd
+  m_Name: CPU_Shepherd
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -200,7 +199,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &65844882543617470
 BoxCollider:
@@ -214,26 +213,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114417524914426972
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1946791718678068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d108e39073bd2fc4cb7982a1bfb2c902, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actorID: 0
-  canMove: 1
-  speed: 1
-  canSnap: 1
-  interactionBox: {fileID: 65844882543617470}
-  pickUpDelay: 1
-  canKick: 1
-  kickHeight: 10
-  kickForce: 5
 --- !u!136 &136055936573568870
 CapsuleCollider:
   m_ObjectHideFlags: 1

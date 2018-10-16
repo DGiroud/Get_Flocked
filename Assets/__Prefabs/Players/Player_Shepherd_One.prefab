@@ -20,11 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4871191232991222}
   - component: {fileID: 33001746867614520}
-  - component: {fileID: 136425718629399310}
   - component: {fileID: 23005823242654050}
   m_Layer: 8
   m_Name: Model
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,9 +56,10 @@ GameObject:
   - component: {fileID: 4870058395313852}
   - component: {fileID: 54842205877244710}
   - component: {fileID: 114585260736208424}
+  - component: {fileID: 136825745495129476}
   m_Layer: 8
   m_Name: Player_Shepherd_One
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -195,12 +195,12 @@ Rigidbody:
   m_GameObject: {fileID: 1872163629497194}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 4
+  m_AngularDrag: 2
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &65466941878522394
 BoxCollider:
@@ -227,18 +227,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actorID: 0
   canMove: 1
-  speed: 10
-  canInteract: 1
+  speed: 1
+  canSnap: 1
   interactionBox: {fileID: 65466941878522394}
   pickUpDelay: 1
-  kickHight: 0
-  KickForce: 0
---- !u!136 &136425718629399310
+  canKick: 1
+  kickHeight: 5
+  kickForce: 5
+--- !u!136 &136825745495129476
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1584403747882176}
+  m_GameObject: {fileID: 1872163629497194}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
