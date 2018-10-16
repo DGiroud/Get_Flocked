@@ -86,8 +86,6 @@ public class BaseActor : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("test");
-
         // if the colliding object isn't a sheep, ignore it
         if (!other.CompareTag("Sheep"))
             return;
@@ -100,7 +98,7 @@ public class BaseActor : MonoBehaviour
         }
 
         // snap the sheep to actor
-        SnapSheep(other.transform.parent.gameObject); 
+        SnapSheep(other.transform.gameObject); 
     }
 
     private void OnTriggerExit(Collider other)

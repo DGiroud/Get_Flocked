@@ -54,6 +54,7 @@ public class Sheep : MonoBehaviour {
     //Private variables so that we can peak into what an agent's destination is during runtime
     private float agentDestinationX;
     private float agentDestinationZ;
+    private Vector3 movement;
 
     // Use this for initialization
     void Start() {
@@ -144,6 +145,9 @@ public class Sheep : MonoBehaviour {
                     SetState(SheepState.Idle);
                     break;
                 }
+
+                //Test for rotation
+                GetComponentInChildren<Transform>().Rotate(0, 0, 10.0f);
 
                 //Add animations here (Same as Spawn)
 
