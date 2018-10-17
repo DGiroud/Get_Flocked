@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public struct Obstacle
+
+public class ObstacleManager : MonoBehaviour
 {
-    public GameObject prefab;
-    public int amountPerQuadrant;
-}
-
-public class ObstacleManager : MonoBehaviour {
-
-    public GameObject[] spawnPos;
+    //Positions for X and Z
     private float destinationX;
     private float destinationZ;
-    
-    public Obstacle[] obstaclePrefabs;
+
+    [SerializeField]
+    public List<GameObject> spawnZone;          //Spawn zone of the Random Spawn Placement
+    public List<GameObject> spawnObj;           //The selected spawn object(s)
+    public List<GameObject> spawnedObj;         //Object to be spawned
+
+
     // singleton instance
     #region singleton
 
@@ -35,47 +34,58 @@ public class ObstacleManager : MonoBehaviour {
     #endregion
 
     // Use this for initialization
-    private void Start ()
+    private void Start()
     {
         instance = this;
         SpawnObjects();
     }
 
+    /// SpawnObjects()
+    /// Selects random range for spawn object
+    /// Instantiate spawnObj to a random destination and transforms the rotation of the spawn position 
+    /// </summary>
     void SpawnObjects()
     {
-        foreach(GameObject spawnPos in spawnPos)
+        foreach (GameObject spawnPos in spawnedObj)
         {
-
-            //int select = Random.Range(0, spawnObj.Count);
-            //Instantiate(spawnObj[select], spawnPos.transform.position, spawnPos.transform.rotation);
-            //RandomDestination();
-            //Debug.Log("Obsatcle spawned" + spawnObj);
-
-
+            int select = Random.Range(0, spawnObj.Count);
+            Instantiate(spawnObj[select], RandomDestination(), spawnPos.transform.rotation);
         }
+
     }
 
-    void RandomDestination()
+    /// RandomDestination()
+    /// Setting newPos as Vector3 for the distination points of X and Z and setting them as newPos.x and newPos.z
+    /// Assigning randomZone to the function RandomZone()
+    /// Setting min/max values then finding a random range for min/max
+    /// </summary>
+    /// <returns>The new position within the randomZone</returns>
+    private Vector3 RandomDestination()
     {
         Vector3 newPos = new Vector3();
         destinationX = newPos.x;
         destinationZ = newPos.z;
-        foreach (GameObject spawnPos in spawnPos)
-        {
-            newPos.x = UnityEngine.Random.Range(Random.Range(10, -20), Random.Range(0, -0));
-            newPos.z = UnityEngine.Random.Range(Random.Range(10, -20), Random.Range(0, -0));
 
+        GameObject randomZone = RandomZone();
 
+        #region MinMax
+        float xMin = -randomZone.transform.localScale.x * 0.5f + randomZone.transform.position.x;
+        float xMax = randomZone.transform.localScale.x * 0.5f + randomZone.transform.position.x;
+        float zMin = -randomZone.transform.localScale.z * 0.5f + randomZone.transform.position.z;
+        float zMax = randomZone.transform.localScale.z * 0.5f + randomZone.transform.position.z;
 
-          // float obsSpawnX = spawnPos.transform.position.x;
-          // float obsSpawnZ = spawnPos.transform.position.z;
-          //
-          // newPos.x = UnityEngine.Random.Range(obsSpawnX - spawnPos.transform.position.x / 2,
-          //                                     obsSpawnX + spawnPos.transform.position.x / 2);
-          //
-          // newPos.z = UnityEngine.Random.Range(obsSpawnZ - spawnPos.transform.position.z / 2,
-          //                                     obsSpawnZ + spawnPos.transform.position.z / 2);
-        }
+        #endregion
+
+        newPos.x = Random.Range(xMin, xMax);
+        newPos.z = Random.Range(zMin, zMax);
+        return newPos;
+
     }
 
+    /// RandomZone()
+    /// <returns>Returns a random spawnZone for RandomZone </returns>
+    GameObject RandomZone()
+    {
+        return spawnZone[Random.Range(0, spawnZone.Count)];
+    }
 }
