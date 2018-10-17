@@ -76,7 +76,7 @@ public class PlayerManager : MonoBehaviour
     {
         List<GamePadState> output = new List<GamePadState>();
 
-        for (int i = 0; i < (int)PlayerIndex.Four; i++)
+        for (int i = 0; i <= (int)PlayerIndex.Four; i++)
         {
             // get gamepad 0, 1, 2, etc.
             GamePadState gamePad = GamePad.GetState((PlayerIndex)i);
@@ -105,7 +105,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         // for every non-connected gamepad...
-        for (int i = gamePads.Count; i < actorStartPositions.Length - 1; i++)
+        for (int i = gamePads.Count; i < actorStartPositions.Length; i++)
         {
             // ...create a CPU
             players.Add(InstantiateCPU(i));

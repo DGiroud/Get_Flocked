@@ -2451,8 +2451,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc43561425941940bc711d0f880bded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOver: {fileID: 102900000, guid: d587e2817b07c324fa073ece77da0eb8, type: 3}
   maxRounds: 3
-  roundLength: 90
+  roundLength: 60
 --- !u!1001 &1126509777
 Prefab:
   m_ObjectHideFlags: 0
