@@ -19,7 +19,9 @@ public class BaseObstacle : MonoBehaviour {
             Destroy(collision.gameObject);
        }
     }
-
+    /// <summary>
+    /// Destorys the object
+    /// </summary>
     void Destroy()
     {
         Destroy();
