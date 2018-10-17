@@ -25,42 +25,55 @@ public class LevelManager : MonoBehaviour {
     #endregion
     [SerializeField]
     private Object gameOver;
+    public float roundTimer;
+    static private int[] scores;
 
-    public int maxRounds;               //Max rounds per game
+
+    public int maxRounds;              //Max rounds per game
     public float roundLength;          //Max amount of time for the rounds
+    static int currentRound = 0;       //Show current round
 
-    static int currentRound = 0;          //Show current round
+    // Update is called once per frame
+    void Update()
+    {
+        roundTimer -= Time.deltaTime;
+
+        if (roundTimer <= 0.5f)
+            NewRound();
+    }
+    private void Awake ()
+    {
+        instance = this;
+        currentRound = 0;
+        roundTimer = roundLength;
+    }
     static public int GetCurrentRound()
     { 
+        //returning currentRound
         return currentRound;
     }
 
-    // Update is called once per frame
-    void Update() {
-
+    #region NewRound
+    /// <summary>
+    ///Reloading level(s)
+    ///Clearing map of sheep + reload map
+    ///Repositioning players back to spawn locations
+    ///Reset time (roundTimer)
+    /// </summary>
+    #endregion
+    public void NewRound()
+    {
         //If it is the last round, the SceneManager will be loaded to the end game level 
         if (currentRound == maxRounds)
         {
             SceneManager.LoadScene(gameOver.name);
         }
-    }
 
-    private void Awake ()
-    {
-        instance = this;
-        currentRound = 0;
-    }
-
-    #region Summary(NewRound)
-    //Reloading level(s)
-    //Clearing map of sheep + reload map
-    //Repositioning players back to spawn locations
-    //Reset time (roundTimer)
-    #endregion
-    public void NewRound()
-    {
         currentRound++;
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
+
+
+
 }
