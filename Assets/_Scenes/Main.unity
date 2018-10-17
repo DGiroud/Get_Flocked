@@ -1239,13 +1239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82085f605006a0a47bc0af05a63eb93d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundText: {fileID: 542859216}
-  timerText: {fileID: 382861275}
-  scoreTexts:
-  - {fileID: 141552881}
-  - {fileID: 556912814}
-  - {fileID: 1606775113}
-  - {fileID: 267480034}
 --- !u!1001 &547343598
 Prefab:
   m_ObjectHideFlags: 0
@@ -2289,6 +2282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc43561425941940bc711d0f880bded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOver: {fileID: 0}
   maxRounds: 3
   roundLength: 60
 --- !u!1001 &1129674613
@@ -3827,7 +3821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 1946791718678068, guid: beee7f1e3dc66424fb1d58aafe607fec,
     type: 2}
-  CPUPrefab: {fileID: 1946791718678068, guid: cea9338b053928349832ce309cb3db05, type: 2}
+  CPUPrefab: {fileID: 1946791718678068, guid: 2233ce9601f0e3c4fb459de745ad0f72, type: 2}
   actorColours:
   - {fileID: 2100000, guid: 58b5eace635df4e4a929516adc2a2805, type: 2}
   - {fileID: 2100000, guid: 2d504da699c59194d928a9ab3ef59891, type: 2}
