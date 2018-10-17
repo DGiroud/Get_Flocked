@@ -23,6 +23,8 @@ public class LevelManager : MonoBehaviour {
     }
 
     #endregion
+    [SerializeField]
+    private Object gameOver;
 
     public int maxRounds;               //Max rounds per game
     public float roundLength;          //Max amount of time for the rounds
@@ -38,13 +40,15 @@ public class LevelManager : MonoBehaviour {
 
         //If it is the last round, the SceneManager will be loaded to the end game level 
         if (currentRound == maxRounds)
-            //SceneManager.LoadScene("endGame");
-            Debug.Log("Game Over!");
+        {
+            SceneManager.LoadScene(gameOver.name);
+        }
     }
 
     private void Awake ()
     {
         instance = this;
+        currentRound = 0;
     }
 
     #region Summary(NewRound)
