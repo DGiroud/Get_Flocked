@@ -28,25 +28,60 @@ public class LevelManager : MonoBehaviour {
     public float roundTimer;
     static private int[] scores;
 
+    public bool roundStart;
+    public float countDown;
 
     public int maxRounds;              //Max rounds per game
     public float roundLength;          //Max amount of time for the rounds
-    static int currentRound = 0;       //Show current round
+    static int currentRound;           //Show current round
+    
+    private void Awake()
+    {
+        instance = this;
+        currentRound = 0;
+        roundTimer = roundLength;
 
-    // Update is called once per frame
+        StartCountDown();
+    }
+    
     void Update()
     {
+        if (roundStart)
+        {
+            CountDown();
+            return;
+        }
+
         roundTimer -= Time.deltaTime;
 
         if (roundTimer <= 0.5f)
             NewRound();
     }
-    private void Awake ()
+    
+    public void StartCountDown()
     {
-        instance = this;
-        currentRound = 0;
-        roundTimer = roundLength;
+        Time.timeScale = 0.0f;
+        roundStart = true;
+        countDown = 5;
     }
+    
+    public void CountDown()
+    {
+        countDown -= Time.unscaledDeltaTime;
+
+        Debug.Log(countDown);
+
+        if (countDown <= 0.0f)
+            StopCountDown();
+    }
+    
+    public void StopCountDown()
+    {
+        Time.timeScale = 1.0f;
+        roundStart = false;
+        countDown = 3.0f;
+    }
+    
     static public int GetCurrentRound()
     { 
         //returning currentRound

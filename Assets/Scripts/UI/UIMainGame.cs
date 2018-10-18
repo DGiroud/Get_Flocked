@@ -3,21 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 
+/// </summary>
+[System.Serializable]
+public struct MainGamePanel
+{
+    // reference to panel
+    public GameObject mainGamePanel;
+
+    // panel fields
+    public Text roundText;
+    public Text timerText;
+    public Text[] scoreTexts;
+}
+
+/// <summary>
+/// 
+/// </summary>
+[System.Serializable]
+public struct CountDownPanel
+{
+    // reference to panel
+    public GameObject countDownPanel;
+
+    // panel fields
+    public Text countDownText;
+}
+
+
+/// <summary>
+/// 
+/// </summary>
 public class UIMainGame : MonoBehaviour
 {
     [SerializeField]
-    private Text roundText;
+    private MainGamePanel mainGamePanel;
+
     [SerializeField]
-    private Text timerText;
-    [SerializeField]
-    private Text[] scoreTexts;
+    private CountDownPanel countDownPanel;
+
 
     /// <summary>
     /// updates the UI round text e.g. "Round 1", "Round 2" etc.
     /// </summary>
     void Start ()
     {
-        roundText.text = "Round " + (LevelManager.GetCurrentRound() + 1).ToString();
+        // set up main game UI
+        mainGamePanel.mainGamePanel.SetActive(false);
+        mainGamePanel.roundText.text = "Round " + (LevelManager.GetCurrentRound() + 1).ToString();
+
+        // set up count down UI
+        countDownPanel.countDownPanel.SetActive(true);
     }
 
     /// <summary>
@@ -25,6 +62,16 @@ public class UIMainGame : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // if it's the start of the round...
+        if (LevelManager.Instance.roundStart)
+        {
+            DrawCountDownText(); // draw count down
+        }
+        else
+        {
+            mainGamePanel.mainGamePanel.SetActive(true);
+            countDownPanel.countDownPanel.SetActive(false);
+        }
         DrawTimerText();
         DrawScoreText();
     }
@@ -42,7 +89,7 @@ public class UIMainGame : MonoBehaviour
         int seconds = (int)(roundTimer % 60);
 
         // print on screen in the format of "00:00"
-        timerText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+        mainGamePanel.timerText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
     }
 
     /// <summary>
@@ -55,6 +102,21 @@ public class UIMainGame : MonoBehaviour
 
         // iterate over scores and print on screen
         for (int i = 0; i < scores.Length; i++)
-            scoreTexts[i].text = scores[i].ToString();
+            mainGamePanel.scoreTexts[i].text = scores[i].ToString();
+    }
+
+    /// <summary>
+    /// draws the count down timer which plays at the start of each round
+    /// </summary>
+    private void DrawCountDownText()
+    {
+        // get seconds
+        int seconds = (int)(LevelManager.Instance.countDown % 60);
+
+        // print "3... 2... 1... GO!"
+        if (seconds >= 1)
+            countDownPanel.countDownText.text = seconds.ToString(); // print on screen
+        else
+            countDownPanel.countDownText.text = "GET FLOCKED!";
     }
 }
