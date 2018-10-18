@@ -6,6 +6,7 @@ public class WanderBehaviour : StateMachineBehaviour {
 
     GameObject sheep;
     Transform sheepPos;
+    float timer = 0.0f;
 
     Vector3 newPos;
     float destCheckRadius;
@@ -26,19 +27,19 @@ public class WanderBehaviour : StateMachineBehaviour {
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //Position and rotation updates
+        if (sheep.GetComponent<Rigidbody>())
         sheep.GetComponent<Rigidbody>().AddRelativeForce(newPos, ForceMode.Force);
 
+        timer += Time.deltaTime;
+
         //Every frame we check whether the sheep is within an acceptable range or not, wherein we change to our Idle state
-        if ((sheepPos.position.x == newPos.x) || (sheepPos.position.z == newPos.z))
+        if ((sheepPos.position.x >= newPos.x - 2f) || (sheepPos.position.x <= newPos.x + 2f ||
+             sheepPos.position.z >= newPos.z - 2f) || sheepPos.position.z <= newPos.z + 2f) 
         {
             sheep.GetComponent<Sheep>().SetIdleTrue();
         }
 
-        //Check if outside field
-        if(sheep.GetComponent<Sheep>().CheckOutsideField(sheep) == true)
-        {
-            sheep.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 0), ForceMode.Force);
-        }
+        LeashSheep();        
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
@@ -47,13 +48,18 @@ public class WanderBehaviour : StateMachineBehaviour {
         sheep.GetComponent<Sheep>().SetIdleTrue();
     }
 
-    // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
+    //This function helps to keep the sheep INSIDE the play area, by applying an opposing force when they try to leave.
+    void LeashSheep()
+    {
+        float spawnForce = Random.Range(sheep.GetComponent<Sheep>().spawnRangeForce.x, sheep.GetComponent<Sheep>().spawnRangeForce.y);
 
-    // OnStateIK is called right after Animator.OnAnimatorIK(). Code that sets up animation IK (inverse kinematics) should be implemented here.
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
+        if (sheep.transform.position.x <= -16)
+            sheep.GetComponent<Rigidbody>().AddForce(spawnForce, 0, 0, ForceMode.Force);
+        else if (sheep.transform.position.x >= 16)
+            sheep.GetComponent<Rigidbody>().AddForce(-spawnForce, 0, 0, ForceMode.Force);
+        else if (sheep.transform.position.z <= -16)
+            sheep.GetComponent<Rigidbody>().AddForce(0, 0, spawnForce, ForceMode.Force);
+        else if (sheep.transform.position.z >= 16)
+            sheep.GetComponent<Rigidbody>().AddForce(0, 0, -spawnForce, ForceMode.Force);
+    }
 }

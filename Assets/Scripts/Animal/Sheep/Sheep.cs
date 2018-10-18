@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.AI;   //Needed for NavMeshAgent
 using System;
 
 public class Sheep : MonoBehaviour {
@@ -18,7 +17,8 @@ public class Sheep : MonoBehaviour {
     [Tooltip("The range of force that the sheep will be moved at when spawned")]
     public Vector2 spawnRangeForce;
     //public float 
-    private Vector3 newPosDebug;                //Variable so we can actively see where the sheep is trying to go during runtime
+    [Tooltip("FOR DEBUG, READ ONLY")]
+    private Vector3 newPosDebug;                //Variable so we can actively see where the sheep is trying to go during runtime[DEBUG ONLY]
     private float fieldPosX;
     private float fieldPosZ;
     public string currentBehaviour;
@@ -37,7 +37,11 @@ public class Sheep : MonoBehaviour {
 
     void Update()
     {
-        
+        //if the sheep's y axis reaches too far into the negatives (meaning that it's fallen off the edge or through teh floor), 
+        // put it back into the object pool
+
+        if (transform.position.y < -1)
+            SheepManager.Instance.DestroySheep(gameObject);
     }
 
     #region Set Sheep Behaviours Functions
@@ -78,26 +82,24 @@ public class Sheep : MonoBehaviour {
     //Function to pull a new random position within the confines of the play field
     public Vector3 GetNewDestination()
     {
-        Vector3 newPos = new Vector3
-        {
+        Vector3 newPos = new Vector3();
 
-            #region Comments
-            //Here we are getting the current field's position (as it may change in size through playtesting) and setting a new random point
-            // within the field limits by getting the localScale (size) and halving it, which will give us the correct dimensions in all directions.
-            // E.G. If the width of the field is 25, we want 12.5 from the center going in both directions, so we would find a random point in a range
-            // between -12.5 and 12.5;
-            #endregion
-            x = UnityEngine.Random.Range(fieldPosX - fieldObject.transform.localScale.x / 2.5f,
-                                            fieldPosX + fieldObject.transform.localScale.x / 2.5f),
 
-            z = UnityEngine.Random.Range(fieldPosZ - fieldObject.transform.localScale.z / 2.5f,
-                                            fieldPosZ + fieldObject.transform.localScale.z / 2.5f)
-        };
+        #region Comments
+        //Here we are getting the current field's position (as it may change in size through playtesting) and setting a new random point
+        // within the field limits by getting the localScale (size) and halving it, which will give us the correct dimensions in all directions.
+        // E.G. If the width of the field is 25, we want 12.5 from the center going in both directions, so we would find a random point in a range
+        // between -12.5 and 12.5;
+        #endregion
+        newPos.x = UnityEngine.Random.Range(fieldPosX - fieldObject.transform.localScale.x / 2.5f,
+            fieldPosX + fieldObject.transform.localScale.x / 2.5f);
+
+        newPos.z = UnityEngine.Random.Range(fieldPosZ - fieldObject.transform.localScale.z / 2.5f,
+            fieldPosZ + fieldObject.transform.localScale.z / 2.5f);
+
         newPosDebug = newPos;
 
         return newPos;
-        //We've changed this function to now return a new position into the object calling it, rather than directly setting the direction
-        // for the agent
     }
 
     //Function checks if a sheep has moved outside of the given play field area

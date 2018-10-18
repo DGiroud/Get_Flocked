@@ -69,7 +69,6 @@ public class LevelManager : MonoBehaviour {
     {
         countDown -= Time.unscaledDeltaTime;
 
-        Debug.Log(countDown);
 
         if (countDown <= 0.0f)
             StopCountDown();

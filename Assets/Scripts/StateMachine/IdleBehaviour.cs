@@ -24,7 +24,7 @@ public class IdleBehaviour : StateMachineBehaviour {
         timer += Time.deltaTime;
 
         //If the sheep has remained idle for a specified amount of time, seek a new location
-        if (timer > 3f)
+        if (timer > 1f)
         { 
             timer = 0f;
             sheep.GetComponent<Sheep>().SetWanderTrue();
@@ -36,14 +36,4 @@ public class IdleBehaviour : StateMachineBehaviour {
     {
         sheep.GetComponent<Sheep>().SetWanderTrue();
     }
-
-    // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK(). Code that sets up animation IK (inverse kinematics) should be implemented here.
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
 }

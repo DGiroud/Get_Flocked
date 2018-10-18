@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -60,6 +61,11 @@ public class SheepManager : MonoBehaviour
     [Header("Patterned Sheep")]
     [SerializeField]
     private PatternedSheep[] patternedSheep;
+
+    internal void DestroySheep(Sheep sheep)
+    {
+        throw new NotImplementedException();
+    }
     #endregion
 
     // start-up variables
@@ -173,7 +179,7 @@ public class SheepManager : MonoBehaviour
         nextSheep.SetActive(true); // show sheep
 
         // adjust spawn variance
-        variance = Random.Range(-spawnRateVariance, spawnRateVariance);
+        variance = UnityEngine.Random.Range(-spawnRateVariance, spawnRateVariance);
 
         return nextSheep;
     }
