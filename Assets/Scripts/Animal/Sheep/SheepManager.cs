@@ -171,7 +171,6 @@ public class SheepManager : MonoBehaviour
         // spawn it
         nextSheep.transform.position = nextSpawnPoint.position; // adjust position
         nextSheep.SetActive(true); // show sheep
-        nextSheep.GetComponent<Sheep>().SetState(Sheep.SheepState.Spawn);
 
         // adjust spawn variance
         variance = Random.Range(-spawnRateVariance, spawnRateVariance);

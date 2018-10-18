@@ -19,7 +19,7 @@ public class Interaction : MonoBehaviour
         BaseActor playerScript = GetComponentInParent<BaseActor>();
 
         // if the sheep is already being pushed then it can't be picked up
-        if (other.GetComponent<Sheep>().GetState() == Sheep.SheepState.Push)
+        if (other.GetComponent<Animator>().GetBool("isPushed"))
         {
             playerScript.interactionSheep = other.gameObject;
             return;
