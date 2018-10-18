@@ -36,7 +36,8 @@ public class Sheep : MonoBehaviour {
     //public float 
     private Vector3 newPosDebug;                //Variable so we can actively see where the sheep is trying to go during runtime
     private float fieldPosX;
-    private float fieldPosZ;    
+    private float fieldPosZ;
+    public string currentBehaviour;
 
 
     // Use this for initialization

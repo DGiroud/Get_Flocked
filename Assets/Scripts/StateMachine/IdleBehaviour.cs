@@ -11,12 +11,10 @@ public class IdleBehaviour : StateMachineBehaviour {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (sheep.GetComponent<Rigidbody>() == null)
-        {
-            sheep.AddComponent<Rigidbody>();
-        }
-
         sheep = animator.gameObject;
+
+        sheep.GetComponent<Sheep>().currentBehaviour = "Idle Behaviour";
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

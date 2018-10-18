@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class KickBehaviour : StateMachineBehaviour {
 
-
-
     GameObject sheep;
+    float timer = 0.0f;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         sheep = animator.gameObject;
+
+        sheep.GetComponent<Sheep>().currentBehaviour = "Kick Behaviour";
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //This is the function we use to check whether or not the sheep has hit the ground after being kicked
-        // and we add a timer so that after 3 seconds of rolling, it will return to it's Idle state
+        timer += Time.deltaTime;
+
         if (sheep.GetComponent<Sheep>().IsGrounded())
         {
+            if (timer >= 5)
                 animator.SetBool("isWandering", false);
         }
     }

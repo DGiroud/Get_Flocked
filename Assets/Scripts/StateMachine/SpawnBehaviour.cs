@@ -26,6 +26,9 @@ public class SpawnBehaviour : StateMachineBehaviour {
         else if (sheep.transform.position.z >= 16)
             sheep.GetComponent<Rigidbody>().AddForce(0, 0, -spawnForce, ForceMode.Impulse);
 
+        sheep.GetComponent<Sheep>().currentBehaviour = "Spawn Behaviour";
+
+
         animator.SetBool("isWandering", true);
     }
 

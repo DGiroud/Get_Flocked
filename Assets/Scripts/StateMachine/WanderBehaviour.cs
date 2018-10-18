@@ -16,10 +16,7 @@ public class WanderBehaviour : StateMachineBehaviour {
         sheep = animator.gameObject;
         sheepPos = sheep.GetComponent<Transform>();
 
-        if (sheep.GetComponent<Rigidbody>() == null)
-        {
-            sheep.AddComponent<Rigidbody>();
-        }
+        sheep.GetComponent<Sheep>().currentBehaviour = "Wander Behaviour";
 
         //Here we find a new position to seek towards when the object is created
         newPos = sheep.GetComponent<Sheep>().GetNewDestination();
@@ -29,8 +26,6 @@ public class WanderBehaviour : StateMachineBehaviour {
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-
         //Position and rotation updates
         sheep.GetComponent<Rigidbody>().AddRelativeForce(newPos, ForceMode.Force);
 

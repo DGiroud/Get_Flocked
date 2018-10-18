@@ -172,8 +172,9 @@ MonoBehaviour:
     score: 20
     speedModifier: 0
   destCheckRadius: 0.01
-  distToGround: 0
-  spawnRangeForce: {x: 5, y: 15}
+  distToGround: 0.2
+  spawnRangeForce: {x: 5, y: 10}
+  currentBehaviour: 
 --- !u!135 &135333203823168200
 SphereCollider:
   m_ObjectHideFlags: 1
