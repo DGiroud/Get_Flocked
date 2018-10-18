@@ -10,7 +10,6 @@ public class PushBehaviour : StateMachineBehaviour {
         GameObject sheep = animator.gameObject;
 
         sheep.GetComponent<Sheep>().currentBehaviour = "Push Behaviour";
-
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

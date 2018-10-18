@@ -13,7 +13,6 @@ public class SpawnBehaviour : StateMachineBehaviour {
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         sheep = animator.gameObject;
-        sheep.GetComponent<Sheep>().ResetSheep();
 
         spawnForce = Random.Range(sheep.GetComponent<Sheep>().spawnRangeForce.x, sheep.GetComponent<Sheep>().spawnRangeForce.y);
 
@@ -28,8 +27,7 @@ public class SpawnBehaviour : StateMachineBehaviour {
 
         sheep.GetComponent<Sheep>().currentBehaviour = "Spawn Behaviour";
 
-
-        animator.SetBool("isWandering", true);
+        sheep.GetComponent<Sheep>().SetWanderTrue();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

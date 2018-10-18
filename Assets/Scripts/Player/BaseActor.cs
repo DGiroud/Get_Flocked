@@ -132,14 +132,14 @@ public class BaseActor : MonoBehaviour
         Sheep sheepScript = heldSheep.GetComponent<Sheep>();
 
         //                          position              direction                         offset
-        Vector3 snapPosition = transform.position + translation.normalized * (sheepScript.CurrentTier.radius * 2.1f);
+        Vector3 snapPosition = transform.position + translation.normalized * (sheepScript.radius * 2.1f);
         heldSheep.transform.position = snapPosition;
         heldSheep.transform.SetParent(transform); // player now parents sheep
 
         // disable sheep rb
         Destroy(heldSheep.GetComponent<Rigidbody>());
 
-        speed *= sheepScript.CurrentTier.speedModifier;
+        speed *= sheepScript.speedModifier;
     }
 
     /// <summary>

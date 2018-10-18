@@ -13,7 +13,6 @@ public class KickBehaviour : StateMachineBehaviour {
         sheep = animator.gameObject;
 
         sheep.GetComponent<Sheep>().currentBehaviour = "Kick Behaviour";
-
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -24,7 +23,7 @@ public class KickBehaviour : StateMachineBehaviour {
         if (sheep.GetComponent<Sheep>().IsGrounded())
         {
             if (timer >= 5)
-                animator.SetBool("isWandering", false);
+                sheep.GetComponent<Sheep>().SetIdleTrue();
         }
     }
 

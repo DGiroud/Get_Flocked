@@ -158,20 +158,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b9595c6d3a559439c7b00508ba9f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sheepTiers:
-  - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    radius: 0.75
-    score: 10
-    speedModifier: 0
-  - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    radius: 1.5
-    score: 15
-    speedModifier: 0
-  - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    radius: 2
-    score: 20
-    speedModifier: 0
-  destCheckRadius: 0.01
+  radius: 0.75
+  score: 0
+  speedModifier: 0.75
   distToGround: 0.2
   spawnRangeForce: {x: 5, y: 10}
   currentBehaviour: 

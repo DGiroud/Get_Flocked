@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.AI;   //Needed for NavMeshAgent
 using System;
 
@@ -22,12 +23,16 @@ public class Sheep : MonoBehaviour {
     private float fieldPosZ;
     public string currentBehaviour;
 
+    private Animator sheepAnim;
+
     // Use this for initialization
     void Start() {
         fieldObject = GameObject.FindWithTag("Field");
 
         fieldPosX = fieldObject.transform.position.x;
         fieldPosZ = fieldObject.transform.position.z;
+
+        sheepAnim = GetComponent<Animator>();
     }
 
     void Update()
@@ -35,7 +40,37 @@ public class Sheep : MonoBehaviour {
         
     }
 
-     public bool IsGrounded()
+    #region Set Sheep Behaviours Functions
+    public void SetWanderTrue()
+    {
+        sheepAnim.SetBool("isWandering", true);
+        sheepAnim.SetBool("isKicked", false);
+        sheepAnim.SetBool("isPushed", false);
+    }
+
+    public void SetKickedTrue()
+    {
+        sheepAnim.SetBool("isKicked", true);
+        sheepAnim.SetBool("isWandering", false);
+        sheepAnim.SetBool("isPushed", false);
+    }
+
+    public void SetPushedTrue()
+    {
+        sheepAnim.SetBool("isPushed", true);
+        sheepAnim.SetBool("isWandering", false);
+        sheepAnim.SetBool("isKicked", false);
+    }
+
+    public void SetIdleTrue()
+    {
+        sheepAnim.SetBool("isPushed", false);
+        sheepAnim.SetBool("isWandering", false);
+        sheepAnim.SetBool("isKicked", false);
+    }
+    #endregion
+
+    public bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, distToGround);
     }

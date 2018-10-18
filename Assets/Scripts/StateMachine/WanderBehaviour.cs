@@ -20,7 +20,6 @@ public class WanderBehaviour : StateMachineBehaviour {
 
         //Here we find a new position to seek towards when the object is created
         newPos = sheep.GetComponent<Sheep>().GetNewDestination();
-        destCheckRadius = sheep.GetComponent<Sheep>().destCheckRadius;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -30,10 +29,9 @@ public class WanderBehaviour : StateMachineBehaviour {
         sheep.GetComponent<Rigidbody>().AddRelativeForce(newPos, ForceMode.Force);
 
         //Every frame we check whether the sheep is within an acceptable range or not, wherein we change to our Idle state
-        if ((sheepPos.position.x <= newPos.x + destCheckRadius || sheepPos.position.x >= newPos.x - destCheckRadius) ||
-           (sheepPos.position.z <= newPos.z + destCheckRadius || sheepPos.position.z >= newPos.z - destCheckRadius))
+        if ((sheepPos.position.x == newPos.x) || (sheepPos.position.z == newPos.z))
         {
-            animator.SetBool("isWandering", false);
+            sheep.GetComponent<Sheep>().SetIdleTrue();
         }
 
         //Check if outside field
@@ -46,7 +44,7 @@ public class WanderBehaviour : StateMachineBehaviour {
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool("isWandering", false);
+        sheep.GetComponent<Sheep>().SetIdleTrue();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

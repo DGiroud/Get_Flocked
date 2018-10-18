@@ -14,7 +14,6 @@ public class IdleBehaviour : StateMachineBehaviour {
         sheep = animator.gameObject;
 
         sheep.GetComponent<Sheep>().currentBehaviour = "Idle Behaviour";
-
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -28,14 +27,14 @@ public class IdleBehaviour : StateMachineBehaviour {
         if (timer > 3f)
         { 
             timer = 0f;
-            animator.SetBool("isWandering", true);
+            sheep.GetComponent<Sheep>().SetWanderTrue();
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool("isWandering", false);
+        sheep.GetComponent<Sheep>().SetWanderTrue();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
