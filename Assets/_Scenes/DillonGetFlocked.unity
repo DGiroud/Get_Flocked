@@ -920,6 +920,7 @@ GameObject:
   - component: {fileID: 378271769}
   - component: {fileID: 378271768}
   - component: {fileID: 378271767}
+  - component: {fileID: 378271771}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1008,6 +1009,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &378271771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 378271766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e532d8a1d8f5c4c9b8baf63df5c0e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roundText: {fileID: 542859216}
+  timerText: {fileID: 382861275}
+  scoreTexts:
+  - {fileID: 141552881}
+  - {fileID: 556912814}
+  - {fileID: 1606775113}
+  - {fileID: 267480034}
 --- !u!1 &382861272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,7 +1220,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.0000076294, y: -19.593063}
+  m_AnchoredPosition: {x: 0.0000076294, y: -19.593018}
   m_SizeDelta: {x: 326.58, y: 73.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &542859215
@@ -1297,13 +1316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76fb555d77af41418f8f2da309bbc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundText: {fileID: 542859216}
-  timerText: {fileID: 382861275}
-  scoreTexts:
-  - {fileID: 141552881}
-  - {fileID: 556912814}
-  - {fileID: 1606775113}
-  - {fileID: 267480034}
 --- !u!1001 &547343598
 Prefab:
   m_ObjectHideFlags: 0
@@ -4542,10 +4554,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1688817407654430, guid: 840a0b5f9f7c4cc44a2f92e5e7761faa, type: 2}
-  amount: 3
+  amount: 30
   patternedSheep:
   - prefab: {fileID: 1688817407654430, guid: 1d3490bb277c5004eb76e0a4b0ff5608, type: 2}
-    amount: 1
+    amount: 5
   spawnOnStartup: 1
   amountToSpawn: 4
   spawnMode: 1

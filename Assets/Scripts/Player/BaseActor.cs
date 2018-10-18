@@ -12,11 +12,11 @@ public class BaseActor : MonoBehaviour
     #region movement
     [Header("Movement")]
 
-    [SerializeField]
-    private bool canMove = true; // cause why not, right?
+    public bool canMove = true; // cause why not, right?
     public float speed = 1.0f; // how fast player go
-    private Rigidbody playerRigidbody; // reference to rb
+    private float originalSpeed;
     private Vector3 translation;
+    private CharacterController controller;
     #endregion
 
     // actor interaction
@@ -27,8 +27,7 @@ public class BaseActor : MonoBehaviour
     private bool canSnap = true;
     [SerializeField]
     private BoxCollider interactionBox; // hit box in front of player
-    private GameObject interactionSheep; // holds a sheep if there is one in front of the player
-    public GameObject InteractionSheep { get { return interactionSheep; } }
+    public GameObject interactionSheep; // holds a sheep if there is one in front of the player
     private GameObject heldSheep; // null if no sheep, sheep if sheep
     public GameObject HeldSheep { get { return heldSheep; } }
     [SerializeField]
@@ -58,13 +57,14 @@ public class BaseActor : MonoBehaviour
         SetCanSnap(canSnap);
         SetCanKick(canKick);
 
-        playerRigidbody = GetComponent<Rigidbody>();
+        originalSpeed = speed;
+        controller = GetComponent<CharacterController>();
     }
     
     /// <summary>
     /// (Right now) only increments the pick-up buffer timer
     /// </summary>
-    public void Update ()
+    public virtual void Update ()
     {
         pickUpTimer += Time.deltaTime;
     }
@@ -92,10 +92,10 @@ public class BaseActor : MonoBehaviour
         translation.z = yAxis;
 
         // rotation handling
-        playerRigidbody.MoveRotation(Quaternion.LookRotation(translation));
+        transform.rotation = Quaternion.LookRotation(translation);
 
         // perform movement
-        playerRigidbody.AddForce(transform.forward * speed, ForceMode.VelocityChange);
+        controller.SimpleMove(translation * speed);
     }
 
     /// <summary>
@@ -107,36 +107,6 @@ public class BaseActor : MonoBehaviour
         canSnap = toggle;
         interactionBox.enabled = toggle;
         pickUpTimer = 0.0f;
-    }
-
-    /// <summary>
-    /// handle interaction box collision
-    /// </summary>
-    /// <param name="other">the colliding object</param>
-    private void OnTriggerEnter(Collider other)
-    {
-        // if the colliding object isn't a sheep, ignore it
-        if (!other.CompareTag("Sheep"))
-            return;
-
-        // if the sheep is already being pushed then it can't be picked up
-        if (other.GetComponent<Sheep>().GetState() == Sheep.SheepState.Push)
-        {
-            interactionSheep = other.gameObject;
-            return;
-        }
-
-        // snap the sheep to actor
-        SnapSheep(other.gameObject); 
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="other">the colliding object</param>
-    private void OnTriggerExit(Collider other)
-    {
-        interactionSheep = null;
     }
 
     /// <summary>
@@ -160,12 +130,14 @@ public class BaseActor : MonoBehaviour
         sheepScript.SetState(Sheep.SheepState.Push);
 
         //                          position              direction                         offset
-        Vector3 snapPosition = transform.position + translation.normalized * (sheepScript.CurrentTier.trueRadius * 2.1f);
+        Vector3 snapPosition = transform.position + translation.normalized * (sheepScript.CurrentTier.radius * 2.1f);
         heldSheep.transform.position = snapPosition;
         heldSheep.transform.SetParent(transform); // player now parents sheep
 
         // disable sheep rb
         Destroy(heldSheep.GetComponent<Rigidbody>());
+
+        speed *= sheepScript.CurrentTier.speedModifier;
     }
 
     /// <summary>
@@ -201,6 +173,8 @@ public class BaseActor : MonoBehaviour
         releasedSheep.transform.SetParent(null);
         releasedSheep.AddComponent<Rigidbody>();
 
+        speed = originalSpeed;
+
         return releasedSheep; // return for convenience sake
     }
 
@@ -212,13 +186,14 @@ public class BaseActor : MonoBehaviour
     public void LaunchSheep(GameObject sheep)
     {
         Sheep sheepScript = sheep.GetComponent<Sheep>(); //script
-        sheepScript.SetState(Sheep.SheepState.Idle);
+        sheepScript.SetState(Sheep.SheepState.Kick);
 
         Rigidbody sheepRigidbody = sheep.GetComponent<Rigidbody>(); //rb
-
+        
         //Giving the player kick force and the sheep some height when kicked
         Vector3 kickVector = translation.normalized * kickForce;
         kickVector.y = kickHeight;
+
         //Adding instant kick force
         sheepRigidbody.AddForce(kickVector, ForceMode.Impulse);
     }

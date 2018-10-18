@@ -22,7 +22,7 @@ public class Player : BaseActor
     /// <summary>
     /// handle player input
     /// </summary>
-    public void FixedUpdate ()
+    public override void Update ()
     {
         switch (playerInput)
         {
@@ -74,9 +74,9 @@ public class Player : BaseActor
                 GameObject sheep = ReleaseSheep();
                 LaunchSheep(sheep);
             }
-            else if (InteractionSheep)
+            else if (interactionSheep)
             {
-                LaunchOpponentsSheep(InteractionSheep);
+                LaunchOpponentsSheep(interactionSheep);
             }
         }
     }

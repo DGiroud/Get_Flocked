@@ -22,22 +22,32 @@ public class SheepPool : MonoBehaviour
         // create normal sheep
         for (int i = 0; i < sheepManager.MaximumSheep; i++)
         {
-            InstantiateObject(sheepManager.SheepPrefab, i);
+            InstantiateSheep(sheepManager.SheepPrefab, i);
         }
 
+        // create patterned sheep
         int currentSheepCount = sheepManager.MaximumSheep;
 
         for (int i = 0; i < sheepManager.PatternedSheeps.Length; i++)
         {
+            // get patterned sheep
             PatternedSheep patternedSheep = sheepManager.PatternedSheeps[i];
 
+            // spawn amount of this particular patterned sheep
             for (int j = 0; j < patternedSheep.amount; j++)
             {
-                InstantiateObject(patternedSheep.prefab, currentSheepCount++);
+                InstantiateSheep(patternedSheep.prefab, currentSheepCount++);
             }
         }
+        
+        // randomise the pool order
+        RandomisePool();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     private int GetPoolSize()
     {
         SheepManager sheepManager = SheepManager.Instance;
@@ -51,16 +61,20 @@ public class SheepPool : MonoBehaviour
         return poolSize;
     }
 
-    private GameObject InstantiateObject(GameObject prefab, int i)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="prefab"></param>
+    /// <param name="i"></param>
+    /// <returns></returns>
+    private void InstantiateSheep(GameObject prefab, int i)
     {
         // create an object
-        GameObject instantiatedObject = Instantiate(prefab);
+        GameObject instantiatedSheep = Instantiate(prefab);
 
-        sheepPool[i] = instantiatedObject; // add sheep to pool
+        sheepPool[i] = instantiatedSheep; // add sheep to pool
         sheepPool[i].SetActive(false); // all sheep inactive on start-up
         availableSheep.Enqueue(sheepPool[i]); // all sheep ready to spawn
-
-        return sheepPool[i];
     }
 
     /// <summary>
@@ -85,6 +99,44 @@ public class SheepPool : MonoBehaviour
     {
         // enqueue sheep to availability pool
         availableSheep.Enqueue(sheep);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void RandomisePool()
+    {
+        GameObject[] availableSheepCopy;
+        availableSheepCopy = new GameObject[availableSheep.Count];
+
+        int iter = 0;
+        while (availableSheep.Count != 0)
+        {
+            availableSheepCopy[iter++] = availableSheep.Dequeue();
+        }
+
+        Shuffle(availableSheepCopy);
+
+        for (int i = 0; i < availableSheepCopy.Length; i++)
+        {
+            availableSheep.Enqueue(availableSheepCopy[i]);
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="array"></param>
+    public void Shuffle(GameObject[] array)
+    {
+        for (int i = 0; i < array.Length; i++)
+        {
+            int randomIndex = Random.Range(i, array.Length);
+
+            GameObject temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
     }
 
     /// <summary>

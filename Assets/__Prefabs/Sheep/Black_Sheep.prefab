@@ -174,19 +174,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sheepTiers:
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    trueRadius: 0.5
-    snapRadius: 1
-    growthRequirement: 5
+    radius: 0
+    speedModifier: 0
     score: -10
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    trueRadius: 0.75
-    snapRadius: 1.5
-    growthRequirement: 5
+    radius: 0
+    speedModifier: 0
     score: -15
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    trueRadius: 1
-    snapRadius: 2
-    growthRequirement: 5
+    radius: 0
+    speedModifier: 0
     score: -20
   wanderDuration: 5
   idleMinRange: 15
