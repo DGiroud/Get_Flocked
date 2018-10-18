@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
 
+#region XInput: !IMPORTANT! 
+//In any C# script you need to access controllers, add the follow line with your using declarations:
+//                  "using XInputDotNetPure;" 
+
+//                      !IMPORTANT NOTE! 
+//XInput.NET is not transferred correctly when Unity builds a project.After
+//building the project, you must copy XInputInterface.dll into
+//your directory containing the built EXE for your project. You
+//can see an example in the XInput.NET binary zip, inside the "Output" directory.
+#endregion
+
 public class PlayerManager : MonoBehaviour
 {
     // singleton instance
