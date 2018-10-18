@@ -54,9 +54,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4321237522564372}
-  - component: {fileID: 54725606639931456}
   - component: {fileID: 114417524914426972}
-  - component: {fileID: 136055936573568870}
   - component: {fileID: 143038031367349644}
   m_Layer: 8
   m_Name: Player_Shepherd
@@ -72,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1946791718678068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.1452842, y: 1.687, z: -3.5596638}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4523317533499778}
@@ -86,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1856436814012792}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.996, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 29.980354, y: 29.980354, z: 29.980354}
   m_Children:
   - {fileID: 4774145530353572}
@@ -188,21 +186,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813340880020054}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54725606639931456
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1946791718678068}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 4
-  m_AngularDrag: 2
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
 --- !u!65 &65844882543617470
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -235,19 +218,6 @@ MonoBehaviour:
   canKick: 1
   kickHeight: 10
   kickForce: 5
---- !u!136 &136055936573568870
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1946791718678068}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &143038031367349644
 CharacterController:
   m_ObjectHideFlags: 1
