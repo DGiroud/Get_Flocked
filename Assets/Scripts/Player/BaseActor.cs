@@ -126,13 +126,12 @@ public class BaseActor : MonoBehaviour
         // adjust position
         heldSheep = sheep; // update sheep reference
 
-        Animator sheepAnimator = heldSheep.GetComponent<Animator>();
-        sheepAnimator.SetBool("isPushed", true);
-
         Sheep sheepScript = heldSheep.GetComponent<Sheep>();
+        sheepScript.SetPushedTrue();
 
         //                          position              direction                         offset
         Vector3 snapPosition = transform.position + translation.normalized * (sheepScript.radius * 2.1f);
+        snapPosition.y += transform.localScale.y;
         heldSheep.transform.position = snapPosition;
         heldSheep.transform.SetParent(transform); // player now parents sheep
 
@@ -168,8 +167,8 @@ public class BaseActor : MonoBehaviour
         GameObject releasedSheep = heldSheep;
         heldSheep = null; // delete reference
 
-        Animator sheepScript = releasedSheep.GetComponent<Animator>();
-        sheepScript.SetBool("isWandering", false);
+        Sheep sheepScript = releasedSheep.GetComponent<Sheep>();
+        sheepScript.SetKickedTrue();
 
         // release sheep child from this
         releasedSheep.transform.SetParent(null);
