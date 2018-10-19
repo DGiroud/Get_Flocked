@@ -29,11 +29,27 @@ public class IdleBehaviour : StateMachineBehaviour {
             timer = 0f;
             sheep.GetComponent<Sheep>().SetWanderTrue();
         }
+
+        LeashSheep();
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         sheep.GetComponent<Sheep>().SetWanderTrue();
+    }
+
+    void LeashSheep()
+    {
+        float spawnForce = Random.Range(sheep.GetComponent<Sheep>().spawnRangeForce.x, sheep.GetComponent<Sheep>().spawnRangeForce.y);
+
+        if (sheep.transform.position.x <= GameObject.Find("Invisible Wall Left").transform.position.x)
+            sheep.GetComponent<Rigidbody>().AddForce(spawnForce, 0, 0, ForceMode.Force);
+        else if (sheep.transform.position.x >= GameObject.Find("Invisible Wall Right").transform.position.x)
+            sheep.GetComponent<Rigidbody>().AddForce(-spawnForce, 0, 0, ForceMode.Force);
+        else if (sheep.transform.position.z <= GameObject.Find("Invisible Wall Bottom").transform.position.z)
+            sheep.GetComponent<Rigidbody>().AddForce(0, 0, spawnForce, ForceMode.Force);
+        else if (sheep.transform.position.z >= GameObject.Find("Invisible Wall Top").transform.position.z)
+            sheep.GetComponent<Rigidbody>().AddForce(0, 0, -spawnForce, ForceMode.Force);
     }
 }

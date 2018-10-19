@@ -38,12 +38,17 @@ public class WanderBehaviour : StateMachineBehaviour {
 
         timer += Time.deltaTime;
 
+        Debug.DrawLine(sheep.GetComponent<Rigidbody>().transform.position, newPos);
+
+        //****************************************************************************************************************
+        //****************************************************************************************************************
         //Every frame we check whether the sheep is within an acceptable range or not, wherein we change to our Idle state
         if ((sheepPos.position.x >= newPos.x - 2f) || (sheepPos.position.x <= newPos.x + 2f ||
-             sheepPos.position.z >= newPos.z - 2f) || sheepPos.position.z <= newPos.z + 2f) 
+             sheepPos.position.z >= newPos.z - 2f) || sheepPos.position.z <= newPos.z + 2f)
         {
             sheep.GetComponent<Sheep>().SetIdleTrue();
         }
+        //****************************************************************************************************************
 
         LeashSheep();        
     }
@@ -59,13 +64,13 @@ public class WanderBehaviour : StateMachineBehaviour {
     {
         float spawnForce = Random.Range(sheep.GetComponent<Sheep>().spawnRangeForce.x, sheep.GetComponent<Sheep>().spawnRangeForce.y);
 
-        if (sheep.transform.position.x <= -16)
+        if (sheep.transform.position.x <= GameObject.Find("Invisible Wall Left").transform.position.x)
             sheep.GetComponent<Rigidbody>().AddForce(spawnForce, 0, 0, ForceMode.Force);
-        else if (sheep.transform.position.x >= 16)
+        else if (sheep.transform.position.x >= GameObject.Find("Invisible Wall Right").transform.position.x)
             sheep.GetComponent<Rigidbody>().AddForce(-spawnForce, 0, 0, ForceMode.Force);
-        else if (sheep.transform.position.z <= -16)
+        else if (sheep.transform.position.z <= GameObject.Find("Invisible Wall Bottom").transform.position.z)
             sheep.GetComponent<Rigidbody>().AddForce(0, 0, spawnForce, ForceMode.Force);
-        else if (sheep.transform.position.z >= 16)
+        else if (sheep.transform.position.z >= GameObject.Find("Invisible Wall Top").transform.position.z)
             sheep.GetComponent<Rigidbody>().AddForce(0, 0, -spawnForce, ForceMode.Force);
     }
 }
