@@ -5,6 +5,7 @@ using UnityEngine;
 public class WanderBehaviour : StateMachineBehaviour {
 
     GameObject sheep;
+    GameObject goalRadius;
     Transform sheepPos;
     float timer = 0.0f;
 
@@ -18,6 +19,9 @@ public class WanderBehaviour : StateMachineBehaviour {
         sheepPos = sheep.GetComponent<Transform>();
 
         sheep.GetComponent<Sheep>().currentBehaviour = "Wander Behaviour";
+
+        //Finding each of the radius' surrounding the goals, where the sheep will be forced away from should they enter the perimeter 
+        goalRadius = GameObject.FindWithTag("GoalRadius");
 
         //Here we find a new position to seek towards when the object is created
         newPos = sheep.GetComponent<Sheep>().GetNewDestination();

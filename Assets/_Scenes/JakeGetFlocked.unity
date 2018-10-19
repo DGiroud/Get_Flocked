@@ -220,6 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0.7379308, g: 0, b: 1, a: 1}
   lineColour: {r: 1, g: 0, b: 0.972414, a: 1}
+  collider: 0
 --- !u!23 &42518708
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -562,6 +563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.7931032, b: 1, a: 0.309}
   lineColour: {r: 0, g: 0.83448315, b: 1, a: 1}
+  collider: 0
 --- !u!23 &367765346
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1064,6 +1066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 1, g: 0, b: 0, a: 1}
   lineColour: {r: 1, g: 0, b: 0, a: 1}
+  collider: 0
 --- !u!23 &667963032
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1162,6 +1165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.7931032, b: 1, a: 0.309}
   lineColour: {r: 0, g: 0.83448315, b: 1, a: 1}
+  collider: 0
 --- !u!23 &690556802
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1336,6 +1340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.5448277, b: 1, a: 1}
   lineColour: {r: 0, g: 0.66896534, b: 1, a: 1}
+  collider: 0
 --- !u!23 &727141501
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1744,6 +1749,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 1, g: 0, b: 0, a: 1}
   lineColour: {r: 1, g: 0, b: 0, a: 1}
+  collider: 0
 --- !u!23 &799030704
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2040,6 +2046,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.7931032, b: 1, a: 0.309}
   lineColour: {r: 0, g: 0.83448315, b: 1, a: 1}
+  collider: 0
 --- !u!23 &1005650145
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2195,6 +2202,57 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1013330258}
+--- !u!1001 &1051988968
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 755588053}
+    m_Modifications:
+    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -12.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 13.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.70710576
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.70710784
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 199673874463311932, guid: c3585ef17f376e540a5c6d10c62a25a8,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97269f425e1a6048aa7a2468fce4e4a, type: 2}
+    - target: {fileID: 1500110436236752, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
+      propertyPath: m_Name
+      value: Player 1 Pen
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1098024262
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,6 +2298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0.7379308, g: 0, b: 1, a: 1}
   lineColour: {r: 1, g: 0, b: 0.972414, a: 1}
+  collider: 0
 --- !u!23 &1098024265
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2394,57 +2453,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4791669510423152, guid: 35a702a1c7346524e84c085d853f68a8,
     type: 2}
   m_PrefabInternal: {fileID: 1133795804}
---- !u!1001 &1136827413
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 755588053}
-    m_Modifications:
-    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -12.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 13.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0.70710576
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.70710784
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_RootOrder
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1500110436236752, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_Name
-      value: Player 1 Pen
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-  m_IsPrefabParent: 0
 --- !u!4 &1136827414 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8,
     type: 2}
-  m_PrefabInternal: {fileID: 1136827413}
+  m_PrefabInternal: {fileID: 1051988968}
 --- !u!1001 &1251994467
 Prefab:
   m_ObjectHideFlags: 0
@@ -2598,6 +2611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 1, g: 0, b: 0, a: 1}
   lineColour: {r: 1, g: 0, b: 0, a: 1}
+  collider: 0
 --- !u!23 &1366505722
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2906,23 +2920,6 @@ Prefab:
     - target: {fileID: 1500110436236752, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
       propertyPath: m_Name
       value: Player 2 Pen
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827089312436018, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180.00002
-      objectReference: {fileID: 0}
-    - target: {fileID: 4399838707948898, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4668789600414146, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114532400678954974, guid: c3585ef17f376e540a5c6d10c62a25a8,
-        type: 2}
-      propertyPath: goalID
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3585ef17f376e540a5c6d10c62a25a8, type: 2}
@@ -3563,6 +3560,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0.7379308, g: 0, b: 1, a: 1}
   lineColour: {r: 1, g: 0, b: 0.972414, a: 1}
+  collider: 0
 --- !u!23 &1671815703
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3641,13 +3639,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1703985269}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 21.260588, y: 0.4252118, z: 21.260588}
+  m_LocalRotation: {x: -0, y: 0.38203174, z: -0, w: 0.9241492}
+  m_LocalPosition: {x: 0, y: 1.03, z: 0}
+  m_LocalScale: {x: 22.5, y: 0.4252118, z: 22.5}
   m_Children: []
   m_Father: {fileID: 755588053}
   m_RootOrder: 20
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 44.919003, z: 0}
 --- !u!114 &1703985271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3661,6 +3659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 1, g: 0, b: 0.93103456, a: 0}
   lineColour: {r: 1, g: 0, b: 0.64137936, a: 1}
+  collider: 0
 --- !u!23 &1703985272
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3848,6 +3847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 1, g: 0, b: 0, a: 1}
   lineColour: {r: 1, g: 0, b: 0, a: 1}
+  collider: 0
 --- !u!23 &1797893436
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4012,6 +4012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0.7379308, g: 0, b: 1, a: 1}
   lineColour: {r: 1, g: 0, b: 0.972414, a: 1}
+  collider: 0
 --- !u!23 &1912624309
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4110,6 +4111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.7931032, b: 1, a: 0.309}
   lineColour: {r: 0, g: 0.83448315, b: 1, a: 1}
+  collider: 0
 --- !u!23 &1951924333
 MeshRenderer:
   m_ObjectHideFlags: 0
