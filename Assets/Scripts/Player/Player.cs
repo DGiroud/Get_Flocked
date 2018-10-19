@@ -101,8 +101,11 @@ public class Player : BaseActor
         // space to kick sheep
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject sheep = ReleaseSheep();
-            LaunchSheep(sheep);
+            if (HeldSheep)
+            {
+                GameObject sheep = ReleaseSheep();
+                LaunchSheep(sheep);
+            }
         }
     }
 }

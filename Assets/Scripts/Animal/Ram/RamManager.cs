@@ -31,11 +31,7 @@ public class RamManager : MonoBehaviour
     [SerializeField]
     [Tooltip("Fill this with a transform (empty game object)")]
     private Transform ramSpawnPoint;
-    [Tooltip("Minimum time (in seconds) between spawns")]
-    public float ramSpawnRate;
-    [Tooltip("Randomises the spawn rate a little." +
-        "\nE.g. if spawn rate is 10 & variance is 2, the ram may take anywhere between 8-12 seconds to spawn")]
-    public float spawnRateVariance;
+    public Vector2 spawnTime;
     private float variance = 0.0f;
     private float ramSpawnTimer = 0.0f;
     #endregion
@@ -54,12 +50,8 @@ public class RamManager : MonoBehaviour
         ram = Instantiate(ramPrefab);
         ram.SetActive(false); // hide by default
 
-        // delete me
-        Assert.IsTrue(spawnRateVariance < ramSpawnRate,
-            "Please ensure spawn rate variance is less than spawn rate in the ram manager");
-
         // assign variance upon wake up
-        variance = Random.Range(-spawnRateVariance, spawnRateVariance);
+        variance = Random.Range(spawnTime.x, spawnTime.y);
     }
 	
     /// <summary>
@@ -72,7 +64,7 @@ public class RamManager : MonoBehaviour
         ramSpawnTimer += Time.deltaTime;
 
         // spawn cooldown check
-        if (ramSpawnTimer > ramSpawnRate + variance)
+        if (ramSpawnTimer > variance)
         {
             ramSpawnTimer = 0.0f;
             SpawnRam();
@@ -93,7 +85,7 @@ public class RamManager : MonoBehaviour
         ram.SetActive(true); // show ram
 
         // adjust spawn variance
-        variance = Random.Range(-spawnRateVariance, spawnRateVariance);
+        variance = Random.Range(spawnTime.x, spawnTime.y);
 
         return ram;
     }

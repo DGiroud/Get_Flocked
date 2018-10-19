@@ -29,6 +29,7 @@ public struct CountDownPanel
 
     // panel fields
     public Text countDownText;
+    public string[] startTexts;
 }
 
 
@@ -43,6 +44,8 @@ public class UIMainGame : MonoBehaviour
     [SerializeField]
     private CountDownPanel countDownPanel;
 
+    private bool panelToggle = true;
+    private string randomStartText;
 
     /// <summary>
     /// updates the UI round text e.g. "Round 1", "Round 2" etc.
@@ -55,6 +58,8 @@ public class UIMainGame : MonoBehaviour
 
         // set up count down UI
         countDownPanel.countDownPanel.SetActive(true);
+
+        randomStartText = countDownPanel.startTexts[Random.Range(0, countDownPanel.startTexts.Length)];
     }
 
     /// <summary>
@@ -67,11 +72,13 @@ public class UIMainGame : MonoBehaviour
         {
             DrawCountDownText(); // draw count down
         }
-        else
+        else if (panelToggle)
         {
             mainGamePanel.mainGamePanel.SetActive(true);
             countDownPanel.countDownPanel.SetActive(false);
+            panelToggle = false;
         }
+
         DrawTimerText();
         DrawScoreText();
     }
@@ -112,11 +119,11 @@ public class UIMainGame : MonoBehaviour
     {
         // get seconds
         int seconds = (int)(LevelManager.Instance.countDown % 60);
-
+        
         // print "3... 2... 1... GO!"
         if (seconds >= 1)
             countDownPanel.countDownText.text = seconds.ToString(); // print on screen
         else
-            countDownPanel.countDownText.text = "GET FLOCKED!";
+            countDownPanel.countDownText.text = randomStartText;
     }
 }

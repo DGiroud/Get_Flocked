@@ -7,6 +7,8 @@ public class SheepPool : MonoBehaviour
     private GameObject[] sheepPool; // the collection of sheep
     private Queue<GameObject> availableSheep; // sheep which can be spawned
 
+    private int poolSize = 0;
+
     /// <summary>
     /// initialises the sheep object pool, instantiates and hides all sheep
     /// </summary>
@@ -15,28 +17,23 @@ public class SheepPool : MonoBehaviour
         // get sheep manager reference for easy access
         SheepManager sheepManager = SheepManager.Instance;
 
+        SetPoolSize();
+
         // initialise pool
-        sheepPool = new GameObject[GetPoolSize()];
+        sheepPool = new GameObject[poolSize];
         availableSheep = new Queue<GameObject>();
 
-        // create normal sheep
-        for (int i = 0; i < sheepManager.MaximumSheep; i++)
-        {
-            InstantiateSheep(sheepManager.SheepPrefab, i);
-        }
+        int currentSheepCount = 0;
 
-        // create patterned sheep
-        int currentSheepCount = sheepManager.MaximumSheep;
-
-        for (int i = 0; i < sheepManager.PatternedSheeps.Length; i++)
+        for (int i = 0; i < sheepManager.sheeps.Length; i++)
         {
             // get patterned sheep
-            PatternedSheep patternedSheep = sheepManager.PatternedSheeps[i];
+            SheepType sheep = sheepManager.sheeps[i];
 
             // spawn amount of this particular patterned sheep
-            for (int j = 0; j < patternedSheep.amount; j++)
+            for (int j = 0; j < sheep.amount; j++)
             {
-                InstantiateSheep(patternedSheep.prefab, currentSheepCount++);
+                InstantiateSheep(sheep.prefab, currentSheepCount++);
             }
         }
         
@@ -48,17 +45,14 @@ public class SheepPool : MonoBehaviour
     /// 
     /// </summary>
     /// <returns></returns>
-    private int GetPoolSize()
+    private void SetPoolSize()
     {
         SheepManager sheepManager = SheepManager.Instance;
-        int poolSize = sheepManager.MaximumSheep;
 
-        for (int i = 0; i < sheepManager.PatternedSheeps.Length; i++)
+        for (int i = 0; i < sheepManager.sheeps.Length; i++)
         {
-            poolSize += sheepManager.PatternedSheeps[i].amount;
+            poolSize += sheepManager.sheeps[i].amount;
         }
-
-        return poolSize;
     }
 
     /// <summary>
@@ -157,5 +151,22 @@ public class SheepPool : MonoBehaviour
     {
         // sheep count = total sheep - available (inactive) sheep
         return (sheepPool.Length - availableSheep.Count);
+    }
+
+    public GameObject[] GetActiveSheep()
+    {
+        GameObject[] activeSheep = new GameObject[GetSheepCount()];
+        int j = 0;
+
+        // iterate over all sheep in pool
+        for (int i = 0; i < sheepPool.Length; i++)
+        {
+            GameObject sheep = sheepPool[i]; // get a sheep
+
+            if (!availableSheep.Contains(sheep))
+                activeSheep[j++] = sheep;
+        }
+
+        return activeSheep;
     }
 }

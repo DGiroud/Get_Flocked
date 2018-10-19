@@ -25,20 +25,22 @@ public class LevelManager : MonoBehaviour {
     #endregion
     [SerializeField]
     private Object gameOver;
+    [HideInInspector]
     public float roundTimer;
     static private int[] scores;
 
+    [HideInInspector]
     public bool roundStart;
+    [HideInInspector]
     public float countDown;
 
     public int maxRounds;              //Max rounds per game
     public float roundLength;          //Max amount of time for the rounds
-    static int currentRound;           //Show current round
+    static int currentRound = 0;           //Show current round
     
     private void Awake()
     {
         instance = this;
-        currentRound = 0;
         roundTimer = roundLength;
 
         StartCountDown();
@@ -68,7 +70,6 @@ public class LevelManager : MonoBehaviour {
     public void CountDown()
     {
         countDown -= Time.unscaledDeltaTime;
-
 
         if (countDown <= 0.0f)
             StopCountDown();
@@ -107,7 +108,4 @@ public class LevelManager : MonoBehaviour {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
-
-
-
 }
