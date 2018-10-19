@@ -6,10 +6,6 @@ using System;
 
 public class Sheep : MonoBehaviour {
 
-    //******************************************************************************************************************
-    // Add a radius surrounding the goals, and as the sheep enter the radius, an "away" force is applied, repelling them
-    //******************************************************************************************************************
-
     GameObject fieldObject;     //Reference to the field, so that we can find a new position relative to it's dimensions
     
     public float radius;
@@ -31,6 +27,7 @@ public class Sheep : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+
         fieldObject = GameObject.FindWithTag("Field");
 
         fieldPosX = fieldObject.transform.position.x;
@@ -80,13 +77,17 @@ public class Sheep : MonoBehaviour {
 
     public bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, distToGround);
+        if (Physics.Raycast(transform.position, Vector3.down, distToGround))
+            return true;
+
+        else return false;
     }
 
     //Function to pull a new random position within the confines of the play field
     public Vector3 GetNewDestination()
     {
         Vector3 newPos = new Vector3();
+        Vector3 newDir = new Vector3();
 
         #region Comments
         //Here we are getting the current field's position (as it may change in size through playtesting) and setting a new random point
@@ -102,7 +103,9 @@ public class Sheep : MonoBehaviour {
 
         newPosDebug = newPos;
 
-        return newPos;
+        newDir = GetComponent<Rigidbody>().transform.position - newPos;
+
+        return newDir;
     }
 
     //Function checks if a sheep has moved outside of the given play field area

@@ -25,15 +25,12 @@ public class WanderBehaviour : StateMachineBehaviour {
 
         //Here we find a new position to seek towards when the object is created
         newPos = sheep.GetComponent<Sheep>().GetNewDestination();
-
-
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //Position and rotation updates
-        if (sheep.GetComponent<Rigidbody>())
         sheep.GetComponent<Rigidbody>().AddRelativeForce(newPos, ForceMode.Force);
 
         timer += Time.deltaTime;
@@ -41,10 +38,11 @@ public class WanderBehaviour : StateMachineBehaviour {
         Debug.DrawLine(sheep.GetComponent<Rigidbody>().transform.position, newPos);
 
         //****************************************************************************************************************
+        //Problem lies in this section, wherein the result is always true
         //****************************************************************************************************************
         //Every frame we check whether the sheep is within an acceptable range or not, wherein we change to our Idle state
-        if ((sheepPos.position.x >= newPos.x - 2f) || (sheepPos.position.x <= newPos.x + 2f ||
-             sheepPos.position.z >= newPos.z - 2f) || sheepPos.position.z <= newPos.z + 2f)
+        if(sheep.transform.position.x >= newPos.x - 3 && sheep.transform.position.x <= newPos.x + 3 &&
+           sheep.transform.position.z >= newPos.z - 3 && sheep.transform.position.z <= newPos.z + 3)
         {
             sheep.GetComponent<Sheep>().SetIdleTrue();
         }
