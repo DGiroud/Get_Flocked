@@ -7,11 +7,11 @@ public class WanderBehaviour : StateMachineBehaviour {
     GameObject sheep;
     GameObject goalRadius;
     Transform sheepPos;
-    float timer = 0.0f;
     float sheepSpeed;
 
-    Vector3 newPos;
-    float destCheckRadius;
+    Vector3 newPos = new Vector3();
+
+    Vector3[] currentPath;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -28,32 +28,36 @@ public class WanderBehaviour : StateMachineBehaviour {
 
         //Here we find a new position to seek towards when the object is created
         newPos = sheep.GetComponent<Sheep>().GetNewDestination();
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Vector3 newDir;
+        Vector3 newDir = new Vector3();
+
+        currentPath = PathManager.Instance.FindPath(sheep, newPos);
 
         //Debug, allowing us to see it's current destination
         sheep.GetComponent<Sheep>().newPosDebug = newPos;
 
-        //Work out direction (Destination - current)
-        newDir = newPos - sheep.GetComponent<Rigidbody>().transform.position;
+        ////Work out direction (Destination - current)
+        newDir = currentPath[1] - currentPath[0];
 
-        //Normalise it
+        //Drawing the path
+        PathManager.Instance.DrawPath(currentPath);
+
+        ////Normalise it
         newDir = newDir.normalized;
 
         //Add force using direction * speed
         sheep.GetComponent<Rigidbody>().AddForce(newDir * sheepSpeed, ForceMode.Force);
 
-        Debug.DrawLine(sheep.GetComponent<Rigidbody>().transform.position, newPos);
-
         //Every frame we check whether the sheep is within an acceptable range or not, wherein we change to our Idle state
-        if(sheep.transform.position.x >= newPos.x - 3 && sheep.transform.position.x <= newPos.x + 3 &&
-           sheep.transform.position.z >= newPos.z - 3 && sheep.transform.position.z <= newPos.z + 3)
+        if (sheep.transform.position.x >= newPos.x - 1 && sheep.transform.position.x <= newPos.x + 1 &&
+           sheep.transform.position.z >= newPos.z - 1 && sheep.transform.position.z <= newPos.z + 1)
         {
-            sheep.GetComponent<Sheep>().SetIdleTrue();
+            newPos = sheep.GetComponent<Sheep>().GetNewDestination();
         }
 
         LeashSheep();        
@@ -62,7 +66,6 @@ public class WanderBehaviour : StateMachineBehaviour {
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        sheep.GetComponent<Sheep>().SetIdleTrue();
     }
 
     //This function helps to keep the sheep INSIDE the play area, by applying an opposing force when they try to leave.

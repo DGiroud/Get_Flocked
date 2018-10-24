@@ -19,16 +19,8 @@ public class IdleBehaviour : StateMachineBehaviour {
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-
-        timer += Time.deltaTime;
-
-        //If the sheep has remained idle for a specified amount of time, seek a new location
-        if (timer > 1f)
-        { 
-            timer = 0f;
-            sheep.GetComponent<Sheep>().SetWanderTrue();
-        }
+        //If the sheep has remained idle for a specified amount of time, seek a new location       
+        sheep.GetComponent<Sheep>().SetWanderTrue();        
 
         LeashSheep();
     }

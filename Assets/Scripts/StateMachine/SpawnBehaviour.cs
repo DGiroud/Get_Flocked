@@ -16,13 +16,13 @@ public class SpawnBehaviour : StateMachineBehaviour {
 
         spawnForce = Random.Range(sheep.GetComponent<Sheep>().spawnRangeForce.x, sheep.GetComponent<Sheep>().spawnRangeForce.y);
 
-        if (sheep.transform.position.x <= -16)
+        if (sheep.transform.position.x <= GameObject.Find("Invisible Wall Left").transform.position.x)
             sheep.GetComponent<Rigidbody>().AddForce(spawnForce, 0, 0, ForceMode.Impulse);
-        else if (sheep.transform.position.x >= 16)
+        else if (sheep.transform.position.x >= GameObject.Find("Invisible Wall Right").transform.position.x)
             sheep.GetComponent<Rigidbody>().AddForce(-spawnForce, 0, 0, ForceMode.Impulse);
-        else if (sheep.transform.position.z <= -16)
+        else if (sheep.transform.position.z <= GameObject.Find("Invisible Wall Bottom").transform.position.z)
             sheep.GetComponent<Rigidbody>().AddForce(0, 0, spawnForce, ForceMode.Impulse);
-        else if (sheep.transform.position.z >= 16)
+        else if (sheep.transform.position.z >= GameObject.Find("Invisible Wall Top").transform.position.z)
             sheep.GetComponent<Rigidbody>().AddForce(0, 0, -spawnForce, ForceMode.Impulse);
 
         sheep.GetComponent<Sheep>().currentBehaviour = "Spawn Behaviour";
