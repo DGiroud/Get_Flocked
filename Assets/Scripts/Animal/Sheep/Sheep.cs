@@ -6,7 +6,9 @@ using System;
 public class Sheep : MonoBehaviour {
 
     GameObject fieldObject;     //Reference to the field, so that we can find a new position relative to it's dimensions
-    
+
+    [Tooltip("How fast the sheep will move towards it's destination")]
+    public float speed;
     public float radius;
     public int score;
     [Range(0, 1.0f)]
@@ -17,7 +19,7 @@ public class Sheep : MonoBehaviour {
     public Vector2 spawnRangeForce;
     //public float 
     [Tooltip("FOR DEBUG, READ ONLY")]
-    private Vector3 newPosDebug;                //Variable so we can actively see where the sheep is trying to go during runtime[DEBUG ONLY]
+    public Vector3 newPosDebug;                //Variable so we can actively see where the sheep is trying to go during runtime[DEBUG ONLY]
     private float fieldPosX;
     private float fieldPosZ;
     public string currentBehaviour;
@@ -86,7 +88,6 @@ public class Sheep : MonoBehaviour {
     public Vector3 GetNewDestination()
     {
         Vector3 newPos = new Vector3();
-        Vector3 newDir = new Vector3();
 
         #region Comments
         //Here we are getting the current field's position (as it may change in size through playtesting) and setting a new random point
@@ -100,11 +101,10 @@ public class Sheep : MonoBehaviour {
         newPos.z = UnityEngine.Random.Range(fieldPosZ - fieldObject.transform.localScale.z / 2f,
             fieldPosZ + fieldObject.transform.localScale.z / 2f);
 
+        //So we can the numbers during runtime for Debug
         newPosDebug = newPos;
 
-        newDir = GetComponent<Rigidbody>().transform.position - newPos;
-
-        return newDir;
+        return newPos;
     }
 
     //Function checks if a sheep has moved outside of the given play field area

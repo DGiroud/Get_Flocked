@@ -997,11 +997,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b9595c6d3a559439c7b00508ba9f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
   radius: 0.875
   score: 20
-  speedModifier: 0.5
+  speedModifier: 0.75
   distToGround: 1.75
   spawnRangeForce: {x: 5, y: 10}
+  newPosDebug: {x: 0, y: 0, z: 0}
   currentBehaviour: 
 --- !u!135 &135642096483343720
 SphereCollider:
