@@ -105,4 +105,16 @@ public class PathManager : MonoBehaviour
         // return the path
         return navMeshPath.corners;
     }
+
+    /// <summary>
+    /// debug function which draws the path between two objects (in scene view)
+    /// </summary>
+    /// <param name="path">the path to draw</param>
+    public void DrawPath(Vector3[] path)
+    {
+        for (int i = 0; i < path.Length - 1; i++)
+        {
+            Debug.DrawLine(path[i], path[i + 1]);
+        }
+    }
 }
