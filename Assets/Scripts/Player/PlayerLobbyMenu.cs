@@ -4,7 +4,7 @@ using UnityEngine;
 using XInputDotNetPure;
 
 
-#region XInput: !IMPORTANT! 
+/*#region XInput: !IMPORTANT! 
 //In any C# script you need to access controllers, add the follow line with your using declarations:
 //                  "using XInputDotNetPure;" 
 
@@ -173,4 +173,4 @@ public class PlayerLobbyMenu : MonoBehaviour {
     //  }
 
     #endregion RandomCode
-}
+}*/

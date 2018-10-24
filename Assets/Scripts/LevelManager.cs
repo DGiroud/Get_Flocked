@@ -99,9 +99,10 @@ public class LevelManager : MonoBehaviour {
     public void NewRound()
     {
         //If it is the last round, the SceneManager will be loaded to the end game level 
-        if (currentRound == maxRounds)
+        if (currentRound == maxRounds - 1)
         {
             SceneManager.LoadScene(gameOver.name);
+			return;
         }
 
         currentRound++;
