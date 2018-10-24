@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour {
 
     #endregion
     [SerializeField]
-    private Object gameOver;
+    private int gameOverLevelID;
     [HideInInspector]
     public float roundTimer;
     static private int[] scores;
@@ -43,43 +43,38 @@ public class LevelManager : MonoBehaviour {
         instance = this;
         roundTimer = roundLength;
 
-        StartCountDown();
+        // start count-down
+        StartCoroutine("CountDown");
     }
     
     void Update()
     {
-        if (roundStart)
-        {
-            CountDown();
-            return;
-        }
-
         roundTimer -= Time.deltaTime;
 
         if (roundTimer <= 0.5f)
             NewRound();
     }
     
-    public void StartCountDown()
+    /// <summary>
+    /// count-down subroutine which pauses the game, counts down from 3,
+    /// then resumes the game
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator CountDown()
     {
-        Time.timeScale = 0.0f;
-        roundStart = true;
-        countDown = 5;
-    }
-    
-    public void CountDown()
-    {
-        countDown -= Time.unscaledDeltaTime;
+        // amount of time to pause for (3 seconds)
+        float pauseTime = Time.realtimeSinceStartup + 4.0f;
+        Time.timeScale = 0.0f; // pause time
+        roundStart = true; // 
 
-        if (countDown <= 0.0f)
-            StopCountDown();
-    }
-    
-    public void StopCountDown()
-    {
-        Time.timeScale = 1.0f;
+        while (Time.realtimeSinceStartup < pauseTime)
+        {
+            countDown = pauseTime - Time.realtimeSinceStartup;
+            yield return null;
+        }
+
+        Time.timeScale = 1.0f; // resume time
         roundStart = false;
-        countDown = 3.0f;
     }
     
     static public int GetCurrentRound()
@@ -101,7 +96,7 @@ public class LevelManager : MonoBehaviour {
         //If it is the last round, the SceneManager will be loaded to the end game level 
         if (currentRound == maxRounds - 1)
         {
-            SceneManager.LoadScene(gameOver.name);
+            SceneManager.LoadScene(gameOverLevelID);
 			return;
         }
 

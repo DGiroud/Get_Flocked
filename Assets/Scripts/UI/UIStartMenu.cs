@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 public class UIStartMenu : MonoBehaviour
 {
     [SerializeField]
-    private Object game;
+    private int gameLevelID;
 
     /// <summary>
     /// loads the main game
     /// </summary>
     public void Play()
     {
-        SceneManager.LoadScene(game.name);
+        SceneManager.LoadScene(gameLevelID);
     }
 
     /// <summary>

@@ -438,7 +438,8 @@ MonoBehaviour:
   countDownPanel:
     countDownPanel: {fileID: 602618425}
     countDownText: {fileID: 816171244}
-    startTexts: []
+    startTexts:
+    - START!
 --- !u!114 &189740026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2214,7 +2215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc43561425941940bc711d0f880bded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOver: {fileID: 0}
+  gameOverLevelID: 3
   roundTimer: 0
   roundStart: 0
   countDown: 0

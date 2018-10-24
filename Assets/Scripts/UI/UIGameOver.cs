@@ -6,16 +6,16 @@ using UnityEngine.SceneManagement;
 public class UIGameOver : MonoBehaviour
 {
     [SerializeField]
-    private Object game;
+    private int mainMenuLevelID;
     [SerializeField]
-    private Object mainMenu;
+    private int gameLevelID;
 
     /// <summary>
     /// loads the main game
     /// </summary>
     public void Replay()
     {
-        SceneManager.LoadScene(game.name);
+        SceneManager.LoadScene(gameLevelID);
     }
 
     /// <summary>
@@ -23,7 +23,7 @@ public class UIGameOver : MonoBehaviour
     /// </summary>
     public void MainMenu()
     {
-        SceneManager.LoadScene(mainMenu.name);
+        SceneManager.LoadScene(mainMenuLevelID);
     }
 
     /// <summary>

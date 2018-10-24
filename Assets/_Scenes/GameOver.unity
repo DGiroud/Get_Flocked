@@ -611,8 +611,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14748425e31aa2448e96a4327430b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game: {fileID: 102900000, guid: 11afb65431ef84841a5d5112fc2dbebb, type: 3}
-  mainMenu: {fileID: 102900000, guid: 47442fc5fda002f4f900bf8bde3f8004, type: 3}
+  mainMenuLevelID: 0
+  gameLevelID: 1
 --- !u!1 &1050354645
 GameObject:
   m_ObjectHideFlags: 0
