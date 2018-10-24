@@ -5,7 +5,8 @@ using UnityEngine;
 public enum RotateMode
 {
     constant,
-    periodic
+    periodic,
+    constantPeriodicRandom
 }
 
 public class Rotator : MonoBehaviour
@@ -27,6 +28,8 @@ public class Rotator : MonoBehaviour
     [Tooltip("the range of times with which the rotation may start")]
     public Vector2 rotateTime; // range of rotation times
     private float rotateTimer; // timer used to determine when to rotate
+    private float randomRotateRotation;
+
 
     /// <summary>
     /// initialise rotateTimer time to a random float in given range
@@ -63,6 +66,19 @@ public class Rotator : MonoBehaviour
                     rotateTimer = Random.Range(rotateTime.x, rotateTime.y);
                 }
                 break;
+
+            case RotateMode.constantPeriodicRandom:
+                rotateTimer -= Time.deltaTime;
+
+                if(rotateTimer <= 0.0f)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(RandomRotate());
+
+                    rotateTimer = Random.Range(rotateTime.x, rotateTime.y);
+                }
+
+                break;
         }
     }
 
@@ -83,4 +99,20 @@ public class Rotator : MonoBehaviour
             yield return null;
         }
     }
+    private IEnumerator RandomRotate()
+    {
+
+
+
+        Quaternion desiredRandomRotation = Quaternion.Euler(new Vector3(0, randomRotateRotation, 0)) * transform.rotation;
+
+        while (desiredRandomRotation != transform.rotation)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, desiredRandomRotation, Time.deltaTime * rotateSpeed);
+            yield return null;
+        }
+
+
+    }
+
 }

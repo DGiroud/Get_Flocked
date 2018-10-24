@@ -4,7 +4,7 @@ using UnityEngine;
 using XInputDotNetPure;
 
 
-/*#region XInput: !IMPORTANT! 
+#region XInput: !IMPORTANT! 
 //In any C# script you need to access controllers, add the follow line with your using declarations:
 //                  "using XInputDotNetPure;" 
 
@@ -24,9 +24,6 @@ public class PlayerLobbyMenu : MonoBehaviour {
     }
     private List<GamePadState> gamePads;
 
-
-
-
     // Use this for initialization
     void Awake () {
            gamePads = AllControllers();
@@ -36,141 +33,54 @@ public class PlayerLobbyMenu : MonoBehaviour {
     void Update () {
 
     }
-
+    
+    //gets all of the states off all controller inputs
     public List<GamePadState> AllControllers()
     {
         List<GamePadState> controllerNumber = new List<GamePadState>();
-  
+        
+        //iterates through all four players to check the gamepad state
         for (int i = 0; i <= (int)PlayerIndex.Four; i++ )
         {
-          GamePadState GamePadXInput = GamePad.GetState();
+            GamePadState GamePadXInput = GamePad.GetState((PlayerIndex)i);
+            ConnectedController(); 
         }
         return controllerNumber;
     }
   
-  
+    //checking to see if the controller is connected
    public void ConnectedController()
    {
-        PlayerIndex player = PlayerIndex.One;
-        GamePadState showState = GamePad.GetState(player);
-  
-        if (showState.IsConnected)
+        //iterate through all four players
+        for (int i = 0; i <= (int)PlayerIndex.Four; i++)
         {
-            return true;
+        GamePadState showState = GamePad.GetState((PlayerIndex)i);
+            //checking to see if the controller is connected 
+            //(should always return true)
+            if (showState.IsConnected)
+            {
+               Debug.Log(showState.ToString() + "Player is connected");
+            }
+            GamePadXInput();
         }
-        else
-        {
-            return false;
-        }
-  
     }
-  
+   
+    //reading the users input
     public void GamePadXInput()
     {
         PlayerIndex controllerNumber = PlayerIndex.One;
         GamePadState state = GamePad.GetState(controllerNumber);
 
-        if (controllerNumber.IsConnected && controllerNumber.Buttons.A == ButtonState.Pressed)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+       if (state.Buttons.A == ButtonState.Pressed)
+       {
+            //button being pressed down
+            Debug.Log(state.ToString() + "Button has been pressed!");
+       }
+       if (state.Buttons.A == ButtonState.Released)
+       {
+            //button being released
+            Debug.Log(state.ToString() + "Button has been released!");
+       }
 
-    #region RandomCode
-
-    //  [SerializeField]
-    //  private PlayerIndex gamePadID;
-    //  private GamePadState current;
-    //  private GamePadState previous;
-    //
-    //  
-    //
-    //  
-    //  public void Update()
-    //  {
-    //
-    //  }
-    //
-    //  public void Awake()
-    //  {
-    //
-    //  }
-    //
-    //  public XInputController (int padID)
-    //  {
-    //      if (padID == 1 || padID == 2 || padID == 3 || padID == 4 )
-    //      {
-    //          padID = (PlayerIndex)padID;     //same value for PlayerIndex
-    //          current = GamePad.GetState(padID);
-    //      }
-    //      else
-    //      {
-    //          Debug.Log(padID.ToString() + "Not Vaild");
-    //      }
-    //
-    //  }
-    //
-    //  public bool GetConnection()
-    //  {
-    //      return current.IsConnected;
-    //  }
-    //
-    //  public int GetPad()
-    //  {
-    //      return (int)gamePadID;
-    //  }
-    //
-    //  public GamePadState GetCurrentState()
-    //  {
-    //      return current;
-    //  }
-    //
-    //  public GamePadState GetPreviousState()
-    //  {
-    //      return previous;
-    //  }
-    //
-    //  public void UpdatePad()
-    //  {
-    //      previous = current;
-    //      current = GamePad.GetState(gamePadID);
-    //  }
-    //
-    //
-    //  /// <summary>
-    //  /// Button Taps
-    //  /// Tapping the A button
-    //  /// </summary>
-    //  /// <returns></returns>
-    //  public bool PressedA()
-    //  {
-    //      if (current.IsConnected && current.Buttons.A == 
-    //          ButtonState.Pressed && previous.Buttons.A == ButtonState.Released)
-    //      {
-    //          return true;
-    //      }
-    //      else
-    //      {
-    //          return false;
-    //      }
-    //  }
-    //
-    //  public bool PressA()
-    //  {
-    //      if (current.IsConnected && current.Buttons.A
-    //          == ButtonState.Pressed)
-    //      {
-    //          return true;
-    //      }
-    //      else
-    //      {
-    //          return false;
-    //      }
-    //  }
-
-    #endregion RandomCode
-}*/
+    } 
+}
