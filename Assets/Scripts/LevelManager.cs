@@ -64,17 +64,22 @@ public class LevelManager : MonoBehaviour {
     {
         // amount of time to pause for (3 seconds)
         float pauseTime = Time.realtimeSinceStartup + 4.0f;
-        Time.timeScale = 0.0f; // pause time
-        roundStart = true; // 
 
+        // pause time
+        Time.timeScale = 0.0f;
+        roundStart = true;
+
+        // keep counting down until time catches up with pauseTime
         while (Time.realtimeSinceStartup < pauseTime)
         {
+            // update countDown value
             countDown = pauseTime - Time.realtimeSinceStartup;
             yield return null;
         }
 
-        Time.timeScale = 1.0f; // resume time
-        roundStart = false;
+        // resume time
+        Time.timeScale = 1.0f; 
+        roundStart = false; 
     }
     
     static public int GetCurrentRound()
@@ -91,17 +96,20 @@ public class LevelManager : MonoBehaviour {
     ///Reset time (roundTimer)
     /// </summary>
     #endregion
-    public void NewRound()
+    private void NewRound()
     {
-        //If it is the last round, the SceneManager will be loaded to the end game level 
-        if (currentRound == maxRounds - 1)
-        {
-            SceneManager.LoadScene(gameOverLevelID);
-			return;
-        }
-
         currentRound++;
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
+
+        //If it is the last round, the SceneManager will be loaded to the end game level 
+        if (currentRound == maxRounds)
+        {
+            currentRound = 0;
+            SceneManager.LoadScene(gameOverLevelID);
+        }
+        else
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
+        }
     }
 }
