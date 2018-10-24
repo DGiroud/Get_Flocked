@@ -46,7 +46,7 @@ public class PathManager : MonoBehaviour
 
         // if there is no NavMeshAgent
         if (!navMeshAgent)
-            source.AddComponent<NavMeshAgent>(); // then add it
+            navMeshAgent = source.AddComponent<NavMeshAgent>(); // then add it
 
         navMeshAgent.enabled = true; // enable navMeshAgent
         navMeshAgent.CalculatePath(destination.transform.position, navMeshPath); // calculate navMeshPath
@@ -71,7 +71,7 @@ public class PathManager : MonoBehaviour
 
         // if there is no NavMeshAgent
         if (!navMeshAgent)
-            source.AddComponent<NavMeshAgent>(); // then add it
+            navMeshAgent = source.AddComponent<NavMeshAgent>(); // then add it
 
         navMeshAgent.enabled = true; // enable navMeshAgent
         navMeshAgent.CalculatePath(destination.position, navMeshPath);
@@ -96,7 +96,7 @@ public class PathManager : MonoBehaviour
 
         // if there is no NavMeshAgent
         if (!navMeshAgent)
-            source.AddComponent<NavMeshAgent>(); // then add it
+            navMeshAgent = source.AddComponent<NavMeshAgent>(); // then add it
 
         navMeshAgent.enabled = true; // enable navMeshAgent
         navMeshAgent.CalculatePath(destination, navMeshPath);
