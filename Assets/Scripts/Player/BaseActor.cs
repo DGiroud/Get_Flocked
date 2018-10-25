@@ -135,8 +135,8 @@ public class BaseActor : MonoBehaviour
         heldSheep.transform.position = snapPosition;
         heldSheep.transform.SetParent(transform); // player now parents sheep
 
-        // disable sheep rb
-        Destroy(heldSheep.GetComponent<Rigidbody>());
+        // freeze sheep position
+        heldSheep.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 
         speed *= sheepScript.speedModifier;
     }
@@ -172,7 +172,7 @@ public class BaseActor : MonoBehaviour
 
         // release sheep child from this
         releasedSheep.transform.SetParent(null);
-        releasedSheep.AddComponent<Rigidbody>();
+        releasedSheep.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
         speed = originalSpeed;
 
