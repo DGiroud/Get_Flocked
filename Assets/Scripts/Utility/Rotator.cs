@@ -6,7 +6,8 @@ public enum RotateMode
 {
     constant,
     periodic,
-    constantPeriodicRandom
+    constantRandom,
+    periodicRandom
 }
 
 public class Rotator : MonoBehaviour
@@ -17,6 +18,7 @@ public class Rotator : MonoBehaviour
         "\nPeriodic: for rotating an arbitrary amount after an arbitrary amount of time")]
     public RotateMode rotateMode = RotateMode.periodic;
 
+
     [Header("Rotate Speed")]
     [Tooltip("the speed that the object rotates")]
     public int rotateSpeed; // how fast go
@@ -25,11 +27,10 @@ public class Rotator : MonoBehaviour
     [Header("Periodic Rotation")]
     [Tooltip("the angle in degrees that each periodic rotation rotates")]
     public float rotationAngle;
-    public float rotationAngleBack;
     [Tooltip("the range of times with which the rotation may start")]
     public Vector2 rotateTime; // range of rotation times
     private float rotateTimer; // timer used to determine when to rotate
-
+  
 
 
 
@@ -72,22 +73,14 @@ public class Rotator : MonoBehaviour
 
                 //starts off as constant then transitions into periodic
                 //then back to constant rotation
-            case RotateMode.constantPeriodicRandom:
-                rotateTimer -= Time.deltaTime; //decrement timer
-                //transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
+            case RotateMode.constantRandom:
 
-                //if timer runs out
-                if(rotateTimer <= 0.0f)
-                {
-                    //do rotation
-                    StopAllCoroutines();
-                    StartCoroutine(Rotate(true));
+                transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
 
-                    //reset timer
-                    rotateTimer = Random.Range(rotateTime.x, rotateTime.y);
-                }
+               break;
 
-                break;
+
+
         }
     }
 
@@ -115,6 +108,7 @@ public class Rotator : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime * rotateSpeed);
             yield return null;
         }
+
 
     }
 
