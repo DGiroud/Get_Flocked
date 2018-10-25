@@ -8,6 +8,10 @@ public class Ram : MonoBehaviour {
 
     NavMeshAgent agent;
 
+    //************************
+    //******* RAMPAGE ********
+    //************************
+
     public enum RamState { Spawn, Idle, Stepback, Charge}
     private RamState currentState;
     private bool isCharging = false;
@@ -29,6 +33,7 @@ public class Ram : MonoBehaviour {
         agent.angularSpeed = 0;
 
         SetState(RamState.Spawn);
+
     }
 
     // Update is called once per frame
@@ -38,8 +43,6 @@ public class Ram : MonoBehaviour {
         {
             //--------------------------------------|
             case RamState.Spawn:
-
-                SetState(RamState.Stepback);
                 break;
             //--------------------------------------|
             case RamState.Idle:
