@@ -174,8 +174,8 @@ public class PlayerManager : MonoBehaviour
         cpu.transform.position = startTransform.position;
         cpu.GetComponentInChildren<MeshRenderer>().material = actorColours[CPUIndex];
 
-        //CPU script = cpu.GetComponent<CPU>();
-        //script.ActorID = CPUIndex;
+        CPU script = cpu.GetComponent<CPU>();
+        script.actorID = CPUIndex;
 
         return cpu;
     }

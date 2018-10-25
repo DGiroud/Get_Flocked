@@ -1,8 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 using UnityEngine.UI;
+
+[System.Serializable]
+public struct PlayerScores
+{
+    // main stats
+    public int place; // 1st, 2nd, 3rd or 4th
+    public int score; // number of points gained
+    
+    // bonus stats
+    public int numberOfGoals; // amount of sheep scored
+    public int numberOfKicks; // amount of sheep kicked
+    public int numberOfIntercepts; // amount of sheep kicked off other people
+    public int numberOfSabotages; // amount of black sheep scored in enemy goals
+    public bool sabotagedSelf; // true if a player scores a black sheep on themself
+    public float distanceTravelled; // total distance travelled during the round
+}
 
 public class ScoreManager : MonoBehaviour
 {
@@ -24,25 +39,32 @@ public class ScoreManager : MonoBehaviour
 
     #endregion
 
-    static private int[] scores;
-    static public int[] Scores { get { return scores; } }
-    static private Sheep totalNumberOfSheepClaimed;                     //total sheep scored into goals
-    static private PlayerProgress progress;                            //player progress for scores
+    static private PlayerScores[][] playerScores;
+
+    public static PlayerScores[][] GetPlayerScores()
+    {
+        return playerScores;
+    }
 
     /// <summary>
     /// 
     /// </summary>
-	void Start()
+	void Start ()
     {
         instance = this; // assign singleton instance
 
-        scores = new int[PlayerManager.Instance.players.Count];
-
-        for (int i = 0; i < scores.Length; i++)
+        if (LevelManager.GetCurrentRound() == 0)
         {
-            scores[i] = 0;
+            int maxRounds = LevelManager.Instance.maxRounds;
+            playerScores = new PlayerScores[4][];
+
+            for (int i = 0; i < 4; i++)
+            {
+                playerScores[i] = new PlayerScores[maxRounds];
+            }
         }
-    }
+	}
+
     /// <summary>
     /// 
     /// </summary>
@@ -50,42 +72,113 @@ public class ScoreManager : MonoBehaviour
     /// <param name="score"></param>
     public void AddScore(int playerID, int score)
     {
-        scores[playerID] += score;
-    }
-    public class PlayerProgress
-    {
-        public int highScore = 0;    
-    }
-    public int GetHighScoringPlayer()
-    {
-        return progress.highScore;
+        playerScores[playerID][LevelManager.GetCurrentRound()].score += score;
     }
 
-    public void NewPlayerScore(int scores)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerID"></param>
+    public void IncrementGoalCount(int playerID)
     {
-        //score is greater than the progress, updating the progress with whatever the new
-        //value is and then saves the progress
-        if (scores > progress.highScore)
+        playerScores[playerID][LevelManager.GetCurrentRound()].numberOfGoals++;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerID"></param>
+    public void IncrementKickCount(int playerID)
+    {
+        playerScores[playerID][LevelManager.GetCurrentRound()].numberOfKicks++;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerID"></param>
+    public void IncrementInterceptCount(int playerID)
+    {
+        playerScores[playerID][LevelManager.GetCurrentRound()].numberOfIntercepts++;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerID"></param>
+    public void IncrementSabotageCount(int playerID)
+    {
+        playerScores[playerID][LevelManager.GetCurrentRound()].numberOfSabotages++;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerID"></param>
+    /// <param name="toggle"></param>
+    public void ToggleSabotagedSelf(int playerID, bool toggle)
+    {
+        playerScores[playerID][LevelManager.GetCurrentRound()].sabotagedSelf = true;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerID"></param>
+    /// <param name="distance"></param>
+    public void AddDistanceTravelled(int playerID, int distance)
+    {
+        playerScores[playerID][LevelManager.GetCurrentRound()].distanceTravelled += distance;
+    }
+
+    /// <summary>
+    /// returns the four player scores in an int array
+    /// </summary>
+    /// <returns>an array of size 4 containing all player's scores</returns>
+    public int[] GetScores()
+    {
+        int[] scores = new int[4];
+        int currentRound = LevelManager.GetCurrentRound();
+
+        for (int i = 0; i < 4; i++)
         {
-            progress.highScore = scores;
-            saveProgress();
+            PlayerScores currentScores = playerScores[i][currentRound];
+
+            scores[i] = currentScores.score;
         }
 
-        //score is greater than the totalNumberOfSheepClaimed, updating the progress with whatever the new
-        //value is and then saves the totalNumberOfSheepClaimed
-        if (scores > totalNumberOfSheepClaimed.score)
+        return scores;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void ResetAll()
+    {
+        for (int i = 0; i < 4; i++)
         {
-            totalNumberOfSheepClaimed.score = scores;
-            saveProgress();
+            for (int j = 0; j < LevelManager.Instance.maxRounds; j++)
+            {
+                ResetScores(i, j);
+            }
         }
     }
-    
-    private void saveProgress()
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerID"></param>
+    /// <param name="round"></param>
+    public void ResetScores(int playerID, int round)
     {
-        //saves the value of the progress.highScore to PlayerPrefs
-        //with the key being "HighScore"
-        PlayerPrefs.SetInt("HighScore", progress.highScore);
-    }
+        PlayerScores currentScores = playerScores[playerID][round];
 
-
+        currentScores.score = 0;
+        currentScores.numberOfGoals = 0;
+        currentScores.numberOfKicks = 0;
+        currentScores.numberOfIntercepts = 0;
+        currentScores.numberOfSabotages = 0; 
+        currentScores.sabotagedSelf = false;
+        currentScores.distanceTravelled = 0; 
+}
 }

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    [SerializeField]
-    private int goalID;
+    public int goalID;
 
     [SerializeField]
     private ParticleSystem fireWorksTrail;
@@ -26,6 +25,7 @@ public class Goal : MonoBehaviour
             // destroy sheep
             SheepManager.Instance.DestroySheep(other.gameObject);
             ScoreManager.Instance.AddScore(goalID, sheepWorth);
+            ScoreManager.Instance.IncrementGoalCount(goalID);
 
             fireWorksTrail.Play();
             fireWorksWhiteNoise.Play();

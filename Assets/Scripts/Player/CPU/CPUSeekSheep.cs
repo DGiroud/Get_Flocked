@@ -30,7 +30,6 @@ public class CPUSeekSheep : StateMachineBehaviour
             ray.Normalize();
             CPUScript.Move(ray.x, ray.z);
         }
-
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

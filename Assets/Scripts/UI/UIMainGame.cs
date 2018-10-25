@@ -105,7 +105,7 @@ public class UIMainGame : MonoBehaviour
     private void DrawScoreText()
     {
         // get scores
-        int[] scores = ScoreManager.Scores;
+        int[] scores = ScoreManager.Instance.GetScores();
 
         // iterate over scores and print on screen
         for (int i = 0; i < scores.Length; i++)

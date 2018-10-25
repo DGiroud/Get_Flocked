@@ -56,4 +56,21 @@ public class CPU : BaseActor
 
         return output;
     }
+
+    public Transform FindOwnGoal()
+    {
+        GameObject[] goals = GameObject.FindGameObjectsWithTag("Goal");
+
+        for (int i = 0; i < goals.Length; i++)
+        {
+            Goal goalScript = goals[i].GetComponentInChildren<Goal>();
+
+            if (actorID == goalScript.goalID)
+            {
+                return goals[i].transform;
+            }
+        }
+
+        return null;
+    }
 }

@@ -73,10 +73,12 @@ public class Player : BaseActor
             {
                 GameObject sheep = ReleaseSheep();
                 LaunchSheep(sheep);
+                ScoreManager.Instance.IncrementKickCount(actorID);
             }
             else if (interactionSheep)
             {
                 LaunchOpponentsSheep(interactionSheep);
+                ScoreManager.Instance.IncrementInterceptCount(actorID);
             }
         }
     }
@@ -105,6 +107,7 @@ public class Player : BaseActor
             {
                 GameObject sheep = ReleaseSheep();
                 LaunchSheep(sheep);
+                ScoreManager.Instance.IncrementKickCount(actorID);
             }
         }
     }
