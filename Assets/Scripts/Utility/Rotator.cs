@@ -25,10 +25,12 @@ public class Rotator : MonoBehaviour
     [Header("Periodic Rotation")]
     [Tooltip("the angle in degrees that each periodic rotation rotates")]
     public float rotationAngle;
+    public float rotationAngleBack;
     [Tooltip("the range of times with which the rotation may start")]
     public Vector2 rotateTime; // range of rotation times
     private float rotateTimer; // timer used to determine when to rotate
-    private float randomRotateRotation;
+
+
 
 
     /// <summary>
@@ -37,6 +39,7 @@ public class Rotator : MonoBehaviour
 	void Awake ()
     {
         rotateTimer = Random.Range(rotateTime.x, rotateTime.y);
+
     }
 	
     /// <summary>
@@ -67,14 +70,20 @@ public class Rotator : MonoBehaviour
                 }
                 break;
 
+                //starts off as constant then transitions into periodic
+                //then back to constant rotation
             case RotateMode.constantPeriodicRandom:
-                rotateTimer -= Time.deltaTime;
+                rotateTimer -= Time.deltaTime; //decrement timer
+                //transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
 
+                //if timer runs out
                 if(rotateTimer <= 0.0f)
                 {
+                    //do rotation
                     StopAllCoroutines();
-                    StartCoroutine(RandomRotate());
+                    StartCoroutine(Rotate(true));
 
+                    //reset timer
                     rotateTimer = Random.Range(rotateTime.x, rotateTime.y);
                 }
 
@@ -86,11 +95,19 @@ public class Rotator : MonoBehaviour
     /// subroutine which performs a restricted rotation on an object
     /// </summary>
     /// <returns>the coroutine</returns>
-    private IEnumerator Rotate()
+    private IEnumerator Rotate(bool counterClockwise = false)
     {
-        // get desired rotation quaternion
-        Quaternion desiredRotation = Quaternion.Euler(0, rotationAngle, 0) * transform.rotation;
-
+        Quaternion desiredRotation;
+        if (counterClockwise == true)
+        {
+            // get desired rotation quaternion
+            desiredRotation = Quaternion.Euler(0, -rotationAngleBack, 0) * transform.rotation;  
+        }
+        else
+        {
+            // get desired rotation quaternion
+             desiredRotation = Quaternion.Euler(0, rotationAngle, 0) * transform.rotation;
+        }
         // loop until the desired rotation is reached
         while (transform.rotation != desiredRotation)
         {
@@ -98,20 +115,6 @@ public class Rotator : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime * rotateSpeed);
             yield return null;
         }
-    }
-    private IEnumerator RandomRotate()
-    {
-
-
-
-        Quaternion desiredRandomRotation = Quaternion.Euler(new Vector3(0, randomRotateRotation, 0)) * transform.rotation;
-
-        while (desiredRandomRotation != transform.rotation)
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation, desiredRandomRotation, Time.deltaTime * rotateSpeed);
-            yield return null;
-        }
-
 
     }
 
