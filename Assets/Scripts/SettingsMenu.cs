@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine;
 using UnityEngine.UI;
+using XInputDotNetPure;
 using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour {
@@ -10,7 +11,7 @@ public class SettingsMenu : MonoBehaviour {
     public AudioMixer audioMixer;       //audio
     Resolution[] resolution;            //array of resolutions
     public Dropdown resDropDown;        //dropdown of resolutions
-
+    public DynamicCamera other;
     void Start()
     {
         resolution = Screen.resolutions;
@@ -40,6 +41,11 @@ public class SettingsMenu : MonoBehaviour {
 
     }
     
+    //public void GetDynamicCam()
+    //{
+    //    other.MoveZoom();
+    //}
+
     /// <summary>
     /// Adjusting volume sounds
     /// </summary>
@@ -67,5 +73,4 @@ public class SettingsMenu : MonoBehaviour {
     {
         Screen.fullScreen = isFullScreen;
     }
-
 }
