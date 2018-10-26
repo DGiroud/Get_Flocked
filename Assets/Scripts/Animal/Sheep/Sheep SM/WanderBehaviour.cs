@@ -42,6 +42,7 @@ public class WanderBehaviour : StateMachineBehaviour {
         sheep.GetComponent<Sheep>().newPosDebug = newPos;
 
         ////Work out direction (Destination - current)
+        if(currentPath.Length > 0)
         newDir = currentPath[1] - currentPath[0];
 
         //Drawing the path

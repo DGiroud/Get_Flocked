@@ -31,9 +31,6 @@ public class RamManager : MonoBehaviour
     [SerializeField]
     [Tooltip("Fill this with a transform (empty game object)")]
     private Transform ramSpawnPoint;
-    public Vector2 spawnTime;
-    private float variance = 0.0f;
-    private float ramSpawnTimer = 0.0f;
     #endregion
 
 
@@ -50,49 +47,21 @@ public class RamManager : MonoBehaviour
         ram = Instantiate(ramPrefab);
         ram.SetActive(false); // hide by default
 
-        // assign variance upon wake up
-        variance = Random.Range(spawnTime.x, spawnTime.y);
+        InitialiseRam();
     }
 	
-    /// <summary>
-    /// increments spawn timer and checks to see if the timer allows for
-    /// a new ram to spawn
-    /// </summary>
 	void Update ()
     {
-        // increment spawn timer
-        ramSpawnTimer += Time.deltaTime;
-
-        // spawn cooldown check
-        if (ramSpawnTimer > variance)
-        {
-            ramSpawnTimer = 0.0f;
-            SpawnRam();
-        }
     }
 
-    /// <summary>
-    /// places the ram on the scene and enables it, if possible.
-    /// </summary>
-    public GameObject SpawnRam()
+    public void InitialiseRam()
     {
-        // safety check, don't spawn ram if there's one already spawned
-        if (ram.activeSelf)
-            return null;
-
-        // set ram position to spawn point
-        ram.transform.position = ramSpawnPoint.position;
-        ram.SetActive(true); // show ram
-
-        // adjust spawn variance
-        variance = Random.Range(spawnTime.x, spawnTime.y);
-
-        return ram;
+        ram.transform.position.Set(0, -5, 0);
+        ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        ram.SetActive(true);
     }
 
-    /// <summary>
-    /// sets the single ram in scene to inactive
-    /// </summary>
+    // sets the single ram in scene to inactive  
     public void DestroyRam()
     {
         ram.SetActive(false); // hide ram

@@ -21,19 +21,14 @@ public class Ram : MonoBehaviour {
     private float idleTimer = 0.0f;
     public float stepBackDuration;
     public float destCheckRadius;
+    [Tooltip("The duration that the Ram will wait to spawn after locking in it's location to land")]
+    public float spawnTimer;
 
     [Tooltip("The ram's acceleration is calculated using exponential growth, this is the variable that determines how quickly that growth is")]
     public float exponentialGrowth;
 
     void Start () {
-
-        agent = GetComponent<NavMeshAgent>();
-        acceleration = agent.acceleration;
-        agent.enabled = true;   
-        agent.angularSpeed = 0;
-
         SetState(RamState.Spawn);
-
     }
 
     // Update is called once per frame

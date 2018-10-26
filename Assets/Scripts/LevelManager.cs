@@ -33,6 +33,8 @@ public class LevelManager : MonoBehaviour {
     public bool roundStart;
     [HideInInspector]
     public float countDown;
+    [HideInInspector]
+    public bool gameStart = false;      //used to begin the ramspawner in RamSpawn
 
     public int maxRounds;              //Max rounds per game
     public float roundLength;          //Max amount of time for the rounds
@@ -79,7 +81,8 @@ public class LevelManager : MonoBehaviour {
 
         // resume time
         Time.timeScale = 1.0f; 
-        roundStart = false; 
+        roundStart = false;
+        gameStart = true;
     }
     
     static public int GetCurrentRound()
