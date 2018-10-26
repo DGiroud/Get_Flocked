@@ -1807,7 +1807,6 @@ MonoBehaviour:
   rotateMode: 0
   rotateSpeed: 10
   rotationAngle: 90
-  rotationAngleBack: 0
   rotateTime: {x: 1, y: 5}
 --- !u!4 &929041474
 Transform:
@@ -2313,6 +2312,7 @@ MonoBehaviour:
   roundTimer: 0
   roundStart: 0
   countDown: 0
+  gameStart: 0
   maxRounds: 3
   roundLength: 60
 --- !u!1 &1133532727
@@ -3144,7 +3144,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ramPrefab: {fileID: 0}
   ramSpawnPoint: {fileID: 1853732077}
-  spawnTime: {x: 0, y: 0}
 --- !u!1 &1405957820
 GameObject:
   m_ObjectHideFlags: 0

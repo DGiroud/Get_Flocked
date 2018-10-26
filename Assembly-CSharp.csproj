@@ -55,9 +55,11 @@
      <Compile Include="Assets\Scripts\Animal\Ram\Ram SM\RamCharge.cs" />
      <Compile Include="Assets\Scripts\Animal\Ram\Ram SM\RamSpawn.cs" />
      <Compile Include="Assets\Scripts\Animal\Ram\Ram SM\RamStepback.cs" />
+     <Compile Include="Assets\Scripts\Animal\Ram\Ram SM\RamStunned.cs" />
      <Compile Include="Assets\Scripts\Animal\Ram\Ram SM\RamWander.cs" />
      <Compile Include="Assets\Scripts\Animal\Ram\Ram.cs" />
      <Compile Include="Assets\Scripts\Animal\Ram\RamManager.cs" />
+     <Compile Include="Assets\Scripts\Animal\Ram\RamSpawnMovement.cs" />
      <Compile Include="Assets\Scripts\Animal\Sheep\Sheep SM\IdleBehaviour.cs" />
      <Compile Include="Assets\Scripts\Animal\Sheep\Sheep SM\KickBehaviour.cs" />
      <Compile Include="Assets\Scripts\Animal\Sheep\Sheep SM\PushBehaviour.cs" />
@@ -75,14 +77,14 @@
      <Compile Include="Assets\Scripts\PathManager.cs" />
      <Compile Include="Assets\Scripts\Player\BaseActor.cs" />
      <Compile Include="Assets\Scripts\Player\CPU\CPU.cs" />
-     <Compile Include="Assets\Scripts\Player\CPU\CPUAim.cs" />
-     <Compile Include="Assets\Scripts\Player\CPU\CPUKick.cs" />
+     <Compile Include="Assets\Scripts\Player\CPU\CPUDefendGoals.cs" />
      <Compile Include="Assets\Scripts\Player\CPU\CPUSeekGoal.cs" />
      <Compile Include="Assets\Scripts\Player\CPU\CPUSeekSheep.cs" />
      <Compile Include="Assets\Scripts\Player\Interaction.cs" />
      <Compile Include="Assets\Scripts\Player\Player.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerLobbyMenu.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerManager.cs" />
+     <Compile Include="Assets\Scripts\SettingsMenu.cs" />
      <Compile Include="Assets\Scripts\UI\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\UI\UIGameOver.cs" />
      <Compile Include="Assets\Scripts\UI\UIMainGame.cs" />
@@ -97,14 +99,29 @@
      <Compile Include="Assets\XInput\XboxCtrlrInputExample\MoveLaser.cs" />
      <Compile Include="Assets\XInput\XboxCtrlrInputExample\MovePlayer.cs" />
      <Compile Include="Assets\XInput\XInputDotNet\Examples\XInputTestCS.cs" />
+     <Compile Include="Assets\z3rd_Party\ShaderForge\Example Assets\Scripts\EditorLabel.cs" />
+     <Compile Include="Assets\z3rd_Party\ShaderForge\Example Assets\Scripts\EnableCameraDepthInForward.cs" />
+     <Compile Include="Assets\z3rd_Party\ShaderForge\Example Assets\Scripts\SoftNormalsToVertexColor.cs" />
      <None Include="Assets\Animations\Delete me.txt" />
      <None Include="Assets\Materials\Characters\Delete me.txt" />
+     <None Include="Assets\z3rd_Party\ShaderForge\Readme.txt" />
+     <None Include="Assets\Shaders\Shepherd_Body.shader" />
      <None Include="Assets\Meshes\Ram\delete me.txt" />
+     <None Include="Assets\z3rd_Party\ShaderForge\Example Assets\Shaders\Vegetation.shader" />
+     <None Include="Assets\z3rd_Party\ShaderForge\Example Assets\Shaders\VertexAnimation.shader" />
      <None Include="Assets\Profiles\Delete me.txt" />
      <None Include="Assets\Effects\SFX\Delete me.txt" />
      <None Include="Assets\Effects\Particle\Delete me.txt" />
      <None Include="Assets\XInput\XInputDotNet\MITLicense.txt" />
+     <None Include="Assets\z3rd_Party\ShaderForge\Example Assets\Shaders\Refraction.shader" />
+     <None Include="Assets\z3rd_Party\ShaderForge\Example Assets\Shaders\Parallax.shader" />
+     <None Include="Assets\z3rd_Party\ShaderForge\Example Assets\Shaders\LightWrapping.shader" />
      <None Include="Assets\Shaders\Delete me.txt" />
+     <None Include="Assets\z3rd_Party\ShaderForge\Example Assets\Shaders\VertexColorRounding.shader" />
+     <None Include="Assets\z3rd_Party\ShaderForge\Example Assets\Shaders\TessellationDisplacement.shader" />
+     <None Include="Assets\z3rd_Party\ShaderForge\Example Assets\Shaders\Tiles.shader" />
+     <None Include="Assets\z3rd_Party\ShaderForge\Example Assets\Shaders\PixelRotator.shader" />
+     <None Include="Assets\z3rd_Party\ShaderForge\Example Assets\Shaders\CustomLighting.shader" />
      <None Include="Assets\Materials\Scenery\Delete me.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -180,6 +197,9 @@
  </Reference>
  <Reference Include="XInputDotNetPure">
  <HintPath>C:/Users/s181300/Documents/Get_Flocked/trunk/Assets/XInput/Plugins/x86_64/XInputDotNetPure.dll</HintPath>
+ </Reference>
+ <Reference Include="ShaderForge">
+ <HintPath>C:/Users/s181300/Documents/Get_Flocked/trunk/Assets/z3rd_Party/ShaderForge/Editor/ShaderForge.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>C:/Users/s181300/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
