@@ -31,13 +31,11 @@ public class RamSpawnMovement : MonoBehaviour {
         sineSphere = GameObject.Find("SineSphere");
         innerSphere = GameObject.Find("InnerSphere");
 
-        float randomY = Random.Range(-0.99f, 0.99f);
-
         //Finding a random speed for the spheres to rotate with
         NewRange();
 
         //Begin the sphere at a random rotation around the y axis, to shake it up each game
-        sphere.transform.rotation.Set(0, randomY, 0, 0);
+        sphere.transform.rotation = Quaternion.Euler(0,startingRotation(),0);
 	}
 	
 	// Update is called once per frame

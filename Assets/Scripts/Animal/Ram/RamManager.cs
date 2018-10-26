@@ -44,7 +44,7 @@ public class RamManager : MonoBehaviour
         instance = this;
 
         // create the ram
-        ram = Instantiate(ramPrefab);
+        ram = Instantiate(ramPrefab, new Vector3(0, 100, 0), new Quaternion());
         ram.SetActive(false); // hide by default
 
         InitialiseRam();
@@ -56,9 +56,11 @@ public class RamManager : MonoBehaviour
 
     public void InitialiseRam()
     {
-        ram.transform.position.Set(0, -5, 0);
+        //ram.transform.position.Set(0, 100, 0);
         ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        ram.GetComponentInChildren<MeshRenderer>().enabled = false;
         ram.SetActive(true);
+
     }
 
     // sets the single ram in scene to inactive  
