@@ -73,11 +73,11 @@ public class Rotator : MonoBehaviour
 
                 //starts off as constant then transitions into periodic
                 //then back to constant rotation
-            case RotateMode.constantRandom:
-
-                transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
-
-               break;
+           // case RotateMode.constantRandom:
+           //
+           //     transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
+           //
+           //    break;
 
 
 
@@ -94,7 +94,7 @@ public class Rotator : MonoBehaviour
         if (counterClockwise == true)
         {
             // get desired rotation quaternion
-            desiredRotation = Quaternion.Euler(0, -rotationAngleBack, 0) * transform.rotation;  
+            desiredRotation = Quaternion.Euler(0, -rotationAngle, 0) * transform.rotation;  
         }
         else
         {

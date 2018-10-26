@@ -17,14 +17,6 @@ public class UIStartMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// opens the settings menu
-    /// </summary>
-    public void Settings()
-    {
-
-    }
-
-    /// <summary>
     /// forces application quit
     /// </summary>
     public void Quit()

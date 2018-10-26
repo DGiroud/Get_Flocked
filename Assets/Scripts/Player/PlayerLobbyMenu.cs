@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using XInputDotNetPure;
 
 
@@ -23,17 +25,23 @@ public class PlayerLobbyMenu : MonoBehaviour {
         private set;
     }
     private List<GamePadState> gamePads;
+    private int playerAdded;
 
     // Use this for initialization
     void Awake () {
-           gamePads = AllControllers();
+
     }
 
     // Update is called once per frame
     void Update () {
-
+        gamePads = AllControllers();
     }
-    
+
+    public void ControllerAdded()
+    {
+        
+    }
+
     //gets all of the states off all controller inputs
     public List<GamePadState> AllControllers()
     {
