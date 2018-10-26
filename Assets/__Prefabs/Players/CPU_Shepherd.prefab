@@ -204,6 +204,8 @@ MonoBehaviour:
   canKick: 1
   kickHeight: 5
   kickForce: 5
+  CPUMode: 0
+  artificialThinkTime: 0.5
   destination: {fileID: 0}
 --- !u!114 &114980455201625586
 MonoBehaviour:

@@ -4,22 +4,47 @@ using UnityEngine;
 
 public class CPUSeekSheep : StateMachineBehaviour
 {
-    GameObject CPU;
-    CPU CPUScript;
+    // CPU object and script
+    private GameObject CPU;
+    private CPU CPUScript;
 
-    Vector3[] currentPath = null;
-    float pathFindTimer = 0.0f;
+    // AI customization variables
+    private float artificialThinkTime;
+    
+    // pathfinding relevant variables
+    private Vector3[] currentPath = null;
+    private float pathFindTimer = 0.0f;
 
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    /// <summary>
+    /// cache the CPU object and script
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="stateInfo"></param>
+    /// <param name="layerIndex"></param>
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CPU = animator.gameObject;
         CPUScript = CPU.GetComponent<CPU>();
+
+        // get artificial think time
+        artificialThinkTime = CPUScript.ArtificialThinkTime;
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    /// <summary>
+    /// find path to nearest sheep every couple of seconds or so, then move along that path
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="stateInfo"></param>
+    /// <param name="layerIndex"></param>
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // "think" for an arbritrary amount of time before performing actions
+        if (artificialThinkTime > 0.0f)
+        {
+            artificialThinkTime -= Time.deltaTime;
+            return;
+        }
+
         // state change
         if (CPUScript.HeldSheep)
             animator.SetBool("isSheepHeld", true);
@@ -27,10 +52,10 @@ public class CPUSeekSheep : StateMachineBehaviour
         // increment timer
         pathFindTimer += Time.deltaTime;
 
-        // wait one second before finding a path
+        // wait a bit before finding a path
         if (pathFindTimer > 0.5f)
         {
-            currentPath = PathManager.Instance.FindPath(CPU, CPUScript.FindNearestSheep());
+            currentPath = PathManager.Instance.FindPath(CPU, PathManager.Instance.FindNearestSheep(CPU));
             pathFindTimer = 0.0f;
         }
 
@@ -41,10 +66,5 @@ public class CPUSeekSheep : StateMachineBehaviour
             ray.Normalize();
             CPUScript.Move(ray.x, ray.z); // move along path
         }
-    }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
     }
 }

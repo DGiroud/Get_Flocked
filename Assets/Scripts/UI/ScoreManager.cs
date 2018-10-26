@@ -180,5 +180,40 @@ public class ScoreManager : MonoBehaviour
         currentScores.numberOfSabotages = 0; 
         currentScores.sabotagedSelf = false;
         currentScores.distanceTravelled = 0; 
-}
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="ignoreSelf"></param>
+    /// <param name="actor"></param>
+    /// <returns></returns>
+    public int GetHighestScoringPlayer(bool ignoreSelf = false, GameObject actor = null)
+    {
+        float highestScore = Mathf.NegativeInfinity;
+        int relevantPlayerID = Random.Range(0, 3);
+
+        // iterate over all possible scores
+        for (int i = 0; i < playerScores.Length; i++)
+        {
+            // ignore self if required
+            if (ignoreSelf)
+                if (i == actor.GetComponent<BaseActor>().actorID)
+                    continue;
+
+            // get the rounds scores of a particular player
+            PlayerScores[] currentPlayerScores = playerScores[i];
+            int currentPlayerScore = currentPlayerScores[LevelManager.GetCurrentRound()].score;
+
+            // if a higher score is found
+            if (currentPlayerScore > highestScore)
+            {
+                highestScore = currentPlayerScore; // update highest score
+                relevantPlayerID = i; // update corresponding player ID
+            }
+        }
+
+        // return the ID of the highest scoring player
+        return relevantPlayerID;
+    }
 }

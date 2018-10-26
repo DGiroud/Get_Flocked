@@ -117,4 +117,163 @@ public class PathManager : MonoBehaviour
             Debug.DrawLine(path[i], path[i + 1]);
         }
     }
+    
+    public Transform FindValuableSheep()
+    {
+        // get all currently spawned sheep
+        GameObject[] activeSheep = SheepManager.Instance.sheepPool.GetActiveSheep();
+
+        // initialise helper variables
+        Transform output = null;
+        float highestWorth = Mathf.NegativeInfinity;
+
+        // iterate over all active sheep
+        for (int i = 0; i < activeSheep.Length; i++)
+        {
+            GameObject sheep = activeSheep[i]; // get sheep
+            Sheep sheepScript = sheep.GetComponent<Sheep>();
+
+            // ignore sheep if it's being held already
+            if (sheep.transform.parent)
+                continue;
+
+            // get distance between this sheep and CPU
+            float currentWorth = sheepScript.score;
+
+            // if new minimum distance, update distance
+            if (currentWorth > highestWorth)
+            {
+                highestWorth = currentWorth;
+                output = sheep.transform;
+            }
+        }
+        return null;
+    }
+    
+    /// <summary>
+    /// helper function which scans all the spawned sheep, and determines
+    /// which one is the closest
+    /// </summary>
+    /// <returns>the position of the nearest sheep</returns>
+    public Transform FindNearestSheep(GameObject source)
+    {
+        // get all currently spawned sheep
+        GameObject[] activeSheep = SheepManager.Instance.sheepPool.GetActiveSheep();
+
+        // initialise helper variables
+        Transform output = null;
+        float minDist = Mathf.Infinity;
+
+        // iterate over all active sheep
+        for (int i = 0; i < activeSheep.Length; i++)
+        {
+            GameObject sheep = activeSheep[i]; // get sheep
+
+            // ignore sheep if it's being held already
+            if (sheep.transform.parent)
+                continue;
+
+            // get distance between this sheep and CPU
+            float dist = Vector3.Distance(source.transform.position, sheep.transform.position);
+
+            // if new minimum distance, update distance
+            if (dist < minDist)
+            {
+                minDist = dist;
+                output = sheep.transform;
+            }
+        }
+
+        return output;
+    }
+
+    /// <summary>
+    /// helper function which grabs all the goals in the scene and returns
+    /// the CPU's own goal
+    /// </summary>
+    /// <returns>the transform of the goal which belongs to this particular CPU</returns>
+    public Transform FindOwnGoal(GameObject source)
+    {
+        // get all the goals
+        GameObject[] goals = GameObject.FindGameObjectsWithTag("Goal");
+
+        // iterate over said goals
+        for (int i = 0; i < goals.Length; i++)
+        {
+            // get the goal script of each goal
+            Goal goalScript = goals[i].GetComponentInChildren<Goal>();
+
+            // if the goal belongs to this actor
+            if (goalScript.goalID == source.GetComponent<BaseActor>().actorID)
+            {
+                return goalScript.transform; // return the position
+            }
+        }
+
+        // couldn't find own goal (this shouldn't ever happen)
+        return null;
+    }
+
+    /// <summary>
+    /// helper function which grabs all the goals in the scene and returns
+    /// the closest possible goal
+    /// </summary>
+    /// <returns>the transform of the closest goal</returns>
+    public Transform FindNearestGoal(GameObject source)
+    {
+        // get all the goals
+        GameObject[] goals = GameObject.FindGameObjectsWithTag("Goal");
+
+        // initialise helper variables
+        Transform output = null;
+        float minDist = Mathf.Infinity;
+
+        // iterate over all active sheep
+        for (int i = 0; i < goals.Length; i++)
+        {
+            // get the goal script of each goal
+            GameObject goal = goals[i];
+
+            // get distance between this sheep and CPU
+            float dist = Vector3.Distance(transform.position, goal.transform.position);
+
+            // if new minimum distance, update distance
+            if (dist < minDist)
+            {
+                minDist = dist;
+                output = goal.transform;
+            }
+        }
+
+        // couldn't find nearest goal (this shouldn't ever happen)
+        return null;
+    }
+
+    /// <summary>
+    /// helper function which grabs all the goals in the scene and returns
+    /// the winning opponent's goal
+    /// </summary>
+    /// <returns>the transform of the goal which belongs to the current front-runner</returns>
+    public Transform FindWinningGoal(bool ignoreSelf = false, GameObject actor = null)
+    {
+        // get all the goals
+        GameObject[] goals = GameObject.FindGameObjectsWithTag("Goal");
+        
+        // get the ID of the highest scoring player
+        int highestScoringPlayer = ScoreManager.Instance.GetHighestScoringPlayer(ignoreSelf, actor);
+
+        // iterate over goals
+        for (int i = 0; i < goals.Length; i++)
+        {
+            // get the goal script of each goal
+            Goal goalScript = goals[i].GetComponentInChildren<Goal>();
+
+            // if the goal belongs to the current front-runner
+            if (goalScript.goalID == highestScoringPlayer)
+                return goalScript.transform; // return the position
+        }
+
+        // couldn't find opponents goal (this shouldn't ever happen)
+        return null;
+    }
 }

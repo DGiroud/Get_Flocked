@@ -4,10 +4,10 @@ using UnityEngine;
 
 public enum RotateMode
 {
-    constant,
-    periodic,
-    constantRandom,
-    periodicRandom
+    Constant,
+    Periodic,
+    ConstantRandom,
+    PeriodicRandom
 }
 
 public class Rotator : MonoBehaviour
@@ -16,7 +16,7 @@ public class Rotator : MonoBehaviour
     [Header("Rotate Mode")]
     [Tooltip("the mode of rotation. \nConstant: for consistent rotation at all times" +
         "\nPeriodic: for rotating an arbitrary amount after an arbitrary amount of time")]
-    public RotateMode rotateMode = RotateMode.periodic;
+    public RotateMode rotateMode = RotateMode.Periodic;
 
 
     [Header("Rotate Speed")]
@@ -51,12 +51,12 @@ public class Rotator : MonoBehaviour
         switch (rotateMode)
         {
             // constant rotation, easy
-            case RotateMode.constant:
+            case RotateMode.Constant:
                 transform.Rotate(0, rotateSpeed * Time.deltaTime, 0); 
                 break;
 
             // periodic rotation, not as easy
-            case RotateMode.periodic:
+            case RotateMode.Periodic:
                 rotateTimer -= Time.deltaTime; // decrement timer
 
                 // if timer runs out
@@ -101,6 +101,7 @@ public class Rotator : MonoBehaviour
             // get desired rotation quaternion
              desiredRotation = Quaternion.Euler(0, rotationAngle, 0) * transform.rotation;
         }
+
         // loop until the desired rotation is reached
         while (transform.rotation != desiredRotation)
         {

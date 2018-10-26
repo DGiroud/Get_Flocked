@@ -4,28 +4,54 @@ using UnityEngine;
 
 public class CPUSeekGoal : StateMachineBehaviour
 {
+    // CPU object and script
     private GameObject CPU;
     private CPU CPUScript;
 
-    private Vector3[] currentPath = null;
-    private bool isHoldingBlackSheep;
-    private float pathFindTimer = 0.0f;
+    // AI customization variables
+    private float artificialThinkTime;
 
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    // pathfinding relevant variables
+    private Vector3[] currentPath = null;
+    private float pathFindTimer = 0.0f;
+    private bool isHoldingBlackSheep;
+
+    /// <summary>
+    /// cache the CPU object and script. Determine what type of sheep is being held
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="stateInfo"></param>
+    /// <param name="layerIndex"></param>
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CPU = animator.gameObject;
         CPUScript = CPU.GetComponent<CPU>();
+        
+        // get artificial think time
+        artificialThinkTime = CPUScript.ArtificialThinkTime;
 
+        // if the sheep worth is negative
         if (CPUScript.HeldSheep.GetComponent<Sheep>().score < 0)
-            isHoldingBlackSheep = true;
+            isHoldingBlackSheep = true; // black sheep is held
         else
-            isHoldingBlackSheep = false;
+            isHoldingBlackSheep = false; // normal sheep held
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    /// <summary>
+    /// find path to relevant goal every couple of seconds or so, then move along that path
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="stateInfo"></param>
+    /// <param name="layerIndex"></param>
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // "think" for an arbritrary amount of time before performing actions
+        if (artificialThinkTime > 0.0f)
+        {
+            artificialThinkTime -= Time.deltaTime;
+            return;
+        }
+
         // state change
         if (!CPUScript.HeldSheep)
             animator.SetBool("isSheepHeld", false);
@@ -33,14 +59,14 @@ public class CPUSeekGoal : StateMachineBehaviour
         // increment timer
         pathFindTimer += Time.deltaTime;
 
-        // wait one second before finding a path
+        // wait a bit before finding a path
         if (pathFindTimer > 0.5f)
         {
             // if holding black sheep, locate the goals of the highest scoring player
             if (isHoldingBlackSheep)
-                currentPath = PathManager.Instance.FindPath(CPU, CPUScript.FindOpponentsGoal());
+                currentPath = PathManager.Instance.FindPath(CPU, PathManager.Instance.FindWinningGoal(true, CPU));
             else
-                currentPath = PathManager.Instance.FindPath(CPU, CPUScript.FindOwnGoal());
+                currentPath = PathManager.Instance.FindPath(CPU, PathManager.Instance.FindOwnGoal(CPU));
 
             pathFindTimer = 0.0f;
         }
@@ -52,11 +78,5 @@ public class CPUSeekGoal : StateMachineBehaviour
             ray.Normalize();
             CPUScript.Move(ray.x, ray.z); // move along path
         }
-    }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-
     }
 }

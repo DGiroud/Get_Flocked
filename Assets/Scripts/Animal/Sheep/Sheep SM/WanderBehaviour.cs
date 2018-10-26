@@ -12,6 +12,7 @@ public class WanderBehaviour : StateMachineBehaviour {
     Vector3 newPos = new Vector3();
 
     Vector3[] currentPath;
+    float pathFindTimer = 0.0f;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -36,7 +37,11 @@ public class WanderBehaviour : StateMachineBehaviour {
     {
         Vector3 newDir = new Vector3();
 
-        currentPath = PathManager.Instance.FindPath(sheep, newPos);
+        if (pathFindTimer > 0.5f)
+        {
+            currentPath = PathManager.Instance.FindPath(sheep, newPos);
+            pathFindTimer = 0.0f;
+        }
 
         //Debug, allowing us to see it's current destination
         sheep.GetComponent<Sheep>().newPosDebug = newPos;
