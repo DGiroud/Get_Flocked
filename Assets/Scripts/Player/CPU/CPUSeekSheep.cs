@@ -8,27 +8,38 @@ public class CPUSeekSheep : StateMachineBehaviour
     CPU CPUScript;
 
     Vector3[] currentPath = null;
+    float pathFindTimer = 0.0f;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CPU = animator.gameObject;
         CPUScript = CPU.GetComponent<CPU>();
-
-        currentPath = PathManager.Instance.FindPath(CPU, CPUScript.FindNearestSheep());
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // state change
         if (CPUScript.HeldSheep)
             animator.SetBool("isSheepHeld", true);
 
+        // increment timer
+        pathFindTimer += Time.deltaTime;
+
+        // wait one second before finding a path
+        if (pathFindTimer > 0.5f)
+        {
+            currentPath = PathManager.Instance.FindPath(CPU, CPUScript.FindNearestSheep());
+            pathFindTimer = 0.0f;
+        }
+
+        // if there's a path
         if (currentPath.Length > 0)
         {
             Vector3 ray = currentPath[1] - currentPath[0];
             ray.Normalize();
-            CPUScript.Move(ray.x, ray.z);
+            CPUScript.Move(ray.x, ray.z); // move along path
         }
     }
 

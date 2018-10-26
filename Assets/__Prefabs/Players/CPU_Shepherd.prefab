@@ -196,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actorID: 0
   canMove: 1
-  speed: 4
+  speed: 10
   canSnap: 1
   interactionBox: {fileID: 65187717445715530}
   interactionSheep: {fileID: 0}
@@ -228,8 +228,8 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 180
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}

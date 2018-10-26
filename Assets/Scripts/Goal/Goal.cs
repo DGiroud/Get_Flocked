@@ -20,12 +20,13 @@ public class Goal : MonoBehaviour
         // if the collided object is a sheep
         if (other.CompareTag("Sheep"))
         {
+            BaseActor player = other.GetComponentInParent<BaseActor>();
             int sheepWorth = other.GetComponent<Sheep>().score;
 
             // destroy sheep
             SheepManager.Instance.DestroySheep(other.gameObject);
             ScoreManager.Instance.AddScore(goalID, sheepWorth);
-            ScoreManager.Instance.IncrementGoalCount(goalID);
+            ScoreManager.Instance.IncrementGoalCount(player.actorID);
 
             fireWorksTrail.Play();
             fireWorksWhiteNoise.Play();

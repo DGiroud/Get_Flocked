@@ -65,7 +65,7 @@ public class LevelManager : MonoBehaviour {
     IEnumerator CountDown()
     {
         // amount of time to pause for (3 seconds)
-        float pauseTime = Time.realtimeSinceStartup + 4.0f;
+        float pauseTime = Time.realtimeSinceStartup + 3.5f;
 
         // pause time
         Time.timeScale = 0.0f;

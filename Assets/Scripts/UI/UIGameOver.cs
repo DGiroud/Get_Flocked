@@ -19,6 +19,8 @@ public class UIGameOver : MonoBehaviour
     private Text[] kicksText;
     [SerializeField]
     private Text[] interceptTexts;
+    [SerializeField]
+    private Text[] distanceTexts;
 
     /// <summary>
     /// 
@@ -31,19 +33,24 @@ public class UIGameOver : MonoBehaviour
         {
             PlayerScores[] currentPlayerScores = playerScores[i];
             int score = 0, goals = 0, kicks = 0, intercepts = 0;
+            float distance = 0;
 
             for (int j = 0; j < currentPlayerScores.Length; j++)
             {
-                score += currentPlayerScores[j].score;
-                goals += currentPlayerScores[j].numberOfGoals;
-                kicks += currentPlayerScores[j].numberOfKicks;
-                intercepts += currentPlayerScores[j].numberOfIntercepts;
+                PlayerScores playerRoundScores = currentPlayerScores[j];
+
+                score += playerRoundScores.score;
+                goals += playerRoundScores.numberOfGoals;
+                kicks += playerRoundScores.numberOfKicks;
+                intercepts += playerRoundScores.numberOfIntercepts;
+                distance += playerRoundScores.distanceTravelled;
             }
 
             scoreText[i].text = score.ToString();
             goalsText[i].text = goals.ToString();
             kicksText[i].text = kicks.ToString();
             interceptTexts[i].text = intercepts.ToString();
+            distanceTexts[i].text = distance.ToString("0") + " m";
         }
     }
 

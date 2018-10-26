@@ -16,6 +16,7 @@ public class BaseActor : MonoBehaviour
     public float speed = 1.0f; // how fast player go
     private float originalSpeed;
     private Vector3 translation;
+    private Vector3 lastPosition;
     private CharacterController controller;
     #endregion
 
@@ -94,8 +95,15 @@ public class BaseActor : MonoBehaviour
         // rotation handling
         transform.rotation = Quaternion.LookRotation(translation);
 
+        lastPosition = transform.position;
+
         // perform movement
         controller.SimpleMove(translation * speed);
+
+
+        float distanceTravelled = Vector3.Distance(transform.position, lastPosition);
+        ScoreManager.Instance.AddDistanceTravelled(actorID, distanceTravelled);
+
     }
 
     /// <summary>

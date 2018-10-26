@@ -4,32 +4,53 @@ using UnityEngine;
 
 public class CPUSeekGoal : StateMachineBehaviour
 {
-    GameObject CPU;
-    CPU CPUScript;
+    private GameObject CPU;
+    private CPU CPUScript;
 
-    Vector3[] currentPath = null;
+    private Vector3[] currentPath = null;
+    private bool isHoldingBlackSheep;
+    private float pathFindTimer = 0.0f;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CPU = animator.gameObject;
         CPUScript = CPU.GetComponent<CPU>();
+
+        if (CPUScript.HeldSheep.GetComponent<Sheep>().score < 0)
+            isHoldingBlackSheep = true;
+        else
+            isHoldingBlackSheep = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        currentPath = PathManager.Instance.FindPath(CPU, CPUScript.FindOwnGoal());
-        PathManager.Instance.DrawPath(currentPath);
-
+        // state change
         if (!CPUScript.HeldSheep)
             animator.SetBool("isSheepHeld", false);
 
+        // increment timer
+        pathFindTimer += Time.deltaTime;
+
+        // wait one second before finding a path
+        if (pathFindTimer > 0.5f)
+        {
+            // if holding black sheep, locate the goals of the highest scoring player
+            if (isHoldingBlackSheep)
+                currentPath = PathManager.Instance.FindPath(CPU, CPUScript.FindOpponentsGoal());
+            else
+                currentPath = PathManager.Instance.FindPath(CPU, CPUScript.FindOwnGoal());
+
+            pathFindTimer = 0.0f;
+        }
+
+        // if there's a path
         if (currentPath.Length > 0)
         {
             Vector3 ray = currentPath[1] - currentPath[0];
             ray.Normalize();
-            CPUScript.Move(ray.x, ray.z);
+            CPUScript.Move(ray.x, ray.z); // move along path
         }
     }
 

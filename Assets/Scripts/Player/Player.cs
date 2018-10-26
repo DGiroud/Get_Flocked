@@ -56,8 +56,11 @@ public class Player : BaseActor
         if (gamePad.ThumbSticks.Left.X == 0.0f && gamePad.ThumbSticks.Left.Y == 0.0f)
             return;
 
+        Vector3 translation = new Vector3(gamePad.ThumbSticks.Left.X, 0, gamePad.ThumbSticks.Left.Y);
+        translation.Normalize();
+
         // x & z translation mapped to horizontal & vertical respectively
-        Move(gamePad.ThumbSticks.Left.X, gamePad.ThumbSticks.Left.Y);
+        Move(translation.x, translation.z);
     }
 
     /// <summary>
@@ -95,7 +98,10 @@ public class Player : BaseActor
         if (Input.GetAxisRaw("Horizontal") == 0.0f && Input.GetAxisRaw("Vertical") == 0.0f)
             return;
 
-        Move(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector3 translation = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        translation.Normalize();
+
+        Move(translation.x, translation.z);
     }
 
     private void KeyboardKick()
@@ -108,6 +114,11 @@ public class Player : BaseActor
                 GameObject sheep = ReleaseSheep();
                 LaunchSheep(sheep);
                 ScoreManager.Instance.IncrementKickCount(actorID);
+            }
+            else if (interactionSheep)
+            {
+                LaunchOpponentsSheep(interactionSheep);
+                ScoreManager.Instance.IncrementInterceptCount(actorID);
             }
         }
     }

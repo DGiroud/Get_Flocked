@@ -57,6 +57,10 @@ public class CPU : BaseActor
         return output;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public Transform FindOwnGoal()
     {
         GameObject[] goals = GameObject.FindGameObjectsWithTag("Goal");
@@ -65,12 +69,60 @@ public class CPU : BaseActor
         {
             Goal goalScript = goals[i].GetComponentInChildren<Goal>();
 
-            if (actorID == goalScript.goalID)
+            if (goalScript.goalID == actorID)
             {
-                return goals[i].transform;
+                return goalScript.transform;
             }
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public Transform FindOpponentsGoal()
+    {
+        GameObject[] goals = GameObject.FindGameObjectsWithTag("Goal");
+        int highestScoringPlayer = GetHighestScoringPlayer();
+
+        for (int i = 0; i < goals.Length; i++)
+        {
+            Goal goalScript = goals[i].GetComponentInChildren<Goal>();
+
+            if (goalScript.goalID == highestScoringPlayer)
+                return goalScript.transform;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public int GetHighestScoringPlayer()
+    {
+        PlayerScores[][] playerScores = ScoreManager.GetPlayerScores();
+        float highestScore = Mathf.NegativeInfinity;
+        int relevantPlayerID = Random.Range(0, 3);
+
+        for (int i = 0; i < ScoreManager.GetPlayerScores().Length; i++)
+        {
+            if (i == actorID)
+                continue;
+
+            PlayerScores[] currentPlayerScores = playerScores[i];
+            int currentPlayerScore = currentPlayerScores[LevelManager.GetCurrentRound()].score;
+
+            if (currentPlayerScore > highestScore)
+            {
+                highestScore = currentPlayerScore;
+                relevantPlayerID = i;
+            }
+        }
+
+        return relevantPlayerID;
     }
 }

@@ -126,7 +126,7 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     /// <param name="playerID"></param>
     /// <param name="distance"></param>
-    public void AddDistanceTravelled(int playerID, int distance)
+    public void AddDistanceTravelled(int playerID, float distance)
     {
         playerScores[playerID][LevelManager.GetCurrentRound()].distanceTravelled += distance;
     }
