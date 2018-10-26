@@ -42,7 +42,7 @@ public class DynamicCamera : MonoBehaviour
     [Tooltip("The higher the value; the further the camera will zoom out when players are distant")]
     public float maxFieldOfView = 60.0f;
     public float zoomLimiter = 50.0f;
-
+    
     // velocity value used for smoothdamp buffer
     private Vector3 velocity;
 
@@ -56,19 +56,28 @@ public class DynamicCamera : MonoBehaviour
 
         // get players
         players = PlayerManager.Instance.players;
-	}
-	
+
+    }
+
+    //void test()
+    //{
+    //    dynamicCamera = GetComponent<Camera>();
+    //}
+
+
+
     /// <summary>
     /// LateUpdate used such that the camera updates one frame after
     /// the player/other objects update
     /// </summary>
-	void LateUpdate ()
+    void LateUpdate ()
     {
         // move camera on x and z axes
         Move();
 
         // zoom camera by adjusting field of view
         Zoom();
+
 	}
 
     /// <summary>

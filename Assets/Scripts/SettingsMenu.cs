@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour {
 
@@ -10,8 +11,7 @@ public class SettingsMenu : MonoBehaviour {
     Resolution[] resolution;            //array of resolutions
     public Dropdown resDropDown;        //dropdown of resolutions
 
-
-    private void Start()
+    void Start()
     {
         resolution = Screen.resolutions;
         //clear out the options in resdropdown
@@ -27,7 +27,7 @@ public class SettingsMenu : MonoBehaviour {
             optionsList.Add(option);
 
             //setting the screen resolution to what is selected on screen
-            if (resolution[i].width == Screen.currentResolution.width && 
+            if (resolution[i].width == Screen.currentResolution.width &&
                  resolution[i].height == Screen.currentResolution.height)
             {
                 currentResIndex = i;
@@ -37,8 +37,9 @@ public class SettingsMenu : MonoBehaviour {
         resDropDown.AddOptions(optionsList);
         resDropDown.value = currentResIndex;
         resDropDown.RefreshShownValue();
-    }
 
+    }
+    
     /// <summary>
     /// Adjusting volume sounds
     /// </summary>

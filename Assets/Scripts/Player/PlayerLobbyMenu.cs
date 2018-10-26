@@ -39,7 +39,8 @@ public class PlayerLobbyMenu : MonoBehaviour {
 
     public void ControllerAdded()
     {
-        
+        AllControllers();
+        Debug.Log(AllControllers() + "Added..");
     }
 
     //gets all of the states off all controller inputs
@@ -51,6 +52,7 @@ public class PlayerLobbyMenu : MonoBehaviour {
         for (int i = 0; i <= (int)PlayerIndex.Four; i++ )
         {
             GamePadState GamePadXInput = GamePad.GetState((PlayerIndex)i);
+
             ConnectedController(); 
         }
         return controllerNumber;
@@ -67,7 +69,7 @@ public class PlayerLobbyMenu : MonoBehaviour {
             //(should always return true)
             if (showState.IsConnected)
             {
-               Debug.Log(showState.ToString() + "Player is connected");
+              // Debug.Log(showState.ToString() + "Player is connected");
             }
             GamePadXInput();
         }
@@ -82,12 +84,12 @@ public class PlayerLobbyMenu : MonoBehaviour {
        if (state.Buttons.A == ButtonState.Pressed)
        {
             //button being pressed down
-            Debug.Log(state.ToString() + "Button has been pressed!");
+          //  Debug.Log(state.ToString() + "A Button has been pressed!");
        }
        if (state.Buttons.A == ButtonState.Released)
        {
             //button being released
-            Debug.Log(state.ToString() + "Button has been released!");
+          //  Debug.Log(state.ToString() + "Button has been released!");
        }
 
     } 
