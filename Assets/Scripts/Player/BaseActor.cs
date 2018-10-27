@@ -143,9 +143,12 @@ public class BaseActor : MonoBehaviour
         heldSheep.transform.position = snapPosition;
         heldSheep.transform.SetParent(transform); // player now parents sheep
 
-        // freeze sheep position
+        // freeze sheep position and turn it into a trigger such that it doesn't collide 
+        // with anything but the goals
         heldSheep.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        heldSheep.GetComponent<SphereCollider>().isTrigger = true;
 
+        // modify player speed when carrying heavy sheep
         speed *= sheepScript.speedModifier;
     }
 
@@ -180,8 +183,12 @@ public class BaseActor : MonoBehaviour
 
         // release sheep child from this
         releasedSheep.transform.SetParent(null);
-        releasedSheep.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
+        // unfreeze position and give the sheep it's collision back
+        releasedSheep.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        releasedSheep.GetComponent<SphereCollider>().isTrigger = false;
+
+        // revert player speed to original speed
         speed = originalSpeed;
 
         return releasedSheep; // return for convenience sake
@@ -194,8 +201,8 @@ public class BaseActor : MonoBehaviour
     
     public void LaunchSheep(GameObject sheep)
     {
-        Animator sheepScript = sheep.GetComponent<Animator>(); //script
-        sheepScript.SetBool("isKicked", true);
+        Animator sheepAnimator = sheep.GetComponent<Animator>(); //script
+        sheepAnimator.SetBool("isKicked", true);
 
         Rigidbody sheepRigidbody = sheep.GetComponent<Rigidbody>(); //rb
         

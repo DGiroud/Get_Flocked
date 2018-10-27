@@ -95,7 +95,7 @@ public class DynamicCamera : MonoBehaviour
         // get shortest distance
         float shortestDistance = GetShortestDistance() / zoomLimiter;
 
-        // lerp in-between min and max field of view using greatest distance
+        // lerp in-between min and max field of view using shortest distance
         float newZoom = Mathf.Lerp(minFieldOfView, maxFieldOfView, shortestDistance);
         dynamicCamera.fieldOfView = Mathf.Lerp(dynamicCamera.fieldOfView, newZoom, Time.deltaTime);
     }

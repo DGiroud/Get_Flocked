@@ -72,7 +72,7 @@ public class CPUSeekGoal : StateMachineBehaviour
         }
 
         // if there's a path
-        if (currentPath.Length > 0)
+        if (currentPath != null && currentPath.Length > 0)
         {
             Vector3 ray = currentPath[1] - currentPath[0];
             ray.Normalize();

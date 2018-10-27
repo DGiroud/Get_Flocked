@@ -82,6 +82,7 @@ public class Player : BaseActor
             {
                 LaunchOpponentsSheep(interactionSheep);
                 ScoreManager.Instance.IncrementInterceptCount(actorID);
+                interactionSheep = null;
             }
         }
     }
@@ -119,6 +120,7 @@ public class Player : BaseActor
             {
                 LaunchOpponentsSheep(interactionSheep);
                 ScoreManager.Instance.IncrementInterceptCount(actorID);
+                interactionSheep = null;
             }
         }
     }

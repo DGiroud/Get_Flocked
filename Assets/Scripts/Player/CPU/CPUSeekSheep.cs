@@ -51,16 +51,17 @@ public class CPUSeekSheep : StateMachineBehaviour
 
         // increment timer
         pathFindTimer += Time.deltaTime;
+        Transform nearestSheep = PathManager.Instance.FindNearestSheep(CPU);
 
         // wait a bit before finding a path
-        if (pathFindTimer > 0.5f)
+        if (nearestSheep != null && pathFindTimer > 0.5f)
         {
-            currentPath = PathManager.Instance.FindPath(CPU, PathManager.Instance.FindNearestSheep(CPU));
+            currentPath = PathManager.Instance.FindPath(CPU, nearestSheep);
             pathFindTimer = 0.0f;
         }
 
         // if there's a path
-        if (currentPath.Length > 0)
+        if (currentPath != null && currentPath.Length > 0)
         {
             Vector3 ray = currentPath[1] - currentPath[0];
             ray.Normalize();
