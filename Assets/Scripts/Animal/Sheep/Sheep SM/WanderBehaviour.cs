@@ -37,11 +37,9 @@ public class WanderBehaviour : StateMachineBehaviour {
     {
         Vector3 newDir = new Vector3();
 
-        if (pathFindTimer > 0.5f)
-        {
-            currentPath = PathManager.Instance.FindPath(sheep, newPos);
-            pathFindTimer = 0.0f;
-        }
+        
+        currentPath = PathManager.Instance.FindPath(sheep, newPos);
+        
 
         //Debug, allowing us to see it's current destination
         sheep.GetComponent<Sheep>().newPosDebug = newPos;
@@ -54,7 +52,6 @@ public class WanderBehaviour : StateMachineBehaviour {
             //Drawing the path
             PathManager.Instance.DrawPath(currentPath);
         }
-
 
         ////Normalise it
         newDir = newDir.normalized;

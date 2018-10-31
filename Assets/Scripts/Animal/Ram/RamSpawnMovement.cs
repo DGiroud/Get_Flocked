@@ -44,7 +44,6 @@ public class RamSpawnMovement : MonoBehaviour {
 
         sphere.transform.Rotate(0, -innerRange, 0);
         sineSphere.transform.Rotate(0, -middleRange, 0);
-        innerSphere.transform.Rotate(0, -outerRange, 0);
 
         //-------------------------------------------------------------------
         //Draws a line from the Ram's spawnpoint directly down to the ground 

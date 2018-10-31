@@ -6,6 +6,8 @@ using System;
 public class Sheep : MonoBehaviour {
 
     GameObject fieldObject;     //Reference to the field, so that we can find a new position relative to it's dimensions
+    private float fieldPosX;
+    private float fieldPosZ;
 
     [Tooltip("How fast the sheep will move towards it's destination")]
     public float speed;
@@ -20,8 +22,7 @@ public class Sheep : MonoBehaviour {
     //public float 
     [Tooltip("FOR DEBUG, READ ONLY")]
     public Vector3 newPosDebug;                //Variable so we can actively see where the sheep is trying to go during runtime[DEBUG ONLY]
-    private float fieldPosX;
-    private float fieldPosZ;
+    
     public string currentBehaviour;
 
     private Animator sheepAnim;

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class RamSpawn : StateMachineBehaviour {
 
+    //This state is the Ram's intitial behaviour state, which can only be accessed when the Ram is created. 
+    // This state leads into:
+    //  Stunned: When the Ram has successfully landed after it's descent, it will change to it's "stunned" behaviour
+
+
     Light spotlight;
     float timer = 0.0f;
     float spawnTimer = 0.0f;
@@ -58,16 +63,6 @@ public class RamSpawn : StateMachineBehaviour {
             spotlight.enabled = true;
             updateSpotlight();
         }
-
-        //If we've hit the ground, create a dust storm, change rotation to be standing upright, and switch state to stunned
-        // The cloud of dust should be thick enough that it blocks sight of the Ram briefly, allowing it to simply be snapped
-        // back into it's upright position
-        if (animator.transform.position.y <= 0.5f)
-        {
-            //Explosion of dust here
-            //Rotation set here
-            //Set State here
-        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
@@ -76,9 +71,13 @@ public class RamSpawn : StateMachineBehaviour {
 
     }    
 
+    //----------------------------------------------------------------------------------------------------------|
+    //----------------------------------------------------------------------------------------------------------|
+
     public void updateSpotlight()
     {
         Vector3 newDir = new Vector3();
+
 
         //Shrink the size of the ray throughout it's lifetime
         spotlight.spotAngle -= 0.045f;
@@ -95,10 +94,8 @@ public class RamSpawn : StateMachineBehaviour {
             }
         }
 
-        if (spotlight.spotAngle == 1)
+        if (spotlight.spotAngle <= 3)
         {
-
-
             finished = true;
             spawnTimer += Time.deltaTime;
             spotlight.color = Color.red;
@@ -114,43 +111,49 @@ public class RamSpawn : StateMachineBehaviour {
                 destination = true;
             }
 
-            if (spawnTimer >= spawnTimerEnd && !spawned)
+            if (spotlight.spotAngle == 1 && !spawned)
             {
                 //We want to spawn the ram at the start, so that the spotlight begins it's function, however we don't want the Ram to be seen yet
                 SpawnRam();
                 //So that we don't have to run this segment of code again
                 spawned = true;
-                //Makes the light dissapear when the Ram spawns
-                spotlight.enabled = false;
+                //Makes the light dissapear when the Ram spawns  
+                spotlight.intensity = 0;
             }
 
             if (spawned)
             {
-                newDir = (ramTarget - ram.transform.position).normalized;                
+                //Fix for the 50/50 bug that would sometimes send the Ram flying into a random direction when spawned. 
+                // This resets it's velocity so that it doesn't have any force to it when spawning, it should just
+                //  follow it's path towards it's target.
+                ram.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 
+                //Keep the ram looking at it's target as it descends
+                if(ram.transform.position.y > 0.5f)
+                ram.transform.LookAt(ramTarget);
+
+                newDir = (ramTarget - ram.transform.position).normalized; 
                 ram.transform.position += (newDir * landingSpeed);
+                //ram.GetComponent<Rigidbody>().AddForce(newDir * landingSpeed);
             }
 
-            if (ram.transform.position.y <= 0.5f)
+            if (ram.transform.position.y <= 0.75f)
             {
-                Debug.Log("2");
                 if (!crashed)
                 {
-                    Instantiate(crashEffect, new Vector3(ram.transform.position.x, 0, ram.transform.position.z), new Quaternion(0, -0.65f, -0.75f, 0));
+                    Instantiate(crashEffect, new Vector3(ram.transform.position.x, 0, ram.transform.position.z),
+                                                         new Quaternion(0, -0.7056152f, -0.7085952f, 0));
                     crashEffect.SetActive(true);
                     crashed = true;
                 }
-                //crashEffect.transform.rotation = new Quaternion(0, 0, 0, 0);
-                //crashEffect.transform.position = new Vector3(ram.transform.position.x, 0.5f, ram.transform.position.z);                
-                //crashEffect.SetActive(true);
 
                 //Reenabling the Ram's components we had turned off for the meteorite effect
-                ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                ram.GetComponent<Rigidbody>().useGravity = true;
-                ram.GetComponent<Animator>().SetBool("isStunned", true);
+                ramLanding();
             }
         }
     }
+
+    //----------------------------------------------------------------------------------------------------------|
 
     //Makes the spotlight flash between red and white
     void FlashRed()
@@ -167,14 +170,26 @@ public class RamSpawn : StateMachineBehaviour {
         // set ram position to spawn point
         ram.transform.position = ramSpawnPoint.transform.position;
 
-        ram.GetComponentInChildren<MeshRenderer>().enabled = true;        
+        ram.GetComponentInChildren<MeshRenderer>().enabled = true;
 
-        //Turn off gravity so the ram flies in a straight line
-        ram.GetComponent<Rigidbody>().useGravity = false;
-        //Keep the ram looking at it's target as it descends
-        ram.transform.LookAt(ramTarget);
+        //Grav
+        //ram.GetComponent<Rigidbody>().useGravity = false;
+        
         //Freezing the rotation so that when it spawns, it keeps it's visual trajectory
         ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+    }
+
+    //Script to run as the ram hits the ground. Will switch state to the "stunned" state
+    public void ramLanding()
+    {
+
+        ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        ram.GetComponent<Rigidbody>().useGravity = true;
+        //We want to reset it's rotation when it lands, but not along the y axis. This way it will face the same way it landed at
+        ram.GetComponent<Rigidbody>().transform.position.Set(ram.transform.position.x, ram.transform.position.y + 1,
+                                                                                       ram.transform.position.z);
+        ram.GetComponent<Rigidbody>().transform.rotation = new Quaternion(0, ram.transform.rotation.y, 0, 1);
+        ram.GetComponent<Animator>().SetBool("isStunned", true);
     }
 
     // VV You need to call these 2 functions in Dynamic Camera, and add the Ram object to the list of objects it takes into account VV 
