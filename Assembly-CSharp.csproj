@@ -51,6 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Effects\Particle\Player\delete me.cs" />
+     <Compile Include="Assets\Effects\Particle\Score\delete me.cs" />
+     <Compile Include="Assets\Effects\Particle\Sheep\delete me.cs" />
+     <Compile Include="Assets\MeteorTrigger.cs" />
      <Compile Include="Assets\Scripts\Animal\BaseAnimal.cs" />
      <Compile Include="Assets\Scripts\Animal\Ram\Ram SM\RamCharge.cs" />
      <Compile Include="Assets\Scripts\Animal\Ram\Ram SM\RamSpawn.cs" />
