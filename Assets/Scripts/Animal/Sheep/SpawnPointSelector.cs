@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class SpawnPointSelector : MonoBehaviour
 {
-    private Transform[] sheepSpawnPoints;
-
-    // Pseudo-Random spawn mode variables
-    private Queue<Transform> availableSpawnPoints; 
+    private GameObject[] spawnPoints;
 
     // Sequential spawn mode variables
     private int nextSpawnPointID; 
-
 
     /// <summary>
     /// copies the spawn points contained in the sheep manager. Also
@@ -19,15 +15,9 @@ public class SpawnPointSelector : MonoBehaviour
     /// </summary>
     void Awake ()
     {
-        // get animal manager's spawn point references
-        Transform[] spawnPointsReference = SheepManager.Instance.SheepSpawnPoints;
-
-        // copy spawn point references to a locally defined array
-        sheepSpawnPoints = new Transform[spawnPointsReference.Length];
-        spawnPointsReference.CopyTo(sheepSpawnPoints, 0);
+        spawnPoints = SheepManager.Instance.SpawnPoints;
 
         // initialise spawn mode-relevant variables
-        availableSpawnPoints = new Queue<Transform>();
         nextSpawnPointID = 0;
     }
 
@@ -37,21 +27,18 @@ public class SpawnPointSelector : MonoBehaviour
     /// </summary>
     /// <param name="spawnMode">example input: SpawnMode.Random</param>
     /// <returns>the transform of the selected spawn point</returns>
-    public Transform Select(SpawnMode spawnMode)
+    public GameObject Select(SpawnMode spawnMode = SpawnMode.Sequential)
     {
         switch (spawnMode)
         {
             case SpawnMode.Random: // completely random
                 return RandomSpawnPoint();
 
-            case SpawnMode.PseudoRandom: // pseudo-random
-                return PseudoRandomSpawnPoint();
-
             case SpawnMode.Sequential: // sequential
                 return SequentialSpawnPoint();
 
-            default: // default to pseudo-random
-                return PseudoRandomSpawnPoint();
+            default: // default to sequential
+                return SequentialSpawnPoint();
         }
     }
 
@@ -60,23 +47,9 @@ public class SpawnPointSelector : MonoBehaviour
     /// it's corresponding element
     /// </summary>
     /// <returns>a spawn point at random</returns>
-    private Transform RandomSpawnPoint()
+    private GameObject RandomSpawnPoint()
     {
-        return sheepSpawnPoints[Random.Range(0, sheepSpawnPoints.Length)];
-    }
-
-    /// <summary>
-    /// utilises a shuffled queue of available spawn points in order
-    /// to use all spawn points but in a random order
-    /// </summary>
-    /// <returns>the next spawn point from a shuffle queue of spawn points</returns>
-    private Transform PseudoRandomSpawnPoint()
-    {
-        // rebuild spawn point queue when empty
-        if (availableSpawnPoints.Count == 0)
-            BuildSpawnPointQueue();
-
-        return availableSpawnPoints.Dequeue();
+        return spawnPoints[Random.Range(0, spawnPoints.Length)];
     }
 
     /// <summary>
@@ -84,44 +57,16 @@ public class SpawnPointSelector : MonoBehaviour
     /// increment/ID value
     /// </summary>
     /// <returns>the next spawn point that was linked in the unity editor</returns>
-    private Transform SequentialSpawnPoint()
+    private GameObject SequentialSpawnPoint()
     {
         // select next spawn point in array and increment at the same time
-        Transform nextSpawnPoint = sheepSpawnPoints[nextSpawnPointID++];
+        GameObject nextSpawnPoint = spawnPoints[nextSpawnPointID];
+        nextSpawnPointID++;
 
         // if increment value goes out of index range, reset to zero
-        if (nextSpawnPointID >= sheepSpawnPoints.Length)
+        if (nextSpawnPointID >= spawnPoints.Length)
             nextSpawnPointID = 0;
 
         return nextSpawnPoint;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private void BuildSpawnPointQueue()
-    {
-        ShuffleSpawnPoints();
-
-        for (int i = 0; i < sheepSpawnPoints.Length; i++)
-        {
-            availableSpawnPoints.Enqueue(sheepSpawnPoints[i]);
-        }
-
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private void ShuffleSpawnPoints()
-    {
-        for (int i = 0; i < sheepSpawnPoints.Length; i++)
-        {
-            Transform temp = sheepSpawnPoints[i];
-
-            int randomIndex = Random.Range(i, sheepSpawnPoints.Length);
-            sheepSpawnPoints[i] = sheepSpawnPoints[randomIndex];
-            sheepSpawnPoints[randomIndex] = temp;
-        }
     }
 }

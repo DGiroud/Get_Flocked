@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -11,15 +10,7 @@ using UnityEngine.Assertions;
 public enum SpawnMode
 {
     Random, // completely random
-    PseudoRandom, // uses all spawn points but in a random order
     Sequential // uses all points in the order they are linked in the editor
-}
-
-[System.Serializable]
-public struct SheepType
-{
-    public GameObject prefab;
-    public int amount;
 }
 
 public class SheepManager : MonoBehaviour
@@ -44,18 +35,7 @@ public class SheepManager : MonoBehaviour
 
     // component variables
     #region components
-    [HideInInspector]
-    public SheepPool sheepPool;
     private SpawnPointSelector spawnPointSelector;
-    #endregion
-
-    // prefabs variables
-    #region prefabs
-
-    [Header("Sheep")]
-    [SerializeField]
-    private SheepType[] sheep;
- 
     #endregion
 
     // start-up variables
@@ -76,27 +56,19 @@ public class SheepManager : MonoBehaviour
     [Tooltip("Random: completely random\n" +
         "Pseudo-Random: uses all spawn points equally, in a random order\n" +
         "Sequential: uses all spawn points in the order they are linked in the editor")]
-    public SpawnMode spawnMode = SpawnMode.PseudoRandom; // dictates the order in which sheep spawn
+    public SpawnMode spawnMode = SpawnMode.Sequential; // dictates the order in which sheep spawn
+    public int maximumSheep = 10;
+    private List<GameObject> spawnedSheep;
 
-    // spawn points
     [SerializeField]
-    [Tooltip("Fill this with transforms (empty game objects)")]
-    private Transform[] spawnPoints; // array of transforms for sheep spawns
+    private GameObject[] spawnPoints;
+    public GameObject[] SpawnPoints {  get { return spawnPoints; } }
 
     // spawn parameters
     public Vector2 spawnTime;
     private float variance = 0.0f;
     private float sheepSpawnTimer = 0.0f; // timer used to determine cooldown
     #endregion
-
-    // variable getters
-    #region getters
-        
-    public SheepType[] sheeps { get { return sheep; } }
-    public Transform[] SheepSpawnPoints { get { return spawnPoints; } }
-
-    #endregion
-
 
     /// <summary>
     /// initialises singleton sheep manager instance. Assigns reference
@@ -107,8 +79,7 @@ public class SheepManager : MonoBehaviour
         // assign singleton instance
         instance = this;
 
-        // initialise sheep pool
-        sheepPool = gameObject.AddComponent<SheepPool>();
+        spawnedSheep = new List<GameObject>();
 
         // initialise spawn point selector
         spawnPointSelector = gameObject.AddComponent<SpawnPointSelector>();
@@ -128,7 +99,7 @@ public class SheepManager : MonoBehaviour
         sheepSpawnTimer += Time.deltaTime;
 
         // spawn cooldown check
-        if (sheepSpawnTimer > variance)
+        if (sheepSpawnTimer > variance && spawnedSheep.Count < maximumSheep)
         {
             SpawnSheep(); // spawn normal sheep
             sheepSpawnTimer = 0.0f;
@@ -141,22 +112,14 @@ public class SheepManager : MonoBehaviour
     /// </summary>
     public GameObject SpawnSheep()
     {
-        // get sheep from pool
-        GameObject nextSheep = sheepPool.TryGetSheep(); 
-
-        // if no available sheep, spawn was a failure
-        if (!nextSheep)
-            return null;
+        // adjust spawn variance
+        variance = Random.Range(spawnTime.x, spawnTime.y);
 
         // get the next spawn point based off spawnMode
-        Transform nextSpawnPoint = spawnPointSelector.Select(spawnMode);
-
-        // spawn it
-        nextSheep.transform.position = nextSpawnPoint.position; // adjust position
-        nextSheep.SetActive(true); // show sheep
-
-        // adjust spawn variance
-        variance = UnityEngine.Random.Range(spawnTime.x, spawnTime.y);
+        GameObject nextSpawnPoint = spawnPointSelector.Select(spawnMode);
+        GameObject nextSheep = nextSpawnPoint.GetComponent<SpawnPoint>().SelectSheep();
+        spawnedSheep.Add(Instantiate(nextSheep));
+        nextSheep.transform.position = nextSpawnPoint.transform.position;
 
         return nextSheep;
     }
@@ -176,27 +139,24 @@ public class SheepManager : MonoBehaviour
         if (parentScript)
             parentScript.ReleaseSheep(); //... release it
 
-        sheepPool.ReturnSheepToPool(sheep); // sheep is now available
-        sheep.SetActive(false); // hide sheep
+        spawnedSheep.Remove(sheep);
+        Destroy(sheep);
     }
 
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
-    public GameObject FindValuableSheep()
+    public Transform FindValuableSheep()
     {
-        // get all currently spawned sheep
-        GameObject[] activeSheep = sheepPool.GetActiveSheep();
-
         // initialise helper variables
-        GameObject output = null;
+        Transform output = null;
         float highestWorth = Mathf.NegativeInfinity;
 
         // iterate over all active sheep
-        for (int i = 0; i < activeSheep.Length; i++)
+        for (int i = 0; i < spawnedSheep.Count; i++)
         {
-            GameObject sheep = activeSheep[i]; // get sheep
+            GameObject sheep = spawnedSheep[i]; // get sheep
             Sheep sheepScript = sheep.GetComponent<Sheep>();
 
             // ignore sheep if it's being held already
@@ -210,11 +170,11 @@ public class SheepManager : MonoBehaviour
             if (currentWorth > highestWorth)
             {
                 highestWorth = currentWorth;
-                output = sheep;
+                output = sheep.transform;
             }
         }
 
-        return output;
+        return null;
     }
 
     /// <summary>
@@ -224,17 +184,14 @@ public class SheepManager : MonoBehaviour
     /// <returns>the position of the nearest sheep</returns>
     public GameObject FindNearestSheep(GameObject source)
     {
-        // get all currently spawned sheep
-        GameObject[] activeSheep = sheepPool.GetActiveSheep();
-
         // initialise helper variables
         GameObject output = null;
         float minDist = Mathf.Infinity;
 
         // iterate over all active sheep
-        for (int i = 0; i < activeSheep.Length; i++)
+        for (int i = 0; i < spawnedSheep.Count; i++)
         {
-            GameObject sheep = activeSheep[i]; // get sheep
+            GameObject sheep = spawnedSheep[i]; // get sheep
 
             // ignore sheep if it's being held already
             if (sheep.transform.parent)
