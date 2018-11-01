@@ -179,4 +179,78 @@ public class SheepManager : MonoBehaviour
         sheepPool.ReturnSheepToPool(sheep); // sheep is now available
         sheep.SetActive(false); // hide sheep
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public GameObject FindValuableSheep()
+    {
+        // get all currently spawned sheep
+        GameObject[] activeSheep = sheepPool.GetActiveSheep();
+
+        // initialise helper variables
+        GameObject output = null;
+        float highestWorth = Mathf.NegativeInfinity;
+
+        // iterate over all active sheep
+        for (int i = 0; i < activeSheep.Length; i++)
+        {
+            GameObject sheep = activeSheep[i]; // get sheep
+            Sheep sheepScript = sheep.GetComponent<Sheep>();
+
+            // ignore sheep if it's being held already
+            if (sheep.transform.parent)
+                continue;
+
+            // get distance between this sheep and CPU
+            float currentWorth = sheepScript.score;
+
+            // if new minimum distance, update distance
+            if (currentWorth > highestWorth)
+            {
+                highestWorth = currentWorth;
+                output = sheep;
+            }
+        }
+
+        return output;
+    }
+
+    /// <summary>
+    /// helper function which scans all the spawned sheep, and determines
+    /// which one is the closest
+    /// </summary>
+    /// <returns>the position of the nearest sheep</returns>
+    public GameObject FindNearestSheep(GameObject source)
+    {
+        // get all currently spawned sheep
+        GameObject[] activeSheep = sheepPool.GetActiveSheep();
+
+        // initialise helper variables
+        GameObject output = null;
+        float minDist = Mathf.Infinity;
+
+        // iterate over all active sheep
+        for (int i = 0; i < activeSheep.Length; i++)
+        {
+            GameObject sheep = activeSheep[i]; // get sheep
+
+            // ignore sheep if it's being held already
+            if (sheep.transform.parent)
+                continue;
+
+            // get distance between this sheep and CPU
+            float dist = Vector3.Distance(source.transform.position, sheep.transform.position);
+
+            // if new minimum distance, update distance
+            if (dist < minDist)
+            {
+                minDist = dist;
+                output = sheep;
+            }
+        }
+
+        return output;
+    }
 }

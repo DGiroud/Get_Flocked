@@ -64,9 +64,9 @@ public class CPUSeekGoal : StateMachineBehaviour
         {
             // if holding black sheep, locate the goals of the highest scoring player
             if (isHoldingBlackSheep)
-                currentPath = PathManager.Instance.FindPath(CPU, PathManager.Instance.FindWinningGoal(true, CPU));
+                currentPath = PathManager.Instance.FindPath(CPU.transform, PathManager.Instance.FindWinningGoal(true, CPU));
             else
-                currentPath = PathManager.Instance.FindPath(CPU, PathManager.Instance.FindOwnGoal(CPU));
+                currentPath = PathManager.Instance.FindPath(CPU.transform, PathManager.Instance.FindOwnGoal(CPU));
 
             pathFindTimer = 0.0f;
         }

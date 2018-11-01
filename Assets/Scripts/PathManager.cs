@@ -38,69 +38,51 @@ public class PathManager : MonoBehaviour
     /// <param name="source">the agent which you want to start the path at (needs navmesh)</param>
     /// <param name="destination">the location you want to find a path to</param>
     /// <returns>an array of points which act as corners on a path</returns>
+    public Vector3[] FindPath(Vector3 source, Vector3 destination)
+    {
+        // define new path
+        NavMeshPath navMeshPath = new NavMeshPath();
+        
+        // calculate the path
+        NavMesh.CalculatePath(source, destination, NavMesh.AllAreas, navMeshPath);
+
+        // return the path
+        return navMeshPath.corners;
+    }
+
+    /// <summary>
+    /// returns an array of Vector3s by using navmeshes to find a
+    /// path between source and destination
+    /// </summary>
+    /// <param name="source">the agent which you want to start the path at (needs navmesh)</param>
+    /// <param name="destination">the location you want to find a path to</param>
+    /// <returns>an array of points which act as corners on a path</returns>
+    public Vector3[] FindPath(Transform source, Transform destination)
+    {
+        // define new path
+        NavMeshPath navMeshPath = new NavMeshPath();
+
+        // calculate the path
+        NavMesh.CalculatePath(source.position, destination.position, NavMesh.AllAreas, navMeshPath);
+
+        // return the path
+        return navMeshPath.corners;
+    }
+
+    /// <summary>
+    /// returns an array of Vector3s by using navmeshes to find a
+    /// path between source and destination
+    /// </summary>
+    /// <param name="source">the agent which you want to start the path at (needs navmesh)</param>
+    /// <param name="destination">the location you want to find a path to</param>
+    /// <returns>an array of points which act as corners on a path</returns>
     public Vector3[] FindPath(GameObject source, GameObject destination)
     {
-        // get the NavMeshAgent off of the source object
-        NavMeshAgent navMeshAgent = source.GetComponent<NavMeshAgent>();
+        // define new path
         NavMeshPath navMeshPath = new NavMeshPath();
 
-        // if there is no NavMeshAgent
-        if (!navMeshAgent)
-            navMeshAgent = source.AddComponent<NavMeshAgent>(); // then add it
-
-        navMeshAgent.enabled = true; // enable navMeshAgent
-        navMeshAgent.CalculatePath(destination.transform.position, navMeshPath); // calculate navMeshPath
-        navMeshAgent.enabled = false; // disable navMeshAgent
-
-        // return the path
-        return navMeshPath.corners;
-    }
-
-    /// <summary>
-    /// returns an array of Vector3s by using navmeshes to find a
-    /// path between source and destination
-    /// </summary>
-    /// <param name="source">the agent which you want to start the path at (needs navmesh)</param>
-    /// <param name="destination">the location you want to find a path to</param>
-    /// <returns>an array of points which act as corners on a path</returns>
-    public Vector3[] FindPath(GameObject source, Transform destination)
-    {
-        // get the NavMeshAgent off of the source object
-        NavMeshAgent navMeshAgent = source.GetComponent<NavMeshAgent>();
-        NavMeshPath navMeshPath = new NavMeshPath();
-
-        // if there is no NavMeshAgent
-        if (!navMeshAgent)
-            navMeshAgent = source.AddComponent<NavMeshAgent>(); // then add it
-
-        navMeshAgent.enabled = true; // enable navMeshAgent
-        navMeshAgent.CalculatePath(destination.position, navMeshPath);
-        navMeshAgent.enabled = false; // disable navMeshAgent
-
-        // return the path
-        return navMeshPath.corners;
-    }
-
-    /// <summary>
-    /// returns an array of Vector3s by using navmeshes to find a
-    /// path between source and destination
-    /// </summary>
-    /// <param name="source">the agent which you want to start the path at (needs navmesh)</param>
-    /// <param name="destination">the location you want to find a path to</param>
-    /// <returns>an array of points which act as corners on a path</returns>
-    public Vector3[] FindPath(GameObject source, Vector3 destination)
-    {
-        // get the NavMeshAgent off of the source object
-        NavMeshAgent navMeshAgent = source.GetComponent<NavMeshAgent>();
-        NavMeshPath navMeshPath = new NavMeshPath();
-
-        // if there is no NavMeshAgent
-        if (!navMeshAgent)
-            navMeshAgent = source.AddComponent<NavMeshAgent>(); // then add it
-
-        navMeshAgent.enabled = true; // enable navMeshAgent
-        navMeshAgent.CalculatePath(destination, navMeshPath);
-        navMeshAgent.enabled = false; // disable navMeshAgent
+        // calculate the path
+        NavMesh.CalculatePath(source.transform.position, destination.transform.position, NavMesh.AllAreas, navMeshPath);
 
         // return the path
         return navMeshPath.corners;
@@ -116,75 +98,6 @@ public class PathManager : MonoBehaviour
         {
             Debug.DrawLine(path[i], path[i + 1]);
         }
-    }
-    
-    public Transform FindValuableSheep()
-    {
-        // get all currently spawned sheep
-        GameObject[] activeSheep = SheepManager.Instance.sheepPool.GetActiveSheep();
-
-        // initialise helper variables
-        Transform output = null;
-        float highestWorth = Mathf.NegativeInfinity;
-
-        // iterate over all active sheep
-        for (int i = 0; i < activeSheep.Length; i++)
-        {
-            GameObject sheep = activeSheep[i]; // get sheep
-            Sheep sheepScript = sheep.GetComponent<Sheep>();
-
-            // ignore sheep if it's being held already
-            if (sheep.transform.parent)
-                continue;
-
-            // get distance between this sheep and CPU
-            float currentWorth = sheepScript.score;
-
-            // if new minimum distance, update distance
-            if (currentWorth > highestWorth)
-            {
-                highestWorth = currentWorth;
-                output = sheep.transform;
-            }
-        }
-        return null;
-    }
-    
-    /// <summary>
-    /// helper function which scans all the spawned sheep, and determines
-    /// which one is the closest
-    /// </summary>
-    /// <returns>the position of the nearest sheep</returns>
-    public Transform FindNearestSheep(GameObject source)
-    {
-        // get all currently spawned sheep
-        GameObject[] activeSheep = SheepManager.Instance.sheepPool.GetActiveSheep();
-
-        // initialise helper variables
-        Transform output = null;
-        float minDist = Mathf.Infinity;
-
-        // iterate over all active sheep
-        for (int i = 0; i < activeSheep.Length; i++)
-        {
-            GameObject sheep = activeSheep[i]; // get sheep
-
-            // ignore sheep if it's being held already
-            if (sheep.transform.parent)
-                continue;
-
-            // get distance between this sheep and CPU
-            float dist = Vector3.Distance(source.transform.position, sheep.transform.position);
-
-            // if new minimum distance, update distance
-            if (dist < minDist)
-            {
-                minDist = dist;
-                output = sheep.transform;
-            }
-        }
-
-        return output;
     }
 
     /// <summary>
