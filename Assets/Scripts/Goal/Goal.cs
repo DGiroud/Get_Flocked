@@ -20,13 +20,19 @@ public class Goal : MonoBehaviour
         // if the collided object is a sheep
         if (other.CompareTag("Sheep"))
         {
+            // get the player that's parenting the colliding sheep
             BaseActor player = other.GetComponentInParent<BaseActor>();
+
+            // if the colliding sheep has no parent (e.g. it's scoring itself) then...
+            if (player != null)
+                ScoreManager.Instance.IncrementGoalCount(player.actorID); // increment goal count
+
+            // get how much points the sheep is worth
             int sheepWorth = other.GetComponent<Sheep>().score;
 
-            // destroy sheep
+            // destroy sheep & add score
             SheepManager.Instance.DestroySheep(other.gameObject);
             ScoreManager.Instance.AddScore(goalID, sheepWorth);
-            ScoreManager.Instance.IncrementGoalCount(player.actorID);
 
             fireWorksTrail.Play();
             fireWorksWhiteNoise.Play();

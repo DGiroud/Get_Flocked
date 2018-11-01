@@ -38,13 +38,13 @@ public class PathManager : MonoBehaviour
     /// <param name="source">the agent which you want to start the path at (needs navmesh)</param>
     /// <param name="destination">the location you want to find a path to</param>
     /// <returns>an array of points which act as corners on a path</returns>
-    public Vector3[] FindPath(Vector3 source, Vector3 destination)
+    public Vector3[] FindPath(Vector3 source, Vector3 destination, int areaMask = NavMesh.AllAreas)
     {
         // define new path
         NavMeshPath navMeshPath = new NavMeshPath();
         
         // calculate the path
-        NavMesh.CalculatePath(source, destination, NavMesh.AllAreas, navMeshPath);
+        NavMesh.CalculatePath(source, destination, areaMask, navMeshPath);
 
         // return the path
         return navMeshPath.corners;
@@ -57,13 +57,13 @@ public class PathManager : MonoBehaviour
     /// <param name="source">the agent which you want to start the path at (needs navmesh)</param>
     /// <param name="destination">the location you want to find a path to</param>
     /// <returns>an array of points which act as corners on a path</returns>
-    public Vector3[] FindPath(Transform source, Transform destination)
+    public Vector3[] FindPath(Transform source, Transform destination, int areaMask = NavMesh.AllAreas)
     {
         // define new path
         NavMeshPath navMeshPath = new NavMeshPath();
 
         // calculate the path
-        NavMesh.CalculatePath(source.position, destination.position, NavMesh.AllAreas, navMeshPath);
+        NavMesh.CalculatePath(source.position, destination.position, areaMask, navMeshPath);
 
         // return the path
         return navMeshPath.corners;
@@ -76,13 +76,13 @@ public class PathManager : MonoBehaviour
     /// <param name="source">the agent which you want to start the path at (needs navmesh)</param>
     /// <param name="destination">the location you want to find a path to</param>
     /// <returns>an array of points which act as corners on a path</returns>
-    public Vector3[] FindPath(GameObject source, GameObject destination)
+    public Vector3[] FindPath(GameObject source, GameObject destination, int areaMask = NavMesh.AllAreas)
     {
         // define new path
         NavMeshPath navMeshPath = new NavMeshPath();
 
         // calculate the path
-        NavMesh.CalculatePath(source.transform.position, destination.transform.position, NavMesh.AllAreas, navMeshPath);
+        NavMesh.CalculatePath(source.transform.position, destination.transform.position, areaMask, navMeshPath);
 
         // return the path
         return navMeshPath.corners;
