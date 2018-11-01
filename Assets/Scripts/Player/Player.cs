@@ -18,7 +18,15 @@ public class Player : BaseActor
     {
         playerInput = inputType;
     }
-    
+
+    /// <summary>
+    /// initialise actor type (this is a player)
+    /// </summary>
+    public void Start()
+    {
+        actorType = ActorType.Player;
+    }
+
     /// <summary>
     /// handle player input
     /// </summary>
@@ -43,8 +51,20 @@ public class Player : BaseActor
     {
         GamePadState input = GamePad.GetState((PlayerIndex)actorID);
 
-        GamePadKick(input);
-        GamePadMovement(input);
+        switch (LevelManager.Instance.gameState)
+        {
+            case GameState.Main:
+                {
+                    GamePadKick(input);
+                    GamePadMovement(input);
+                    break;
+                }
+            case GameState.RoundEnd:
+                {
+                    GamePadReady(input);
+                    break;
+                }
+        }
     }
 
     /// <summary>
@@ -87,12 +107,31 @@ public class Player : BaseActor
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="gamePad"></param>
+    private void GamePadReady(GamePadState gamePad)
+    {
+        if (gamePad.Buttons.A == ButtonState.Pressed)
+        {
+            UIMainGame.Instance.ToggleReady(actorID);
+        }
+    }
+
+
+    /// <summary>
+    /// delete this
+    /// </summary>
     private void KeyboardInput()
     {
         KeyboardKick();
         KeyboardMovement();
     }
 
+    /// <summary>
+    /// delete this
+    /// </summary>
     private void KeyboardMovement()
     {
         // x & z translation mapped to horizontal & vertical respectively
@@ -105,6 +144,9 @@ public class Player : BaseActor
         Move(translation.x, translation.z);
     }
 
+    /// <summary>
+    /// delete this
+    /// </summary>
     private void KeyboardKick()
     {
         // space to kick sheep

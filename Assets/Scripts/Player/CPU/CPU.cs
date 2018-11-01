@@ -21,4 +21,9 @@ public class CPU : BaseActor
     [SerializeField]
     private float artificialThinkTime = 0.5f;
     public float ArtificialThinkTime { get { return artificialThinkTime; } }
+    
+    public void Start()
+    {
+        actorType = ActorType.CPU;
+    }
 }

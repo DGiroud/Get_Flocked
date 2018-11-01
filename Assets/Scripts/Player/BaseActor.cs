@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ActorType
+{
+    Player,
+    CPU
+}
+
 public class BaseActor : MonoBehaviour
 {
     // actor identification labels
     [HideInInspector]
     public int actorID; // the actor's permanent ID throughout the game
+    [HideInInspector]
+    public ActorType actorType; // used to determine whether this is a CPU or not
 
     // actor movement
     #region movement
@@ -100,7 +108,7 @@ public class BaseActor : MonoBehaviour
         // perform movement
         controller.SimpleMove(translation * speed);
 
-
+        // calculate and increment distance travelled
         float distanceTravelled = Vector3.Distance(transform.position, lastPosition);
         ScoreManager.Instance.AddDistanceTravelled(actorID, distanceTravelled);
 

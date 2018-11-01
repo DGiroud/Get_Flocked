@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum GameState
+{
+    CountDown,
+    Main,
+    Pause,
+    TimesUp,
+    RoundEnd
+}
 
-public class LevelManager : MonoBehaviour {
-
+public class LevelManager : MonoBehaviour
+{
     // singleton instance
     #region singleton
 
@@ -23,23 +31,23 @@ public class LevelManager : MonoBehaviour {
     }
 
     #endregion
+
     [SerializeField]
     private int gameOverLevelID;
     [HideInInspector]
     public float roundTimer;
-    static private int[] scores;
-
-    [HideInInspector]
-    public bool roundStart;
+    
+    public GameState gameState;
     [HideInInspector]
     public float countDown;
     [HideInInspector]
-    public bool gameStart = false;      //used to begin the ramspawner in RamSpawn
+    public bool gameStart = false; //used to begin the ramspawner in RamSpawn
 
-    public int maxRounds;              //Max rounds per game
-    public float roundLength;          //Max amount of time for the rounds
-    static int currentRound = 0;           //Show current round
-    
+    public int maxRounds; //Max rounds per game
+    public float roundLength; //Max amount of time for the rounds
+    static int currentRound = 0; //Show current round
+    public float timesUpPauseDuration;
+
     private void Awake()
     {
         instance = this;
@@ -54,7 +62,10 @@ public class LevelManager : MonoBehaviour {
         roundTimer -= Time.deltaTime;
 
         if (roundTimer <= 0.5f)
-            NewRound();
+        {
+            if (gameState != GameState.RoundEnd)
+                StartCoroutine(TimesUp());
+        }
     }
     
     /// <summary>
@@ -62,14 +73,15 @@ public class LevelManager : MonoBehaviour {
     /// then resumes the game
     /// </summary>
     /// <returns></returns>
-    IEnumerator CountDown()
+    private IEnumerator CountDown()
     {
+        gameState = GameState.CountDown;
+
         // amount of time to pause for (3 seconds)
         float pauseTime = Time.realtimeSinceStartup + 3.5f;
 
         // pause time
         Time.timeScale = 0.0f;
-        roundStart = true;
 
         // keep counting down until time catches up with pauseTime
         while (Time.realtimeSinceStartup < pauseTime)
@@ -81,38 +93,82 @@ public class LevelManager : MonoBehaviour {
 
         // resume time
         Time.timeScale = 1.0f; 
-        roundStart = false;
         gameStart = true;
+
+        gameState = GameState.Main;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private void Pause()
+    {
+        gameState = GameState.Pause;
+
+        // pause time
+        Time.timeScale = 0.0f;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator TimesUp()
+    {
+        gameState = GameState.TimesUp;
+
+        float pauseTime = Time.realtimeSinceStartup + timesUpPauseDuration;
+
+        // pause time
+        Time.timeScale = 0.0f;
+        
+        while (Time.realtimeSinceStartup < pauseTime)
+        {
+            yield return null;
+        }
+
+        if (currentRound == maxRounds)
+            GameOver();
+        else
+            RoundEnd();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private void RoundEnd()
+    {
+        gameState = GameState.RoundEnd;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void NewRound()
+    {
+        currentRound++;
+
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private void GameOver()
+    {
+        currentRound = 0;
+        SceneManager.LoadScene(gameOverLevelID);
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     static public int GetCurrentRound()
     { 
         //returning currentRound
         return currentRound;
     }
 
-    #region NewRound
-    /// <summary>
-    ///Reloading level(s)
-    ///Clearing map of sheep + reload map
-    ///Repositioning players back to spawn locations
-    ///Reset time (roundTimer)
-    /// </summary>
-    #endregion
-    private void NewRound()
-    {
-        currentRound++;
-
-        //If it is the last round, the SceneManager will be loaded to the end game level 
-        if (currentRound == maxRounds)
-        {
-            currentRound = 0;
-            SceneManager.LoadScene(gameOverLevelID);
-        }
-        else
-        {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
-        }
-    }
 }

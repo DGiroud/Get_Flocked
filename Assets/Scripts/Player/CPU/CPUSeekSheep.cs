@@ -57,9 +57,10 @@ public class CPUSeekSheep : StateMachineBehaviour
         if (nearestSheep != null && pathFindTimer > 0.5f)
         {
             currentPath = PathManager.Instance.FindPath(CPU, nearestSheep);
+            PathManager.Instance.DrawPath(currentPath);
             pathFindTimer = 0.0f;
         }
-
+        
         // if there's a path
         if (currentPath != null && currentPath.Length > 0)
         {
