@@ -36,10 +36,8 @@ public class WanderBehaviour : StateMachineBehaviour {
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Vector3 newDir = new Vector3();
-
         
-        currentPath = PathManager.Instance.FindPath(sheep, newPos);
-        
+        currentPath = PathManager.Instance.FindPath(sheep.transform.position, newPos);        
 
         //Debug, allowing us to see it's current destination
         sheep.GetComponent<Sheep>().newPosDebug = newPos;
@@ -47,14 +45,8 @@ public class WanderBehaviour : StateMachineBehaviour {
         ////Work out direction (Destination - current)
         if(currentPath != null && currentPath.Length > 0)
         {
-            newDir = currentPath[1] - currentPath[0];
-
-            //Drawing the path
-            PathManager.Instance.DrawPath(currentPath);
+            newDir = (currentPath[1] - currentPath[0]).normalized;
         }
-
-        ////Normalise it
-        newDir = newDir.normalized;
 
         //Add force using direction * speed
         sheep.GetComponent<Rigidbody>().AddForce(newDir * sheepSpeed, ForceMode.Force);

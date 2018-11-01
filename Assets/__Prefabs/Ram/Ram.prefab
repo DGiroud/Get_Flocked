@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 135995869553713194}
   - component: {fileID: 114057535545098580}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: meteorSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,9 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6fdbbfdafa04345965a613096b9aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionForce: 5
-  explosionRadius: 1
-  upwardsModifier: 5
 --- !u!114 &114606342036674022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -226,8 +223,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepBackDuration: 3
   spawnTimer: 2
-  stunDuration: 3
+  stunDuration: 0.2
   wanderSpeed: 5
+  idleTime: 3
+  newPos: {x: 0, y: 0, z: 0}
   crashEffect: {fileID: 1242820699891550, guid: 010b36774882533459f83d336666add2,
     type: 2}
 --- !u!135 &135995869553713194

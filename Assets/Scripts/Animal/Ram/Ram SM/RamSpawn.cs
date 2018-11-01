@@ -137,6 +137,7 @@ public class RamSpawn : StateMachineBehaviour {
                 //ram.GetComponent<Rigidbody>().AddForce(newDir * landingSpeed);
             }
 
+            //The instant where we crash
             if (ram.transform.position.y <= 0.75f)
             {
                 if (!crashed)
@@ -189,6 +190,7 @@ public class RamSpawn : StateMachineBehaviour {
         ram.GetComponent<Rigidbody>().transform.position.Set(ram.transform.position.x, ram.transform.position.y + 1,
                                                                                        ram.transform.position.z);
         ram.GetComponent<Rigidbody>().transform.rotation = new Quaternion(0, ram.transform.rotation.y, 0, 1);
+        ram.GetComponentInChildren<SphereCollider>().radius = 1.5f; //Reduce the size of the sphere collider when we land
         ram.GetComponent<Animator>().SetBool("isStunned", true);
     }
 

@@ -14,11 +14,7 @@ public class Ram : MonoBehaviour {
 
     public enum RamState { Spawn, Idle, Stepback, Charge}
     private RamState currentState;
-    private bool isCharging = false;
-
-    private float acceleration;
-    private float stepBackTimer = 0.0f;
-    private float idleTimer = 0.0f;
+    
     public float stepBackDuration;
     [Tooltip("The duration that the Ram will wait to spawn after locking in it's location to land")]
     public float spawnTimer;
@@ -27,21 +23,27 @@ public class Ram : MonoBehaviour {
     public float stunDuration;
     [Tooltip("The speed at which the Ram will wander around the playing field")]
     [Range(0, 100)]
-    public float wanderSpeed;
+    public float wanderSpeed;[Tooltip("How long the Ram waits (in seconds) before finding a new location after reaching it's original")]
+    public float idleTime;
 
-    GameObject fieldObject;     //Reference to the field, so that we can find a new position relative to it's dimensions
-    private float fieldPosX;
-    private float fieldPosZ;
+    public Vector3 newPos;
+    private GameObject[] fieldBox;
+    private int previousNum;
+    private int rand;
 
     public GameObject crashEffect;
 
     void Start () {
         SetState(RamState.Spawn);
 
-        fieldObject = GameObject.FindWithTag("Field");
+        //Creating the FieldBox array;
+        fieldBox = new GameObject[4];
 
-        fieldPosX = fieldObject.transform.position.x;
-        fieldPosZ = fieldObject.transform.position.z;
+        //Initialising each element of our field array to the 4 field objects in our scene
+        fieldBox[0] = GameObject.Find("FieldTop");
+        fieldBox[1] = GameObject.Find("FieldRight");
+        fieldBox[2] = GameObject.Find("FieldBottom");
+        fieldBox[3] = GameObject.Find("FieldLeft");
     }
 
     // Update is called once per frame
@@ -58,21 +60,27 @@ public class Ram : MonoBehaviour {
         return currentState;
     }
 
+    //pls dont break mr ram
     public Vector3 GetNewDestination()
     {
         Vector3 newPos = new Vector3();
+        
+        //Randomly select one of the 4 fieldBoxes in the scene
+        rand = Random.Range(0, 4);
 
-        #region Comments
-        //Here we are getting the current field's position (as it may change in size through playtesting) and setting a new random point
-        // within the field limits by getting the localScale (size) and halving it, which will give us the correct dimensions in all directions.
-        // E.G. If the width of the field is 25, we want 12.5 from the center going in both directions, so we would find a random point in a
-        // range between -12.5 and 12.5;
-        #endregion
-        newPos.x = UnityEngine.Random.Range(fieldPosX - fieldObject.transform.localScale.x / 2f,
-            fieldPosX + fieldObject.transform.localScale.x / 2f);
+        //We don't want to seek into the same box, but if it happens to get the same box twice, it's earned that.
+        if (rand == previousNum)
+            rand = Random.Range(0, 4);
 
-        newPos.z = UnityEngine.Random.Range(fieldPosZ - fieldObject.transform.localScale.z / 2f,
-            fieldPosZ + fieldObject.transform.localScale.z / 2f);
+        //So that we can check that we don't have the same number as last time
+        previousNum = rand;
+
+        //Randomly get an x and z position within that field for our Object to seek to
+        newPos.x = Random.Range(fieldBox[rand].transform.position.x - fieldBox[rand].transform.localScale.x / 2f,
+                                fieldBox[rand].transform.position.x + fieldBox[rand].transform.localScale.x / 2f);
+
+        newPos.z = Random.Range(fieldBox[rand].transform.position.z - fieldBox[rand].transform.localScale.z / 2f,
+                                fieldBox[rand].transform.position.z + fieldBox[rand].transform.localScale.z / 2f);
 
         return newPos;
     }

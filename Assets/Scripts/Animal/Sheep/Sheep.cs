@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Sheep : MonoBehaviour {
 
@@ -22,7 +21,11 @@ public class Sheep : MonoBehaviour {
     //public float 
     [Tooltip("FOR DEBUG, READ ONLY")]
     public Vector3 newPosDebug;                //Variable so we can actively see where the sheep is trying to go during runtime[DEBUG ONLY]
-    
+
+    private GameObject[] fieldBox;
+    private int previousNum;
+    private int rand;
+
     public string currentBehaviour;
 
     private Animator sheepAnim;
@@ -30,10 +33,14 @@ public class Sheep : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-        fieldObject = GameObject.FindWithTag("Field");
+        //Creating the FieldBox array;
+        fieldBox = new GameObject[4];
 
-        fieldPosX = fieldObject.transform.position.x;
-        fieldPosZ = fieldObject.transform.position.z;
+        //Initialising each element of our field array to the 4 field objects in our scene
+        fieldBox[0] = GameObject.Find("FieldTop");
+        fieldBox[1] = GameObject.Find("FieldRight");
+        fieldBox[2] = GameObject.Find("FieldBottom");
+        fieldBox[3] = GameObject.Find("FieldLeft");
 
         sheepAnim = GetComponent<Animator>();
     }
@@ -90,20 +97,21 @@ public class Sheep : MonoBehaviour {
     {
         Vector3 newPos = new Vector3();
 
-        #region Comments
-        //Here we are getting the current field's position (as it may change in size through playtesting) and setting a new random point
-        // within the field limits by getting the localScale (size) and halving it, which will give us the correct dimensions in all directions.
-        // E.G. If the width of the field is 25, we want 12.5 from the center going in both directions, so we would find a random point in a range
-        // between -12.5 and 12.5;
-        #endregion
-        newPos.x = UnityEngine.Random.Range(fieldPosX - fieldObject.transform.localScale.x / 2f,
-            fieldPosX + fieldObject.transform.localScale.x / 2f);
+        //Randomly select one of the 4 fieldBoxes in the scene
+        rand = Random.Range(0, 4);
 
-        newPos.z = UnityEngine.Random.Range(fieldPosZ - fieldObject.transform.localScale.z / 2f,
-            fieldPosZ + fieldObject.transform.localScale.z / 2f);
+        //We don't want to seek into the same box
+        if (rand == previousNum)
+            rand = Random.Range(0, 4);
 
-        //So we can the numbers during runtime for Debug
-        newPosDebug = newPos;
+        previousNum = rand;
+
+        //Randomly get an x and z position within that field for our Object to seek to
+        newPos.x = Random.Range(fieldBox[rand].transform.position.x - fieldBox[rand].transform.localScale.x / 2f,
+                                fieldBox[rand].transform.position.x + fieldBox[rand].transform.localScale.x / 2f);
+
+        newPos.z = Random.Range(fieldBox[rand].transform.position.z - fieldBox[rand].transform.localScale.z / 2f,
+                                fieldBox[rand].transform.position.z + fieldBox[rand].transform.localScale.z / 2f);
 
         return newPos;
     }
