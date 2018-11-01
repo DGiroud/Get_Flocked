@@ -125,8 +125,22 @@ public class Player : BaseActor
     /// </summary>
     private void KeyboardInput()
     {
-        KeyboardKick();
-        KeyboardMovement();
+        GamePadState input = GamePad.GetState((PlayerIndex)actorID);
+
+        switch (LevelManager.Instance.gameState)
+        {
+            case GameState.Main:
+                {
+                    KeyboardKick();
+                    KeyboardMovement();
+                    break;
+                }
+            case GameState.RoundEnd:
+                {
+                    KeyboardReady();
+                    break;
+                }
+        }
     }
 
     /// <summary>
@@ -164,6 +178,14 @@ public class Player : BaseActor
                 ScoreManager.Instance.IncrementInterceptCount(actorID);
                 interactionSheep = null;
             }
+        }
+    }
+
+    private void KeyboardReady()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UIMainGame.Instance.ToggleReady(actorID);
         }
     }
 }

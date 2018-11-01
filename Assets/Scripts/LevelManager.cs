@@ -63,8 +63,10 @@ public class LevelManager : MonoBehaviour
 
         if (roundTimer <= 0.5f)
         {
-            if (gameState != GameState.RoundEnd)
+            if (gameState != GameState.TimesUp && gameState != GameState.RoundEnd)
+            {
                 StartCoroutine(TimesUp());
+            }
         }
     }
     
@@ -127,7 +129,7 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
 
-        if (currentRound == maxRounds)
+        if (currentRound == maxRounds - 1)
             GameOver();
         else
             RoundEnd();
