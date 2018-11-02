@@ -3896,6 +3896,7 @@ GameObject:
   - component: {fileID: 1059649868}
   - component: {fileID: 1059649867}
   - component: {fileID: 1059649866}
+  - component: {fileID: 1059649870}
   m_Layer: 0
   m_Name: Sheep Spawn Point 1
   m_TagString: Untagged
@@ -3983,6 +3984,24 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1059649864}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1059649870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1059649864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3adbd20a14d3ffe4f8c646f4976b1637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sheep:
+  - prefab: {fileID: 1641263674842108, guid: 833e21f4fee3ea34fa5785e070bb82f4, type: 2}
+    spawnChance: {x: 0, y: 60}
+  - prefab: {fileID: 1350610533221126, guid: 2f1794dac3938af468587416e537e078, type: 2}
+    spawnChance: {x: 60, y: 90}
+  - prefab: {fileID: 1703332534316362, guid: aa6c9cea5a51d3548a8de9b08067c8bf, type: 2}
+    spawnChance: {x: 90, y: 100}
 --- !u!1 &1065861145
 GameObject:
   m_ObjectHideFlags: 0
@@ -9029,40 +9048,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14e32325576f0246af23d7f7aa76efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sheepPool: {fileID: 0}
-  sheep:
-  - prefab: {fileID: 1641263674842108, guid: 833e21f4fee3ea34fa5785e070bb82f4, type: 2}
-    amount: 12
-  - prefab: {fileID: 1350610533221126, guid: 2f1794dac3938af468587416e537e078, type: 2}
-    amount: 2
-  - prefab: {fileID: 1703332534316362, guid: aa6c9cea5a51d3548a8de9b08067c8bf, type: 2}
-    amount: 1
-  - prefab: {fileID: 1688817407654430, guid: 8b34b6fc50228814ebb9b3f8d129f364, type: 2}
-    amount: 2
-  spawnOnStartup: 1
+  spawnOnStartup: 0
   amountToSpawn: 4
   spawnMode: 1
+  maximumSheep: 10
   spawnPoints:
-  - {fileID: 1059649865}
-  - {fileID: 1314532820}
-  - {fileID: 2028461094}
-  - {fileID: 1430607107}
-  - {fileID: 1837936543}
-  - {fileID: 1464736542}
-  - {fileID: 1459636560}
-  - {fileID: 512024236}
-  - {fileID: 1405957821}
-  - {fileID: 1568384693}
-  - {fileID: 2093392254}
-  - {fileID: 1286616729}
-  - {fileID: 707040149}
-  - {fileID: 1358838854}
-  - {fileID: 206016572}
-  - {fileID: 1449525915}
-  - {fileID: 139353548}
-  - {fileID: 2032445487}
-  - {fileID: 1650918303}
-  - {fileID: 1471228145}
+  - {fileID: 1059649864}
   spawnTime: {x: 1, y: 2}
 --- !u!1 &2082213348
 GameObject:
