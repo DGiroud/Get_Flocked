@@ -12,6 +12,8 @@ public class UIGameOver : MonoBehaviour
     private int gameLevelID;
 
     [SerializeField]
+    private Text playerWinText;
+    [SerializeField]
     private Text[] scoreText;
     [SerializeField]
     private Text[] goalsText;
@@ -28,6 +30,7 @@ public class UIGameOver : MonoBehaviour
     private void Start()
     {
         PlayerScores[][] playerScores = ScoreManager.GetPlayerScores();
+        int[] finalScores = new int[4];
 
         for (int i = 0; i < 4; i++)
         {
@@ -51,7 +54,24 @@ public class UIGameOver : MonoBehaviour
             kicksText[i].text = kicks.ToString();
             interceptTexts[i].text = intercepts.ToString();
             distanceTexts[i].text = distance.ToString("0") + " m";
+
+            finalScores[i] = score;
         }
+
+        EvaluateWinner(finalScores);
+    }
+
+    private void EvaluateWinner(int[] finalScores)
+    {
+        int winnerID = 0;
+
+        for (int i = 0; i < finalScores.Length; i++)
+        {
+            if (finalScores[i] > finalScores[winnerID])
+                winnerID = i;
+        }
+
+        playerWinText.text = "Player " + (winnerID + 1).ToString() + " WINS!";
     }
 
     /// <summary>
