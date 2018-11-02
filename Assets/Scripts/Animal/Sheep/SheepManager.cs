@@ -117,9 +117,9 @@ public class SheepManager : MonoBehaviour
 
         // get the next spawn point based off spawnMode
         GameObject nextSpawnPoint = spawnPointSelector.Select(spawnMode);
-        GameObject nextSheep = nextSpawnPoint.GetComponent<SpawnPoint>().SelectSheep();
-        spawnedSheep.Add(Instantiate(nextSheep));
+        GameObject nextSheep = Instantiate(nextSpawnPoint.GetComponent<SpawnPoint>().SelectSheep());
         nextSheep.transform.position = nextSpawnPoint.transform.position;
+        spawnedSheep.Add(nextSheep);
 
         return nextSheep;
     }
