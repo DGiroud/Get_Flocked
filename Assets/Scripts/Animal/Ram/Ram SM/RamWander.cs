@@ -13,7 +13,7 @@ public class RamWander : StateMachineBehaviour {
     //This state leads into:
     // Stepback: Once a player enter's the Ram's danger zone (lana), then it will enter it's Stepback state;
 
-        //Reference to the Ram game object
+    //Reference to the Ram game object
     GameObject ram;
 
     //The position that the Ram will seek to
@@ -32,12 +32,14 @@ public class RamWander : StateMachineBehaviour {
         //Initialising ram for easier access throughout this script
         ram = animator.gameObject;
         //Finding a new position to Wander to
-        newPos = ram.GetComponent<Ram>().GetNewDestination();
+        newPos  = ram.GetComponent<Ram>().GetNewDestination();
         navMesh = ram.GetComponent<NavMeshAgent>();
-        //Debug
-        ram.GetComponent<Ram>().newPos = newPos;
         movementSpeed = ram.GetComponent<Ram>().wanderSpeed;
         idleTimer = ram.GetComponent<Ram>().idleTime;
+
+        ram.GetComponent<Ram>().meteorSphere.enabled = false;
+        ram.GetComponent<Ram>().chargeSphere.enabled = true;
+        ram.GetComponent<Ram>().chargeSphere.radius = ram.GetComponent<Ram>().chargeRadius;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -76,13 +78,25 @@ public class RamWander : StateMachineBehaviour {
             if (timer >= idleTimer)
             {
                 newPos = ram.GetComponent<Ram>().GetNewDestination();
-                ram.GetComponent<Ram>().newPos = newPos;
                 timer = 0;
             }
         }
 
+        //************************************************************************************
+        //      LITTLE PIECE OF WANDER CODE TO USE, JUST GOTTA IMPLEMENT IT PROPERLY
+        //************************************************************************************
+        //public static Vector3 RandomNavSphere(Vector3 origin, float distance, int layermask)
+        //{
+        //    Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * distance;
 
-        // * Charge player if one comes within range
+        //    randomDirection += origin;
+
+        //    NavMeshHit navHit;
+
+        //    NavMesh.SamplePosition(randomDirection, out navHit, distance, layermask);
+
+        //    return navHit.position;
+        //}
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

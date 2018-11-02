@@ -23,7 +23,6 @@ public class RamSpawn : StateMachineBehaviour {
     bool destination = false;
     bool spawned     = false;
     bool finished    = false;
-    bool gameStart   = false;
     bool crashed     = false;
 
     //********************************************************************************************************************
@@ -137,14 +136,17 @@ public class RamSpawn : StateMachineBehaviour {
                 //ram.GetComponent<Rigidbody>().AddForce(newDir * landingSpeed);
             }
 
-            //The instant where we crash
+            //The instant where we crash into the ground
             if (ram.transform.position.y <= 0.75f)
             {
                 if (!crashed)
                 {
+                    //Creating the ram, he should be facing in the same direction as he lands (spoiler: he doesn't)
                     Instantiate(crashEffect, new Vector3(ram.transform.position.x, 0, ram.transform.position.z),
-                                                         new Quaternion(0, -0.7056152f, -0.7085952f, 0));
+                                                         new Quaternion(-0.7071068f, 0, 0, 0.7071068f));
+                    //Turn on the crash particle effects
                     crashEffect.SetActive(true);
+                    //Make sure that we never come here again
                     crashed = true;
                 }
 
@@ -171,6 +173,7 @@ public class RamSpawn : StateMachineBehaviour {
         // set ram position to spawn point
         ram.transform.position = ramSpawnPoint.transform.position;
 
+        //Let's see that beaut
         ram.GetComponentInChildren<MeshRenderer>().enabled = true;
 
         //Grav
@@ -183,14 +186,14 @@ public class RamSpawn : StateMachineBehaviour {
     //Script to run as the ram hits the ground. Will switch state to the "stunned" state
     public void ramLanding()
     {
-
+        //We gotta turn off aaallll those constraints. My boy should be able to move any which way he wants (◕ᴗ◕✿)
         ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         ram.GetComponent<Rigidbody>().useGravity = true;
         //We want to reset it's rotation when it lands, but not along the y axis. This way it will face the same way it landed at
         ram.GetComponent<Rigidbody>().transform.position.Set(ram.transform.position.x, ram.transform.position.y + 1,
                                                                                        ram.transform.position.z);
         ram.GetComponent<Rigidbody>().transform.rotation = new Quaternion(0, ram.transform.rotation.y, 0, 1);
-        ram.GetComponentInChildren<SphereCollider>().radius = 1.5f; //Reduce the size of the sphere collider when we land
+        //Our little function so that we can enter the Spawn state and set the Ram into his loop
         ram.GetComponent<Animator>().SetBool("isStunned", true);
     }
 

@@ -6,16 +6,13 @@ using UnityEngine.AI;
 
 public class Ram : MonoBehaviour {
 
-    NavMeshAgent agent;
+    //NavMeshAgent agent;
 
     //************************
     //******* RAMPAGE ********
     //************************
 
-    public enum RamState { Spawn, Idle, Stepback, Charge}
-    private RamState currentState;
     
-    public float stepBackDuration;
     [Tooltip("The duration that the Ram will wait to spawn after locking in it's location to land")]
     public float spawnTimer;
     [Tooltip("The duration that the Ram will be stunned for after charging and landing")]
@@ -23,18 +20,33 @@ public class Ram : MonoBehaviour {
     public float stunDuration;
     [Tooltip("The speed at which the Ram will wander around the playing field")]
     [Range(0, 100)]
-    public float wanderSpeed;[Tooltip("How long the Ram waits (in seconds) before finding a new location after reaching it's original")]
+    public float wanderSpeed;
+    [Tooltip("How long the Ram waits (in seconds) before finding a new location after reaching it's original")]
     public float idleTime;
+    public GameObject crashEffect;
 
-    public Vector3 newPos;
+
+    [Header("Charging Properties")]
+    [Tooltip("How close a player needs to be to the Ram before it charges that player")]
+    public float chargeRadius;
+    [Tooltip("How long the Ram waits before charging the player. This will need to align with the animation the Ram takes as it prepares " +
+        "for it's Charge.")]
+    public float chargeDelay;    
+
+
     private GameObject[] fieldBox;
     private int previousNum;
     private int rand;
 
-    public GameObject crashEffect;
+    [Header("Ram Spheres")]
+    public SphereCollider meteorSphere;
+    public SphereCollider chargeSphere;
+
+    //Reference to the player we're charging
+    [HideInInspector]
+    public GameObject player;
 
     void Start () {
-        SetState(RamState.Spawn);
 
         //Creating the FieldBox array;
         fieldBox = new GameObject[4];
@@ -44,20 +56,6 @@ public class Ram : MonoBehaviour {
         fieldBox[1] = GameObject.Find("FieldRight");
         fieldBox[2] = GameObject.Find("FieldBottom");
         fieldBox[3] = GameObject.Find("FieldLeft");
-    }
-
-    // Update is called once per frame
-    void Update () {		
-    }
-
-    void SetState(RamState newState)
-    {
-        currentState = newState;
-    }
-
-    RamState GetState()
-    {
-        return currentState;
     }
 
     //pls dont break mr ram
@@ -83,5 +81,15 @@ public class Ram : MonoBehaviour {
                                 fieldBox[rand].transform.position.z + fieldBox[rand].transform.localScale.z / 2f);
 
         return newPos;
+    }
+
+    public void chargePlayer()
+    {
+        //Turn off our charging sphere so that we don't get issues with finding another player mid-charge
+        chargeSphere.enabled = false;
+
+        //This is called from the Ram prefab's chargeRadius sphere on TriggerEnter.
+        // Will immediately change the Ram's behaviour to begin it's charging sequence
+        GetComponent<Animator>().SetBool("isStepback", true);
     }
 }
