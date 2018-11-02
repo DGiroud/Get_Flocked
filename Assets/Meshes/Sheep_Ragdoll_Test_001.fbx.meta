@@ -1,0 +1,247 @@
+fileFormatVersion: 2
+guid: 3cf0c774310fae845afda8c72cb5e86f
+timeCreated: 1541050900
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: body
+    100002: face
+    100004: Jnt_butt
+    100006: Jnt_Core
+    100008: Jnt_head
+    100010: Jnt_l_b_hoof
+    100012: Jnt_l_b_hoof1
+    100014: Jnt_l_b_hoof2
+    100016: Jnt_l_b_leg
+    100018: Jnt_l_b_leg_001
+    100020: Jnt_l_b_leg_fat_001
+    100022: Jnt_l_b_leg_fat_002
+    100024: Jnt_l_b_leg_fat_003
+    100026: Jnt_l_b_leg_fat_004
+    100028: Jnt_l_b_leg_hocf
+    100030: Jnt_l_bot_neck
+    100032: Jnt_l_ear
+    100034: Jnt_l_f_hoof
+    100036: Jnt_l_f_hoof1
+    100038: Jnt_l_f_knee
+    100040: Jnt_l_f_leg
+    100042: Jnt_l_f_leg_001
+    100044: Jnt_l_f_leg_fat_001
+    100046: Jnt_l_f_leg_fat_002
+    100048: Jnt_l_f_leg_fat_003
+    100050: Jnt_l_f_leg_fat_004
+    100052: Jnt_l_mid_ear
+    100054: Jnt_l_tip_ear
+    100056: Jnt_l_top_neck
+    100058: Jnt_Neck
+    100060: Jnt_r_b_hoof
+    100062: Jnt_r_b_hoof1
+    100064: Jnt_r_b_hoof2
+    100066: Jnt_r_b_leg
+    100068: Jnt_r_b_leg_001
+    100070: Jnt_r_b_leg_fat_001
+    100072: Jnt_r_b_leg_fat_002
+    100074: Jnt_r_b_leg_fat_003
+    100076: Jnt_r_b_leg_fat_004
+    100078: Jnt_r_b_leg_hocf
+    100080: Jnt_r_bot_neck
+    100082: Jnt_r_ear
+    100084: Jnt_r_f_hoof
+    100086: Jnt_r_f_hoof1
+    100088: Jnt_r_f_knee
+    100090: Jnt_r_f_leg
+    100092: Jnt_r_f_leg_001
+    100094: Jnt_r_f_leg_fat_001
+    100096: Jnt_r_f_leg_fat_002
+    100098: Jnt_r_f_leg_fat_003
+    100100: Jnt_r_f_leg_fat_004
+    100102: Jnt_r_mid_ear
+    100104: Jnt_r_tip_ear
+    100106: Jnt_r_top_neck
+    100108: neck
+    100110: r_b_leg
+    100112: r_b_leg2
+    100114: r_ear
+    100116: r_ear2
+    100118: r_eye
+    100120: r_eye2
+    100122: r_f_leg
+    100124: r_f_leg 1
+    100126: r_f_leg2
+    100128: Sheep_Animal_001
+    100130: //RootNode
+    100132: tail
+    400000: body
+    400002: face
+    400004: Jnt_butt
+    400006: Jnt_Core
+    400008: Jnt_head
+    400010: Jnt_l_b_hoof
+    400012: Jnt_l_b_hoof1
+    400014: Jnt_l_b_hoof2
+    400016: Jnt_l_b_leg
+    400018: Jnt_l_b_leg_001
+    400020: Jnt_l_b_leg_fat_001
+    400022: Jnt_l_b_leg_fat_002
+    400024: Jnt_l_b_leg_fat_003
+    400026: Jnt_l_b_leg_fat_004
+    400028: Jnt_l_b_leg_hocf
+    400030: Jnt_l_bot_neck
+    400032: Jnt_l_ear
+    400034: Jnt_l_f_hoof
+    400036: Jnt_l_f_hoof1
+    400038: Jnt_l_f_knee
+    400040: Jnt_l_f_leg
+    400042: Jnt_l_f_leg_001
+    400044: Jnt_l_f_leg_fat_001
+    400046: Jnt_l_f_leg_fat_002
+    400048: Jnt_l_f_leg_fat_003
+    400050: Jnt_l_f_leg_fat_004
+    400052: Jnt_l_mid_ear
+    400054: Jnt_l_tip_ear
+    400056: Jnt_l_top_neck
+    400058: Jnt_Neck
+    400060: Jnt_r_b_hoof
+    400062: Jnt_r_b_hoof1
+    400064: Jnt_r_b_hoof2
+    400066: Jnt_r_b_leg
+    400068: Jnt_r_b_leg_001
+    400070: Jnt_r_b_leg_fat_001
+    400072: Jnt_r_b_leg_fat_002
+    400074: Jnt_r_b_leg_fat_003
+    400076: Jnt_r_b_leg_fat_004
+    400078: Jnt_r_b_leg_hocf
+    400080: Jnt_r_bot_neck
+    400082: Jnt_r_ear
+    400084: Jnt_r_f_hoof
+    400086: Jnt_r_f_hoof1
+    400088: Jnt_r_f_knee
+    400090: Jnt_r_f_leg
+    400092: Jnt_r_f_leg_001
+    400094: Jnt_r_f_leg_fat_001
+    400096: Jnt_r_f_leg_fat_002
+    400098: Jnt_r_f_leg_fat_003
+    400100: Jnt_r_f_leg_fat_004
+    400102: Jnt_r_mid_ear
+    400104: Jnt_r_tip_ear
+    400106: Jnt_r_top_neck
+    400108: neck
+    400110: r_b_leg
+    400112: r_b_leg2
+    400114: r_ear
+    400116: r_ear2
+    400118: r_eye
+    400120: r_eye2
+    400122: r_f_leg
+    400124: r_f_leg 1
+    400126: r_f_leg2
+    400128: Sheep_Animal_001
+    400130: //RootNode
+    400132: tail
+    2100000: lambert1
+    4300000: neck
+    4300002: body
+    4300004: r_ear
+    4300006: r_eye
+    4300008: face
+    4300010: r_eye2
+    4300012: r_ear2
+    4300014: r_f_leg2
+    4300016: r_f_leg
+    4300018: r_b_leg
+    4300020: r_b_leg2
+    4300022: tail
+    9500000: //RootNode
+    13700000: body
+    13700002: face
+    13700004: neck
+    13700006: r_b_leg
+    13700008: r_b_leg2
+    13700010: r_ear
+    13700012: r_ear2
+    13700014: r_eye
+    13700016: r_eye2
+    13700018: r_f_leg 1
+    13700020: r_f_leg2
+    13700022: tail
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
