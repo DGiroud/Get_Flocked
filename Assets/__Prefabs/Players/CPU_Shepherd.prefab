@@ -195,18 +195,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorID: 0
+  actorType: 0
   canMove: 1
   speed: 10
   canSnap: 1
   interactionBox: {fileID: 65187717445715530}
   interactionSheep: {fileID: 0}
-  pickUpDelay: 1
+  pickUpDelay: 0.5
   canKick: 1
   kickHeight: 5
   kickForce: 5
   CPUMode: 0
   artificialThinkTime: 0.5
-  destination: {fileID: 0}
 --- !u!114 &114980455201625586
 MonoBehaviour:
   m_ObjectHideFlags: 1

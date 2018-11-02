@@ -187,12 +187,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorID: 0
+  actorType: 0
   canMove: 1
   speed: 10
   canSnap: 1
   interactionBox: {fileID: 65844882543617470}
   interactionSheep: {fileID: 0}
-  pickUpDelay: 1
+  pickUpDelay: 0.5
   canKick: 1
   kickHeight: 10
   kickForce: 5
