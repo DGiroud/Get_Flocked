@@ -1,16 +1,17 @@
 fileFormatVersion: 2
-guid: 37de975a3a5e3cd43b64b49cc0fe769b
-timeCreated: 1539211834
+guid: b3ad88edbae1c1c439101bd6372d5c2a
+timeCreated: 1541118332
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert1
+    2100000: Walls
     2300000: //RootNode
     3300000: //RootNode
-    4300000: polySurface1
+    4300000: fence
+    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -85,7 +86,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

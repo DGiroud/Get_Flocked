@@ -1,18 +1,17 @@
 fileFormatVersion: 2
-guid: 10206652ab97a5e4eb83789503dfc692
-timeCreated: 1539141943
+guid: 525c1e10323ba8346a5fc95647f1bca1
+timeCreated: 1541118332
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Castle2
-    100002: //RootNode
-    400000: Castle2
-    400002: //RootNode
-    2100000: castleyellow
-    2300000: Castle2
-    3300000: Castle2
-    4300000: Castle2
+    100000: //RootNode
+    400000: //RootNode
+    2100000: Walls
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Wall_End
+    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -87,7 +86,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
