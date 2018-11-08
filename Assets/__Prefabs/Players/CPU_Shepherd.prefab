@@ -205,7 +205,8 @@ MonoBehaviour:
   canKick: 1
   kickHeight: 5
   kickForce: 5
-  CPUMode: 0
+  cpuSeekMode: 0
+  roomForError: 10
   artificialThinkTime: 0.5
 --- !u!114 &114980455201625586
 MonoBehaviour:

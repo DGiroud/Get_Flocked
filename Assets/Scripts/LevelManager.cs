@@ -46,7 +46,10 @@ public class LevelManager : MonoBehaviour
     public int maxRounds; //Max rounds per game
     public float roundLength; //Max amount of time for the rounds
     static int currentRound = 0; //Show current round
-    public float timesUpPauseDuration;
+    [SerializeField]
+    [Range(0, 1)]
+    private float timesUpSlowMotion = 0.5f;
+    public float timesUpPauseDuration = 2.0f;
 
     private void Awake()
     {
@@ -122,7 +125,7 @@ public class LevelManager : MonoBehaviour
         float pauseTime = Time.realtimeSinceStartup + timesUpPauseDuration;
 
         // pause time
-        Time.timeScale = 0.0f;
+        Time.timeScale = timesUpSlowMotion;
         
         while (Time.realtimeSinceStartup < pauseTime)
         {
@@ -141,6 +144,8 @@ public class LevelManager : MonoBehaviour
     private void RoundEnd()
     {
         gameState = GameState.RoundEnd;
+
+        Time.timeScale = 0.0f;
     }
 
     /// <summary>

@@ -37,7 +37,7 @@ public class WanderBehaviour : StateMachineBehaviour {
     {
         Vector3 newDir = new Vector3();
         
-        currentPath = PathManager.Instance.FindPath(sheep.transform.position, newPos);        
+        currentPath = PathManager.Instance.FindPath(sheep.transform.position, newPos);
 
         //Debug, allowing us to see it's current destination
         sheep.GetComponent<Sheep>().newPosDebug = newPos;
@@ -56,9 +56,7 @@ public class WanderBehaviour : StateMachineBehaviour {
            sheep.transform.position.z >= newPos.z - 1 && sheep.transform.position.z <= newPos.z + 1)
         {
             newPos = sheep.GetComponent<Sheep>().GetNewDestination();
-        }
-
-        LeashSheep();        
+        }      
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

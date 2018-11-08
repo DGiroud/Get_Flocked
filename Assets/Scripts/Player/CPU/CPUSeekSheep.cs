@@ -51,13 +51,25 @@ public class CPUSeekSheep : StateMachineBehaviour
 
         // increment timer
         pathFindTimer += Time.deltaTime;
-        GameObject nearestSheep = SheepManager.Instance.FindNearestSheep(CPU);
+        GameObject targetSheep = null;
+
+        switch (CPUScript.cpuSeekMode)
+        {
+            case CPUSeekMode.Nearest:
+                targetSheep = SheepManager.Instance.FindNearestSheep(CPU);
+                break;
+            case CPUSeekMode.HighestWorth:
+                targetSheep = SheepManager.Instance.FindMostValuableSheep();
+                break;
+            case CPUSeekMode.LowestWorth:
+                targetSheep = SheepManager.Instance.FindLeastValuableSheep();
+                break;
+        }
 
         // wait a bit before finding a path
-        if (nearestSheep != null && pathFindTimer > 0.5f)
+        if (targetSheep != null && pathFindTimer > 0.5f)
         {
-            currentPath = PathManager.Instance.FindPath(CPU, nearestSheep);
-            PathManager.Instance.DrawPath(currentPath);
+            currentPath = PathManager.Instance.FindPath(CPU, targetSheep, (1 << 3));
             pathFindTimer = 0.0f;
         }
         

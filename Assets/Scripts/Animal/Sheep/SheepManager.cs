@@ -147,10 +147,10 @@ public class SheepManager : MonoBehaviour
     /// 
     /// </summary>
     /// <returns></returns>
-    public Transform FindValuableSheep()
+    public GameObject FindMostValuableSheep()
     {
         // initialise helper variables
-        Transform output = null;
+        GameObject output = null;
         float highestWorth = Mathf.NegativeInfinity;
 
         // iterate over all active sheep
@@ -170,11 +170,45 @@ public class SheepManager : MonoBehaviour
             if (currentWorth > highestWorth)
             {
                 highestWorth = currentWorth;
-                output = sheep.transform;
+                output = sheep;
             }
         }
 
-        return null;
+        return output;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public GameObject FindLeastValuableSheep()
+    {
+        // initialise helper variables
+        GameObject output = null;
+        float lowestWorth = Mathf.Infinity;
+
+        // iterate over all active sheep
+        for (int i = 0; i < spawnedSheep.Count; i++)
+        {
+            GameObject sheep = spawnedSheep[i]; // get sheep
+            Sheep sheepScript = sheep.GetComponent<Sheep>();
+
+            // ignore sheep if it's being held already
+            if (sheep.transform.parent)
+                continue;
+
+            // get distance between this sheep and CPU
+            float currentWorth = sheepScript.score;
+
+            // if new minimum distance, update distance
+            if (currentWorth < lowestWorth)
+            {
+                lowestWorth = currentWorth;
+                output = sheep;
+            }
+        }
+
+        return output;
     }
 
     /// <summary>

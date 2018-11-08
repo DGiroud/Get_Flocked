@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum CPUMode
+public enum CPUSeekMode
 {
-    Balanced,
-    Offensive,
-    Defensive
+    Nearest,
+    HighestWorth,
+    LowestWorth
 }
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -15,7 +15,10 @@ public class CPU : BaseActor
 {
     // cpu mode which determines aggression
     [Header("CPU Specific")]
-    public CPUMode CPUMode;
+    public CPUSeekMode cpuSeekMode;
+    [SerializeField]
+    [Range(0, 100)]
+    private float roomForError = 10.0f;
 
     // other relevant A.I variables
     [SerializeField]
