@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 4202301818736758}
   - component: {fileID: 33271253094414034}
   - component: {fileID: 135953769963331588}
-  - component: {fileID: 114981094786796288}
+  - component: {fileID: 114188661777395070}
   m_Layer: 0
   m_Name: chargeSphere
   m_TagString: Untagged
@@ -238,6 +238,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114188661777395070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859238427522978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b87521c840b5348a8c16fa72921636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114606342036674022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,6 +266,8 @@ MonoBehaviour:
   idleTime: 3
   crashEffect: {fileID: 1242820699891550, guid: 010b36774882533459f83d336666add2,
     type: 2}
+  chargeEffect: {fileID: 1522029054898604, guid: e8f92344f7e88d64ba63b0863ea8c139,
+    type: 2}
   chargeRadius: 7.5
   chargeDelay: 2
   meteorSphere: {fileID: 135995869553713194}
@@ -269,17 +282,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4037c6bb40d0b404b8c56e48fbf80ec6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114981094786796288
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1859238427522978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c50e7781c3f73de4da0911664f620094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135953769963331588

@@ -6,13 +6,10 @@ using UnityEngine.AI;
 
 public class Ram : MonoBehaviour {
 
-    //NavMeshAgent agent;
-
     //************************
     //******* RAMPAGE ********
     //************************
-
-    
+        
     [Tooltip("The duration that the Ram will wait to spawn after locking in it's location to land")]
     public float spawnTimer;
     [Tooltip("The duration that the Ram will be stunned for after charging and landing")]
@@ -24,6 +21,7 @@ public class Ram : MonoBehaviour {
     [Tooltip("How long the Ram waits (in seconds) before finding a new location after reaching it's original")]
     public float idleTime;
     public GameObject crashEffect;
+    public GameObject chargeEffect;
 
 
     [Header("Charging Properties")]

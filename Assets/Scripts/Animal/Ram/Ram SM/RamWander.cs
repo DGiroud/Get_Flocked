@@ -43,9 +43,12 @@ public class RamWander : StateMachineBehaviour {
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    { 
+    {
+        if (navMesh.enabled == false)
+            navMesh.enabled = true;
+
         currentPath = PathManager.Instance.FindPath(ram.transform.position, newPos); //Where the path is being calculated
-        //ram.transform.LookAt(newPos);
+
 
         //move towards new location
         //Work out direction (Destination - current)
@@ -57,15 +60,7 @@ public class RamWander : StateMachineBehaviour {
         //Drawing the path
         PathManager.Instance.DrawPath(currentPath);
 
-        //ram.transform.position += (newPos * 0.05f); //Old code
-
-        //If navMesh is disabled, enable it. 
-        if (!navMesh.enabled)
-        {
-            navMesh.enabled = true;
-        }
-
-        //We need to ditch the idea of the ram moving on hte Navmesh, instead we want to give it it's own movement
+        //We need to ditch the idea of the ram moving on te Navmesh, instead we want to give it it's own movement
         //Setting the NavMesh destination
         navMesh.destination = newPos;
 
@@ -101,6 +96,9 @@ public class RamWander : StateMachineBehaviour {
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        //We need to set this to false as we leave this state, otherwise when we come into the Charge state, 
+        // "isWandering" will still be leftover as true, and the Ram will immediately leave the Charge state back into wander.
+        ram.GetComponent<Animator>().SetBool("isWandering", false);
+        navMesh.enabled = false;
     }
 }
