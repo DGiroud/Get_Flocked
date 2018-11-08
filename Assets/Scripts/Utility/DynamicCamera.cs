@@ -46,6 +46,7 @@ public class DynamicCamera : MonoBehaviour
     // velocity value used for smoothdamp buffer
     private Vector3 velocity;
 
+
     /// <summary>
     /// initialise camera and player references
     /// </summary>

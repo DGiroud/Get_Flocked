@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public enum ActorType
 {
     Player,
@@ -54,6 +55,14 @@ public class BaseActor : MonoBehaviour
     public float kickForce = 5.0f; //how much force given when sheep is kicked
     #endregion
 
+
+    public Vector3 moveDir;
+    public float maxDash = 2.0f;
+    public float minDash = 2.0f;
+    public float stopDash = 2.0f;
+    private float dashTime;
+
+
     /// <summary>
     /// Ensures all relevant actor variables are reset upon start-up
     /// </summary>
@@ -69,7 +78,12 @@ public class BaseActor : MonoBehaviour
         originalSpeed = speed;
         controller = GetComponent<CharacterController>();
     }
-    
+
+    void Start()
+    {
+        dashTime = maxDash;
+    }
+
     /// <summary>
     /// (Right now) only increments the pick-up buffer timer
     /// </summary>

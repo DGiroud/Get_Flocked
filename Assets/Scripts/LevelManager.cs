@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public enum GameState
 {
     CountDown,
@@ -50,6 +51,7 @@ public class LevelManager : MonoBehaviour
     [Range(0, 1)]
     private float timesUpSlowMotion = 0.5f;
     public float timesUpPauseDuration = 2.0f;
+
 
     private void Awake()
     {
@@ -101,17 +103,6 @@ public class LevelManager : MonoBehaviour
         gameStart = true;
 
         gameState = GameState.Main;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private void Pause()
-    {
-        gameState = GameState.Pause;
-
-        // pause time
-        Time.timeScale = 0.0f;
     }
 
     /// <summary>

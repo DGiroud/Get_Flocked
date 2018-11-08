@@ -6,8 +6,7 @@ public enum RotateMode
 {
     Constant,
     Periodic,
-    ConstantRandom,
-    PeriodicRandom
+    ConstantRandom
 }
 
 public class Rotator : MonoBehaviour
@@ -73,11 +72,25 @@ public class Rotator : MonoBehaviour
 
                 //starts off as constant then transitions into periodic
                 //then back to constant rotation
-           // case RotateMode.constantRandom:
-           //
-           //     transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
-           //
-           //    break;
+
+           case RotateMode.ConstantRandom:
+                //decrement timer
+                rotateTimer -= Time.deltaTime;
+
+                transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
+                //if the timer runs out
+                if (rotateTimer <= 0.0f)
+                {
+                    //do rotation
+                    StopAllCoroutines();
+                    StartCoroutine(Rotate());
+
+                    //reset timer
+                    rotateTimer = Random.Range(rotateTime.x, rotateTime.y);
+
+                }
+
+                break;
 
 
 
