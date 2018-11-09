@@ -20,13 +20,13 @@ public class BaseActor : MonoBehaviour
     // actor movement
     #region movement
     [Header("Movement")]
-
     public bool canMove = true; // cause why not, right?
     public float speed = 1.0f; // how fast player go
     private float originalSpeed;
     private Vector3 translation;
     private Vector3 lastPosition;
     private CharacterController controller;
+    private bool isStunned;    // Jake's touching your code ♣
     #endregion
 
     // actor interaction
@@ -111,6 +111,9 @@ public class BaseActor : MonoBehaviour
         if (!canMove)
             return; // can't move!
 
+        if (isStunned)
+            return; //Jake did this lmao
+
         translation.x = xAxis;
         translation.z = yAxis;
 
@@ -158,6 +161,11 @@ public class BaseActor : MonoBehaviour
 
         Sheep sheepScript = heldSheep.GetComponent<Sheep>();
         sheepScript.SetPushedTrue();
+        Animator sheepAnimation = heldSheep.GetComponentInChildren<Animator>();
+        sheepAnimation.SetBool("isPushed", true);
+        sheepAnimation.SetBool("isKicked", false);
+        sheepAnimation.SetBool("isWandering", false);
+
 
         //                          position              direction                         offset
         Vector3 snapPosition = transform.position + translation.normalized * (sheepScript.radius * 2.1f);
@@ -203,6 +211,12 @@ public class BaseActor : MonoBehaviour
         Sheep sheepScript = releasedSheep.GetComponent<Sheep>();
         sheepScript.SetKickedTrue();
 
+        Animator sheepAnimation = releasedSheep.GetComponentInChildren<Animator>();
+        sheepAnimation.SetBool("isKicked", true);
+        sheepAnimation.SetBool("isPushed", false);
+        sheepAnimation.SetBool("isWandering", false);
+
+
         // release sheep child from this
         releasedSheep.transform.SetParent(null);
 
@@ -225,6 +239,13 @@ public class BaseActor : MonoBehaviour
     {
         Animator sheepAnimator = sheep.GetComponent<Animator>(); //script
         sheepAnimator.SetBool("isKicked", true);
+        sheepAnimator.SetBool("isPushed", false);
+        sheepAnimator.SetBool("isWandering", false);
+
+        Animator sheepAnimation = sheep.GetComponentInChildren<Animator>();
+        sheepAnimation.SetBool("isKicked", true);
+        sheepAnimation.SetBool("isPushed", false);
+        sheepAnimation.SetBool("isWandering", false);
 
         Rigidbody sheepRigidbody = sheep.GetComponent<Rigidbody>(); //rb
         
