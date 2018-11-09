@@ -29,6 +29,11 @@ public class Rotator : MonoBehaviour
     [Tooltip("the range of times with which the rotation may start")]
     public Vector2 rotateTime; // range of rotation times
     private float rotateTimer; // timer used to determine when to rotate
+
+    public float min;
+    public float max;
+
+    bool isRotatingClockwise;
   
 
 
@@ -38,8 +43,8 @@ public class Rotator : MonoBehaviour
     /// </summary>
 	void Awake ()
     {
-        rotateTimer = Random.Range(rotateTime.x, rotateTime.y);
-
+        rotateTimer = Random.Range(min, max);
+        isRotatingClockwise = false;
     }
 	
     /// <summary>
@@ -58,16 +63,30 @@ public class Rotator : MonoBehaviour
             case RotateMode.Periodic:
                 rotateTimer -= Time.deltaTime; // decrement timer
 
-                // if timer runs out
-                if (rotateTimer <= 0.0f)
+                if (rotateTimer < 0.0f)
                 {
-                    // do rotation
-                    StopAllCoroutines();
-                    StartCoroutine(Rotate());
-
-                    // reset timer
-                    rotateTimer = Random.Range(rotateTime.x, rotateTime.y);
+                    rotateTimer = Random.Range(min, max);
                 }
+                Debug.Log(rotateTimer);
+                // if timer runs out
+                if (rotateTimer < 7.5f)
+                {
+                    rotateTimer -= Time.deltaTime; // decrement timer
+                    // do rotation
+                    //StopAllCoroutines();
+                    isRotatingClockwise = false;
+                    // reset timer
+
+                }
+                else
+                {
+                    rotateTimer -= Time.deltaTime; // decrement timer
+                    // do rotation
+                    //StopAllCoroutines();
+                    isRotatingClockwise = true;
+                    // reset timer
+                }
+                StartCoroutine(Rotate(isRotatingClockwise));
                 break;
 
                 //starts off as constant then transitions into periodic
@@ -95,6 +114,8 @@ public class Rotator : MonoBehaviour
 
 
         }
+       
+
     }
 
     /// <summary>
@@ -107,21 +128,27 @@ public class Rotator : MonoBehaviour
         if (counterClockwise == true)
         {
             // get desired rotation quaternion
-            desiredRotation = Quaternion.Euler(0, -rotationAngle, 0) * transform.rotation;  
+            desiredRotation = Quaternion.Euler(0, -rotationAngle, 0) * transform.rotation;
         }
         else
         {
             // get desired rotation quaternion
-             desiredRotation = Quaternion.Euler(0, rotationAngle, 0) * transform.rotation;
+            desiredRotation = Quaternion.Euler(0, rotationAngle, 0) * transform.rotation;
         }
+        yield return new WaitForSeconds(5.0f);
 
         // loop until the desired rotation is reached
-        while (transform.rotation != desiredRotation)
+        if (transform.rotation != desiredRotation)
         {
             // perform rotation
             transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime * rotateSpeed);
-            yield return null;
         }
+        //rotateTimer = Random.Range(min, max);
+        //else
+        //{
+        //    rotateTimer = Random.Range(min, max);
+        //    yield return null;
+        //}
 
 
     }
