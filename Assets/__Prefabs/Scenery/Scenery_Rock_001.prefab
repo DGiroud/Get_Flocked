@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4528162444432890}
+  - component: {fileID: 65678409213878120}
   m_Layer: 13
   m_Name: Scenery_Rock_001
   m_TagString: Untagged
@@ -111,3 +112,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1722068656246622}
   m_Mesh: {fileID: 4300000, guid: a93e3b82e86861643aab9444454b0782, type: 3}
+--- !u!65 &65678409213878120
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448924041668776}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.80829644, z: 0.96727014}
+  m_Center: {x: 0, y: 0.38574517, z: -0.0023378134}

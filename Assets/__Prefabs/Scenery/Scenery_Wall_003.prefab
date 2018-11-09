@@ -36,6 +36,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4812182242448012}
+  - component: {fileID: 65275003187936496}
+  - component: {fileID: 65325051368793754}
   m_Layer: 13
   m_Name: Scenery_Wall_003
   m_TagString: Untagged
@@ -111,3 +113,27 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1004588838151394}
   m_Mesh: {fileID: 4300000, guid: caac2da10a948954e933c09974f8acfd, type: 3}
+--- !u!65 &65275003187936496
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1684432116543426}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.6424122, y: 0.86657596, z: 0.4811287}
+  m_Center: {x: -0.18778133, y: 0.4175676, z: -0.34344292}
+--- !u!65 &65325051368793754
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1684432116543426}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.49101257, y: 0.83692646, z: 1.2470818}
+  m_Center: {x: 0.38297653, y: 0.4126258, z: 0.0444746}

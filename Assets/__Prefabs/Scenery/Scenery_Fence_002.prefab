@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4855906120328764}
+  - component: {fileID: 65783594213943464}
   m_Layer: 13
   m_Name: Scenery_Fence_002
   m_TagString: Untagged
@@ -111,3 +112,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002769590890646}
   m_Mesh: {fileID: 4300000, guid: 3ab839339f19e324e9ab7f0b15de9f38, type: 3}
+--- !u!65 &65783594213943464
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1875140434289850}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0752678, y: 1.231679, z: 0.14518452}
+  m_Center: {x: 0, y: 0.61115265, z: -0.003994465}

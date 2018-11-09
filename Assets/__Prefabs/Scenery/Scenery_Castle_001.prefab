@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4469324128817266}
+  - component: {fileID: 65945794620953366}
   m_Layer: 13
   m_Name: Scenery_Castle_001
   m_TagString: Untagged
@@ -111,3 +112,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1155698292883114}
   m_Mesh: {fileID: 4300000, guid: 248becfc3816a214db5ad021de3e14e2, type: 3}
+--- !u!65 &65945794620953366
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1291451208521412}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.8967896, y: 5.49975, z: 5.896784}
+  m_Center: {x: -0.04411316, y: 2.7130842, z: 0.066176414}

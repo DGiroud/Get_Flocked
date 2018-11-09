@@ -1,0 +1,184 @@
+fileFormatVersion: 2
+guid: b0589363fa7fc124bb0824e458be78de
+timeCreated: 1541733977
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: body
+    100002: face
+    100004: Jnt_Butt
+    100006: Jnt_Core
+    100008: Jnt_Head
+    100010: Jnt_L_Bot_Neck
+    100012: Jnt_L_Ear
+    100014: Jnt_L_Mid_Ear
+    100016: Jnt_L_Tip_Ear
+    100018: Jnt_L_Top_Neck
+    100020: Jnt_Lower_Jaw
+    100022: Jnt_Neck
+    100024: Jnt_R_Bot_Neck
+    100026: Jnt_R_Ear
+    100028: Jnt_R_Mid_Ear
+    100030: Jnt_R_Tip_Ear
+    100032: Jnt_R_Top_Neck
+    100034: l_ear
+    100036: l_eye
+    100038: neck
+    100040: r_ear1
+    100042: r_eye3
+    100044: Sheep_Animal_001
+    100046: //RootNode
+    100048: tail
+    400000: body
+    400002: face
+    400004: Jnt_Butt
+    400006: Jnt_Core
+    400008: Jnt_Head
+    400010: Jnt_L_Bot_Neck
+    400012: Jnt_L_Ear
+    400014: Jnt_L_Mid_Ear
+    400016: Jnt_L_Tip_Ear
+    400018: Jnt_L_Top_Neck
+    400020: Jnt_Lower_Jaw
+    400022: Jnt_Neck
+    400024: Jnt_R_Bot_Neck
+    400026: Jnt_R_Ear
+    400028: Jnt_R_Mid_Ear
+    400030: Jnt_R_Tip_Ear
+    400032: Jnt_R_Top_Neck
+    400034: l_ear
+    400036: l_eye
+    400038: neck
+    400040: r_ear1
+    400042: r_eye3
+    400044: Sheep_Animal_001
+    400046: //RootNode
+    400048: tail
+    2100000: lambert1
+    4300000: neck
+    4300002: body
+    4300004: face
+    4300006: tail
+    4300008: l_ear
+    4300010: r_ear1
+    4300012: r_eye3
+    4300014: l_eye
+    7400000: Funk test
+    9500000: //RootNode
+    13700000: body
+    13700002: face
+    13700004: l_ear
+    13700006: l_eye
+    13700008: neck
+    13700010: r_ear1
+    13700012: r_eye3
+    13700014: tail
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Funk test
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

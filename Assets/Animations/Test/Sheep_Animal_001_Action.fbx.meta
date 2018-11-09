@@ -1,0 +1,236 @@
+fileFormatVersion: 2
+guid: 97cc11eebe8960e438b5ec7c72845701
+timeCreated: 1541730546
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: body
+    100002: ctrl_head
+    100004: ctrl_l_ear1
+    100006: ctrl_l_ear2
+    100008: ctrl_l_ear3
+    100010: ctrl_l_ear4
+    100012: ctrl_l_ear5
+    100014: ctrl_l_ear6
+    100016: ctrl_neck
+    100018: ctrl_neck_fat1
+    100020: ctrl_neck_fat2
+    100022: ctrl_neck_fat3
+    100024: ctrl_neck_fat4
+    100026: ctrl_tail
+    100028: face
+    100030: front1
+    100032: front2
+    100034: front3
+    100036: group1
+    100038: Jnt_Butt
+    100040: Jnt_Core
+    100042: Jnt_Head
+    100044: Jnt_L_Bot_Neck
+    100046: Jnt_L_Ear
+    100048: Jnt_L_Mid_Ear
+    100050: Jnt_L_Tip_Ear
+    100052: Jnt_L_Top_Neck
+    100054: Jnt_Lower_Jaw
+    100056: Jnt_Neck
+    100058: Jnt_R_Bot_Neck
+    100060: Jnt_R_Ear
+    100062: Jnt_R_Mid_Ear
+    100064: Jnt_R_Tip_Ear
+    100066: Jnt_R_Top_Neck
+    100068: l_ear
+    100070: l_eye
+    100072: left1
+    100074: left2
+    100076: neck
+    100078: nurbsCircle1
+    100080: r_ear1
+    100082: r_eye3
+    100084: right1
+    100086: right2
+    100088: Sheep_Animal_001
+    100090: //RootNode
+    100092: tail
+    100094: top1
+    400000: body
+    400002: ctrl_head
+    400004: ctrl_l_ear1
+    400006: ctrl_l_ear2
+    400008: ctrl_l_ear3
+    400010: ctrl_l_ear4
+    400012: ctrl_l_ear5
+    400014: ctrl_l_ear6
+    400016: ctrl_neck
+    400018: ctrl_neck_fat1
+    400020: ctrl_neck_fat2
+    400022: ctrl_neck_fat3
+    400024: ctrl_neck_fat4
+    400026: ctrl_tail
+    400028: face
+    400030: front1
+    400032: front2
+    400034: front3
+    400036: group1
+    400038: Jnt_Butt
+    400040: Jnt_Core
+    400042: Jnt_Head
+    400044: Jnt_L_Bot_Neck
+    400046: Jnt_L_Ear
+    400048: Jnt_L_Mid_Ear
+    400050: Jnt_L_Tip_Ear
+    400052: Jnt_L_Top_Neck
+    400054: Jnt_Lower_Jaw
+    400056: Jnt_Neck
+    400058: Jnt_R_Bot_Neck
+    400060: Jnt_R_Ear
+    400062: Jnt_R_Mid_Ear
+    400064: Jnt_R_Tip_Ear
+    400066: Jnt_R_Top_Neck
+    400068: l_ear
+    400070: l_eye
+    400072: left1
+    400074: left2
+    400076: neck
+    400078: nurbsCircle1
+    400080: r_ear1
+    400082: r_eye3
+    400084: right1
+    400086: right2
+    400088: Sheep_Animal_001
+    400090: //RootNode
+    400092: tail
+    400094: top1
+    2000000: front1
+    2000002: front2
+    2000004: front3
+    2000006: left1
+    2000008: left2
+    2000010: right1
+    2000012: right2
+    2000014: top1
+    2100000: lambert1
+    4300000: neck
+    4300002: body
+    4300004: tail
+    4300006: l_ear
+    4300008: r_ear1
+    4300010: r_eye3
+    4300012: l_eye
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: body
+    13700002: l_ear
+    13700004: l_eye
+    13700006: neck
+    13700008: r_ear1
+    13700010: r_eye3
+    13700012: tail
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 45
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
