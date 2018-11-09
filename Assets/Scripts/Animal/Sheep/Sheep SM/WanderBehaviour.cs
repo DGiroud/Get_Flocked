@@ -12,7 +12,6 @@ public class WanderBehaviour : StateMachineBehaviour {
     Vector3 newPos = new Vector3();
 
     Vector3[] currentPath;
-    float pathFindTimer = 0.0f;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
