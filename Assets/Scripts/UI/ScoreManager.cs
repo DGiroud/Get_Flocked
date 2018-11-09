@@ -15,6 +15,7 @@ public struct PlayerScores
     public int numberOfKicks; // amount of sheep kicked
     public int numberOfIntercepts; // amount of sheep kicked off other people
     public int numberOfSabotages; // amount of black sheep scored in enemy goals
+    public int numberOfGoldSheep;
     public bool sabotagedSelf; // true if a player scores a black sheep on themself
     public float distanceTravelled; // total distance travelled during the round
 }
@@ -39,8 +40,15 @@ public class ScoreManager : MonoBehaviour
 
     #endregion
 
-    static private PlayerScores[][] playerScores;
 
+    private int currentSheep = 0;
+    public int CurrentSheep { get { return currentSheep; } }
+    [SerializeField]
+    private int requiredSheep = 20;
+    public int RequiredSheep { get { return requiredSheep; } }
+
+    // 2D playerScores array. First dimension is players, 
+    static private PlayerScores[][] playerScores;
     public static PlayerScores[][] GetPlayerScores()
     {
         return playerScores;
@@ -53,6 +61,7 @@ public class ScoreManager : MonoBehaviour
     {
         instance = this; // assign singleton instance
 
+        // initialise player scores
         if (LevelManager.GetCurrentRound() == 0)
         {
             int maxRounds = LevelManager.Instance.maxRounds;
@@ -64,6 +73,11 @@ public class ScoreManager : MonoBehaviour
             }
         }
 	}
+
+    public void IncrementTotalSheep()
+    {
+        currentSheep++;
+    }
 
     /// <summary>
     /// 
@@ -149,38 +163,6 @@ public class ScoreManager : MonoBehaviour
 
         return scores;
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public void ResetAll()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < LevelManager.Instance.maxRounds; j++)
-            {
-                ResetScores(i, j);
-            }
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="playerID"></param>
-    /// <param name="round"></param>
-    public void ResetScores(int playerID, int round)
-    {
-        PlayerScores currentScores = playerScores[playerID][round];
-
-        currentScores.score = 0;
-        currentScores.numberOfGoals = 0;
-        currentScores.numberOfKicks = 0;
-        currentScores.numberOfIntercepts = 0;
-        currentScores.numberOfSabotages = 0; 
-        currentScores.sabotagedSelf = false;
-        currentScores.distanceTravelled = 0; 
-    }
     
     /// <summary>
     /// 
@@ -215,5 +197,13 @@ public class ScoreManager : MonoBehaviour
 
         // return the ID of the highest scoring player
         return relevantPlayerID;
+    }
+
+    public void EvaluateRoundWinners()
+    {
+        for (int i = 0; i < playerScores.Length; i++)
+        {
+
+        }
     }
 }

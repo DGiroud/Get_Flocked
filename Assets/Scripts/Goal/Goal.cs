@@ -33,6 +33,7 @@ public class Goal : MonoBehaviour
             // destroy sheep & add score
             SheepManager.Instance.DestroySheep(other.gameObject);
             ScoreManager.Instance.AddScore(goalID, sheepWorth);
+            ScoreManager.Instance.IncrementTotalSheep();
 
             fireWorksTrail.Play();
             fireWorksWhiteNoise.Play();

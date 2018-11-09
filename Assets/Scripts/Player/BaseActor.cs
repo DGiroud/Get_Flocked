@@ -125,7 +125,7 @@ public class BaseActor : MonoBehaviour
         translation.z = yAxis;
 
         // rotation handling
-        transform.rotation = Quaternion.LookRotation(translation);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(translation), 0.2f);
 
         lastPosition = transform.position;
 
@@ -135,7 +135,6 @@ public class BaseActor : MonoBehaviour
         // calculate and increment distance travelled
         float distanceTravelled = Vector3.Distance(transform.position, lastPosition);
         ScoreManager.Instance.AddDistanceTravelled(actorID, distanceTravelled);
-
     }
 
     /// <summary>

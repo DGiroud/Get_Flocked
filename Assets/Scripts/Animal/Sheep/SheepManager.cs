@@ -58,6 +58,7 @@ public class SheepManager : MonoBehaviour
         "Sequential: uses all spawn points in the order they are linked in the editor")]
     public SpawnMode spawnMode = SpawnMode.Sequential; // dictates the order in which sheep spawn
     public int maximumSheep = 10;
+    private int sheepLimit;
     private List<GameObject> spawnedSheep;
 
     [SerializeField]
@@ -79,6 +80,7 @@ public class SheepManager : MonoBehaviour
         // assign singleton instance
         instance = this;
 
+        sheepLimit = maximumSheep;
         spawnedSheep = new List<GameObject>();
 
         // initialise spawn point selector
@@ -101,8 +103,12 @@ public class SheepManager : MonoBehaviour
         // spawn cooldown check
         if (sheepSpawnTimer > variance && spawnedSheep.Count < maximumSheep)
         {
-            SpawnSheep(); // spawn normal sheep
-            sheepSpawnTimer = 0.0f;
+            if (spawnedSheep.Count <= sheepLimit)
+            {
+                SpawnSheep(); // spawn normal sheep
+                sheepSpawnTimer = 0.0f;
+                sheepLimit = (ScoreManager.Instance.RequiredSheep) - (ScoreManager.Instance.CurrentSheep) - spawnedSheep.Count;
+            }
         }
     }
 

@@ -123,7 +123,7 @@ public class UIMainGame : MonoBehaviour
                 if (mainGamePanel.mainGamePanel.activeSelf == false)
                     ToggleMainUI(); // turn on the UI panel if it's not already active
 
-                UpdateTimerText(); // draw timer
+                UpdateSheepCountText(); // draw timer
                 UpdateScoreText(); // draw scores
                 break;
             }
@@ -142,9 +142,6 @@ public class UIMainGame : MonoBehaviour
             {
                 if (roundEndPanel.readyUpPanel.activeSelf == false)
                     ToggleRoundEndUI(false); // turn on the UI panel if it's not already active
-                
-                if (CheckAllReady())
-                    LevelManager.Instance.NewRound();
                 break;
             }
         }
@@ -214,17 +211,14 @@ public class UIMainGame : MonoBehaviour
     /// <summary>
     /// draws the round timer in the format of "00:00"
     /// </summary>
-    private void UpdateTimerText()
+    private void UpdateSheepCountText()
     {
         // get current round time
-        float roundTimer = LevelManager.Instance.roundTimer;
+        int currentSheep = ScoreManager.Instance.CurrentSheep;
+        int requiredSheep = ScoreManager.Instance.RequiredSheep;
 
-        // convert to minutes and seconds
-        int minutes = (int)Mathf.Floor(roundTimer / 60);
-        int seconds = (int)(roundTimer % 60);
-
-        // print on screen in the format of "00:00"
-        mainGamePanel.timerText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+        // print on screen in the format of "0/0"
+        mainGamePanel.timerText.text = currentSheep.ToString() + "/" + requiredSheep.ToString();
     }
 
     /// <summary>
@@ -256,6 +250,9 @@ public class UIMainGame : MonoBehaviour
         playerReady[actorID] = true; // ready
         roundEndPanel.notReadyPanels[actorID].SetActive(false);
         roundEndPanel.readyPanels[actorID].SetActive(true);
+
+        if (CheckAllReady())
+            LevelManager.Instance.NewRound();
     }
 
     /// <summary>

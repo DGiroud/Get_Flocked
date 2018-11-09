@@ -35,9 +35,8 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField]
     private int gameOverLevelID;
-    [HideInInspector]
-    public float roundTimer;
     
+    [HideInInspector]
     public GameState gameState;
     [HideInInspector]
     public float countDown;
@@ -45,7 +44,6 @@ public class LevelManager : MonoBehaviour
     public bool gameStart = false; //used to begin the ramspawner in RamSpawn
 
     public int maxRounds; //Max rounds per game
-    public float roundLength; //Max amount of time for the rounds
     static int currentRound = 0; //Show current round
     [SerializeField]
     [Range(0, 1)]
@@ -56,7 +54,6 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        roundTimer = roundLength;
 
         // start count-down
         StartCoroutine("CountDown");
@@ -64,9 +61,7 @@ public class LevelManager : MonoBehaviour
     
     void Update()
     {
-        roundTimer -= Time.deltaTime;
-
-        if (roundTimer <= 0.5f)
+        if (ScoreManager.Instance.CurrentSheep == ScoreManager.Instance.RequiredSheep)
         {
             if (gameState != GameState.TimesUp && gameState != GameState.RoundEnd)
             {
@@ -80,7 +75,7 @@ public class LevelManager : MonoBehaviour
     /// then resumes the game
     /// </summary>
     /// <returns></returns>
-    private IEnumerator CountDown()
+    public IEnumerator CountDown()
     {
         gameState = GameState.CountDown;
 
@@ -127,6 +122,13 @@ public class LevelManager : MonoBehaviour
             GameOver();
         else
             RoundEnd();
+    }
+
+    public void Pause()
+    {
+        gameState = GameState.Pause;
+
+        Time.timeScale = 0.0f;
     }
 
     /// <summary>
