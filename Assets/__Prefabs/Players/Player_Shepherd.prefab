@@ -195,8 +195,12 @@ MonoBehaviour:
   interactionSheep: {fileID: 0}
   pickUpDelay: 0.5
   canKick: 1
-  kickHeight: 10
-  kickForce: 5
+  kickHeight: 2
+  kickForce: 20
+  moveDir: {x: 0, y: 0, z: 0}
+  maxDash: 2
+  minDash: 2
+  stopDash: 2
 --- !u!143 &143038031367349644
 CharacterController:
   m_ObjectHideFlags: 1

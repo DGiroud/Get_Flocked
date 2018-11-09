@@ -28,6 +28,7 @@ public class Sheep : MonoBehaviour {
 
     public string currentBehaviour;
 
+    public Animator animAnim;
     private Animator sheepAnim;
 
     // Use this for initialization

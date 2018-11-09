@@ -167,7 +167,7 @@ public class BaseActor : MonoBehaviour
 
         Sheep sheepScript = heldSheep.GetComponent<Sheep>();
         sheepScript.SetPushedTrue();
-        Animator sheepAnimation = heldSheep.GetComponentInChildren<Animator>();
+        Animator sheepAnimation = heldSheep.GetComponent<Sheep>().animAnim;
         sheepAnimation.SetBool("isPushed", true);
         sheepAnimation.SetBool("isKicked", false);
         sheepAnimation.SetBool("isWandering", false);
