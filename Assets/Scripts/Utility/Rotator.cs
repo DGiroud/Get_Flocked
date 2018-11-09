@@ -29,6 +29,7 @@ public class Rotator : MonoBehaviour
     [Tooltip("the range of times with which the rotation may start")]
     public Vector2 rotateTime; // range of rotation times
     private float rotateTimer; // timer used to determine when to rotate
+    private float rotateToggleTimer; //toggles between timer
 
     public float min;
     public float max;
@@ -43,7 +44,7 @@ public class Rotator : MonoBehaviour
     /// </summary>
 	void Awake ()
     {
-        rotateTimer = Random.Range(min, max);
+        rotateToggleTimer = Random.Range(min, max);
         isRotatingClockwise = false;
     }
 	
@@ -61,8 +62,6 @@ public class Rotator : MonoBehaviour
 
             // periodic rotation, not as easy
             case RotateMode.Periodic:
-                rotateTimer -= Time.deltaTime; // decrement timer
-
                 if (rotateTimer < 0.0f)
                 {
                     rotateTimer = Random.Range(min, max);
@@ -71,21 +70,15 @@ public class Rotator : MonoBehaviour
                 // if timer runs out
                 if (rotateTimer < 7.5f)
                 {
-                    rotateTimer -= Time.deltaTime; // decrement timer
-                    // do rotation
-                    //StopAllCoroutines();
                     isRotatingClockwise = false;
-                    // reset timer
-
                 }
                 else
                 {
-                    rotateTimer -= Time.deltaTime; // decrement timer
-                    // do rotation
-                    //StopAllCoroutines();
                     isRotatingClockwise = true;
-                    // reset timer
                 }
+
+                rotateTimer -= Time.deltaTime; // decrement timer
+
                 StartCoroutine(Rotate(isRotatingClockwise));
                 break;
 
@@ -108,14 +101,8 @@ public class Rotator : MonoBehaviour
                     rotateTimer = Random.Range(rotateTime.x, rotateTime.y);
 
                 }
-
                 break;
-
-
-
         }
-       
-
     }
 
     /// <summary>
@@ -135,7 +122,7 @@ public class Rotator : MonoBehaviour
             // get desired rotation quaternion
             desiredRotation = Quaternion.Euler(0, rotationAngle, 0) * transform.rotation;
         }
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(1.0f);
 
         // loop until the desired rotation is reached
         if (transform.rotation != desiredRotation)
