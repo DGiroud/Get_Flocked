@@ -27,16 +27,20 @@ public class RamWander : StateMachineBehaviour {
     private float timer;
     private float idleTimer;
 
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //Initialising ram for easier access throughout this script
         ram = animator.gameObject;
+
         //Finding a new position to Wander to
         newPos  = ram.GetComponent<Ram>().GetNewDestination();
         navMesh = ram.GetComponent<NavMeshAgent>();
         movementSpeed = ram.GetComponent<Ram>().wanderSpeed;
         idleTimer = ram.GetComponent<Ram>().idleTime;
 
+        //Disable the meteor sphere which should only be used for the Ram's intitial descent, and enable it's new sphere collider
+        // to check for players that get too close
         ram.GetComponent<Ram>().meteorSphere.enabled = false;
         ram.GetComponent<Ram>().chargeSphere.enabled = true;
         ram.GetComponent<Ram>().chargeSphere.radius = ram.GetComponent<Ram>().chargeRadius;
@@ -44,6 +48,8 @@ public class RamWander : StateMachineBehaviour {
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
+
         if (navMesh.enabled == false)
             navMesh.enabled = true;
 

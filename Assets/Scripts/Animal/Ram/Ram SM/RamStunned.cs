@@ -11,6 +11,9 @@ public class RamStunned : StateMachineBehaviour {
     //This state leads into:
     // Wander: Once the stun timer is up, it will resume wandering.
 
+    //Reference to the Ram game object
+    GameObject ram;
+
     float stunDuration;
     float stunTimer = 0f;
 
@@ -18,9 +21,14 @@ public class RamStunned : StateMachineBehaviour {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        //********************************
         //Set stunned animation here
-        
-        stunDuration = animator.GetComponent<Ram>().stunDuration;
+
+        //Initialise the ram for easier access (I.E. saves us writing "animator" all day long
+        ram = animator.gameObject;
+
+        //Use the stunDuration we've set in the Ram prefab
+        stunDuration = ram.GetComponent<Ram>().stunDuration;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -28,11 +36,10 @@ public class RamStunned : StateMachineBehaviour {
     {
         stunTimer += Time.deltaTime;
 
-
         //When the Ram has been stunned for it's determined duration, start wandering
         if(stunTimer >= stunDuration)
         {
-            animator.SetBool("isWandering", true);
+            ram.GetComponent<Animator>().SetBool("isWandering", true);
         }
     }
 
@@ -41,6 +48,6 @@ public class RamStunned : StateMachineBehaviour {
     {
         //We need to Set this to false when we leave, otherwise Charge will automatically send the Ram into the stunned state,
         // creating a loop
-        animator.SetBool("isStunned", false);
+        ram.GetComponent<Animator>().SetBool("isStunned", false);
     }
 }

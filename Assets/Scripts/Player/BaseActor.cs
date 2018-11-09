@@ -26,7 +26,9 @@ public class BaseActor : MonoBehaviour
     private Vector3 translation;
     private Vector3 lastPosition;
     private CharacterController controller;
-    private bool isStunned;    // Jake's touching your code ♣
+    [HideInInspector]
+    public bool stunned;    // Jake's touching your code ♣
+    private float stunnedTimer = 0f;
     #endregion
 
     // actor interaction
@@ -90,6 +92,9 @@ public class BaseActor : MonoBehaviour
     public virtual void Update ()
     {
         pickUpTimer += Time.deltaTime;
+
+        if (stunned)
+            StunTimer();
     }
     
     /// <summary>
@@ -101,6 +106,8 @@ public class BaseActor : MonoBehaviour
         canMove = toggle;
     }
 
+   
+
     /// <summary>
     /// handles player rotation and translation
     /// </summary>
@@ -111,7 +118,7 @@ public class BaseActor : MonoBehaviour
         if (!canMove)
             return; // can't move!
 
-        if (isStunned)
+        if (stunned)
             return; //Jake did this lmao
 
         translation.x = xAxis;
@@ -269,6 +276,16 @@ public class BaseActor : MonoBehaviour
             BaseActor opponentScript = sheep.GetComponentInParent<BaseActor>();
             
             LaunchSheep(opponentScript.ReleaseSheep());
+        }
+    }
+
+    public void StunTimer()
+    {
+        stunnedTimer += Time.deltaTime;
+        
+        if(stunnedTimer >= 4)   //Hardcoded 4 because running low on time for the day
+        {
+            stunned = false;
         }
     }
 }

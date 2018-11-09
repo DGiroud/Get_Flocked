@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 4202301818736758}
   - component: {fileID: 33271253094414034}
   - component: {fileID: 135953769963331588}
-  - component: {fileID: 114188661777395070}
+  - component: {fileID: 114943738899805578}
   m_Layer: 0
   m_Name: chargeSphere
   m_TagString: Untagged
@@ -79,6 +79,24 @@ GameObject:
   - component: {fileID: 23270418222038288}
   m_Layer: 0
   m_Name: Ram_Animal_001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1897085502929782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4757193804393724}
+  - component: {fileID: 33367213194633590}
+  - component: {fileID: 65362965626449064}
+  - component: {fileID: 114358711932442234}
+  m_Layer: 0
+  m_Name: chargeCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,8 +154,22 @@ Transform:
   - {fileID: 4244938782128064}
   - {fileID: 4247193289058216}
   - {fileID: 4202301818736758}
+  - {fileID: 4757193804393724}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4757193804393724
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897085502929782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4647643236634796}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23270418222038288
 MeshRenderer:
@@ -180,6 +212,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1859238427522978}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33367213194633590
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897085502929782}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33420569085503254
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -221,6 +260,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.2, z: 1.44}
   m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!65 &65362965626449064
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897085502929782}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.2, z: 1.44}
+  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!95 &95458545451303812
 Animator:
   serializedVersion: 3
@@ -238,15 +289,15 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114188661777395070
+--- !u!114 &114358711932442234
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1859238427522978}
+  m_GameObject: {fileID: 1897085502929782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b87521c840b5348a8c16fa72921636, type: 3}
+  m_Script: {fileID: 11500000, guid: 976b07970e97c7a488d8ac8878adb80d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114606342036674022
@@ -266,13 +317,19 @@ MonoBehaviour:
   idleTime: 3
   crashEffect: {fileID: 1242820699891550, guid: 010b36774882533459f83d336666add2,
     type: 2}
-  chargeEffect: {fileID: 1522029054898604, guid: e8f92344f7e88d64ba63b0863ea8c139,
+  chargeEffect: {fileID: 1046417966560588, guid: 6a274d6a01027b740b5c299e9e927e4e,
     type: 2}
+  chargeCooldown: 10
+  wanderCooldown: 6
   chargeRadius: 7.5
   chargeDelay: 2
+  playerStunTime: 4
   meteorSphere: {fileID: 135995869553713194}
   chargeSphere: {fileID: 135953769963331588}
+  hitCollider: {fileID: 65362965626449064}
   player: {fileID: 0}
+  playerHit: 0
+  sheepHit: 0
 --- !u!114 &114810419784700808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -282,6 +339,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4037c6bb40d0b404b8c56e48fbf80ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114943738899805578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859238427522978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50e7781c3f73de4da0911664f620094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135953769963331588

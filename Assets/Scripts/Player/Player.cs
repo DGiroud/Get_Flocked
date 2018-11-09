@@ -13,6 +13,7 @@ public class Player : BaseActor
 {
     // the type of input this player is using, e.g. keyboard
     private PlayerInput playerInput;
+    public bool isStunned;
 
     public void SetPlayerInput(PlayerInput inputType)
     {

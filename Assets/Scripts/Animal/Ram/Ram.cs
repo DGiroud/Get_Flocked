@@ -20,32 +20,54 @@ public class Ram : MonoBehaviour {
     public float wanderSpeed;
     [Tooltip("How long the Ram waits (in seconds) before finding a new location after reaching it's original")]
     public float idleTime;
+
+    //References to our different particle effects
     public GameObject crashEffect;
     public GameObject chargeEffect;
 
-
     [Header("Charging Properties")]
+    [Tooltip("Charge Cooldown is how long the Ram waits before charging the same player. There is no cooldown if the Ram charges 1 player," +
+        "and then immediately finds another player within it's charge sphere.")]
+    public float chargeCooldown;
+    private float chargeCooldownTimer = 0f;
+    public float wanderCooldown;
     [Tooltip("How close a player needs to be to the Ram before it charges that player")]
     public float chargeRadius;
     [Tooltip("How long the Ram waits before charging the player. This will need to align with the animation the Ram takes as it prepares " +
         "for it's Charge.")]
-    public float chargeDelay;    
-
+    public float chargeDelay;
+    [Tooltip("How long the Ram stuns the player for after successfully charging them")]
+    public float playerStunTime;
+    private float playerStunTimer = 0f;     //Timer to count down the player's stun duration
 
     private GameObject[] fieldBox;
     private int previousNum;
     private int rand;
 
-    [Header("Ram Spheres")]
+    
+    [Header("Ram Colliders")]
+    [Tooltip("Sphere collider that the Ram uses during it's initial descent, knocks all actors away if they come too close")]
     public SphereCollider meteorSphere;
+
+    [Tooltip("Sphere collider with a large radius that checks if a player has entered the Ram's range or not, and if so," +
+        " sends the Ram into it's charge state directed towards that player")]
     public SphereCollider chargeSphere;
 
-    //Reference to the player we're charging
+    [Tooltip("Box collider that becomes active whilst the Ram is charging, interacts with players and sheep if they are hit by the Ram")]
+    public BoxCollider hitCollider;
+
+
+    [HideInInspector]                              //We don't want these to be accessed by anyone or anything except other scripts
+    public GameObject player;                      //Reference to the player we're charging
     [HideInInspector]
-    public GameObject player;
+    public bool playerHit = false;                 //If we hit the player, this becomes true and the player is stunned for a duration.
+    [HideInInspector]
+    public bool sheepHit = false;                  //If we hit a sheep, this becomes true and the sheep gets knocked out of the way.
+    [HideInInspector]
+    
 
-    void Start () {
 
+    private void Start () {
         //Creating the FieldBox array;
         fieldBox = new GameObject[4];
 
@@ -54,6 +76,25 @@ public class Ram : MonoBehaviour {
         fieldBox[1] = GameObject.Find("FieldRight");
         fieldBox[2] = GameObject.Find("FieldBottom");
         fieldBox[3] = GameObject.Find("FieldLeft");
+    }
+
+    public void Update()
+    {
+        if(playerHit == true)
+        {
+            playerStunTimer += Time.deltaTime;
+
+            if(playerStunTimer >= playerStunTime)
+            {
+                //Once the player has been stunned for the desired duration, reenable their movement and reset our variables
+                player.GetComponent<Player>().isStunned = false;
+                player.GetComponent<BaseActor>().stunned = false;
+
+
+                playerHit = false;
+                playerStunTimer = 0f;
+            }
+        }
     }
 
     //pls dont break mr ram
@@ -83,11 +124,27 @@ public class Ram : MonoBehaviour {
 
     public void chargePlayer()
     {
+        Debug.Log("charging");
         //Turn off our charging sphere so that we don't get issues with finding another player mid-charge
         chargeSphere.enabled = false;
 
         //This is called from the Ram prefab's chargeRadius sphere on TriggerEnter.
         // Will immediately change the Ram's behaviour to begin it's charging sequence
         GetComponent<Animator>().SetBool("isStepback", true);
+
+    }
+
+    //Function to help us check i fwe are trying to charge the same player
+    public bool IsSamePlayer(GameObject player)
+    {
+        return false;
+    }
+
+    public bool CooldownCheck()
+    {
+        if (chargeCooldownTimer >= chargeCooldown)
+            return true;
+
+        else return false;
     }
 }

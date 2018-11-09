@@ -42,6 +42,8 @@ public class RamSpawn : StateMachineBehaviour {
         //Initialise the spawn point for us the reference throughout this script
         ramSpawnPoint = GameObject.Find("RamSpawnPoint");
 
+        ram.GetComponent<Ram>().hitCollider.enabled = false;
+
         //Finding the light object within the RamManager hierarchy 
         spotlight = RamManager.Instance.GetComponentInChildren<Light>();
         spotlight.enabled = false;
@@ -57,7 +59,7 @@ public class RamSpawn : StateMachineBehaviour {
     {
         //When the round begins, so too should the spotlight. This is a temporary add until we've worked out when exactly to start the Ram
         // event
-        if (LevelManager.Instance.gameStart == true)
+        if (LevelManager.Instance.gameState == GameState.Main)
         {
             spotlight.enabled = true;
             updateSpotlight();
