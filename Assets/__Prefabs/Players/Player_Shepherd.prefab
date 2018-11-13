@@ -144,7 +144,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1856436814012792}
-  m_Mesh: {fileID: 4300000, guid: 4f2964bb9f9d00a45b6e97bdca1c8197, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 4f2964bb9f9d00a45b6e97bdca1c8197, type: 3}
 --- !u!33 &33969139095071656
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -190,6 +190,7 @@ MonoBehaviour:
   actorType: 0
   canMove: 1
   speed: 10
+  stunned: 0
   canSnap: 1
   interactionBox: {fileID: 65844882543617470}
   interactionSheep: {fileID: 0}
@@ -201,6 +202,7 @@ MonoBehaviour:
   maxDash: 2
   minDash: 2
   stopDash: 2
+  isStunned: 0
 --- !u!143 &143038031367349644
 CharacterController:
   m_ObjectHideFlags: 1

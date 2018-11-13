@@ -79,7 +79,6 @@ public class RamSpawn : StateMachineBehaviour {
     {
         Vector3 newDir = new Vector3();
 
-
         //Shrink the size of the ray throughout it's lifetime
         spotlight.spotAngle -= 0.045f;
 

@@ -55,13 +55,38 @@ public class RamWander : StateMachineBehaviour {
 
         currentPath = PathManager.Instance.FindPath(ram.transform.position, newPos); //Where the path is being calculated
 
+        if (currentPath[1] != null)
+            Debug.Log("currentPath[1] Exists");
+        else Debug.Log("currentPath[1] Failed");
+
+        if (currentPath[0] != null)
+            Debug.Log("currentPath[0] Exists");
+        else Debug.Log("currentPath[0] Failed");
 
         //move towards new location
         //Work out direction (Destination - current)
         if (currentPath != null && currentPath.Length > 0)
         {
-            newDir = (currentPath[1] - currentPath[0]).normalized;            
+            newDir = (currentPath[1] - currentPath[0]).normalized;            //ISSUE HERE, error returns with an index out of array range
+            if (currentPath[1] != null)
+                Debug.Log("currentPath[1] Exists");
+            else Debug.Log("currentPath[1] Failed");
+
+            if (currentPath[0] != null)
+                Debug.Log("currentPath[0] Exists");
+            else Debug.Log("currentPath[0] Failed");
+
+            //The ram never enters this if statement, one of the two is failing
         }
+
+        if (currentPath[1] != null)
+            Debug.Log("currentPath[1] Exists");
+        else Debug.Log("currentPath[1] Failed");
+
+        if (currentPath[0] != null)
+            Debug.Log("currentPath[0] Exists");
+        else Debug.Log("currentPath[0] Failed");
+        //These never get called at all after the ram starts failing
 
         //Drawing the path
         PathManager.Instance.DrawPath(currentPath);
@@ -82,22 +107,6 @@ public class RamWander : StateMachineBehaviour {
                 timer = 0;
             }
         }
-
-        //************************************************************************************
-        //      LITTLE PIECE OF WANDER CODE TO USE, JUST GOTTA IMPLEMENT IT PROPERLY
-        //************************************************************************************
-        //public static Vector3 RandomNavSphere(Vector3 origin, float distance, int layermask)
-        //{
-        //    Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * distance;
-
-        //    randomDirection += origin;
-
-        //    NavMeshHit navHit;
-
-        //    NavMesh.SamplePosition(randomDirection, out navHit, distance, layermask);
-
-        //    return navHit.position;
-        //}
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

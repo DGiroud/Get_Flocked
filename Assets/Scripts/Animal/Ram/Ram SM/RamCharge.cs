@@ -80,6 +80,7 @@ public class RamCharge : StateMachineBehaviour {
         player.GetComponent<BaseActor>().stunned = true;
 
         ram.GetComponent<Ram>().playerHit = false;  //Reset so that we don't keep stunning the player
+        ram.GetComponent<Ram>().player = null;      //Reset so that we don't keep charging the player
 
         //When the Ram hit's a player, we want it to immediately start wandering again
         ram.GetComponent<Animator>().SetBool("isWandering", true);

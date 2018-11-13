@@ -66,7 +66,7 @@ public class Rotator : MonoBehaviour
                 {
                     rotateTimer = Random.Range(min, max);
                 }
-                Debug.Log(rotateTimer);
+                //Debug.Log(rotateTimer);
                 // if timer runs out
                 if (rotateTimer < 7.5f)
                 {
