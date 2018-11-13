@@ -50,6 +50,9 @@ public class LevelManager : MonoBehaviour
     private float timesUpSlowMotion = 0.5f;
     public float timesUpPauseDuration = 2.0f;
 
+    public static bool gameIsPaused = false;
+    public GameObject pauseMenuUI;
+
 
     private void Awake()
     {
@@ -61,6 +64,19 @@ public class LevelManager : MonoBehaviour
     
     void Update()
     {
+        //will change to controller functionality
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gameIsPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }              
+        }
+
         if (ScoreManager.Instance.CurrentSheep == ScoreManager.Instance.RequiredSheep)
         {
             if (gameState != GameState.TimesUp && gameState != GameState.RoundEnd)
@@ -124,11 +140,30 @@ public class LevelManager : MonoBehaviour
             RoundEnd();
     }
 
+    public void Resume()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1.0f;
+        gameIsPaused = false;
+    }
+
     public void Pause()
     {
         gameState = GameState.Pause;
-
+        //enabling/disbaling gameobject
+        pauseMenuUI.SetActive(true);
+        //speed of pause time
         Time.timeScale = 0.0f;
+        gameIsPaused = true;
+    }
+
+    /// <summary>
+    /// loads the menu
+    /// </summary>
+    public void LoadMenu()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("StartMenu");
     }
 
     /// <summary>

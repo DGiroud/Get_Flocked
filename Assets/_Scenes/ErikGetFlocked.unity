@@ -4067,6 +4067,7 @@ GameObject:
   - component: {fileID: 944875424}
   - component: {fileID: 944875428}
   - component: {fileID: 944875429}
+  - component: {fileID: 944875430}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4224,6 +4225,25 @@ MonoBehaviour:
   audioMixer: {fileID: 0}
   resDropDown: {fileID: 0}
   other: {fileID: 0}
+--- !u!114 &944875430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 944875422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bc43561425941940bc711d0f880bded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverLevelID: 0
+  gameState: 0
+  countDown: 0
+  gameStart: 0
+  maxRounds: 0
+  timesUpSlowMotion: 0.5
+  timesUpPauseDuration: 2
+  pauseMenuUI: {fileID: 1671050013}
 --- !u!1 &949673245
 GameObject:
   m_ObjectHideFlags: 0
@@ -6101,7 +6121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 944875428}
+      - m_Target: {fileID: 944875430}
         m_MethodName: LoadMenu
         m_Mode: 1
         m_Arguments:
@@ -6675,7 +6695,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 944875428}
+      - m_Target: {fileID: 944875430}
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
@@ -8741,6 +8761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76fb555d77af41418f8f2da309bbc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredSheep: 20
 --- !u!4 &1633450185 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4536982603868146, guid: 27faa18a2ba8849408ab44c52d1ea779,
@@ -8995,6 +9016,86 @@ Prefab:
     - target: {fileID: 4715191482500986, guid: 9269099f80f091142b152e914fdc45b3, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 137433065658561862, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.000002861023
+      objectReference: {fileID: 0}
+    - target: {fileID: 137433065658561862, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Center.z
+      value: -0.0000015795231
+      objectReference: {fileID: 0}
+    - target: {fileID: 137433065658561862, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.x
+      value: 8.348955
+      objectReference: {fileID: 0}
+    - target: {fileID: 137433065658561862, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.00000012440913
+      objectReference: {fileID: 0}
+    - target: {fileID: 137433065658561862, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.z
+      value: 12.465047
+      objectReference: {fileID: 0}
+    - target: {fileID: 137931221378326428, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.0000038146973
+      objectReference: {fileID: 0}
+    - target: {fileID: 137931221378326428, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Center.z
+      value: -0.0000010728836
+      objectReference: {fileID: 0}
+    - target: {fileID: 137931221378326428, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.x
+      value: 8.349014
+      objectReference: {fileID: 0}
+    - target: {fileID: 137931221378326428, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.00000012441001
+      objectReference: {fileID: 0}
+    - target: {fileID: 137931221378326428, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.z
+      value: 12.464905
+      objectReference: {fileID: 0}
+    - target: {fileID: 137809047896720838, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.0000019073486
+      objectReference: {fileID: 0}
+    - target: {fileID: 137809047896720838, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.x
+      value: 8.348951
+      objectReference: {fileID: 0}
+    - target: {fileID: 137809047896720838, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.00000012440907
+      objectReference: {fileID: 0}
+    - target: {fileID: 137809047896720838, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.z
+      value: 12.465042
+      objectReference: {fileID: 0}
+    - target: {fileID: 137460748633874408, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.0000019073486
+      objectReference: {fileID: 0}
+    - target: {fileID: 137460748633874408, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: m_AABB.m_Center.z
+      value: -0.0000011026859
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9269099f80f091142b152e914fdc45b3, type: 2}
@@ -11566,14 +11667,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverLevelID: 1
-  roundTimer: 0
   gameState: 0
   countDown: 0
   gameStart: 0
   maxRounds: 3
-  roundLength: 60
   timesUpSlowMotion: 0.5
   timesUpPauseDuration: 3
+  pauseMenuUI: {fileID: 0}
 --- !u!1 &2096310190
 GameObject:
   m_ObjectHideFlags: 0
