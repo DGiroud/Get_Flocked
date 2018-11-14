@@ -11,7 +11,6 @@ public class SettingsMenu : MonoBehaviour {
     public AudioMixer audioMixer;       //audio
     Resolution[] resolution;            //array of resolutions
     public Dropdown resDropDown;        //dropdown of resolutions
-    public DynamicCamera other;
     void Start()
     {
         resolution = Screen.resolutions;
