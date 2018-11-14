@@ -13,9 +13,9 @@ public class Player : BaseActor
 {
     private Animator animator;
 
-    // the type of input this player is using, e.g. keyboard
-    private PlayerInput playerInput;
-    public bool isStunned;
+    // player input variables
+    private PlayerInput playerInput; // the type of input this player is using, e.g. keyboard
+    private bool wasAPressed; // used to prevent weird behaviour when holding the A button
 
     public void SetPlayerInput(PlayerInput inputType)
     {
@@ -68,6 +68,7 @@ public class Player : BaseActor
                 {
                     GamePadKick(input);
                     GamePadMovement(input);
+                    GamePadDash(input);
                     break;
                 }
             case GameState.RoundEnd:
@@ -103,6 +104,29 @@ public class Player : BaseActor
     /// 
     /// </summary>
     /// <param name="gamePad"></param>
+    private void GamePadDash(GamePadState gamePad)
+    {
+        if (gamePad.Buttons.A == ButtonState.Pressed && !wasAPressed)
+        {
+            if (HeldSheep || interactionSheep)
+                return;
+
+            wasAPressed = true;
+
+            Vector3 translation = new Vector3(gamePad.ThumbSticks.Left.X, 0, gamePad.ThumbSticks.Left.Y);
+            translation.Normalize();
+
+            // x & z translation mapped to horizontal & vertical respectively
+            Move(translation.x, translation.z, true);
+        }
+        else if (gamePad.Buttons.A == ButtonState.Released)
+            wasAPressed = false;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="gamePad"></param>
     private void GamePadKick(GamePadState gamePad)
     {
         // A to kick sheep
@@ -115,6 +139,7 @@ public class Player : BaseActor
                 ScoreManager.Instance.IncrementKickCount(actorID);
 
                 animator.SetTrigger("Kick");
+                wasAPressed = true;
             }
             else if (interactionSheep)
             {
@@ -123,6 +148,7 @@ public class Player : BaseActor
                 interactionSheep = null;
 
                 animator.SetTrigger("Kick");
+                wasAPressed = true;
             }
         }
     }

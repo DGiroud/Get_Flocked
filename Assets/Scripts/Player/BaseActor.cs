@@ -19,13 +19,22 @@ public class BaseActor : MonoBehaviour
 
     // actor movement
     #region movement
+    private CharacterController controller;
+
     [Header("Movement")]
     public bool canMove = true; // cause why not, right?
     public float speed = 1.0f; // how fast player go
-    private float originalSpeed;
+    private float currentSpeed;
+    [SerializeField]
+    private float dashSpeed = 3.0f; // how fast player dash
+    private float currentDashSpeed;
+    [SerializeField]
+    private float dashCooldown = 0.5f; // time until next dash
+    private float dashTimer;
+
     private Vector3 translation;
     private Vector3 lastPosition;
-    private CharacterController controller;
+
     [HideInInspector]
     public bool stunned;    // Jake's touching your code ♣
     private float stunnedTimer = 0f;
@@ -39,11 +48,12 @@ public class BaseActor : MonoBehaviour
     private bool canSnap = true;
     [SerializeField]
     private BoxCollider interactionBox; // hit box in front of player
+    [HideInInspector]
     public GameObject interactionSheep; // holds a sheep if there is one in front of the player
     private GameObject heldSheep; // null if no sheep, sheep if sheep
     public GameObject HeldSheep { get { return heldSheep; } }
     [SerializeField]
-    private float pickUpDelay;
+    private float pickUpCooldown = 0.5f; // time until next pickup
     private float pickUpTimer;
     #endregion
 
@@ -58,18 +68,12 @@ public class BaseActor : MonoBehaviour
     #endregion
 
 
-    public Vector3 moveDir;
-    public float maxDash = 2.0f;
-    public float minDash = 2.0f;
-    public float stopDash = 2.0f;
-    private float dashTime;
-
-
     /// <summary>
     /// Ensures all relevant actor variables are reset upon start-up
     /// </summary>
     void Awake ()
     {
+        dashTimer = 0.0f;
         pickUpTimer = 0.0f;
         heldSheep = null;
 
@@ -77,13 +81,9 @@ public class BaseActor : MonoBehaviour
         SetCanSnap(canSnap);
         SetCanKick(canKick);
 
-        originalSpeed = speed;
+        currentSpeed = speed;
+        currentDashSpeed = 0;
         controller = GetComponent<CharacterController>();
-    }
-
-    void Start()
-    {
-        dashTime = maxDash;
     }
 
     /// <summary>
@@ -104,16 +104,14 @@ public class BaseActor : MonoBehaviour
     public void SetCanMove(bool toggle)
     {
         canMove = toggle;
-    }
-
-   
+    }   
 
     /// <summary>
     /// handles player rotation and translation
     /// </summary>
     /// <param name="xAxis">pass in an x axis value between -1 and 1</param>
     /// <param name="yAxis">pass in a y axis value between -1 and 1</param>
-    public void Move(float xAxis, float yAxis)
+    public void Move(float xAxis, float yAxis, bool isDashing = false)
     {
         if (!canMove)
             return; // can't move!
@@ -121,16 +119,27 @@ public class BaseActor : MonoBehaviour
         if (stunned)
             return; //Jake did this lmao
 
+        // get the direction vector
         translation.x = xAxis;
         translation.z = yAxis;
+        translation *= Mathf.Lerp(1, dashSpeed, currentDashSpeed *= 0.9f);
+
+        // record the last position (for distance travelled)
+        lastPosition = transform.position;
+
+        // dash functionality
+        if (dashTimer > dashCooldown && isDashing)
+        {
+            currentDashSpeed = dashSpeed; // speed up
+            dashTimer = 0.0f; // start cooldown
+        }
+        dashTimer += Time.deltaTime; // increment dash cooldown timer
 
         // rotation handling
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(translation), 0.2f);
 
-        lastPosition = transform.position;
-
         // perform movement
-        controller.SimpleMove(translation * speed);
+        controller.SimpleMove(translation * currentSpeed);
 
         // calculate and increment distance travelled
         float distanceTravelled = Vector3.Distance(transform.position, lastPosition);
@@ -156,7 +165,7 @@ public class BaseActor : MonoBehaviour
     public void SnapSheep(GameObject sheep)
     {
         // if a sheep was just let go of, disallow snapping for a short time
-        if (pickUpTimer < pickUpDelay)
+        if (pickUpTimer < pickUpCooldown)
             return;
 
         // disable snapping
@@ -172,7 +181,6 @@ public class BaseActor : MonoBehaviour
         sheepAnimation.SetBool("isKicked", false);
         sheepAnimation.SetBool("isWandering", false);
 
-
         //                          position              direction                         offset
         Vector3 snapPosition = transform.position + translation.normalized * (sheepScript.radius * 2.1f);
         snapPosition.y += transform.localScale.y;
@@ -185,7 +193,7 @@ public class BaseActor : MonoBehaviour
         heldSheep.GetComponent<SphereCollider>().isTrigger = true;
 
         // modify player speed when carrying heavy sheep
-        speed *= sheepScript.speedModifier;
+        currentSpeed *= sheepScript.speedModifier;
     }
 
     /// <summary>
@@ -231,7 +239,7 @@ public class BaseActor : MonoBehaviour
         releasedSheep.GetComponent<SphereCollider>().isTrigger = false;
 
         // revert player speed to original speed
-        speed = originalSpeed;
+        currentSpeed = speed;
 
         return releasedSheep; // return for convenience sake
     }
