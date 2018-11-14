@@ -20,7 +20,7 @@ public class Rotator : MonoBehaviour
 
     [Header("Rotate Speed")]
     [Tooltip("the speed that the object rotates")]
-    public int rotateSpeed; // how fast go
+    public float rotateSpeed; // how fast go
 
     // periodic rotation relevent variables
     [Header("Periodic Rotation")]
@@ -62,6 +62,7 @@ public class Rotator : MonoBehaviour
 
             // periodic rotation, not as easy
             case RotateMode.Periodic:
+
                 if (rotateTimer < 0.0f)
                 {
                     rotateTimer = Random.Range(min, max);
@@ -76,9 +77,7 @@ public class Rotator : MonoBehaviour
                 {
                     isRotatingClockwise = true;
                 }
-
                 rotateTimer -= Time.deltaTime; // decrement timer
-
                 StartCoroutine(Rotate(isRotatingClockwise));
                 break;
 
@@ -122,7 +121,7 @@ public class Rotator : MonoBehaviour
             // get desired rotation quaternion
             desiredRotation = Quaternion.Euler(0, rotationAngle, 0) * transform.rotation;
         }
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(-1.0f);
 
         // loop until the desired rotation is reached
         if (transform.rotation != desiredRotation)

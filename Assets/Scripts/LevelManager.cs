@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using XInputDotNetPure;
 
 public enum GameState
 {
@@ -50,8 +50,8 @@ public class LevelManager : MonoBehaviour
     private float timesUpSlowMotion = 0.5f;
     public float timesUpPauseDuration = 2.0f;
 
-    public static bool gameIsPaused = false;
-    public GameObject pauseMenuUI;
+    public static bool gameIsPaused = false;  //will always be false unless toggled for pause menu ingame
+    public GameObject pauseMenuUI;            
 
 
     private void Awake()
@@ -64,18 +64,10 @@ public class LevelManager : MonoBehaviour
     
     void Update()
     {
-        //will change to controller functionality
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (gameIsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }              
-        }
+        //keyboard pause
+        KeyboardPause();
+        //controller pause
+        ControllerPause();
 
         if (ScoreManager.Instance.CurrentSheep == ScoreManager.Instance.RequiredSheep)
         {
@@ -85,7 +77,42 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
-    
+
+    /// <summary>
+    /// if "Start" is pressed
+    /// </summary>
+    private void ControllerPause()
+    {
+        if (Input.GetKeyDown("joystick button 7"))
+        {
+            if (gameIsPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+    }
+    /// <summary>
+    /// if "Escape" is pressed
+    /// </summary>
+    private void KeyboardPause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gameIsPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+    }
+
     /// <summary>
     /// count-down subroutine which pauses the game, counts down from 3,
     /// then resumes the game
@@ -139,14 +166,18 @@ public class LevelManager : MonoBehaviour
         else
             RoundEnd();
     }
-
+    /// <summary>
+    /// Resumes game
+    /// </summary>
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1.0f;
         gameIsPaused = false;
     }
-
+    /// <summary>
+    /// pauses game
+    /// </summary>
     public void Pause()
     {
         gameState = GameState.Pause;
@@ -158,7 +189,7 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// loads the menu
+    /// loads and goes to start menu
     /// </summary>
     public void LoadMenu()
     {
