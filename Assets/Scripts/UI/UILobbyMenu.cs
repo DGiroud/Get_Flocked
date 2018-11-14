@@ -33,6 +33,7 @@ public struct WasButtonPressed
 public class UILobbyMenu : MonoBehaviour
 {
     // scene indexes used for scene transitions
+    [Header("Scene Transitions")]
     [SerializeField]
     [Tooltip("the scene index (in build settings) of the main menu")]
     private int mainMenuID;
@@ -41,20 +42,17 @@ public class UILobbyMenu : MonoBehaviour
     private int mainGameID;
 
     // array of colours, to be filled up by designers
+    [Header("Player Customization")]
     [SerializeField]
     private Color[] colours;
     [SerializeField]
     private PlayerMaterials[] playerMaterials;
-
-    // UI references to panels, images and the start button
-    // There's probably a cleaner way to do this but oh well
+    
+    [Header("Button References")]
     [SerializeField]
-    private GameObject[] CPUPanels;
-    public Button[] buttons;
+    private Button[] joinButtons;
     [SerializeField]
-    private GameObject[] colourSelectionPanels;
-    [SerializeField]
-    private GameObject[] readyPanels;
+    private Button[] readyButtons;
     [SerializeField]
     private Image[] colourPickers;
     [SerializeField]
@@ -78,9 +76,12 @@ public class UILobbyMenu : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
+            // joined and ready arrays initialised to false
             joined[i] = false;
             colourID[i] = 0;
             ready[i] = false;
+
+            // all button pressed states initalised to false
             wasButtonPressed[i].A = false;
             wasButtonPressed[i].B = false;
             wasButtonPressed[i].Left = false;
@@ -128,7 +129,6 @@ public class UILobbyMenu : MonoBehaviour
     {
         joined[playerID] = false; // not joined
         ready[playerID] = false; // or ready
-        ToggleCPUPanel(playerID); // open "CPU - Press A to join" panel
         wasButtonPressed[playerID].B = true;
     }
 
@@ -140,7 +140,6 @@ public class UILobbyMenu : MonoBehaviour
     {
         joined[playerID] = false; // not joined
         ready[playerID] = true; // but ready!
-        ToggleReadyPanel(playerID); // open "Ready!" panel
         wasButtonPressed[playerID].A = true;
     }
 
@@ -164,7 +163,7 @@ public class UILobbyMenu : MonoBehaviour
                 {
                     // allow A input to join
                     if (gamePad.Buttons.A == ButtonState.Pressed)
-                        buttons[i].onClick.Invoke();
+                        joinButtons[i].onClick.Invoke();
                     
                     // B input to go back to the main menu
                     if (gamePad.Buttons.Y == ButtonState.Pressed)
@@ -186,14 +185,17 @@ public class UILobbyMenu : MonoBehaviour
                 GamePadState gamePad = GamePad.GetState((PlayerIndex)i);
 
                 // A button functionality for choosing your colour and joining the game
-                if (gamePad.Buttons.A == ButtonState.Pressed && !wasButtonPressed[i].A)
-                    Ready(i);
+                if (gamePad.Buttons.A == ButtonState.Pressed && !wasButtonPressed[i].A && !IsColourTaken(i))
+                    readyButtons[i].onClick.Invoke();
                 else if (gamePad.Buttons.A == ButtonState.Released)
                     wasButtonPressed[i].A = false; // button released
             }
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void CheckForUnJoin()
     {
         for (int i = 0; i < joined.Length; i++)
@@ -291,17 +293,19 @@ public class UILobbyMenu : MonoBehaviour
         playerMaterials[playerID].goal.SetColor("_PlayerColour", newColour);
     }
 
-    private void ToggleCPUPanel(int playerID)
+    private bool IsColourTaken(int actorID)
     {
-        CPUPanels[playerID].SetActive(true);
-        colourSelectionPanels[playerID].SetActive(false);
-        readyPanels[playerID].SetActive(false);
-    }
+        int colour = colourID[actorID];
 
-    private void ToggleReadyPanel(int playerID)
-    {
-        CPUPanels[playerID].SetActive(false);
-        colourSelectionPanels[playerID].SetActive(false);
-        readyPanels[playerID].SetActive(true);
+        for (int i = 0; i < ready.Length; i++)
+        {
+            if (ready[i])
+            {
+                if (colourID[i] == colour)
+                    return false;
+            }
+        }
+
+        return true;
     }
 }
