@@ -53,40 +53,21 @@ public class RamWander : StateMachineBehaviour {
         if (navMesh.enabled == false)
             navMesh.enabled = true;
 
+        //Possible fix for the Ram getting stuck in a wander behaviour, where it was trying to find a path to the position it was already at.
+        // This way, we check if we're already at the position we're trying to seek to, and if so, we find a new destination
+        if(ram.transform.position.x == newPos.x && ram.transform.position.z == newPos.z)
+        {
+            newPos = ram.GetComponent<Ram>().GetNewDestination();
+        }
+
         currentPath = PathManager.Instance.FindPath(ram.transform.position, newPos); //Where the path is being calculated
-
-        if (currentPath[1] != null)
-            Debug.Log("currentPath[1] Exists");
-        else Debug.Log("currentPath[1] Failed");
-
-        if (currentPath[0] != null)
-            Debug.Log("currentPath[0] Exists");
-        else Debug.Log("currentPath[0] Failed");
 
         //move towards new location
         //Work out direction (Destination - current)
         if (currentPath != null && currentPath.Length > 0)
         {
-            newDir = (currentPath[1] - currentPath[0]).normalized;            //ISSUE HERE, error returns with an index out of array range
-            if (currentPath[1] != null)
-                Debug.Log("currentPath[1] Exists");
-            else Debug.Log("currentPath[1] Failed");
-
-            if (currentPath[0] != null)
-                Debug.Log("currentPath[0] Exists");
-            else Debug.Log("currentPath[0] Failed");
-
-            //The ram never enters this if statement, one of the two is failing
+            newDir = (currentPath[1] - currentPath[0]).normalized;
         }
-
-        if (currentPath[1] != null)
-            Debug.Log("currentPath[1] Exists");
-        else Debug.Log("currentPath[1] Failed");
-
-        if (currentPath[0] != null)
-            Debug.Log("currentPath[0] Exists");
-        else Debug.Log("currentPath[0] Failed");
-        //These never get called at all after the ram starts failing
 
         //Drawing the path
         PathManager.Instance.DrawPath(currentPath);

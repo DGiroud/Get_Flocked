@@ -30,14 +30,13 @@ public class Ram : MonoBehaviour {
         "and then immediately finds another player within it's charge sphere.")]
     public float chargeCooldown;
     private float chargeCooldownTimer = 0f;
-    public float wanderCooldown;
     [Tooltip("How close a player needs to be to the Ram before it charges that player")]
-    public float chargeRadius;
+    public float chargeRadius = 7.5f;
     [Tooltip("How long the Ram waits before charging the player. This will need to align with the animation the Ram takes as it prepares " +
         "for it's Charge.")]
-    public float chargeDelay;
+    public float chargeDelay = 2;
     [Tooltip("How long the Ram stuns the player for after successfully charging them")]
-    public float playerStunTime;
+    public float playerStunTime = 3;
     private float playerStunTimer = 0f;     //Timer to count down the player's stun duration
 
     private GameObject[] fieldBox;

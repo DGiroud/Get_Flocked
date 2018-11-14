@@ -11,7 +11,6 @@ public class HitTrigger : MonoBehaviour {
         if (other.gameObject.tag == "Player")   //We want different reactions for when the Ram hits either a player or a sheep
         {
             GetComponentInParent<Ram>().playerHit = true;
-
         }
 
         else if (other.gameObject.tag == "Sheep")
@@ -27,13 +26,7 @@ public class HitTrigger : MonoBehaviour {
 
     public void OnTriggerStay(Collider other)
     {
-        //if (other.gameObject.tag == "Player")
-        //{
-        //}
 
-        //else if (other.gameObject.tag == "Sheep")
-        //{
-        //}
     }
 
     public void OnTriggerExit(Collider other)
