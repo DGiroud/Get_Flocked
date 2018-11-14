@@ -1061,6 +1061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76fb555d77af41418f8f2da309bbc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredSheep: 20
 --- !u!1 &592659299
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,11 +1186,11 @@ Transform:
   m_LocalPosition: {x: -15.39, y: -0.03379911, z: 6.02}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1233747477}
   - {fileID: 1893104570}
   - {fileID: 753147539}
   - {fileID: 545981720}
   - {fileID: 371189710}
+  - {fileID: 1233747477}
   m_Father: {fileID: 0}
   m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -2057,14 +2058,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverLevelID: 1
-  roundTimer: 0
   gameState: 0
   countDown: 0
   gameStart: 0
   maxRounds: 3
-  roundLength: 60
   timesUpSlowMotion: 0.5
   timesUpPauseDuration: 0
+  pauseMenuUI: {fileID: 0}
 --- !u!1001 &1094673933
 Prefab:
   m_ObjectHideFlags: 0
@@ -3993,16 +3993,16 @@ MonoBehaviour:
   playerPrefab: {fileID: 1946791718678068, guid: beee7f1e3dc66424fb1d58aafe607fec,
     type: 2}
   CPUPrefab: {fileID: 1946791718678068, guid: 2233ce9601f0e3c4fb459de745ad0f72, type: 2}
-  actorColours:
-  - {fileID: 2100000, guid: 58b5eace635df4e4a929516adc2a2805, type: 2}
-  - {fileID: 2100000, guid: 2d504da699c59194d928a9ab3ef59891, type: 2}
-  - {fileID: 2100000, guid: b7185e036b3232b46976a0caa7dad1a5, type: 2}
-  - {fileID: 2100000, guid: f75a684543d428f47b64748c3de9ce08, type: 2}
   actorStartPositions:
   - {fileID: 1822989064}
   - {fileID: 1436214821}
   - {fileID: 755017846}
   - {fileID: 1724092968}
+  playerMaterials:
+  - {fileID: 2100000, guid: 58b5eace635df4e4a929516adc2a2805, type: 2}
+  - {fileID: 2100000, guid: 2d504da699c59194d928a9ab3ef59891, type: 2}
+  - {fileID: 2100000, guid: b7185e036b3232b46976a0caa7dad1a5, type: 2}
+  - {fileID: 2100000, guid: f75a684543d428f47b64748c3de9ce08, type: 2}
 --- !u!1001 &1927441943
 Prefab:
   m_ObjectHideFlags: 0

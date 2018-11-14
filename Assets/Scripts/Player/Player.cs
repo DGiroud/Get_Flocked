@@ -11,6 +11,8 @@ public enum PlayerInput
 
 public class Player : BaseActor
 {
+    private Animator animator;
+
     // the type of input this player is using, e.g. keyboard
     private PlayerInput playerInput;
     public bool isStunned;
@@ -26,6 +28,9 @@ public class Player : BaseActor
     public void Start()
     {
         actorType = ActorType.Player;
+
+        // cache animator
+        animator = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -43,6 +48,11 @@ public class Player : BaseActor
                 GamePadInput();
                 break;
         }
+
+        if (HeldSheep)
+            animator.SetBool("isPushing", true);
+        else
+            animator.SetBool("isPushing", false);
 
         // call update on BaseActor
         base.Update();
@@ -75,13 +85,18 @@ public class Player : BaseActor
     {
         // if no joysticks are being moved, don't move
         if (gamePad.ThumbSticks.Left.X == 0.0f && gamePad.ThumbSticks.Left.Y == 0.0f)
+        {
+            animator.SetBool("isWalking", false);
             return;
+        }
 
         Vector3 translation = new Vector3(gamePad.ThumbSticks.Left.X, 0, gamePad.ThumbSticks.Left.Y);
         translation.Normalize();
 
         // x & z translation mapped to horizontal & vertical respectively
         Move(translation.x, translation.z);
+
+        animator.SetBool("isWalking", true);
     }
 
     /// <summary>
@@ -98,12 +113,16 @@ public class Player : BaseActor
                 GameObject sheep = ReleaseSheep();
                 LaunchSheep(sheep);
                 ScoreManager.Instance.IncrementKickCount(actorID);
+
+                animator.SetTrigger("Kick");
             }
             else if (interactionSheep)
             {
                 LaunchOpponentsSheep(interactionSheep);
                 ScoreManager.Instance.IncrementInterceptCount(actorID);
                 interactionSheep = null;
+
+                animator.SetTrigger("Kick");
             }
         }
     }
@@ -151,12 +170,17 @@ public class Player : BaseActor
     {
         // x & z translation mapped to horizontal & vertical respectively
         if (Input.GetAxisRaw("Horizontal") == 0.0f && Input.GetAxisRaw("Vertical") == 0.0f)
+        {
+            animator.SetBool("isWalking", false);
             return;
+        }
 
         Vector3 translation = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         translation.Normalize();
 
         Move(translation.x, translation.z);
+
+        animator.SetBool("isWalking", true);
     }
 
     /// <summary>
@@ -172,12 +196,16 @@ public class Player : BaseActor
                 GameObject sheep = ReleaseSheep();
                 LaunchSheep(sheep);
                 ScoreManager.Instance.IncrementKickCount(actorID);
+
+                animator.SetTrigger("Kick");
             }
             else if (interactionSheep)
             {
                 LaunchOpponentsSheep(interactionSheep);
                 ScoreManager.Instance.IncrementInterceptCount(actorID);
                 interactionSheep = null;
+
+                animator.SetTrigger("Kick");
             }
         }
     }

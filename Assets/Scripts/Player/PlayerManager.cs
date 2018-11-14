@@ -34,6 +34,8 @@ public class PlayerManager : MonoBehaviour
 
     #endregion
 
+    private PlayerPreferences[] playerPrefs;
+
     // prefabs
     [Header("Prefabs")]
     [SerializeField]
@@ -41,14 +43,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private GameObject CPUPrefab; // reference to CPU
 
-    [Header("Colours")]
-    [SerializeField]
-    private Material[] actorColours;
-
     // spawn settings
     [Header("Start Positions")]
     [SerializeField] 
     private Transform[] actorStartPositions; // array of player spawn positions
+
+    [SerializeField]
+    private Material[] playerMaterials;
 
     // lists of all players and their respective controllers
     public List<GameObject> players { get; private set; } // the players
@@ -60,6 +61,9 @@ public class PlayerManager : MonoBehaviour
 	void Awake ()
     {
         instance = this; // assign singleton instance
+
+        // retrieve player preferences
+        playerPrefs = UILobbyMenu.GetPlayerPrefs;
 
         // initialise player array
         players = new List<GameObject>();
@@ -108,25 +112,40 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void AssignGamePads()
     {
-        // for every connected gamepad...
-        for (int i = 0; i < gamePads.Count; i++)
+        if (playerPrefs != null)
         {
-            // ...create a player
-            players.Add(InstantiatePlayer(i, i));
-        }
+            for (int i = 0; i < playerPrefs.Length; i++)
+            {
+                bool isPlayerReady = playerPrefs[i].isReady;
 
-        // for every non-connected gamepad...
-        for (int i = gamePads.Count; i < actorStartPositions.Length; i++)
+                if (isPlayerReady)
+                    players.Add(InstantiatePlayer(i));
+                else
+                    players.Add(InstantiateCPU(i));
+            }
+        }
+        else
         {
-            // ...create a CPU
-            players.Add(InstantiateCPU(i));
+            // for every connected gamepad...
+            for (int i = 0; i < gamePads.Count; i++)
+            {
+                // ...create a player
+                players.Add(InstantiatePlayer(i));
+            }
+
+            // for every non-connected gamepad...
+            for (int i = gamePads.Count; i < actorStartPositions.Length; i++)
+            {
+                // ...create a CPU
+                players.Add(InstantiateCPU(i));
+            }
         }
     }
 
     public void AssignKeyboard()
     {
         // player one uses keyboard
-        players.Add(InstantiatePlayer(0, 0, PlayerInput.Keyboard));
+        players.Add(InstantiatePlayer(0, PlayerInput.Keyboard));
 
         // the rest are a CPU
         for (int i = 1; i < actorStartPositions.Length; i++)
@@ -141,19 +160,19 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     /// <param name="playerIndex">the controller index of the player, e.g. 0</param>
     /// <returns>the instantiated player for convenience</returns>
-    public GameObject InstantiatePlayer(int playerIndex, int controllerID, PlayerInput playerInput = PlayerInput.Controller)
+    public GameObject InstantiatePlayer(int playerID, PlayerInput playerInput = PlayerInput.Controller)
     {
         // get player spawn position
-        Transform startTransform = actorStartPositions[playerIndex];
+        Transform startTransform = actorStartPositions[playerID];
 
         // add player to scene, then set position
         GameObject player = Instantiate(playerPrefab);
         player.transform.position = startTransform.position;
         player.transform.rotation = startTransform.rotation;
-        //player.GetComponentInChildren<MeshRenderer>().material = actorColours[playerIndex];
+        player.GetComponentInChildren<SkinnedMeshRenderer>().material = playerMaterials[playerID];
 
         Player script = player.GetComponent<Player>();
-        script.actorID = playerIndex;
+        script.actorID = playerID;
         script.SetPlayerInput(playerInput);
 
         return player;
@@ -163,12 +182,12 @@ public class PlayerManager : MonoBehaviour
     /// function which instantiates the CPU prefab based on their pre-
     /// determined spawn location
     /// </summary>
-    /// <param name="CPUIndex">the index of the CPU, e.g. 1, 2, 3</param>
+    /// <param name="cpuID">the index of the CPU, e.g. 1, 2, 3</param>
     /// <returns>the instantiated CPU for convenience</returns>
-    public GameObject InstantiateCPU(int CPUIndex)
+    public GameObject InstantiateCPU(int cpuID)
     {
         // get CPU spawn position
-        Transform startTransform = actorStartPositions[CPUIndex];
+        Transform startTransform = actorStartPositions[cpuID];
 
         // add CPU to scene, then set position
         GameObject cpu = Instantiate(CPUPrefab);
@@ -177,7 +196,7 @@ public class PlayerManager : MonoBehaviour
         //cpu.GetComponentInChildren<MeshRenderer>().material = actorColours[CPUIndex];
 
         CPU script = cpu.GetComponent<CPU>();
-        script.actorID = CPUIndex;
+        script.actorID = cpuID;
 
         return cpu;
     }

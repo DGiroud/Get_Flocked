@@ -5,6 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using XInputDotNetPure;
 
+public struct PlayerPreferences
+{
+    public bool isReady;
+    public Color playerColour;
+}
+
 /// <summary>
 /// struct used to encapsulate variables related to the different
 /// materials of the player
@@ -26,6 +32,7 @@ public struct WasButtonPressed
 {
     public bool A;
     public bool B;
+    public bool Y;
     public bool Right;
     public bool Left;
 }
@@ -44,7 +51,7 @@ public class UILobbyMenu : MonoBehaviour
     // array of colours, to be filled up by designers
     [Header("Player Customization")]
     [SerializeField]
-    private Color[] colours;
+    private Color[] selectableColours;
     [SerializeField]
     private PlayerMaterials[] playerMaterials;
     
@@ -52,7 +59,11 @@ public class UILobbyMenu : MonoBehaviour
     [SerializeField]
     private Button[] joinButtons;
     [SerializeField]
+    private Button[] unJoinButtons;
+    [SerializeField]
     private Button[] readyButtons;
+    [SerializeField]
+    private Button[] unReadyButtons;
     [SerializeField]
     private Image[] colourPickers;
     [SerializeField]
@@ -63,6 +74,8 @@ public class UILobbyMenu : MonoBehaviour
     private bool[] ready; // has the player readied up?
     private int[] colourID; // which colour from the colour array did each player pick?
     private WasButtonPressed[] wasButtonPressed; // are they pressing buttons? 
+    static private PlayerPreferences[] playerPrefs;
+    static public PlayerPreferences[] GetPlayerPrefs { get { return playerPrefs; } }
 
     /// <summary>
     /// initialises all of the relevant arrays
@@ -70,7 +83,7 @@ public class UILobbyMenu : MonoBehaviour
     void Awake()
     {
         joined = new bool[4];
-        colourID = new int[colours.Length];
+        colourID = new int[4];
         ready = new bool[4];
         wasButtonPressed = new WasButtonPressed[4];
 
@@ -97,11 +110,14 @@ public class UILobbyMenu : MonoBehaviour
         // check each unjoined player for A button input (join)
         CheckForJoin();
 
+        // check each joined player for B button input (opt out)
+        CheckForUnJoin();
+
         // check each joined player for second A button input (ready up)
         CheckForReady();
 
-        // check each joined/ready player for B button input (opt out)
-        CheckForUnJoin();
+        // check each ready player for B button input (back to colour select)
+        CheckForUnReady();
 
         // check each joined player for left/right D-Pad input (select colour)
         CheckForColourSelect();
@@ -128,9 +144,20 @@ public class UILobbyMenu : MonoBehaviour
     public void UnJoin(int playerID)
     {
         joined[playerID] = false; // not joined
-        ready[playerID] = false; // or ready
         wasButtonPressed[playerID].B = true;
     }
+
+    /// <summary>
+    /// allows the player to go back to colour select
+    /// </summary>
+    /// <param name="playerID">the ID of the player that's going back</param>
+    public void UnReady(int playerID)
+    {
+        joined[playerID] = true; // joined
+        ready[playerID] = false; // not ready
+        wasButtonPressed[playerID].B = true;
+    }
+
 
     /// <summary>
     /// allows the player to ready up once they've selected a colour
@@ -200,19 +227,42 @@ public class UILobbyMenu : MonoBehaviour
     {
         for (int i = 0; i < joined.Length; i++)
         {
-            if (joined[i] || ready[i])
+            if (joined[i])
             {
                 GamePadState gamePad = GamePad.GetState((PlayerIndex)i);
 
                 // B button functionality for opting out of joining the game
                 if (gamePad.Buttons.B == ButtonState.Pressed && !wasButtonPressed[i].B)
-                    UnJoin(i);
+                    unJoinButtons[i].onClick.Invoke();
                 else if (gamePad.Buttons.B == ButtonState.Released)
                     wasButtonPressed[i].B = false; // button released
             }
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    private void CheckForUnReady()
+    {
+        for (int i = 0; i < ready.Length; i++)
+        {
+            if (ready[i])
+            {
+                GamePadState gamePad = GamePad.GetState((PlayerIndex)i);
+
+                // B button functionality for opting out of joining the game
+                if (gamePad.Buttons.B == ButtonState.Pressed && !wasButtonPressed[i].B)
+                    unReadyButtons[i].onClick.Invoke();
+                else if (gamePad.Buttons.B == ButtonState.Released)
+                    wasButtonPressed[i].B = false; // button released
+            }
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     private void CheckForColourSelect()
     {
         for (int i = 0; i < joined.Length; i++)
@@ -262,10 +312,25 @@ public class UILobbyMenu : MonoBehaviour
 
             if (gamePad.IsConnected) 
                 if (gamePad.Buttons.Start == ButtonState.Pressed)
+                {
+                    playerPrefs = new PlayerPreferences[4];
+
+                    for (int j = 0; j < 4; j++)
+                    {
+                        playerPrefs[j].isReady = ready[j];
+                        playerPrefs[j].playerColour = selectableColours[colourID[j]];
+                    }
+
                     SceneManager.LoadScene(mainGameID);
+                }
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerID"></param>
+    /// <param name="previousColour"></param>
     private void NextColour(int playerID, bool previousColour = false)
     {
         // increment or decrement colour ID depending on left or right input
@@ -281,18 +346,22 @@ public class UILobbyMenu : MonoBehaviour
         }
 
         // clamp the colourID such that it loops around (no array index overflow)
-        if (colourID[playerID] >= colours.Length)
+        if (colourID[playerID] >= selectableColours.Length)
             colourID[playerID] = 0; // too far right, reset colour to first colour
         else if (colourID[playerID] < 0)
-            colourID[playerID] = colours.Length - 1; // too far left, reset colour to last colour
+            colourID[playerID] = selectableColours.Length - 1; // too far left, reset colour to last colour
 
-        Color newColour = colours[colourID[playerID]];
+        Color newColour = selectableColours[colourID[playerID]];
         colourPickers[playerID].color = newColour;
 
         playerMaterials[playerID].shepherd.SetColor("_PlayerColour", newColour);
-        playerMaterials[playerID].goal.SetColor("_PlayerColour", newColour);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="actorID"></param>
+    /// <returns></returns>
     private bool IsColourTaken(int actorID)
     {
         int colour = colourID[actorID];
@@ -302,10 +371,10 @@ public class UILobbyMenu : MonoBehaviour
             if (ready[i])
             {
                 if (colourID[i] == colour)
-                    return false;
+                    return true;
             }
         }
 
-        return true;
+        return false;
     }
 }
