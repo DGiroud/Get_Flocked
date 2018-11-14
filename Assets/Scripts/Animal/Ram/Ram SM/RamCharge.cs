@@ -8,6 +8,7 @@ public class RamCharge : StateMachineBehaviour {
     private Vector3 newDir;
     private float destRad = 1;   //The radius at which the Ram will decide it's within range of it's target
     private GameObject chargeEffect; //The same effect as when the Ram landed
+    private GameObject sceneChargeEffect;    //Where we store the charge effect that we instantatiate
     private bool charged = false;            //Check that we don't
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -27,6 +28,12 @@ public class RamCharge : StateMachineBehaviour {
         newDir = temp.normalized;
 
         chargeEffect = ram.GetComponent<Ram>().chargeEffect;
+
+        if(sceneChargeEffect != null)
+        {
+            Destroy(sceneChargeEffect);     //Everytime we enter this state, we want to remove the leftover charge effect
+            //Stops us from clogging up the scene with inactive particle systems
+        }
 
         //Keep looking at the player. Intimidate them
         ram.transform.LookAt(newDir);
@@ -79,7 +86,7 @@ public class RamCharge : StateMachineBehaviour {
     private void PlayerHit()
     {
         //We stun the player through baseActor's functionality, then we activate it again based on a timer in the base Ram class
-        player.GetComponent<Player>().isStunned = true;  //Set this to true so that the Ram knows whether or not to ignore it
+        //player.GetComponent<Player>().isStunned = true;  //Set this to true so that the Ram knows whether or not to ignore it
         player.GetComponent<BaseActor>().stunned = true;
 
         ram.GetComponent<Ram>().playerHit = false;  //Reset so that we don't keep stunning the player
@@ -98,8 +105,8 @@ public class RamCharge : StateMachineBehaviour {
         //bool check as we only want to create the cracks on the ground once - when the ram hits. 
         if (!charged)
         {
-            Instantiate(chargeEffect, new Vector3(ram.transform.position.x, 0, ram.transform.position.z),
-/*THESE VALUES NEED TO CHANGE TO FIX ROTATION -->*/  new Quaternion(-0.7035975f, 0.09950372f, 0, 0.7035975f));
+            sceneChargeEffect = Instantiate(chargeEffect, new Vector3(ram.transform.position.x, 0, ram.transform.position.z),
+/*THESE VALUES NEED TO CHANGE TO FIX ROTATION -->*/  new Quaternion(-0.7035975f, 0.09950372f, 0.1f, 0.7035975f));
             charged = true;
         }
 

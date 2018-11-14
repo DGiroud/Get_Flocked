@@ -27,9 +27,11 @@ public class SpawnBehaviour : StateMachineBehaviour {
         sheep.GetComponent<Sheep>().currentBehaviour = "Spawn Behaviour";
 
         sheep.GetComponent<Sheep>().SetWanderTrue();
-        sheep.GetComponentInChildren<Animator>().SetBool("isWandering", true);
-        sheep.GetComponentInChildren<Animator>().SetBool("isKicked", false);
-        sheep.GetComponentInChildren<Animator>().SetBool("isPushed", false);
+
+        //Second animator being removed from sheep, commenting these out in case we revert this decision
+            //sheep.GetComponentInChildren<Animator>().SetBool("isWandering", true);
+            //sheep.GetComponentInChildren<Animator>().SetBool("isKicked", false);
+            //sheep.GetComponentInChildren<Animator>().SetBool("isPushed", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -38,9 +38,6 @@ public class WanderBehaviour : StateMachineBehaviour {
         
         currentPath = PathManager.Instance.FindPath(sheep.transform.position, newPos);
 
-        //Debug, allowing us to see it's current destination
-        sheep.GetComponent<Sheep>().newPosDebug = newPos;
-
         ////Work out direction (Destination - current)
         if(currentPath != null && currentPath.Length > 0)
         {
@@ -48,6 +45,7 @@ public class WanderBehaviour : StateMachineBehaviour {
         }
 
         //Add force using direction * speed
+        if(sheep.GetComponent<Rigidbody>())
         sheep.GetComponent<Rigidbody>().AddForce(newDir * sheepSpeed, ForceMode.Force);
 
         //Every frame we check whether the sheep is within an acceptable range or not, wherein we change to our Idle state

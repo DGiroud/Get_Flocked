@@ -25,9 +25,11 @@ public class KickBehaviour : StateMachineBehaviour {
             if (timer >= 5)
             {
                 sheep.GetComponent<Sheep>().SetIdleTrue();
-                sheep.GetComponentInChildren<Animator>().SetBool("isWandering", false);
-                sheep.GetComponentInChildren<Animator>().SetBool("isKicked", false);
-                sheep.GetComponentInChildren<Animator>().SetBool("isPushed", false);
+
+                //Second animator being removed from sheep, commenting these out in case we revert this decision
+                    //sheep.GetComponentInChildren<Animator>().SetBool("isWandering", false);
+                    //sheep.GetComponentInChildren<Animator>().SetBool("isKicked", false);
+                    //sheep.GetComponentInChildren<Animator>().SetBool("isPushed", false);
             }
         }
     }

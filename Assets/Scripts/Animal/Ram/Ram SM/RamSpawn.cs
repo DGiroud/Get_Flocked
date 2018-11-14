@@ -28,17 +28,6 @@ public class RamSpawn : StateMachineBehaviour {
     private bool finished    = false;
     private bool crashed     = false;
 
-
-
-    //********************************************************************************************************************
-    //                                                      NOTES
-    //********************************************************************************************************************
-    // * Spotlight needs to wait for an ingame trigger before spawning. It shouldn't be in the game from the get-go
-    //
-    // * Ram currently has a bug where it doesn't stick to it's descent path, and instead launches in random directions
-    // * Add a sphere to the ram that applies an impulse force to anything it touches during it's descent
-    //********************************************************************************************************************
-
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -84,9 +73,10 @@ public class RamSpawn : StateMachineBehaviour {
         DynamicCamera.RemoveObjectOfInterest(ram);
     }
 
-    //----------------------------------------------------------------------------------------------------------|
-    //----------------------------------------------------------------------------------------------------------|
 
+    //----------------------------------------------------------------------------------------------------------|
+    //                                          UPDATE SPOTLIGHT
+    //----------------------------------------------------------------------------------------------------------|
     public void updateSpotlight()
     {
         Vector3 newDir = new Vector3();
@@ -168,8 +158,8 @@ public class RamSpawn : StateMachineBehaviour {
             }
         }
     }
-
     //----------------------------------------------------------------------------------------------------------|
+
 
     //Makes the spotlight flash between red and white
     void FlashRed()

@@ -18,9 +18,6 @@ public class Sheep : MonoBehaviour {
     public float distToGround;                  //Variable used for IsGrounded();
     [Tooltip("The range of force that the sheep will be moved at when spawned")]
     public Vector2 spawnRangeForce;
-    //public float 
-    [Tooltip("FOR DEBUG, READ ONLY")]
-    public Vector3 newPosDebug;                //Variable so we can actively see where the sheep is trying to go during runtime[DEBUG ONLY]
 
     private GameObject[] fieldBox;
     private int previousNum;

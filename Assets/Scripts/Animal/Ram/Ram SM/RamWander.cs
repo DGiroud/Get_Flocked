@@ -48,8 +48,6 @@ public class RamWander : StateMachineBehaviour {
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-
         if (navMesh.enabled == false)
             navMesh.enabled = true;
 
