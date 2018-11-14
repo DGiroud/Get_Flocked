@@ -15,15 +15,20 @@ public class RamSpawn : StateMachineBehaviour {
     private float spawnTimerEnd;
     public float landingSpeed = 0.15f;
 
+    private int round;          //The round we need to be at before the Ram will spawn
+    private int sheepScored;    //The amount of sheep that need to be scored before the Ram will spawn
+
     private GameObject crashEffect;
 
-    GameObject ram;
-    GameObject ramSpawnPoint;
-    Vector3 ramTarget;
-    bool destination = false;
-    bool spawned     = false;
-    bool finished    = false;
-    bool crashed     = false;
+    private GameObject ram;
+    private GameObject ramSpawnPoint;
+    private Vector3 ramTarget;
+    private bool destination = false;
+    private bool spawned     = false;
+    private bool finished    = false;
+    private bool crashed     = false;
+
+
 
     //********************************************************************************************************************
     //                                                      NOTES
@@ -52,25 +57,32 @@ public class RamSpawn : StateMachineBehaviour {
         spawnTimerEnd = animator.GetComponent<Ram>().spawnTimer;
 
         crashEffect = ram.GetComponent<Ram>().crashEffect;
-    }
 
+        round = ram.GetComponent<Ram>().roundSpawn;
+        sheepScored = (int)Random.Range(ram.GetComponent<Ram>().sheepTilSpawn.x, ram.GetComponent<Ram>().sheepTilSpawn.y);
+    }
+    
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //When the round begins, so too should the spotlight. This is a temporary add until we've worked out when exactly to start the Ram
         // event
-        if (LevelManager.Instance.gameState == GameState.Main)
+        if (LevelManager.GetCurrentRound() >= round)  //If we have reached teh round specified, spawn Ram
         {
-            spotlight.enabled = true;
-            updateSpotlight();
+            if (ScoreManager.Instance.CurrentSheep >= sheepScored)  //If we have scored the specified amount of sheep, Spawn Ram
+            {
+                DynamicCamera.AddObjectOfInterest(ram);
+                spotlight.enabled = true;
+                updateSpotlight();
+            }
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
-    }    
+        DynamicCamera.RemoveObjectOfInterest(ram);
+    }
 
     //----------------------------------------------------------------------------------------------------------|
     //----------------------------------------------------------------------------------------------------------|

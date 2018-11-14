@@ -26,7 +26,7 @@ public class DynamicCamera : MonoBehaviour
     private Camera dynamicCamera;
 
     // reference to all the players in the scene
-    private List<GameObject> players;
+    static private List<GameObject> players;
 
     // this offsets the camera's position (for designer freedom)
     [SerializeField]
@@ -176,5 +176,22 @@ public class DynamicCamera : MonoBehaviour
 
         // create bounding box based off min & max values and return it
         return new XZBounds(xMin, xMax, zMin, zMax);
+    }
+
+    /// <summary>
+    /// Function to add an object for the Dynamic camera to take into account
+    /// </summary>
+    /// <param name="obj"></param>
+    static public void AddObjectOfInterest(GameObject obj)
+    {
+        players.Add(obj);
+    }
+    /// <summary>
+    /// Function to remove an object that we don't want to Dynamic Camera to use
+    /// </summary>
+    /// <param name="obj"></param>
+    static public void RemoveObjectOfInterest(GameObject obj)
+    {
+        players.Remove(obj);
     }
 }

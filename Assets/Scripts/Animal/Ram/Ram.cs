@@ -9,9 +9,16 @@ public class Ram : MonoBehaviour {
     //************************
     //******* RAMPAGE ********
     //************************
-        
+
+    [Header("Spawn Requirements")]
+    [Tooltip("What round the Ram will spawn after. IE if 2, the Ram will not spawn in Round 1, but will spawn in all rounds after that")]
+    public int roundSpawn;
+    [Tooltip("A random number will be generated between these 2 values, and when that many sheep have been scored in a round, the Ram will spawn")]
+    public Vector2 sheepTilSpawn;
     [Tooltip("The duration that the Ram will wait to spawn after locking in it's location to land")]
     public float spawnTimer;
+
+    [Header("Ram Properties")]
     [Tooltip("The duration that the Ram will be stunned for after charging and landing")]
     [Range(0, 10)]
     public float stunDuration;
