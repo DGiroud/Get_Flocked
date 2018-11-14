@@ -150,7 +150,7 @@ public class PlayerManager : MonoBehaviour
         GameObject player = Instantiate(playerPrefab);
         player.transform.position = startTransform.position;
         player.transform.rotation = startTransform.rotation;
-        player.GetComponentInChildren<MeshRenderer>().material = actorColours[playerIndex];
+        //player.GetComponentInChildren<MeshRenderer>().material = actorColours[playerIndex];
 
         Player script = player.GetComponent<Player>();
         script.actorID = playerIndex;
@@ -174,7 +174,7 @@ public class PlayerManager : MonoBehaviour
         GameObject cpu = Instantiate(CPUPrefab);
         cpu.transform.position = startTransform.position;
         cpu.transform.rotation = startTransform.rotation;
-        cpu.GetComponentInChildren<MeshRenderer>().material = actorColours[CPUIndex];
+        //cpu.GetComponentInChildren<MeshRenderer>().material = actorColours[CPUIndex];
 
         CPU script = cpu.GetComponent<CPU>();
         script.actorID = CPUIndex;
