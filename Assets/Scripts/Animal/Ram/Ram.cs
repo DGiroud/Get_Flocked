@@ -56,15 +56,23 @@ public class Ram : MonoBehaviour {
     public BoxCollider hitCollider;
 
 
-    [HideInInspector]                              //We don't want these to be accessed by anyone or anything except other scripts
+   // [HideInInspector]                              //We don't want these to be accessed by anyone or anything except other scripts
     public GameObject player;                      //Reference to the player we're charging
-    [HideInInspector]
+    //[HideInInspector]
     public bool playerHit = false;                 //If we hit the player, this becomes true and the player is stunned for a duration.
-    [HideInInspector]
+    //[HideInInspector]
     public bool sheepHit = false;                  //If we hit a sheep, this becomes true and the sheep gets knocked out of the way.
-    [HideInInspector]
     
+    //BUGS:
+    // Sometimes when the Ram spots a player and enteres StepBack, it falls through the floor. **PRIORITY ONE**
+    // The fix to this issue is to change the BASE OFFSET of the NavMesh component on the Ram, so that it sits higher than it's default
+    //  box collider. The NavMesh agents disables the other colliders and uses it's own sphere collider when it's enabled, so when you
+    //  disable the NavMesh agent, there is a brief period between the switch where it doesn't have a collider, cuasing it to fall through
+    //  the floor. This will take a bit of trail and error but by placing the NavMesh sphere collider higher than the default box collider, 
+    //  it should help ease the transition between the two.
 
+    // The Ram still keeps locked onto a player and continously charges that player, look into the ChargeTrigger event,
+    //  as it seems to be reseting completely. 
 
     private void Start () {
         //Creating the FieldBox array;
@@ -134,9 +142,12 @@ public class Ram : MonoBehaviour {
     }
 
     //Function to help us check i fwe are trying to charge the same player
-    public bool IsSamePlayer(GameObject player)
+    public bool IsSamePlayer(GameObject inPlayer)
     {
-        return false;
+        if (inPlayer == player)
+            return true;
+
+        else return false;
     }
 
     public bool CooldownCheck()

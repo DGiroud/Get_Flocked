@@ -64,6 +64,9 @@ public class RamCharge : StateMachineBehaviour {
     {
         charged = false;    //Simple boolean to ensure we don't instantiate the same crash effect more than once during update
 
+        //Reset our boolean value so that we don't immediately charge the next time we enter the StepBack state
+        ram.GetComponent<Animator>().SetBool("isCharging", false);
+
         //Now that our charge is complete, regardless of whether we hit our player or not, we want to turn off our hitCollider
         // so that we can't interact with the player anymore, and we want to reenable our charge sphere so that we can start
         // looking for more daring players who wander too close
@@ -80,7 +83,8 @@ public class RamCharge : StateMachineBehaviour {
         player.GetComponent<BaseActor>().stunned = true;
 
         ram.GetComponent<Ram>().playerHit = false;  //Reset so that we don't keep stunning the player
-        ram.GetComponent<Ram>().player = null;      //Reset so that we don't keep charging the player
+        //ram.GetComponent<Ram>().player = null;      //Reset so that we don't keep charging the player
+        // ^ This is potentially the issue we're having, where the player is set to null
 
         //When the Ram hit's a player, we want it to immediately start wandering again
         ram.GetComponent<Animator>().SetBool("isWandering", true);

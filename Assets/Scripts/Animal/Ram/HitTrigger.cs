@@ -31,9 +31,5 @@ public class HitTrigger : MonoBehaviour {
 
     public void OnTriggerExit(Collider other)
     {
-        //After either a player or a sheep has left our collider, we no longer want the relevant bools to be true, 
-        // else the stun effect on the 2 objects will never end. They'll be stun-locked forever.
-        GetComponentInParent<Ram>().playerHit = false;
-        GetComponentInParent<Ram>().sheepHit = false;
     }
 }

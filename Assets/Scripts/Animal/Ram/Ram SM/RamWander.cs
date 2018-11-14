@@ -95,6 +95,6 @@ public class RamWander : StateMachineBehaviour {
         //We need to set this to false as we leave this state, otherwise when we come into the Charge state, 
         // "isWandering" will still be leftover as true, and the Ram will immediately leave the Charge state back into wander.
         ram.GetComponent<Animator>().SetBool("isWandering", false);
-        navMesh.enabled = false;
+        navMesh.enabled = false;    //This is potentiall the cause of the Ram falling through the floor, that it has to snap off the Navmesh
     }
 }

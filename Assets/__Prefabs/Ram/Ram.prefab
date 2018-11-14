@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4757193804393724}
   - component: {fileID: 33367213194633590}
   - component: {fileID: 65362965626449064}
-  - component: {fileID: 114210846175758642}
+  - component: {fileID: 114946374291143496}
   m_Layer: 0
   m_Name: chargeCollider
   m_TagString: Untagged
@@ -289,17 +289,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114210846175758642
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1897085502929782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4d45f88665ad0c4d8678eb68d43e632, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114218243633946252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -339,7 +328,7 @@ MonoBehaviour:
   idleTime: 3
   crashEffect: {fileID: 1242820699891550, guid: 010b36774882533459f83d336666add2,
     type: 2}
-  chargeEffect: {fileID: 1522029054898604, guid: e8f92344f7e88d64ba63b0863ea8c139,
+  chargeEffect: {fileID: 1522029054898604, guid: 6a274d6a01027b740b5c299e9e927e4e,
     type: 2}
   chargeCooldown: 0
   chargeRadius: 7.5
@@ -351,6 +340,17 @@ MonoBehaviour:
   player: {fileID: 0}
   playerHit: 0
   sheepHit: 0
+--- !u!114 &114946374291143496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897085502929782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976b07970e97c7a488d8ac8878adb80d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135953769963331588
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -381,7 +381,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1678835840802110}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 3.5
@@ -393,6 +393,6 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: -0.05
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
