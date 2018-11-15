@@ -129,7 +129,7 @@ public class Ram : MonoBehaviour {
             Debug.Log("lastPlayerCharged IS NULL");
         }
 
-
+        //If the Ram has charged someone, we want there to be a cooldown before he can charge them again
         if (GetComponentInChildren<ChargeTrigger>().lastPlayerCharged != null)
         {
             samePlayerTimer += Time.deltaTime;
@@ -137,8 +137,8 @@ public class Ram : MonoBehaviour {
             if(samePlayerTimer >= samePlayerCooldown)
             {
                 samePlayerTimer = 0;
-                GetComponentInChildren<ChargeTrigger>().lastPlayerCharged = null;
                 GetComponentInChildren<ChargeTrigger>().stopIgnoring = true;
+                GetComponentInChildren<ChargeTrigger>().lastPlayerCharged = null;
             }
         }
         

@@ -3,7 +3,7 @@
 public class ChargeTrigger : MonoBehaviour {
 
     public GameObject lastPlayerCharged;
-    public bool stopIgnoring = false;
+    public bool stopIgnoring;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,16 +12,17 @@ public class ChargeTrigger : MonoBehaviour {
         {
             stopIgnoring = false; //The order here is very important
 
-            Physics.IgnoreCollision(lastPlayerCharged.GetComponent<Collider>(), GetComponent<Collider>(), false);
+            Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), false);
         }
 
+        //We only want to look for the player
         if (other.gameObject.tag == "Player")
         {
             //If this is the same player we had just stunned, we want to ignore it
             if (other.gameObject == lastPlayerCharged)
             {
                 //Handy little trick to completely ignore a collider
-                Physics.IgnoreCollision(lastPlayerCharged.GetComponent<Collider>(), GetComponent<Collider>(), true);
+                Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), true);
             }
 
             else
@@ -42,7 +43,7 @@ public class ChargeTrigger : MonoBehaviour {
         {
             stopIgnoring = false; //The order here is very important
 
-            Physics.IgnoreCollision(lastPlayerCharged.GetComponent<Collider>(), GetComponent<Collider>(), false);
+            Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), false);
         }
 
         if (other.gameObject.tag == "Player")
@@ -51,7 +52,7 @@ public class ChargeTrigger : MonoBehaviour {
             if (other.gameObject == lastPlayerCharged)
             {
                 //Handy little trick to completely ignore a collider
-                Physics.IgnoreCollision(lastPlayerCharged.GetComponent<Collider>(), GetComponent<Collider>(), true);
+                Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), true);
             }
 
             else
@@ -67,5 +68,9 @@ public class ChargeTrigger : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.tag == "Player")
+        {
+            Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), false);
+        }
     }
 }
