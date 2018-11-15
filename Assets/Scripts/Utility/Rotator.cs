@@ -64,7 +64,7 @@ public class Rotator : MonoBehaviour
 
             // periodic rotation, not as easy
             case RotateMode.Periodic:
-                if (rotateTimer < 0.0f)
+                if (rotateTimer < -1.0f)
                 {
                     rotateTimer = Random.Range(min, max);
                 }
@@ -103,6 +103,7 @@ public class Rotator : MonoBehaviour
         }
     }
 
+    #region RotateIEnumerator
     /// <summary>
     /// subroutine which performs a restricted rotation on an object
     /// </summary>
@@ -122,8 +123,6 @@ public class Rotator : MonoBehaviour
         }
         yield return new WaitForSeconds(-1.0f);
 
-
-
         // loop until the desired rotation is reached
         if (transform.rotation != desiredRotation)
         {
@@ -131,7 +130,8 @@ public class Rotator : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime * rotateSpeed);
         }
     }
-
+    #endregion
+    #region NoRotateIEnumerator
     /// <summary>
     /// subroutine which performs a resricted rotation
     /// </summary>
@@ -150,9 +150,8 @@ public class Rotator : MonoBehaviour
             //setting stop rotation to the transformed rotation
             stopRotation = transform.rotation;
         }
-
-        yield return new WaitForSeconds(10.0f);
-
+        yield return new WaitForSeconds(5.0f);
+        
         //loops untill the stopped rotation is reached
         if (transform.rotation != stopRotation)
         {
@@ -160,5 +159,5 @@ public class Rotator : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, stopRotation, rotateSpeed);
         }
     }
-
+    #endregion
 }
