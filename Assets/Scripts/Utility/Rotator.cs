@@ -6,7 +6,7 @@ public enum RotateMode
 {
     Constant,
     Periodic,
-    ConstantRandom
+    PeriodicV2
 }
 
 public class Rotator : MonoBehaviour
@@ -21,6 +21,7 @@ public class Rotator : MonoBehaviour
     [Header("Rotate Speed")]
     [Tooltip("the speed that the object rotates")]
     public float rotateSpeed; // how fast go
+    private float stopRotate = -0.0f; //lets just stop it 
 
     // periodic rotation relevent variables
     [Header("Periodic Rotation")]
@@ -35,8 +36,7 @@ public class Rotator : MonoBehaviour
     public float max;
 
     bool isRotatingClockwise;
-  
-
+    private bool hasStoppedRotation = false;
 
 
     /// <summary>
@@ -46,6 +46,8 @@ public class Rotator : MonoBehaviour
     {
         rotateToggleTimer = Random.Range(min, max);
         isRotatingClockwise = false;
+        hasStoppedRotation = true;
+
     }
 	
     /// <summary>
@@ -62,12 +64,30 @@ public class Rotator : MonoBehaviour
 
             // periodic rotation, not as easy
             case RotateMode.Periodic:
-
                 if (rotateTimer < 0.0f)
                 {
                     rotateTimer = Random.Range(min, max);
                 }
                 //Debug.Log(rotateTimer);
+                // if timer runs out
+                if (rotateTimer < 7.5f)
+                {
+                    hasStoppedRotation = false;
+                }
+                else
+                {
+                    hasStoppedRotation = true;
+                }
+                rotateTimer -= Time.deltaTime; // decrement timer
+                StartCoroutine(NoRotate(hasStoppedRotation));
+                break;
+
+                //constant/periodic
+            case RotateMode.PeriodicV2:
+                if (rotateTimer < 0.0f)
+                {
+                    rotateTimer = Random.Range(min, max);
+                }
                 // if timer runs out
                 if (rotateTimer < 7.5f)
                 {
@@ -77,29 +97,8 @@ public class Rotator : MonoBehaviour
                 {
                     isRotatingClockwise = true;
                 }
-                rotateTimer -= Time.deltaTime; // decrement timer
+                rotateTimer -= Time.deltaTime; //decrement timer
                 StartCoroutine(Rotate(isRotatingClockwise));
-                break;
-
-                //starts off as constant then transitions into periodic
-                //then back to constant rotation
-
-           case RotateMode.ConstantRandom:
-                //decrement timer
-                rotateTimer -= Time.deltaTime;
-
-                transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
-                //if the timer runs out
-                if (rotateTimer <= 0.0f)
-                {
-                    //do rotation
-                    StopAllCoroutines();
-                    StartCoroutine(Rotate());
-
-                    //reset timer
-                    rotateTimer = Random.Range(rotateTime.x, rotateTime.y);
-
-                }
                 break;
         }
     }
@@ -123,20 +122,43 @@ public class Rotator : MonoBehaviour
         }
         yield return new WaitForSeconds(-1.0f);
 
+
+
         // loop until the desired rotation is reached
         if (transform.rotation != desiredRotation)
         {
             // perform rotation
             transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime * rotateSpeed);
         }
-        //rotateTimer = Random.Range(min, max);
-        //else
-        //{
-        //    rotateTimer = Random.Range(min, max);
-        //    yield return null;
-        //}
+    }
 
+    /// <summary>
+    /// subroutine which performs a resricted rotation
+    /// </summary>
+    /// <param name="isNotMoving"></param>
+    /// <returns></returns>
+    private IEnumerator NoRotate(bool isNotMoving = false)
+    {
+        Quaternion stopRotation;
+        if (isNotMoving == true)
+        {
+            //gets the stop rotation quaternion
+            stopRotation = Quaternion.Euler(0, -rotationAngle, 0) * transform.rotation;
+        }
+        else
+        {
+            //setting stop rotation to the transformed rotation
+            stopRotation = transform.rotation;
+        }
 
+        yield return new WaitForSeconds(10.0f);
+
+        //loops untill the stopped rotation is reached
+        if (transform.rotation != stopRotation)
+        {
+            //preforms the rotation
+            transform.rotation = Quaternion.Lerp(transform.rotation, stopRotation, rotateSpeed);
+        }
     }
 
 }
