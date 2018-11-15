@@ -91,6 +91,9 @@ public class Player : BaseActor
     /// </summary>
     private void GamePadMovement(GamePadState gamePad)
     {
+        if (stunned)
+            return;
+
         // if no joysticks are being moved, don't move
         if (gamePad.ThumbSticks.Left.X == 0.0f && gamePad.ThumbSticks.Left.Y == 0.0f)
         {
@@ -205,6 +208,8 @@ public class Player : BaseActor
     /// </summary>
     private void KeyboardMovement()
     {
+        if (stunned)
+            return;
         // x & z translation mapped to horizontal & vertical respectively
         if (Input.GetAxisRaw("Horizontal") == 0.0f && Input.GetAxisRaw("Vertical") == 0.0f)
         {
