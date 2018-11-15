@@ -23,6 +23,8 @@ public class RamStepback : StateMachineBehaviour {
      
         ram = animator.GetComponent<Ram>();
 
+        ram.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+
         //Disable the chargeSphere, we don't want the Ram to check for new player's whilst it's charging. This can have weird results, 
         // and simultaneously we want to enable the hitCollider so that the Ram can interact with the player when charged.
         // We want the Ram's hitCollider to be active throughout the begginning of RamStepback, through to the end of RamCharge.

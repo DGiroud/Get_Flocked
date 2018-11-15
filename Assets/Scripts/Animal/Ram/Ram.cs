@@ -48,6 +48,12 @@ public class Ram : MonoBehaviour {
     [Tooltip("How long the Ram stuns the player for after successfully charging them")]
     public float playerStunTime = 3;
     private float playerStunTimer = 0f;     //Timer to count down the player's stun duration
+    [Tooltip("How long the Ram must wait before charging the same player twice in a row. Gives the stunned player time to escape the Ram")]
+    public float samePlayerCooldown;
+    private float samePlayerTimer = 0f;     //Timer to reference against the samePlayerCooldown
+    [HideInInspector]
+    public GameObject lastPlayerCharged;    //Reference for the ChargeTrigger, so that we can ignore
+    private ChargeTrigger chargeTrigger;
 
     [HideInInspector] // We want to access the field box in ramCharge
     public GameObject[] fieldBox;
@@ -69,17 +75,12 @@ public class Ram : MonoBehaviour {
 
     [HideInInspector]                              //We don't want these to be accessed by anyone or anything except other scripts
     public GameObject player;                      //Reference to the player we're charging
-    //[HideInInspector]
+    [HideInInspector]
     public bool playerHit = false;                 //If we hit the player, this becomes true and the player is stunned for a duration.
-    //[HideInInspector]
+    [HideInInspector]
     public bool sheepHit = false;                  //If we hit a sheep, this becomes true and the sheep gets knocked out of the way.
-    //[HideInInspector]
+    [HideInInspector]
     public bool boundaryHit = false;               //If we charge into the outer boundaries, this becomes true and we halt our charge
-
-    //BUG:
-    // Once the ram has charged once, if you leave and reenter it's radius, it charges downwards through the floor and slips into the void
-    // Ram still cannot register that it has already charged a player, and will continuously charge a CPU if it is not moving. 
-    //  doing this results in the Ram being thrown around the screen and eventually it taking off and launching from the field
 
 
     private void Start () {
@@ -91,6 +92,8 @@ public class Ram : MonoBehaviour {
         fieldBox[1] = GameObject.Find("FieldRight");
         fieldBox[2] = GameObject.Find("FieldBottom");
         fieldBox[3] = GameObject.Find("FieldLeft");
+
+        chargeTrigger = GetComponentInChildren<ChargeTrigger>();
     }
 
     public void Update()
@@ -116,6 +119,29 @@ public class Ram : MonoBehaviour {
         if (boundaryHit == true)
             player = null;
 
+        if (GetComponentInChildren<ChargeTrigger>().lastPlayerCharged != null)
+        {
+            Debug.Log("lastPlayerCharged NOT NULL");
+        }
+
+        else if (GetComponentInChildren<ChargeTrigger>().lastPlayerCharged == null)
+        {
+            Debug.Log("lastPlayerCharged IS NULL");
+        }
+
+
+        if (GetComponentInChildren<ChargeTrigger>().lastPlayerCharged != null)
+        {
+            samePlayerTimer += Time.deltaTime;
+
+            if(samePlayerTimer >= samePlayerCooldown)
+            {
+                samePlayerTimer = 0;
+                GetComponentInChildren<ChargeTrigger>().lastPlayerCharged = null;
+                GetComponentInChildren<ChargeTrigger>().stopIgnoring = true;
+            }
+        }
+        
         //If the ram somehow finds it's wya off the field, destroy it so that it doesn't mess with the dynamic camera
         if (transform.position.y <= -10)
         {

@@ -117,7 +117,7 @@ public class BaseActor : MonoBehaviour
             return; // can't move!
 
         if (stunned)
-            return; //Jake did this lmao
+            return; //can't move if stunned
 
         // get the direction vector
         translation.x = xAxis;
@@ -286,8 +286,9 @@ public class BaseActor : MonoBehaviour
     {
         stunnedTimer += Time.deltaTime;
         
-        if(stunnedTimer >= 4)   //Hardcoded 4 because running low on time for the day
+        if(stunnedTimer >= 3)   //Hardcoded # because running low on time for the day
         {
+            stunnedTimer = 0;
             stunned = false;
         }
     }

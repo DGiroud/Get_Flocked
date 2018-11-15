@@ -37,6 +37,7 @@ public class RamWander : StateMachineBehaviour {
         newPos  = ram.GetComponent<Ram>().GetNewDestination();
         navMesh = ram.GetComponent<NavMeshAgent>();
         movementSpeed = ram.GetComponent<Ram>().wanderSpeed;
+        navMesh.speed = movementSpeed;
         idleTimer = ram.GetComponent<Ram>().idleTime;
 
         //Disable the meteor sphere which should only be used for the Ram's intitial descent, and enable it's new sphere collider
@@ -77,14 +78,8 @@ public class RamWander : StateMachineBehaviour {
         //If we're within a radius of our desired point, find a new point to seek to
         if (ram.transform.position.x >= newPos.x - 1 && ram.transform.position.x <= newPos.x + 1 &&
            ram.transform.position.z >= newPos.z - 1 && ram.transform.position.z <= newPos.z + 1)
-        {
-            timer += Time.deltaTime;
-
-            if (timer >= idleTimer)
-            {
+        {           
                 newPos = ram.GetComponent<Ram>().GetNewDestination();
-                timer = 0;
-            }
         }
     }
 
@@ -93,6 +88,6 @@ public class RamWander : StateMachineBehaviour {
         //We need to set this to false as we leave this state, otherwise when we come into the Charge state, 
         // "isWandering" will still be leftover as true, and the Ram will immediately leave the Charge state back into wander.
         ram.GetComponent<Animator>().SetBool("isWandering", false);
-        navMesh.enabled = false;    //This is potentiall the cause of the Ram falling through the floor, that it has to snap off the Navmesh
+        navMesh.enabled = false;
     }
 }

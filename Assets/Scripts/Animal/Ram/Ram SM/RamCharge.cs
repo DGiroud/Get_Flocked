@@ -20,7 +20,7 @@ public class RamCharge : StateMachineBehaviour {
         //We don't want the Ram moving with the NavMesh during this charge, as we don't want him avoiding other objects. 
         // He'll simply be charging in a straight line and a navMeshAgent will get in the way of that
         //animator.GetComponent<NavMeshAgent>().enabled = false;
-        animator.transform.LookAt(player);
+       // animator.transform.LookAt(player);
 
         //(Destination - Current)
         newPos = player.position;
@@ -36,16 +36,13 @@ public class RamCharge : StateMachineBehaviour {
         }
 
         //Keep looking at the player. Intimidate them
-        ram.transform.LookAt(newDir);
+        //ram.transform.LookAt(newDir);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //Drawing the path
-        Debug.DrawLine(ram.transform.position, newDir);
-
         forceOut += Time.deltaTime;
-
+        
         ram.GetComponent<Rigidbody>().AddForce(newDir * 50, ForceMode.Acceleration);        //Ram charging
 
         //*****************************************************************************************************
@@ -69,6 +66,12 @@ public class RamCharge : StateMachineBehaviour {
         if (forceOut >= 4)
         {
             forceOut = 0;
+
+            //Before the Ram leaves this state, we want to reset it's velocity, bringing it to a halt. 
+            // this should fix the error where the Ram constantly builds up momentum and starts "sliding" around the scene
+            ram.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
             ram.GetComponent<Animator>().SetBool("isWandering", true);
         }
     }
@@ -96,9 +99,13 @@ public class RamCharge : StateMachineBehaviour {
         //player.GetComponent<Player>().isStunned = true;  //Set this to true so that the Ram knows whether or not to ignore it
         player.GetComponent<BaseActor>().stunned = true;
 
-        ram.GetComponent<Ram>().playerHit = false;  //Reset so that we don't keep stunning the player
+        if (ram.GetComponent<Ram>().playerHit == true)
+        ram.GetComponent<Ram>().playerHit = false;    //Reset so that we don't keep stunning the player
         //ram.GetComponent<Ram>().player = null;      //Reset so that we don't keep charging the player
-        // ^ This is potentially the issue we're having, where the player is set to null
+
+        //Before the Ram leaves this state, we want to reset it's velocity, bringing it to a halt. 
+        // this should fix the error where the Ram constantly builds up momentum and starts "sliding" around the scene
+        ram.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 
         //When the Ram hit's a player, we want it to immediately start wandering again
         ram.GetComponent<Animator>().SetBool("isWandering", true);
@@ -120,6 +127,10 @@ public class RamCharge : StateMachineBehaviour {
         }
 
         ram.GetComponent<Ram>().boundaryHit = false;    //We reset this to false when we leave
+
+        //Before the Ram leaves this state, we want to reset it's velocity, bringing it to a halt. 
+        // this should fix the error where the Ram constantly builds up momentum and starts "sliding" around the scene
+        ram.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 
         //Change state to continue the behavioural lööp, bröther
         ram.GetComponent<Animator>().SetBool("isStunned", true);
