@@ -3481,6 +3481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &355976322
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3567,7 +3568,7 @@ Transform:
   - {fileID: 1652421133}
   - {fileID: 2064613088}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &396486975
 Mesh:
@@ -4555,6 +4556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &500018421
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4610,6 +4612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 1, g: 0, b: 0, a: 0.391}
   lineColour: {r: 1, g: 0, b: 0, a: 0.747}
+  collider: 0
 --- !u!65 &521403814
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4665,6 +4668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &526489077
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6784,6 +6788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &589639463
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8404,7 +8409,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &822235938 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 400002, guid: 10206652ab97a5e4eb83789503dfc692, type: 3}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 822235937}
 --- !u!43 &823660809
 Mesh:
@@ -11522,8 +11527,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &1072309673 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 4933935546384604, guid: 83444e2f7ece15f46bd22b7e4b1f5831,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 1072309672}
 --- !u!1 &1100252190
 GameObject:
@@ -13678,6 +13682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &1196247208
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13802,7 +13807,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &1218911221 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 400024, guid: 40b96c8ccb8cd734793fcf13c25ec367, type: 3}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 1218911220}
 --- !u!43 &1241431642
 Mesh:
@@ -15301,6 +15306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &1308267122
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15356,6 +15362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &1336271759
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15432,7 +15439,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &1336349603 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 400002, guid: b6985eb36eff7cc45bc5da4141a6c7d1, type: 3}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 1336349602}
 --- !u!1 &1359173239
 GameObject:
@@ -18144,6 +18151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &1581109482
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19101,6 +19109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &1644200640
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19497,6 +19506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &1740950309
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20068,6 +20078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &1827829778
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20525,8 +20536,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &1868286915 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 4791669510423152, guid: 35a702a1c7346524e84c085d853f68a8,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 1868286914}
 --- !u!1 &1880585567
 GameObject:
@@ -22676,27 +22686,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14e32325576f0246af23d7f7aa76efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  amount: 10
-  patternedSheep: []
   spawnOnStartup: 0
   amountToSpawn: 0
   spawnMode: 1
+  maximumSheep: 10
   spawnPoints:
-  - {fileID: 500018419}
-  - {fileID: 1644200638}
-  - {fileID: 1336271757}
-  - {fileID: 2133835367}
-  - {fileID: 1827829776}
-  - {fileID: 1196247206}
-  - {fileID: 1581109480}
-  - {fileID: 526489075}
-  - {fileID: 355976320}
-  - {fileID: 1308267120}
-  - {fileID: 1740950307}
-  - {fileID: 589639461}
-  spawnRate: 5
-  spawnRateVariance: 2
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  spawnTime: {x: 0, y: 0}
 --- !u!43 &2065671572
 Mesh:
   m_ObjectHideFlags: 0
@@ -23260,6 +23267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainColour: {r: 0, g: 0.08965492, b: 1, a: 0.278}
   lineColour: {r: 0, g: 0.09019608, b: 1, a: 1}
+  collider: 0
 --- !u!65 &2133835369
 BoxCollider:
   m_ObjectHideFlags: 0
