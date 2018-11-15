@@ -1459,7 +1459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuID: 0
-  mainGameID: 2
+  mainGameID: 3
   selectableColours:
   - {r: 0, g: 0, b: 0, a: 1}
   - {r: 0.9558824, g: 0.16165656, b: 0.44100457, a: 1}
@@ -1468,13 +1468,13 @@ MonoBehaviour:
   - {r: 0.27741334, g: 0.2547578, b: 0.9117647, a: 1}
   playerMaterials:
   - shepherd: {fileID: 2100000, guid: 58b5eace635df4e4a929516adc2a2805, type: 2}
-    goal: {fileID: 0}
+    goal: {fileID: 2100000, guid: 03890b45277a09542872a9f2e97e2477, type: 2}
   - shepherd: {fileID: 2100000, guid: 2d504da699c59194d928a9ab3ef59891, type: 2}
-    goal: {fileID: 0}
+    goal: {fileID: 2100000, guid: e4af04569866b67479d6edf2c1846c71, type: 2}
   - shepherd: {fileID: 2100000, guid: b7185e036b3232b46976a0caa7dad1a5, type: 2}
-    goal: {fileID: 0}
+    goal: {fileID: 2100000, guid: a996c86880051014288ee090a596271d, type: 2}
   - shepherd: {fileID: 2100000, guid: b7185e036b3232b46976a0caa7dad1a5, type: 2}
-    goal: {fileID: 0}
+    goal: {fileID: 2100000, guid: 04685a2c85098d147a757939d86dedfa, type: 2}
   joinButtons:
   - {fileID: 1071564030}
   - {fileID: 1618736865}

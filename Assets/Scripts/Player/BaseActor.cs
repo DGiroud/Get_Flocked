@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public enum ActorType
 {
     Player,
@@ -14,6 +13,7 @@ public class BaseActor : MonoBehaviour
     // actor identification labels
     [HideInInspector]
     public int actorID; // the actor's permanent ID throughout the game
+    private Color actorColour;
     [HideInInspector]
     public ActorType actorType; // used to determine whether this is a CPU or not
 
@@ -177,12 +177,6 @@ public class BaseActor : MonoBehaviour
 
         Sheep sheepScript = heldSheep.GetComponent<Sheep>();
         sheepScript.SetPushedTrue();
-        Animator sheepAnimation = heldSheep.GetComponent<Sheep>().animAnim;
-
-        //Second animator being removed from sheep, commenting these out in case we revert this decision
-            //sheepAnimation.SetBool("isPushed", true);
-            //sheepAnimation.SetBool("isKicked", false);
-            //sheepAnimation.SetBool("isWandering", false);
 
         //                               position                         direction                offset
         Vector3 snapPosition = interactionBox.transform.position + translation.normalized * (sheepScript.radius);

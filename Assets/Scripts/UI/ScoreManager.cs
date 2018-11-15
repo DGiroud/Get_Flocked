@@ -49,7 +49,7 @@ public class ScoreManager : MonoBehaviour
 
     // 2D playerScores array. First dimension is players, 
     static private PlayerScores[][] playerScores;
-    public static PlayerScores[][] GetPlayerScores()
+    static public PlayerScores[][] GetPlayerScores()
     {
         return playerScores;
     }
@@ -197,13 +197,5 @@ public class ScoreManager : MonoBehaviour
 
         // return the ID of the highest scoring player
         return relevantPlayerID;
-    }
-
-    public void EvaluateRoundWinners()
-    {
-        for (int i = 0; i < playerScores.Length; i++)
-        {
-
-        }
     }
 }

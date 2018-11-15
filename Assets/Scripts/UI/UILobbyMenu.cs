@@ -91,7 +91,7 @@ public class UILobbyMenu : MonoBehaviour
         {
             // joined and ready arrays initialised to false
             joined[i] = false;
-            colourID[i] = 0;
+            colourID[i] = i;
             ready[i] = false;
 
             // all button pressed states initalised to false
@@ -99,6 +99,10 @@ public class UILobbyMenu : MonoBehaviour
             wasButtonPressed[i].B = false;
             wasButtonPressed[i].Left = false;
             wasButtonPressed[i].Right = false;
+
+            playerMaterials[i].shepherd.SetColor("_PlayerColour", selectableColours[i]);
+            playerMaterials[i].goal.SetColor("_PlayerColour", selectableColours[i]);
+            colourPickers[i].color = playerMaterials[i].shepherd.GetColor("_PlayerColour");
         }
     }
 
@@ -338,12 +342,19 @@ public class UILobbyMenu : MonoBehaviour
         {
             colourID[playerID]--;
             wasButtonPressed[playerID].Left = true;
+
+            if (IsColourTaken(playerID))
+                colourID[playerID]--;
         }
         else
         {
             colourID[playerID]++;
             wasButtonPressed[playerID].Right = true;
+
+            if (IsColourTaken(playerID))
+                colourID[playerID]++;
         }
+
 
         // clamp the colourID such that it loops around (no array index overflow)
         if (colourID[playerID] >= selectableColours.Length)
@@ -355,6 +366,7 @@ public class UILobbyMenu : MonoBehaviour
         colourPickers[playerID].color = newColour;
 
         playerMaterials[playerID].shepherd.SetColor("_PlayerColour", newColour);
+        playerMaterials[playerID].goal.SetColor("_PlayerColour", newColour);
     }
 
     /// <summary>
