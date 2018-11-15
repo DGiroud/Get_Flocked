@@ -17,6 +17,9 @@ public class Ram : MonoBehaviour {
     public Vector2 sheepTilSpawn;
     [Tooltip("The duration that the Ram will wait to spawn after locking in it's location to land")]
     public float spawnTimer;
+    [Tooltip("How quickly the Ram will fall into the field once it has spawned")]
+    [Range(0, 1)]
+    public float landingSpeed;
 
     [Header("Ram Properties")]
     [Tooltip("The duration that the Ram will be stunned for after charging and landing")]

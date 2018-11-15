@@ -58,7 +58,7 @@ public class RamManager : MonoBehaviour
     {
         //ram.transform.position.Set(0, 100, 0);
         ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        ram.GetComponentInChildren<MeshRenderer>().enabled = false;
+        ram.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
         ram.SetActive(true);
 
     }

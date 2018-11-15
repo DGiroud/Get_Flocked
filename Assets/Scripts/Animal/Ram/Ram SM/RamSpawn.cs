@@ -13,7 +13,7 @@ public class RamSpawn : StateMachineBehaviour {
     float timer = 0.0f;
     float spawnTimer = 0.0f;
     private float spawnTimerEnd;
-    public float landingSpeed = 0.15f;
+    public float landingSpeed;
 
     private int round;          //The round we need to be at before the Ram will spawn
     private int sheepScored;    //The amount of sheep that need to be scored before the Ram will spawn
@@ -37,6 +37,8 @@ public class RamSpawn : StateMachineBehaviour {
         ramSpawnPoint = GameObject.Find("RamSpawnPoint");
 
         ram.GetComponent<Ram>().hitCollider.enabled = false;
+
+        landingSpeed = ram.GetComponent<Ram>().landingSpeed;
 
         //Finding the light object within the RamManager hierarchy 
         spotlight = RamManager.Instance.GetComponentInChildren<Light>();
@@ -180,10 +182,10 @@ public class RamSpawn : StateMachineBehaviour {
         ram.transform.position = ramSpawnPoint.transform.position;
 
         //Let's see that beaut
-        ram.GetComponentInChildren<MeshRenderer>().enabled = true;
+        ram.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
 
         //Grav
-        //ram.GetComponent<Rigidbody>().useGravity = false;
+        ram.GetComponent<Rigidbody>().useGravity = false;
         
         //Freezing the rotation so that when it spawns, it keeps it's visual trajectory
         ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
