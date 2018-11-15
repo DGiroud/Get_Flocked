@@ -6,10 +6,10 @@ public class RamCharge : StateMachineBehaviour {
     private Vector3 temp;           //temp for newDir;
     private Vector3 newPos;         //Direction getting
     private Vector3 newDir;
-    private float destRad = 1;   //The radius at which the Ram will decide it's within range of it's target
     private GameObject chargeEffect; //The same effect as when the Ram landed
     private GameObject sceneChargeEffect;    //Where we store the charge effect that we instantatiate
     private bool charged = false;            //Check that we don't
+    private float forceOut = 0f;             //If the ram gets stuck in this state, this will force it out
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -44,6 +44,8 @@ public class RamCharge : StateMachineBehaviour {
         //Drawing the path
         Debug.DrawLine(ram.transform.position, newDir);
 
+        forceOut += Time.deltaTime;
+
         ram.GetComponent<Rigidbody>().AddForce(newDir * 50, ForceMode.Acceleration);        //Ram charging
 
         //*****************************************************************************************************
@@ -54,15 +56,20 @@ public class RamCharge : StateMachineBehaviour {
             PlayerHit();
         }
 
+
         //*****************************************************************************************************
         //                              IF THE RAM MISSES THE PLAYER
         //*****************************************************************************************************
-        //If the ram is within a reasonable distance, controlled by float destRad above
-        /*else*/
-        if (ram.transform.position.x >= newPos.x - destRad && ram.transform.position.x <= newPos.x + destRad &&
-           ram.transform.position.z >= newPos.z - destRad && ram.transform.position.z <= newPos.z + destRad)
+        else if (ram.GetComponent<Ram>().boundaryHit == true)
         {
             PlayerMissed();
+        }
+
+        //If for some reason, the ram gets stuck in this state, we have a timer that will force it back into the loop.
+        if (forceOut >= 4)
+        {
+            forceOut = 0;
+            ram.GetComponent<Animator>().SetBool("isWandering", true);
         }
     }
 
@@ -105,10 +112,14 @@ public class RamCharge : StateMachineBehaviour {
         //bool check as we only want to create the cracks on the ground once - when the ram hits. 
         if (!charged)
         {
-            sceneChargeEffect = Instantiate(chargeEffect, new Vector3(ram.transform.position.x, 0, ram.transform.position.z),
-/*THESE VALUES NEED TO CHANGE TO FIX ROTATION -->*/  new Quaternion(-0.7035975f, 0.09950372f, 0.1f, 0.7035975f));
+            //Creating the "crack" effect on the ground when we miss, we raise this by 0.1 on the y-axis so that it doesn't share
+            // the same plane as the ground and give a glitchy, flashing effect.
+            sceneChargeEffect = Instantiate(chargeEffect, new Vector3(ram.transform.position.x, 0.1f, ram.transform.position.z),
+                                                          new Quaternion(-0.7071068f, 0, 0, 0.7071068f));
             charged = true;
         }
+
+        ram.GetComponent<Ram>().boundaryHit = false;    //We reset this to false when we leave
 
         //Change state to continue the behavioural lööp, bröther
         ram.GetComponent<Animator>().SetBool("isStunned", true);

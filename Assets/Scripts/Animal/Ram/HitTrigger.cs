@@ -22,6 +22,11 @@ public class HitTrigger : MonoBehaviour {
 
             GetComponentInParent<Ram>().sheepHit = true;
         }
+
+        else if (other.gameObject.tag == "Boundary")
+        {
+            GetComponentInParent<Ram>().boundaryHit = true;
+        }
     }
 
     public void OnTriggerStay(Collider other)
@@ -31,5 +36,6 @@ public class HitTrigger : MonoBehaviour {
 
     public void OnTriggerExit(Collider other)
     {
+        
     }
 }

@@ -46,7 +46,8 @@ public class Ram : MonoBehaviour {
     public float playerStunTime = 3;
     private float playerStunTimer = 0f;     //Timer to count down the player's stun duration
 
-    private GameObject[] fieldBox;
+    [HideInInspector] // We want to access the field box in ramCharge
+    public GameObject[] fieldBox;
     private int previousNum;
     private int rand;
 
@@ -69,7 +70,9 @@ public class Ram : MonoBehaviour {
     public bool playerHit = false;                 //If we hit the player, this becomes true and the player is stunned for a duration.
     //[HideInInspector]
     public bool sheepHit = false;                  //If we hit a sheep, this becomes true and the sheep gets knocked out of the way.
-    
+    //[HideInInspector]
+    public bool boundaryHit = false;               //If we charge into the outer boundaries, this becomes true and we halt our charge
+
 
     private void Start () {
         //Creating the FieldBox array;
@@ -84,6 +87,8 @@ public class Ram : MonoBehaviour {
 
     public void Update()
     {
+        chargeCooldownTimer += Time.deltaTime;
+
         if(playerHit == true)
         {
             playerStunTimer += Time.deltaTime;
@@ -94,11 +99,13 @@ public class Ram : MonoBehaviour {
                 //player.GetComponent<Player>().isStunned = false;
                 player.GetComponent<BaseActor>().stunned = false;
 
-
+                player = null;
                 playerHit = false;
                 playerStunTimer = 0f;
             }
         }
+
+        
     }
 
     //pls dont break mr ram

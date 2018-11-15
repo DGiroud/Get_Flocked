@@ -178,9 +178,11 @@ public class BaseActor : MonoBehaviour
         Sheep sheepScript = heldSheep.GetComponent<Sheep>();
         sheepScript.SetPushedTrue();
         Animator sheepAnimation = heldSheep.GetComponent<Sheep>().animAnim;
-        sheepAnimation.SetBool("isPushed", true);
-        sheepAnimation.SetBool("isKicked", false);
-        sheepAnimation.SetBool("isWandering", false);
+
+        //Second animator being removed from sheep, commenting these out in case we revert this decision
+            //sheepAnimation.SetBool("isPushed", true);
+            //sheepAnimation.SetBool("isKicked", false);
+            //sheepAnimation.SetBool("isWandering", false);
 
         //                               position                         direction                offset
         Vector3 snapPosition = interactionBox.transform.position + translation.normalized * (sheepScript.radius);

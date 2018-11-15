@@ -20,6 +20,7 @@ public class RamStepback : StateMachineBehaviour {
 
         //Initialising our player and ram gameObjects for easier accessibility throughout this script
         player = animator.GetComponent<Ram>().player;
+     
         ram = animator.GetComponent<Ram>();
 
         //Disable the chargeSphere, we don't want the Ram to check for new player's whilst it's charging. This can have weird results, 
@@ -46,8 +47,11 @@ public class RamStepback : StateMachineBehaviour {
         //After our predetermined timer has ran it's due, charge the poor fool who got too close
         if(timer >= chargeDelay)
         {
-            if(ram.GetComponent<BoxCollider>().isTrigger == false)      //Error checking
-            ram.GetComponent<Animator>().SetBool("isCharging", true);
+            if (ram.GetComponent<Ram>().CooldownCheck() == true)
+            {
+                if (ram.GetComponent<BoxCollider>().isTrigger == false)      //Error checking
+                    ram.GetComponent<Animator>().SetBool("isCharging", true);
+            }
         }
     }
 
