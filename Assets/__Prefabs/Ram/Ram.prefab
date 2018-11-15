@@ -59,7 +59,6 @@ GameObject:
   - component: {fileID: 4202301818736758}
   - component: {fileID: 33271253094414034}
   - component: {fileID: 135953769963331588}
-  - component: {fileID: 114325621568556484}
   m_Layer: 0
   m_Name: chargeSphere
   m_TagString: Untagged
@@ -300,17 +299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39635c62be39a4b45996ac543ce83810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114325621568556484
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1859238427522978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b87521c840b5348a8c16fa72921636, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114606342036674022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -333,6 +321,7 @@ MonoBehaviour:
   chargeEffect: {fileID: 1522029054898604, guid: 6a274d6a01027b740b5c299e9e927e4e,
     type: 2}
   chargeCooldown: 0
+  wanderCooldown: 0
   chargeRadius: 7.5
   chargeDelay: 2
   playerStunTime: 3
