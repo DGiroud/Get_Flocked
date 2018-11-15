@@ -132,6 +132,7 @@ public class BaseActor : MonoBehaviour
         {
             currentDashSpeed = dashSpeed; // speed up
             dashTimer = 0.0f; // start cooldown
+            return;
         }
         dashTimer += Time.deltaTime; // increment dash cooldown timer
 
@@ -181,9 +182,8 @@ public class BaseActor : MonoBehaviour
         sheepAnimation.SetBool("isKicked", false);
         sheepAnimation.SetBool("isWandering", false);
 
-        //                          position              direction                         offset
-        Vector3 snapPosition = transform.position + translation.normalized * (sheepScript.radius * 2.1f);
-        snapPosition.y += transform.localScale.y;
+        //                               position                         direction                offset
+        Vector3 snapPosition = interactionBox.transform.position + translation.normalized * (sheepScript.radius);
         heldSheep.transform.position = snapPosition;
         heldSheep.transform.SetParent(transform); // player now parents sheep
 

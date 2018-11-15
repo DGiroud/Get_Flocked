@@ -38,6 +38,7 @@ public class Player : BaseActor
     /// </summary>
     public override void Update ()
     {
+        // is the player using keyboard or controller?
         switch (playerInput)
         {
             case PlayerInput.Keyboard:
@@ -49,6 +50,7 @@ public class Player : BaseActor
                 break;
         }
 
+        // if the 
         if (HeldSheep)
             animator.SetBool("isPushing", true);
         else
@@ -58,22 +60,27 @@ public class Player : BaseActor
         base.Update();
     }
 
+    /// <summary>
+    /// gets the current state of the player's controller, and depending on the current
+    /// state of the game, allow input
+    /// </summary>
     private void GamePadInput()
     {
         GamePadState input = GamePad.GetState((PlayerIndex)actorID);
 
+        // different input depending on the current state of the game
         switch (LevelManager.Instance.gameState)
         {
-            case GameState.Main:
+            case GameState.Main: // main game, so...
                 {
-                    GamePadKick(input);
-                    GamePadMovement(input);
-                    GamePadDash(input);
+                    GamePadKick(input); // allow kick
+                    GamePadMovement(input); // movement
+                    GamePadDash(input); // dash
                     break;
                 }
-            case GameState.RoundEnd:
+            case GameState.RoundEnd: // round end, so...
                 {
-                    GamePadReady(input);
+                    GamePadReady(input); // allow player to ready up for next round
                     break;
                 }
         }
@@ -87,17 +94,18 @@ public class Player : BaseActor
         // if no joysticks are being moved, don't move
         if (gamePad.ThumbSticks.Left.X == 0.0f && gamePad.ThumbSticks.Left.Y == 0.0f)
         {
-            animator.SetBool("isWalking", false);
+            animator.SetBool("isWalking", false); // not walking, idle animation
             return;
         }
+        
+        animator.SetBool("isWalking", true); // is walking, walking animation
 
+        // get the normalized translation vector (direction)
         Vector3 translation = new Vector3(gamePad.ThumbSticks.Left.X, 0, gamePad.ThumbSticks.Left.Y);
         translation.Normalize();
 
         // x & z translation mapped to horizontal & vertical respectively
         Move(translation.x, translation.z);
-
-        animator.SetBool("isWalking", true);
     }
 
     /// <summary>
@@ -106,21 +114,24 @@ public class Player : BaseActor
     /// <param name="gamePad"></param>
     private void GamePadDash(GamePadState gamePad)
     {
+        // if A was pressed (not held down)
         if (gamePad.Buttons.A == ButtonState.Pressed && !wasAPressed)
         {
+            // don't allow dash if holding a sheep or interacting with a held sheep
             if (HeldSheep || interactionSheep)
                 return;
 
-            wasAPressed = true;
+            wasAPressed = true; // A was pressed
 
+            // get the normalized translation vector (direction)
             Vector3 translation = new Vector3(gamePad.ThumbSticks.Left.X, 0, gamePad.ThumbSticks.Left.Y);
             translation.Normalize();
 
             // x & z translation mapped to horizontal & vertical respectively
             Move(translation.x, translation.z, true);
         }
-        else if (gamePad.Buttons.A == ButtonState.Released)
-            wasAPressed = false;
+        else if (gamePad.Buttons.A == ButtonState.Released) 
+            wasAPressed = false; // A was released
     }
 
     /// <summary>
