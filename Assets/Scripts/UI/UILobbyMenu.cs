@@ -342,25 +342,23 @@ public class UILobbyMenu : MonoBehaviour
         {
             colourID[playerID]--;
             wasButtonPressed[playerID].Left = true;
-
-            if (IsColourTaken(playerID))
-                colourID[playerID]--;
         }
         else
         {
             colourID[playerID]++;
             wasButtonPressed[playerID].Right = true;
-
-            if (IsColourTaken(playerID))
-                colourID[playerID]++;
         }
-
 
         // clamp the colourID such that it loops around (no array index overflow)
         if (colourID[playerID] >= selectableColours.Length)
             colourID[playerID] = 0; // too far right, reset colour to first colour
         else if (colourID[playerID] < 0)
             colourID[playerID] = selectableColours.Length - 1; // too far left, reset colour to last colour
+        
+        if (IsColourTaken(playerID))
+            readyButtons[playerID].interactable = false;
+        else
+            readyButtons[playerID].interactable = true;
 
         Color newColour = selectableColours[colourID[playerID]];
         colourPickers[playerID].color = newColour;
@@ -381,6 +379,27 @@ public class UILobbyMenu : MonoBehaviour
         for (int i = 0; i < ready.Length; i++)
         {
             if (ready[i])
+            {
+                if (colourID[i] == colour)
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="actorID"></param>
+    /// <returns></returns>
+    private bool IsColourHovered(int actorID)
+    {
+        int colour = colourID[actorID];
+
+        for (int i = 0; i < joined.Length; i++)
+        {
+            if (joined[i])
             {
                 if (colourID[i] == colour)
                     return true;
