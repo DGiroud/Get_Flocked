@@ -71,6 +71,9 @@ public class RamSpawn : StateMachineBehaviour {
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         DynamicCamera.RemoveObjectOfInterest(ram);
+
+        //Once the Ram has landed, we don't want it being able to move alone the y axis at all
+        //animator.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
     }
 
 
@@ -145,7 +148,7 @@ public class RamSpawn : StateMachineBehaviour {
                 if (!crashed)
                 {
                     //Creating the ram, he should be facing in the same direction as he lands (spoiler: he doesn't)
-                    Instantiate(crashEffect, new Vector3(ram.transform.position.x, 0, ram.transform.position.z),
+                    Instantiate(crashEffect, new Vector3(ram.transform.position.x, 0.1f, ram.transform.position.z),
                                                          new Quaternion(-0.7071068f, 0, 0, 0.7071068f));
                     //Turn on the crash particle effects
                     crashEffect.SetActive(true);
@@ -189,8 +192,10 @@ public class RamSpawn : StateMachineBehaviour {
     //Script to run as the ram hits the ground. Will switch state to the "stunned" state
     public void ramLanding()
     {
-        //We gotta turn off aaallll those constraints. My boy should be able to move any which way he wants (◕ᴗ◕✿)
-        ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        //We gotta turn off those flight constraints. My boy should be able to move organically and ram-like (◕ᴗ◕✿)
+        ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY |
+                                                    RigidbodyConstraints.FreezeRotationX |
+                                                    RigidbodyConstraints.FreezeRotationZ;
         ram.GetComponent<Rigidbody>().useGravity = true;
         //We want to reset it's rotation when it lands, but not along the y axis. This way it will face the same way it landed at
         ram.GetComponent<Rigidbody>().transform.position.Set(ram.transform.position.x, ram.transform.position.y + 1,

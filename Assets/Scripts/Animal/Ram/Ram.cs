@@ -73,6 +73,11 @@ public class Ram : MonoBehaviour {
     //[HideInInspector]
     public bool boundaryHit = false;               //If we charge into the outer boundaries, this becomes true and we halt our charge
 
+    //BUG:
+    // Once the ram has charged once, if you leave and reenter it's radius, it charges downwards through the floor and slips into the void
+    // Ram still cannot register that it has already charged a player, and will continuously charge a CPU if it is not moving. 
+    //  doing this results in the Ram being thrown around the screen and eventually it taking off and launching from the field
+
 
     private void Start () {
         //Creating the FieldBox array;
@@ -105,7 +110,14 @@ public class Ram : MonoBehaviour {
             }
         }
 
-        
+        if (boundaryHit == true)
+            player = null;
+
+        //If the ram somehow finds it's wya off the field, destroy it so that it doesn't mess with the dynamic camera
+        if (transform.position.y <= -10)
+        {
+            Destroy(this);
+        }
     }
 
     //pls dont break mr ram
@@ -135,7 +147,6 @@ public class Ram : MonoBehaviour {
 
     public void chargePlayer()
     {
-        Debug.Log("charging");
         //Turn off our charging sphere so that we don't get issues with finding another player mid-charge
         chargeSphere.enabled = false;
 

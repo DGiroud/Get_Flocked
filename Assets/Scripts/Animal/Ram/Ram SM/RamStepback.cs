@@ -41,18 +41,29 @@ public class RamStepback : StateMachineBehaviour {
 
         timer += Time.deltaTime;
 
-        //We want to keep the Ram looking at the player while we prepare to charge. Intimidation is key
-        ram.GetComponent<Animator>().transform.LookAt(ram.player.transform);
-
-        //After our predetermined timer has ran it's due, charge the poor fool who got too close
-        if(timer >= chargeDelay)
+        //If our player reference exists, continue as normal
+        if (ram.GetComponent<Ram>().player)
         {
-            if (ram.GetComponent<Ram>().CooldownCheck() == true)
+            //We want to keep the Ram looking at the player while we prepare to charge. Intimidation is key
+            ram.GetComponent<Animator>().transform.LookAt(ram.player.transform);
+
+            //After our predetermined timer has ran it's due, charge the poor fool who got too close
+            if (timer >= chargeDelay)
             {
-                if (ram.GetComponent<BoxCollider>().isTrigger == false)      //Error checking
-                    ram.GetComponent<Animator>().SetBool("isCharging", true);
+                if (ram.GetComponent<Ram>().CooldownCheck() == true)
+                {
+                    if (ram.GetComponent<BoxCollider>().isTrigger == false)      //Error checking
+                    {
+                        timer = 0;
+                        ram.GetComponent<Animator>().SetBool("isCharging", true);
+                    }
+                }
             }
         }
+
+        //If the player reference is null, something has gone wrong during StepBack and we move back into our Wander state;
+        else
+            ram.GetComponent<Animator>().SetBool("isWandering", true);
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
