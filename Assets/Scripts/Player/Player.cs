@@ -76,6 +76,7 @@ public class Player : BaseActor
                     GamePadKick(input); // allow kick
                     GamePadMovement(input); // movement
                     GamePadDash(input); // dash
+                    GamePadPause(input);
                     break;
                 }
             case GameState.RoundEnd: // round end, so...
@@ -85,6 +86,19 @@ public class Player : BaseActor
                 }
         }
     }
+
+    private void GamePadPause(GamePadState gamePad)
+    {
+        if (gamePad.Buttons.Start == ButtonState.Pressed)
+        {
+            if (LevelManager.Instance.gameState == GameState.Pause)
+                LevelManager.Instance.Pause();
+        }
+
+    }
+
+
+
 
     /// <summary>
     /// uses the gamepad joysticks to call BaseActor movement function

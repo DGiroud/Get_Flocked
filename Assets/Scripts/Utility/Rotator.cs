@@ -6,7 +6,8 @@ public enum RotateMode
 {
     Constant,
     Periodic,
-    PeriodicV2
+    PeriodicV2,
+    PeriodicRandom
 }
 
 public class Rotator : MonoBehaviour
@@ -21,7 +22,6 @@ public class Rotator : MonoBehaviour
     [Header("Rotate Speed")]
     [Tooltip("the speed that the object rotates")]
     public float rotateSpeed; // how fast go
-    private float stopRotate = -0.0f; //lets just stop it 
 
     // periodic rotation relevent variables
     [Header("Periodic Rotation")]
@@ -44,6 +44,7 @@ public class Rotator : MonoBehaviour
     /// </summary>
 	void Awake ()
     {
+        rotateTimer = Random.Range(min, max);
         rotateToggleTimer = Random.Range(min, max);
         isRotatingClockwise = false;
         hasStoppedRotation = true;
@@ -64,13 +65,13 @@ public class Rotator : MonoBehaviour
 
             // periodic rotation, not as easy
             case RotateMode.Periodic:
-                if (rotateTimer < -1.0f)
+                if (rotateTimer < 1.0f)
                 {
                     rotateTimer = Random.Range(min, max);
                 }
                 //Debug.Log(rotateTimer);
                 // if timer runs out
-                if (rotateTimer < 7.5f)
+                if (rotateTimer < 5.5f)
                 {
                     hasStoppedRotation = false;
                 }
@@ -80,6 +81,7 @@ public class Rotator : MonoBehaviour
                 }
                 rotateTimer -= Time.deltaTime; // decrement timer
                 StartCoroutine(NoRotate(hasStoppedRotation));
+                Debug.Log(rotateTimer + " : 5.5f ," + hasStoppedRotation);
                 break;
 
                 //constant/periodic
@@ -99,6 +101,22 @@ public class Rotator : MonoBehaviour
                 }
                 rotateTimer -= Time.deltaTime; //decrement timer
                 StartCoroutine(Rotate(isRotatingClockwise));
+                break;
+
+            case RotateMode.PeriodicRandom:
+
+                rotateTimer -= Time.deltaTime; //decrement timer
+
+                // if timer runs out
+                if (rotateTimer < 0.0f)
+                {
+                    isRotatingClockwise = !isRotatingClockwise;
+                    StopAllCoroutines();
+                    StartCoroutine(Rotate(isRotatingClockwise));
+
+                    rotateTimer = Random.Range(min, max);
+                }
+
                 break;
         }
     }
@@ -121,13 +139,13 @@ public class Rotator : MonoBehaviour
             // get desired rotation quaternion
             desiredRotation = Quaternion.Euler(0, rotationAngle, 0) * transform.rotation;
         }
-        yield return new WaitForSeconds(-1.0f);
 
         // loop until the desired rotation is reached
         if (transform.rotation != desiredRotation)
         {
             // perform rotation
             transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime * rotateSpeed);
+            yield return null;
         }
     }
     #endregion
@@ -137,13 +155,14 @@ public class Rotator : MonoBehaviour
     /// </summary>
     /// <param name="isNotMoving"></param>
     /// <returns></returns>
-    private IEnumerator NoRotate(bool isNotMoving = false)
+    private IEnumerator NoRotate(bool isNotMoving)
     {
         Quaternion stopRotation;
         if (isNotMoving == true)
         {
             //gets the stop rotation quaternion
             stopRotation = Quaternion.Euler(0, -rotationAngle, 0) * transform.rotation;
+
         }
         else
         {
@@ -153,10 +172,10 @@ public class Rotator : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         
         //loops untill the stopped rotation is reached
-        if (transform.rotation != stopRotation)
+        while (transform.rotation != stopRotation)
         {
             //preforms the rotation
-            transform.rotation = Quaternion.Lerp(transform.rotation, stopRotation, rotateSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, stopRotation, Time.deltaTime * rotateSpeed);
         }
     }
     #endregion

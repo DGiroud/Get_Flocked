@@ -77,6 +77,7 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
+    #region PAUSE
 
     /// <summary>
     /// if "Start" is pressed
@@ -112,6 +113,38 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Resumes game
+    /// </summary>
+    public void Resume()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1.0f;
+        gameIsPaused = false;
+    }
+    /// <summary>
+    /// pauses game
+    /// </summary>
+    public void Pause()
+    {
+        gameState = GameState.Pause;
+        //enabling/disbaling gameobject
+        pauseMenuUI.SetActive(true);
+        //speed of pause time
+        Time.timeScale = 0.0f;
+        gameIsPaused = true;
+    }
+
+    /// <summary>
+    /// loads and goes to start menu
+    /// </summary>
+    public void LoadMenu()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("StartMenu");
+    }
+    #endregion
 
     /// <summary>
     /// count-down subroutine which pauses the game, counts down from 3,
@@ -165,36 +198,6 @@ public class LevelManager : MonoBehaviour
             GameOver();
         else
             RoundEnd();
-    }
-    /// <summary>
-    /// Resumes game
-    /// </summary>
-    public void Resume()
-    {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1.0f;
-        gameIsPaused = false;
-    }
-    /// <summary>
-    /// pauses game
-    /// </summary>
-    public void Pause()
-    {
-        gameState = GameState.Pause;
-        //enabling/disbaling gameobject
-        pauseMenuUI.SetActive(true);
-        //speed of pause time
-        Time.timeScale = 0.0f;
-        gameIsPaused = true;
-    }
-
-    /// <summary>
-    /// loads and goes to start menu
-    /// </summary>
-    public void LoadMenu()
-    {
-        Time.timeScale = 1.0f;
-        SceneManager.LoadScene("StartMenu");
     }
 
     /// <summary>
