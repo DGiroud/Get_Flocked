@@ -18,7 +18,6 @@ public class RamWander : StateMachineBehaviour {
 
     //The position that the Ram will seek to
     Vector3 newPos = new Vector3();
-    Vector3 newDir = new Vector3();
     float movementSpeed;
 
     //Pathfinding variables
@@ -51,6 +50,8 @@ public class RamWander : StateMachineBehaviour {
         if (navMesh.enabled == false)
             navMesh.enabled = true;
 
+        
+
         //Possible fix for the Ram getting stuck in a wander behaviour, where it was trying to find a path to the position it was already at.
         // This way, we check if we're already at the position we're trying to seek to, and if so, we find a new destination
         if(ram.transform.position.x == newPos.x && ram.transform.position.z == newPos.z)
@@ -65,7 +66,7 @@ public class RamWander : StateMachineBehaviour {
 
         //We need to ditch the idea of the ram moving on te Navmesh, instead we want to give it it's own movement
         //Setting the NavMesh destination
-        navMesh.destination = newPos;
+        navMesh.SetDestination(newPos);
 
         //If we're within a radius of our desired point, find a new point to seek to
         if (ram.transform.position.x >= newPos.x - 1 && ram.transform.position.x <= newPos.x + 1 &&
