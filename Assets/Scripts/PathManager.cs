@@ -173,7 +173,7 @@ public class PathManager : MonoBehaviour
         GameObject[] goals = GameObject.FindGameObjectsWithTag("Goal");
         
         // get the ID of the highest scoring player
-        int highestScoringPlayer = ScoreManager.Instance.GetHighestScoringPlayer(ignoreSelf, actor);
+        int highestScoringPlayer = ScoreManager.Instance.GetHighestScoringPlayer(actor);
 
         // iterate over goals
         for (int i = 0; i < goals.Length; i++)
