@@ -37,6 +37,7 @@ public class RamWander : StateMachineBehaviour {
         movementSpeed = ram.GetComponent<Ram>().wanderSpeed;
         navMesh.speed = movementSpeed;
         idleTimer = ram.GetComponent<Ram>().idleTime;
+        ram.GetComponent<Rigidbody>().isKinematic = true;
 
         //Disable the meteor sphere which should only be used for the Ram's intitial descent, and enable it's new sphere collider
         // to check for players that get too close

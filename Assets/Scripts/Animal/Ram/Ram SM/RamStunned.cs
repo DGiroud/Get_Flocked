@@ -31,6 +31,7 @@ public class RamStunned : StateMachineBehaviour {
         sceneStunnedEffect = Instantiate(ram.GetComponent<Ram>().stunnedEffect, ram.transform);
 
         ram.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        ram.GetComponent<Rigidbody>().isKinematic = true;
 
         //Use the stunDuration we've set in the Ram prefab
         stunDuration = ram.GetComponent<Ram>().stunDuration;

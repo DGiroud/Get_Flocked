@@ -120,15 +120,6 @@ public class Ram : MonoBehaviour {
         if (boundaryHit == true)
             player = null;
 
-        if (GetComponentInChildren<ChargeTrigger>().lastPlayerCharged != null)
-        {
-            Debug.Log("lastPlayerCharged NOT NULL");
-        }
-
-        else if (GetComponentInChildren<ChargeTrigger>().lastPlayerCharged == null)
-        {
-            Debug.Log("lastPlayerCharged IS NULL");
-        }
 
         //If the Ram has charged someone, we want there to be a cooldown before he can charge them again
         if (GetComponentInChildren<ChargeTrigger>().lastPlayerCharged != null)
@@ -139,6 +130,7 @@ public class Ram : MonoBehaviour {
             {
                 samePlayerTimer = 0;
                 GetComponentInChildren<ChargeTrigger>().stopIgnoring = true;
+                Physics.IgnoreCollision(player.GetComponent<Collider>(), chargeTrigger.GetComponent<Collider>(), false);
                 GetComponentInChildren<ChargeTrigger>().lastPlayerCharged = null;
             }
         }

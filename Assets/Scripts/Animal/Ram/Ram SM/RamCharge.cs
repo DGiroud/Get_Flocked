@@ -27,6 +27,7 @@ public class RamCharge : StateMachineBehaviour {
         newPos = player.position;
         temp = (player.position - ram.transform.position);
         newDir = temp.normalized;
+        ram.GetComponent<Rigidbody>().isKinematic = false;
 
         chargeEffect = ram.GetComponent<Ram>().chargeEffect;
 
@@ -125,6 +126,7 @@ public class RamCharge : StateMachineBehaviour {
     private void PlayerMissed()
     {
         ram.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0); //Halt the Ram's movement and momentum
+        ram.GetComponent<Ram>().player = player.gameObject;
 
         //bool check as we only want to create the cracks on the ground once - when the ram hits. 
         if (!charged)

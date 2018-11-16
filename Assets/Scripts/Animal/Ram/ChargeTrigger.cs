@@ -7,17 +7,16 @@ public class ChargeTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        //If we've triggered the event in Ram to stop ingoring the lastPlayerCharged, we want to enable that here.
-        if (stopIgnoring == true)
-        {
-            stopIgnoring = false; //The order here is very important
-
-            Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), false);
-        }
-
         //We only want to look for the player
         if (other.gameObject.tag == "Player")
         {
+            //PLAYER BEING IGNORED
+            //If we've triggered the event in Ram to stop ingoring the lastPlayerCharged, we want to enable that here.
+            if (stopIgnoring == true)
+            {
+                Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), false);
+            }
+
             //If this is the same player we had just stunned, we want to ignore it
             if (other.gameObject == lastPlayerCharged)
             {
@@ -38,14 +37,6 @@ public class ChargeTrigger : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
-        //If we've triggered the event in Ram to stop ingoring the lastPlayerCharged, we want to enable that here.
-        if (stopIgnoring == true)
-        {
-            stopIgnoring = false; //The order here is very important
-
-            Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), false);
-        }
-
         if (other.gameObject.tag == "Player")
         {
             //If this is the same player we had just stunned, we want to ignore it
@@ -68,9 +59,5 @@ public class ChargeTrigger : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
-        {
-            Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), false);
-        }
     }
 }
