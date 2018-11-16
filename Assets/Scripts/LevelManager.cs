@@ -59,7 +59,7 @@ public class LevelManager : MonoBehaviour
         instance = this;
 
         // start count-down
-        StartCoroutine("CountDown");
+        StartCoroutine(CountDown());
     }
     
     void Update()
@@ -122,7 +122,11 @@ public class LevelManager : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1.0f;
         gameIsPaused = false;
+
+        StartCoroutine(CountDown());
+        
     }
+
     /// <summary>
     /// pauses game
     /// </summary>
