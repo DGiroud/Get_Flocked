@@ -48,6 +48,9 @@ public class RamStunned : StateMachineBehaviour {
     {
         //We need to Set this to false when we leave, otherwise Charge will automatically send the Ram into the stunned state,
         // creating a loop
+
+        //The ram is mostly stunned after performing it's charge state, so afterwards we want to find a new destination from wherever it landed
+        ram.GetComponent<Ram>().GetNewDestination();
         ram.GetComponent<Animator>().SetBool("isStunned", false);
     }
 }

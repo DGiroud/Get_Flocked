@@ -10,7 +10,12 @@ public class HitTrigger : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")   //We want different reactions for when the Ram hits either a player or a sheep
         {
+            //Enables the stun functionality in the Ram script
             GetComponentInParent<Ram>().playerHit = true;
+
+            //If the player is holding a sheep, make them drop it
+            if(other.GetComponent<BaseActor>().HeldSheep)
+            other.GetComponent<BaseActor>().ReleaseSheep();
         }
 
         else if (other.gameObject.tag == "Sheep")
@@ -25,6 +30,7 @@ public class HitTrigger : MonoBehaviour {
 
         else if (other.gameObject.tag == "Boundary")
         {
+            //Enables the boundary hit functionality in the Ram script
             GetComponentInParent<Ram>().boundaryHit = true;
         }
     }

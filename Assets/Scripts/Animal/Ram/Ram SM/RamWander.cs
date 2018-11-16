@@ -24,7 +24,6 @@ public class RamWander : StateMachineBehaviour {
     //Pathfinding variables
     NavMeshAgent navMesh;
     Vector3[] currentPath;
-    private float timer;
     private float idleTimer;
 
 
@@ -60,13 +59,6 @@ public class RamWander : StateMachineBehaviour {
         }
 
         currentPath = PathManager.Instance.FindPath(ram.transform.position, newPos); //Where the path is being calculated
-
-        //move towards new location
-        //Work out direction (Destination - current)
-        if (currentPath != null && currentPath.Length > 0)
-        {
-            newDir = (currentPath[1] - currentPath[0]).normalized;
-        }
 
         //Drawing the path
         PathManager.Instance.DrawPath(currentPath);

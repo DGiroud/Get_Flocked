@@ -173,6 +173,7 @@ public class Ram : MonoBehaviour {
 
         return newPos;
     }
+    //thank u mr ram
 
     public void chargePlayer()
     {
