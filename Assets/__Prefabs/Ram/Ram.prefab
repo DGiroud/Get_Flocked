@@ -618,7 +618,7 @@ GameObject:
   - component: {fileID: 4757193804393724}
   - component: {fileID: 33367213194633590}
   - component: {fileID: 65362965626449064}
-  - component: {fileID: 114946374291143496}
+  - component: {fileID: 114868362228479100}
   m_Layer: 0
   m_Name: chargeCollider
   m_TagString: Untagged
@@ -1509,7 +1509,7 @@ MonoBehaviour:
   idleTime: 3
   crashEffect: {fileID: 1242820699891550, guid: 010b36774882533459f83d336666add2,
     type: 2}
-  chargeEffect: {fileID: 1522029054898604, guid: 6a274d6a01027b740b5c299e9e927e4e,
+  chargeEffect: {fileID: 1522029054898604, guid: 4bfdba8cb1ee4074085467c99afb6754,
     type: 2}
   chargeCooldown: 3
   chargeRadius: 7.5
@@ -1525,7 +1525,7 @@ MonoBehaviour:
   playerHit: 0
   sheepHit: 0
   boundaryHit: 0
---- !u!114 &114946374291143496
+--- !u!114 &114868362228479100
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1533,7 +1533,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1897085502929782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 976b07970e97c7a488d8ac8878adb80d, type: 3}
+  m_Script: {fileID: 11500000, guid: 46f549d10c62e8e4cb438d8be17f7ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135953769963331588
