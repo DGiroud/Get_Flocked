@@ -183,6 +183,7 @@ public class LevelManager : MonoBehaviour
     private IEnumerator TimesUp()
     {
         gameState = GameState.TimesUp;
+        ScoreManager.Instance.SetRoundPlacements();
 
         float pauseTime = Time.realtimeSinceStartup + timesUpPauseDuration;
 
@@ -208,6 +209,7 @@ public class LevelManager : MonoBehaviour
         gameState = GameState.RoundEnd;
 
         Time.timeScale = 0.0f;
+
     }
 
     /// <summary>

@@ -126,6 +126,26 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 922448473}
     m_Modifications:
+    - target: {fileID: 114629583163749702, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114268094345681102, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114686583741863612, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114552149110025420, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4715191482500986, guid: 9269099f80f091142b152e914fdc45b3, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -188,6 +208,102 @@ Prefab:
       propertyPath: max
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114629583163749702, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[0]
+      value: 
+      objectReference: {fileID: 198369913284106960, guid: 5c1f47c50ccf04b4c8af48b222a7cbd3,
+        type: 2}
+    - target: {fileID: 114629583163749702, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[1]
+      value: 
+      objectReference: {fileID: 198741703492613188, guid: 338c52aa96743784cb7b6f5b64bd1406,
+        type: 2}
+    - target: {fileID: 114629583163749702, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[2]
+      value: 
+      objectReference: {fileID: 198284886527359908, guid: f0a04c66f25fc1740a2d5de091c8a7bc,
+        type: 2}
+    - target: {fileID: 114629583163749702, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[3]
+      value: 
+      objectReference: {fileID: 198515699721954566, guid: 927c0300f4ca09f48a4c5e8a89a39366,
+        type: 2}
+    - target: {fileID: 114268094345681102, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[0]
+      value: 
+      objectReference: {fileID: 198369913284106960, guid: 5c1f47c50ccf04b4c8af48b222a7cbd3,
+        type: 2}
+    - target: {fileID: 114268094345681102, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[1]
+      value: 
+      objectReference: {fileID: 198741703492613188, guid: 338c52aa96743784cb7b6f5b64bd1406,
+        type: 2}
+    - target: {fileID: 114268094345681102, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[2]
+      value: 
+      objectReference: {fileID: 198284886527359908, guid: f0a04c66f25fc1740a2d5de091c8a7bc,
+        type: 2}
+    - target: {fileID: 114268094345681102, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[3]
+      value: 
+      objectReference: {fileID: 198515699721954566, guid: 927c0300f4ca09f48a4c5e8a89a39366,
+        type: 2}
+    - target: {fileID: 114686583741863612, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[0]
+      value: 
+      objectReference: {fileID: 198369913284106960, guid: 5c1f47c50ccf04b4c8af48b222a7cbd3,
+        type: 2}
+    - target: {fileID: 114686583741863612, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[1]
+      value: 
+      objectReference: {fileID: 198741703492613188, guid: 338c52aa96743784cb7b6f5b64bd1406,
+        type: 2}
+    - target: {fileID: 114686583741863612, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[2]
+      value: 
+      objectReference: {fileID: 198284886527359908, guid: f0a04c66f25fc1740a2d5de091c8a7bc,
+        type: 2}
+    - target: {fileID: 114686583741863612, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[3]
+      value: 
+      objectReference: {fileID: 198515699721954566, guid: 927c0300f4ca09f48a4c5e8a89a39366,
+        type: 2}
+    - target: {fileID: 114552149110025420, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[0]
+      value: 
+      objectReference: {fileID: 198369913284106960, guid: 5c1f47c50ccf04b4c8af48b222a7cbd3,
+        type: 2}
+    - target: {fileID: 114552149110025420, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[1]
+      value: 
+      objectReference: {fileID: 198741703492613188, guid: 338c52aa96743784cb7b6f5b64bd1406,
+        type: 2}
+    - target: {fileID: 114552149110025420, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[2]
+      value: 
+      objectReference: {fileID: 198284886527359908, guid: f0a04c66f25fc1740a2d5de091c8a7bc,
+        type: 2}
+    - target: {fileID: 114552149110025420, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: scoreParticles.Array.data[3]
+      value: 
+      objectReference: {fileID: 198515699721954566, guid: 927c0300f4ca09f48a4c5e8a89a39366,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9269099f80f091142b152e914fdc45b3, type: 2}
   m_IsPrefabParent: 0
@@ -1346,7 +1462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76fb555d77af41418f8f2da309bbc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredSheep: 20
+  requiredSheep: 5
 --- !u!4 &547407592 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4841215778338180, guid: 9d2fd5b0512384c438472436cdc3cba5,
@@ -2730,11 +2846,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc43561425941940bc711d0f880bded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverLevelID: 1
+  gameOverLevelID: 2
   gameState: 0
   countDown: 0
   gameStart: 0
-  maxRounds: 3
+  maxRounds: 2
   timesUpSlowMotion: 0.5
   timesUpPauseDuration: 2
   pauseMenuUI: {fileID: 0}
