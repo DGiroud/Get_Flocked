@@ -32,8 +32,9 @@ public class Ram : MonoBehaviour {
     public float idleTime;
 
     //References to our different particle effects
-    public GameObject crashEffect;
-    public GameObject chargeEffect;
+    public GameObject crashEffect;      //Ram landing into the scene
+    public GameObject chargeEffect;     //Ram hitting a target after charging
+    public GameObject stunnedEffect;    //Ram stunning a player
 
     [Header("Charging Properties")]
     [Tooltip("Charge Cooldown is how long the Ram waits before charging the same player. There is no cooldown if the Ram charges 1 player," +

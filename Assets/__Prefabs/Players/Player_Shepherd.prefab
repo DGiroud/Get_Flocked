@@ -761,7 +761,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1100130918758846}
-  m_LocalRotation: {x: -0.5587442, y: -0.30393448, z: 0.53751713, w: 0.5536281}
+  m_LocalRotation: {x: -0.55874425, y: -0.3039345, z: 0.5375172, w: 0.55362815}
   m_LocalPosition: {x: -0.0213084, y: -0.025585867, z: -0.09237468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1469,19 +1469,16 @@ MonoBehaviour:
   actorType: 0
   canMove: 1
   speed: 10
+  dashSpeed: 3
+  dashCooldown: 0.5
   stunned: 0
   canSnap: 1
   interactionBox: {fileID: 65844882543617470}
   interactionSheep: {fileID: 0}
-  pickUpDelay: 0.5
+  pickUpCooldown: 0.5
   canKick: 1
   kickHeight: 2
   kickForce: 20
-  moveDir: {x: 0, y: 0, z: 0}
-  maxDash: 2
-  minDash: 2
-  stopDash: 2
-  isStunned: 0
 --- !u!137 &137004233377567858
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

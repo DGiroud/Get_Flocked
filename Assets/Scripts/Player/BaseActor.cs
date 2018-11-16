@@ -36,7 +36,7 @@ public class BaseActor : MonoBehaviour
     private Vector3 lastPosition;
 
     [HideInInspector]
-    public bool stunned;    // Jake's touching your code ♣
+    public bool stunned;    // When the Ram collides with this actor
     private float stunnedTimer = 0f;
     #endregion
 

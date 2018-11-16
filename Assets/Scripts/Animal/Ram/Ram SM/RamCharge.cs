@@ -7,7 +7,8 @@ public class RamCharge : StateMachineBehaviour {
     private Vector3 newPos;         //Direction getting
     private Vector3 newDir;
     private GameObject chargeEffect; //The same effect as when the Ram landed
-    private GameObject sceneChargeEffect;    //Where we store the charge effect that we instantatiate
+    private GameObject sceneChargeEffect;    //Where we store the charge effect that we've created
+    private GameObject sceneStunnedEffect;   //Where we store the stunned effect that we've created
     private bool charged = false;            //Check that we don't
     private float forceOut = 0f;             //If the ram gets stuck in this state, this will force it out
 
@@ -32,6 +33,12 @@ public class RamCharge : StateMachineBehaviour {
         if(sceneChargeEffect != null)
         {
             Destroy(sceneChargeEffect);     //Everytime we enter this state, we want to remove the leftover charge effect
+            //Stops us from clogging up the scene with inactive particle systems
+        }
+
+        if(sceneStunnedEffect != null)
+        {
+            Destroy(sceneStunnedEffect);    //Everytime we enter this state, we want to remove the leftover stunned effect
             //Stops us from clogging up the scene with inactive particle systems
         }
 
@@ -98,6 +105,9 @@ public class RamCharge : StateMachineBehaviour {
         //We stun the player through baseActor's functionality, then we activate it again based on a timer in the base Ram class
         //player.GetComponent<Player>().isStunned = true;  //Set this to true so that the Ram knows whether or not to ignore it
         player.GetComponent<BaseActor>().stunned = true;
+
+        //Now that we've hit and stunned a player, throw up the stunned particle effectss to convey this to the player
+        sceneStunnedEffect = Instantiate(ram.GetComponent<Ram>().stunnedEffect, player.transform);
 
         if (ram.GetComponent<Ram>().playerHit == true)
         ram.GetComponent<Ram>().playerHit = false;    //Reset so that we don't keep stunning the player

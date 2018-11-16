@@ -13,6 +13,7 @@ public class RamStunned : StateMachineBehaviour {
 
     //Reference to the Ram game object
     GameObject ram;
+    GameObject sceneStunnedEffect;
 
     float stunDuration;
     float stunTimer = 0f;
@@ -26,6 +27,8 @@ public class RamStunned : StateMachineBehaviour {
 
         //Initialise the ram for easier access (I.E. saves us writing "animator" all day long
         ram = animator.gameObject;
+
+        sceneStunnedEffect = Instantiate(ram.GetComponent<Ram>().stunnedEffect, ram.transform);
 
         //Use the stunDuration we've set in the Ram prefab
         stunDuration = ram.GetComponent<Ram>().stunDuration;
