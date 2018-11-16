@@ -8,6 +8,10 @@ public class Sheep : MonoBehaviour {
     private float fieldPosX;
     private float fieldPosZ;
 
+    [SerializeField]
+    private bool isGoldSheep = false;
+    public bool IsGoldSheep { get { return isGoldSheep; } }
+
     [Tooltip("How fast the sheep will move towards it's destination")]
     public float speed;
     public float radius;

@@ -10,6 +10,8 @@ public class Goal : MonoBehaviour
     private ParticleSystem fireWorksTrail;
     [SerializeField]
     private ParticleSystem fireWorksWhiteNoise;
+    //[SerializeField]
+    //private ParticleSystem[] scoreParticles;
 
     /// <summary>
     /// handles the collision of a sheep with the goal
@@ -26,17 +28,37 @@ public class Goal : MonoBehaviour
             // if the colliding sheep has no parent (e.g. it's scoring itself) then...
             if (player != null)
                 ScoreManager.Instance.IncrementGoalCount(player.actorID); // increment goal count
+            
+            // get sheep's script for ease of access
+            Sheep sheepScript = other.GetComponent<Sheep>();
 
-            // get how much points the sheep is worth
-            int sheepWorth = other.GetComponent<Sheep>().score;
+            // if this is a golden sheep, increment gold sheep count (for this goal)
+            if (sheepScript.IsGoldSheep)
+                ScoreManager.Instance.IncrementGoldCount(goalID);
 
             // destroy sheep & add score
             SheepManager.Instance.DestroySheep(other.gameObject);
-            ScoreManager.Instance.AddScore(goalID, sheepWorth);
+            ScoreManager.Instance.AddScore(goalID, sheepScript.score);
             ScoreManager.Instance.IncrementTotalSheep();
 
             fireWorksTrail.Play();
             fireWorksWhiteNoise.Play();
+
+            //switch (sheepScript.score)
+            //{
+            //    case -15:
+            //        scoreParticles[0].Play();
+            //        break;
+            //    case 10:
+            //        scoreParticles[1].Play();
+            //        break;
+            //    case 20:
+            //        scoreParticles[2].Play();
+            //        break;
+            //    case 30:
+            //        scoreParticles[3].Play();
+            //        break;
+            //}
         }
     }
 }

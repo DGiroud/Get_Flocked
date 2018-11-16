@@ -103,6 +103,15 @@ public class ScoreManager : MonoBehaviour
     /// helper function which increments a particular player's goal count by one
     /// </summary>
     /// <param name="playerID">the index of the player to reward</param>
+    public void IncrementGoldCount(int playerID)
+    {
+        playerScores[playerID][LevelManager.GetCurrentRound()].numberOfGoldSheep++;
+    }
+
+    /// <summary>
+    /// helper function which increments a particular player's goal count by one
+    /// </summary>
+    /// <param name="playerID">the index of the player to reward</param>
     public void IncrementGoalCount(int playerID)
     {
         playerScores[playerID][LevelManager.GetCurrentRound()].numberOfGoals++;
