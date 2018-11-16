@@ -111,6 +111,8 @@ public class UILobbyMenu : MonoBehaviour
     /// </summary>
     void Update()
     {
+        CheckForMenu();
+
         // check each unjoined player for A button input (join)
         CheckForJoin();
 
@@ -172,6 +174,28 @@ public class UILobbyMenu : MonoBehaviour
         joined[playerID] = false; // not joined
         ready[playerID] = true; // but ready!
         wasButtonPressed[playerID].A = true;
+    }
+
+    /// <summary>
+    /// iterates over all possible controllers (four), checks if they're connected and checks
+    /// for presses on the A, B, X, Y buttons.
+    /// </summary>
+    private void CheckForMenu()
+    {
+        // iterate over four controllers
+        for (int i = 0; i <= (int)PlayerIndex.Four; i++)
+        {
+            // get the controller
+            GamePadState gamePad = GamePad.GetState((PlayerIndex)i);
+
+            // is it connected?
+            if (gamePad.IsConnected)
+            {
+                // B input to go back to the main menu
+                if (gamePad.Buttons.Y == ButtonState.Pressed)
+                    SceneManager.LoadScene(mainMenuID);
+            }
+        }
     }
 
     /// <summary>

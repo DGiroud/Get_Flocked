@@ -69,9 +69,9 @@ public class Rotator : MonoBehaviour
                 {
                     rotateTimer = Random.Range(min, max);
                 }
-                //Debug.Log(rotateTimer);
+
                 // if timer runs out
-                if (rotateTimer < 5.5f)
+                if (rotateTimer < 1.5f)
                 {
                     hasStoppedRotation = false;
                 }
@@ -81,7 +81,6 @@ public class Rotator : MonoBehaviour
                 }
                 rotateTimer -= Time.deltaTime; // decrement timer
                 StartCoroutine(NoRotate(hasStoppedRotation));
-                Debug.Log(rotateTimer + " : 5.5f ," + hasStoppedRotation);
                 break;
 
                 //constant/periodic
@@ -139,13 +138,13 @@ public class Rotator : MonoBehaviour
             // get desired rotation quaternion
             desiredRotation = Quaternion.Euler(0, rotationAngle, 0) * transform.rotation;
         }
+        yield return new WaitForSeconds(5.0f);
 
         // loop until the desired rotation is reached
-        if (transform.rotation != desiredRotation)
+        while (transform.rotation != desiredRotation)
         {
             // perform rotation
             transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime * rotateSpeed);
-            yield return null;
         }
     }
     #endregion
@@ -169,13 +168,13 @@ public class Rotator : MonoBehaviour
             //setting stop rotation to the transformed rotation
             stopRotation = transform.rotation;
         }
-        yield return new WaitForSeconds(5.0f);
         
         //loops untill the stopped rotation is reached
         while (transform.rotation != stopRotation)
         {
             //preforms the rotation
             transform.rotation = Quaternion.Lerp(transform.rotation, stopRotation, Time.deltaTime * rotateSpeed);
+        yield return null;
         }
     }
     #endregion

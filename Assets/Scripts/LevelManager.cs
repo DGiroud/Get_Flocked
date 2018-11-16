@@ -51,8 +51,9 @@ public class LevelManager : MonoBehaviour
     public float timesUpPauseDuration = 2.0f;
 
     public static bool gameIsPaused = false;  //will always be false unless toggled for pause menu ingame
-    public GameObject pauseMenuUI;            
+    public GameObject pauseMenuUI;
 
+    private GameObject resumeButton;
 
     private void Awake()
     {
@@ -120,13 +121,14 @@ public class LevelManager : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        //resumes back to fulltime
         Time.timeScale = 1.0f;
         gameIsPaused = false;
 
+        //starts countdown after resuming 3..2..1..
         StartCoroutine(CountDown());
         
     }
-
     /// <summary>
     /// pauses game
     /// </summary>
@@ -139,7 +141,6 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0.0f;
         gameIsPaused = true;
     }
-
     /// <summary>
     /// loads and goes to start menu
     /// </summary>

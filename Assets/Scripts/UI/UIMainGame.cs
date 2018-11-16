@@ -127,11 +127,6 @@ public class UIMainGame : MonoBehaviour
                 UpdateScoreText(); // draw scores
                 break;
             }
-            case GameState.Pause: // pause UI
-            {
-            
-                break;
-            }
             case GameState.TimesUp:
             {
                 if (roundEndPanel.timesUpPanel.activeSelf == false)

@@ -77,6 +77,7 @@ public class Player : BaseActor
                     GamePadMovement(input); // movement
                     GamePadDash(input); // dash
                     GamePadPause(input);
+                    GamePadBack(input);
                     break;
                 }
             case GameState.RoundEnd: // round end, so...
@@ -100,6 +101,17 @@ public class Player : BaseActor
                 LevelManager.Instance.Pause();
         }
 
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="gamePad"></param>
+    private void GamePadBack(GamePadState gamePad)
+    {
+        if (gamePad.Buttons.B == ButtonState.Pressed)
+            if (LevelManager.Instance.gameState == GameState.Pause)
+                LevelManager.Instance.Pause();
     }
 
     /// <summary>
