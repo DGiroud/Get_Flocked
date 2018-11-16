@@ -16,7 +16,7 @@ public class Player : BaseActor
     // player input variables
     private PlayerInput playerInput; // the type of input this player is using, e.g. keyboard
     private bool wasAPressed; // used to prevent weird behaviour when holding the A button
-
+  
     public void SetPlayerInput(PlayerInput inputType)
     {
         playerInput = inputType;
@@ -87,6 +87,11 @@ public class Player : BaseActor
         }
     }
 
+    /// <summary>
+    /// CONTROLLER
+    /// pauses game and getting acess to level manager
+    /// </summary>
+    /// <param name="gamePad"></param>
     private void GamePadPause(GamePadState gamePad)
     {
         if (gamePad.Buttons.Start == ButtonState.Pressed)
@@ -97,7 +102,19 @@ public class Player : BaseActor
 
     }
 
-
+    /// <summary>
+    /// KEYBOARD
+    /// pauses game and getting acess to level manager
+    /// </summary>
+    private void KeyBoardPause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (LevelManager.Instance.gameState == GameState.Main)
+                LevelManager.Instance.Resume();
+            
+        }
+    }
 
 
     /// <summary>
