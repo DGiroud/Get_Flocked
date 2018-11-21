@@ -58,6 +58,7 @@ public class RamStepback : StateMachineBehaviour {
                     if (ram.GetComponent<BoxCollider>().isTrigger == false)      //Error checking
                     {
                         timer = 0;
+
                         ram.GetComponent<Animator>().SetBool("isCharging", true);
                     }
                 }
@@ -74,6 +75,8 @@ public class RamStepback : StateMachineBehaviour {
         //If we move from StepBack back into Wander, then we need to reset this back to false to continue the behavioural loop
         if (ram.GetComponent<Ram>().boundaryHit == true)
             ram.GetComponent<Ram>().boundaryHit = false;
+
+        
 
         //Make sure we turn this state off when we leave, otherwise we'll get weird results
         ram.GetComponent<Animator>().SetBool("isStepback", false);

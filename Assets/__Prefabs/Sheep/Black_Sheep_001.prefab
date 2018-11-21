@@ -69,7 +69,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4194053540377472}
-  - component: {fileID: 95615441710304930}
   m_Layer: 0
   m_Name: Geo
   m_TagString: Untagged
@@ -2415,23 +2414,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95615441710304930
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1027424639317460}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: cbdb059f547e018468ab4ea504e1fc40, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95754833383991706
 Animator:
   serializedVersion: 3
@@ -2477,14 +2459,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b9595c6d3a559439c7b00508ba9f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGoldSheep: 0
   speed: 5
   radius: 0.5
   score: 10
   speedModifier: 1
   distToGround: 1
   spawnRangeForce: {x: 5, y: 10}
-  newPosDebug: {x: 0, y: 0, z: 0}
   currentBehaviour: Wander Behaviour
+  animAnim: {fileID: 0}
 --- !u!135 &135194446940010434
 SphereCollider:
   m_ObjectHideFlags: 1

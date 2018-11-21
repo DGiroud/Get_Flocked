@@ -17,11 +17,8 @@ public class RamCharge : StateMachineBehaviour {
         //Initiliasing our player for easier access throughout this script
         player = animator.GetComponent<Ram>().player.transform;
         ram = animator.gameObject;
-
-        //We don't want the Ram moving with the NavMesh during this charge, as we don't want him avoiding other objects. 
-        // He'll simply be charging in a straight line and a navMeshAgent will get in the way of that
-        //animator.GetComponent<NavMeshAgent>().enabled = false;
-       // animator.transform.LookAt(player);
+        //Whilst the Ram is charging, we don't want it turning, we want it to continuously face the direction it's charging.
+        ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
 
         //(Destination - Current)
         newPos = player.position;
@@ -42,16 +39,13 @@ public class RamCharge : StateMachineBehaviour {
             Destroy(sceneStunnedEffect);    //Everytime we enter this state, we want to remove the leftover stunned effect
             //Stops us from clogging up the scene with inactive particle systems
         }
-
-        //Keep looking at the player. Intimidate them
-        //ram.transform.LookAt(newDir);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         forceOut += Time.deltaTime;
         
-        ram.GetComponent<Rigidbody>().AddForce(newDir * 50, ForceMode.Acceleration);        //Ram charging
+        ram.GetComponent<Rigidbody>().AddForce(newDir * 50, ForceMode.Acceleration);      //Ram charging        
 
         //*****************************************************************************************************
         //                              IF THE RAM HITS THE PLAYER
@@ -89,14 +83,16 @@ public class RamCharge : StateMachineBehaviour {
     {
         charged = false;    //Simple boolean to ensure we don't instantiate the same crash effect more than once during update
 
-        //Reset our boolean value so that we don't immediately charge the next time we enter the StepBack state
-        ram.GetComponent<Animator>().SetBool("isCharging", false);
+        ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         //Now that our charge is complete, regardless of whether we hit our player or not, we want to turn off our hitCollider
         // so that we can't interact with the player anymore, and we want to reenable our charge sphere so that we can start
         // looking for more daring players who wander too close
         ram.GetComponent<Ram>().hitCollider.enabled = false;
         ram.GetComponent<Ram>().chargeSphere.enabled = true;
+
+        //Reset our boolean value so that we don't immediately charge the next time we enter the StepBack state
+        ram.GetComponent<Animator>().SetBool("isCharging", false);
     }
 
 

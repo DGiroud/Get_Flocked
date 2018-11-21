@@ -187,7 +187,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4637858131047588}
-  - component: {fileID: 95219306501825196}
   m_Layer: 0
   m_Name: Geo
   m_TagString: Untagged
@@ -2398,23 +2397,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95219306501825196
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1241381063860528}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: cbdb059f547e018468ab4ea504e1fc40, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95809358684356194
 Animator:
   serializedVersion: 3
@@ -2477,14 +2459,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b9595c6d3a559439c7b00508ba9f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGoldSheep: 0
   speed: 5
   radius: 0.875
   score: 20
   speedModifier: 0.75
   distToGround: 1.75
   spawnRangeForce: {x: 5, y: 10}
-  newPosDebug: {x: 0, y: 0, z: 0}
   currentBehaviour: 
+  animAnim: {fileID: 0}
 --- !u!135 &135478812025192600
 SphereCollider:
   m_ObjectHideFlags: 1

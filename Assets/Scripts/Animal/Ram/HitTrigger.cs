@@ -10,6 +10,11 @@ public class HitTrigger : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")   //We want different reactions for when the Ram hits either a player or a sheep
         {
+            //If the player we hit is different from the player we were charging, we want to change the Ram's player reference so that 
+            // we don't stun the wrong player
+            if (other.gameObject != GetComponentInParent<Ram>().player)
+                GetComponentInParent<Ram>().player = other.gameObject;
+
             //Enables the stun functionality in the Ram script
             GetComponentInParent<Ram>().playerHit = true;
 
@@ -18,21 +23,13 @@ public class HitTrigger : MonoBehaviour {
             other.GetComponent<BaseActor>().ReleaseSheep();
         }
 
-        else if (other.gameObject.tag == "Sheep")
-        {
-            //TO-DO LIST:
-            // If a sheep happens to be in the way of the ram, we want to knock it back so it doesn't interfere with the movement of the Ram
-            // Could potentially bring back the meteor trigger for this, as that would also affect players that AREN'T being targeted by the
-            //  Ram during it's charge, covering all bases of potential errors
-
-            GetComponentInParent<Ram>().sheepHit = true;
-        }
-
         else if (other.gameObject.tag == "Boundary")
         {
             //Enables the boundary hit functionality in the Ram script
             GetComponentInParent<Ram>().boundaryHit = true;
         }
+
+        //Note, we do not need a case for sheep here, as they are simply pushed out of the way if they get in the way of the Ram
     }
 
     public void OnTriggerStay(Collider other)
