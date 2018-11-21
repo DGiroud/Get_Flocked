@@ -67,10 +67,16 @@ public class Rotator : MonoBehaviour
             case RotateMode.Periodic:
                 rotateTimer -= Time.deltaTime; // decrement timer
 
+
+                rotateTimer -= Time.deltaTime; //decrement timer
+
+                // if timer runs out
                 if (rotateTimer < 0.0f)
                 {
                     rotateTimer = Random.Range(minTurnValue, maxTurnValue);
                     StartCoroutine(Rotate(hasStoppedRotation));
+                    StopAllCoroutines();
+                    StartCoroutine(Rotate());
                 }
 
                 break;

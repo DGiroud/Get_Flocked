@@ -120,6 +120,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void Resume()
     {
+        gameState = GameState.Main;
         pauseMenuUI.SetActive(false);
         //resumes back to fulltime
         Time.timeScale = 1.0f;
@@ -242,9 +243,9 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     static public int GetCurrentRound()
-    { 
+    {
         //returning currentRound
-        return currentRound;
+                return currentRound;
     }
 
 }

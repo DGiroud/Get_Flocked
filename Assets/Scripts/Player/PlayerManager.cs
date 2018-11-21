@@ -193,7 +193,7 @@ public class PlayerManager : MonoBehaviour
         GameObject cpu = Instantiate(CPUPrefab);
         cpu.transform.position = startTransform.position;
         cpu.transform.rotation = startTransform.rotation;
-        //cpu.GetComponentInChildren<MeshRenderer>().material = actorColours[CPUIndex];
+        cpu.GetComponentInChildren<SkinnedMeshRenderer>().material = playerMaterials[cpuID];
 
         CPU script = cpu.GetComponent<CPU>();
         script.actorID = cpuID;
