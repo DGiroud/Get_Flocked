@@ -6421,6 +6421,16 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114568266329973698, guid: d96280ea48191c64fa86ed97c1a2363c,
+        type: 2}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 944875429}
+    - target: {fileID: 114568266329973698, guid: d96280ea48191c64fa86ed97c1a2363c,
+        type: 2}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuialitySettings
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d96280ea48191c64fa86ed97c1a2363c, type: 2}
   m_IsPrefabParent: 0
@@ -8578,17 +8588,17 @@ Prefab:
     - target: {fileID: 114315960936832546, guid: 9269099f80f091142b152e914fdc45b3,
         type: 2}
       propertyPath: min
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114315960936832546, guid: 9269099f80f091142b152e914fdc45b3,
         type: 2}
       propertyPath: max
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114315960936832546, guid: 9269099f80f091142b152e914fdc45b3,
         type: 2}
       propertyPath: rotateMode
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114315960936832546, guid: 9269099f80f091142b152e914fdc45b3,
         type: 2}
@@ -8598,7 +8608,7 @@ Prefab:
     - target: {fileID: 114315960936832546, guid: 9269099f80f091142b152e914fdc45b3,
         type: 2}
       propertyPath: rotateSpeed
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4715191482500986, guid: 9269099f80f091142b152e914fdc45b3, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -8698,6 +8708,11 @@ Prefab:
         type: 2}
       propertyPath: rotateTime.y
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114315960936832546, guid: 9269099f80f091142b152e914fdc45b3,
+        type: 2}
+      propertyPath: maxNumberOfTurns
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9269099f80f091142b152e914fdc45b3, type: 2}

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using XInputDotNetPure;
 
 public enum PlayerInput
@@ -76,8 +74,7 @@ public class Player : BaseActor
                     GamePadKick(input); // allow kick
                     GamePadMovement(input); // movement
                     GamePadDash(input); // dash
-                    GamePadPause(input);
-                    GamePadBack(input);
+                    GamePadPause(input); //pause
                     break;
                 }
             case GameState.RoundEnd: // round end, so...
@@ -90,40 +87,37 @@ public class Player : BaseActor
 
     /// <summary>
     /// CONTROLLER
-    /// pauses game and getting acess to level manager
+    /// pauses game and getting access to level manager
     /// </summary>
     /// <param name="gamePad"></param>
     private void GamePadPause(GamePadState gamePad)
     {
+        //checking to see if the start button state has been pressed
         if (gamePad.Buttons.Start == ButtonState.Pressed)
         {
+            //if the button has been pressed, the game state will be
+            //paused which is called from LevelManager
             if (LevelManager.Instance.gameState == GameState.Pause)
+                //instanciates the pause menu
                 LevelManager.Instance.Pause();
         }
 
     }
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="gamePad"></param>
-    private void GamePadBack(GamePadState gamePad)
-    {
-        if (gamePad.Buttons.B == ButtonState.Pressed)
-            if (LevelManager.Instance.gameState == GameState.Pause)
-                LevelManager.Instance.Pause();
-    }
-
-    /// <summary>
     /// KEYBOARD
-    /// pauses game and getting acess to level manager
+    /// pauses game and getting access to level manager
     /// </summary>
     private void KeyBoardPause()
     {
+        //checking to see if the Escape key has been pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (LevelManager.Instance.gameState == GameState.Main)
-                LevelManager.Instance.Resume();
+            //if the Escape key has been pressed, the game state will be 
+            //paused which is called from LevelManager
+            if (LevelManager.Instance.gameState == GameState.Pause)
+                //instanciates the pause menu
+                LevelManager.Instance.Pause();
             
         }
     }
@@ -211,13 +205,16 @@ public class Player : BaseActor
     }
 
     /// <summary>
-    /// 
+    /// CONTROLLER
+    /// lobby menu ready
     /// </summary>
     /// <param name="gamePad"></param>
     private void GamePadReady(GamePadState gamePad)
     {
+        //checking to see if the A button was pressed
         if (gamePad.Buttons.A == ButtonState.Pressed)
         {
+            //toggles the players status to ready
             UIMainGame.Instance.ToggleReady(actorID);
         }
     }

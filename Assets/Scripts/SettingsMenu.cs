@@ -1,16 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine;
 using UnityEngine.UI;
+using XInputDotNetPure;
 
 public class SettingsMenu : MonoBehaviour {
 
+    [Tooltip("Main Audio mixer/master volume")]
     public AudioMixer audioMixer;       //audio
     Resolution[] resolution;            //array of resolutions
+    [Tooltip("Resolution Drop Down Box (1920 x 1080, ect...)")]
     public Dropdown resDropDown;        //dropdown of resolutions
+
     void Start()
     {
+        ScreenResolution();
+    }
+
+    public void ScreenResolution()
+    {
+        //screen resolutions
         resolution = Screen.resolutions;
         //clear out the options in resdropdown
         resDropDown.ClearOptions();
@@ -35,7 +44,19 @@ public class SettingsMenu : MonoBehaviour {
         resDropDown.AddOptions(optionsList);
         resDropDown.value = currentResIndex;
         resDropDown.RefreshShownValue();
+    }
 
+    /// <summary>
+    /// back button
+    /// </summary>
+    /// <param name="gamePad"></param>
+    public void GamePadBack(GamePadState gamePad)
+    {
+        //if button B is pressed
+        if (gamePad.Buttons.B == ButtonState.Pressed)
+            //goes back to pause screen
+            if (LevelManager.Instance.gameState == GameState.Pause)
+                LevelManager.Instance.Pause();
     }
 
     /// <summary>
@@ -63,6 +84,7 @@ public class SettingsMenu : MonoBehaviour {
     /// <param name="isFullScreen"></param>
     public void FullScreenToggle(bool isFullScreen)
     {
+        //setting fullscreen
         Screen.fullScreen = isFullScreen;
     }
 }
