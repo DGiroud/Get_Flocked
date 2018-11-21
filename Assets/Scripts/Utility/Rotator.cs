@@ -1,12 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum RotateMode
 {
     Constant,
     Periodic,
-    PeriodicV2,
     PeriodicRandom
 }
 
@@ -28,94 +26,75 @@ public class Rotator : MonoBehaviour
     [Tooltip("the angle in degrees that each periodic rotation rotates")]
     public float rotationAngle;
     [Tooltip("the range of times with which the rotation may start")]
-    public Vector2 rotateTime; // range of rotation times
     private float rotateTimer; // timer used to determine when to rotate
-    private float rotateToggleTimer; //toggles between timer
+    private int rotateCounter;
+    private int rotateToggle; //toggles between timer
+    
+    public float minTurnValue;       //min range
+    public float maxTurnValue;       //max range
+    public int minNumberOfTurns = 1;       //min range of turns
+    public int maxNumberOfTurns = 5;       //max range of turns
 
-    public float min;
-    public float max;
-
-    bool isRotatingClockwise;
-    private bool hasStoppedRotation = false;
+    bool isRotatingClockwise;   //is it rotating clockwise?
+    private bool hasStoppedRotation = false;    //has it stopped rotating? 
+                                                //this is always set to false
 
 
     /// <summary>
     /// initialise rotateTimer time to a random float in given range
     /// </summary>
-	void Awake ()
+    void Awake()
     {
-        rotateTimer = Random.Range(min, max);
-        rotateToggleTimer = Random.Range(min, max);
+        rotateTimer = Random.Range(minTurnValue, maxTurnValue);
+        rotateToggle = Random.Range(minNumberOfTurns, maxNumberOfTurns);
         isRotatingClockwise = false;
         hasStoppedRotation = true;
 
     }
-	
+
     /// <summary>
     /// calls the relevant rotation functions depending on the given rotate mode
     /// </summary>
-	void Update ()
+    void Update()
     {
         switch (rotateMode)
         {
             // constant rotation, easy
             case RotateMode.Constant:
-                transform.Rotate(0, rotateSpeed * Time.deltaTime, 0); 
+                transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
                 break;
-
-            // periodic rotation, not as easy
+                //periodic rotation
             case RotateMode.Periodic:
-                if (rotateTimer < 1.0f)
-                {
-                    rotateTimer = Random.Range(min, max);
-                }
-
-                // if timer runs out
-                if (rotateTimer < 1.5f)
-                {
-                    hasStoppedRotation = false;
-                }
-                else
-                {
-                    hasStoppedRotation = true;
-                }
                 rotateTimer -= Time.deltaTime; // decrement timer
-                StartCoroutine(NoRotate(hasStoppedRotation));
-                break;
 
-                //constant/periodic
-            case RotateMode.PeriodicV2:
                 if (rotateTimer < 0.0f)
                 {
-                    rotateTimer = Random.Range(min, max);
+                    rotateTimer = Random.Range(minTurnValue, maxTurnValue);
+                    StartCoroutine(Rotate(hasStoppedRotation));
                 }
-                // if timer runs out
-                if (rotateTimer < 7.5f)
-                {
-                    isRotatingClockwise = false;
-                }
-                else
-                {
-                    isRotatingClockwise = true;
-                }
-                rotateTimer -= Time.deltaTime; //decrement timer
-                StartCoroutine(Rotate(isRotatingClockwise));
-                break;
 
+                break;
+            // periodic rotation, not as easy
             case RotateMode.PeriodicRandom:
+                rotateTimer -= Time.deltaTime; // decrement timer
 
-                rotateTimer -= Time.deltaTime; //decrement timer
-
-                // if timer runs out
-                if (rotateTimer < 0.0f)
+                
+                if (rotateCounter > rotateToggle)
                 {
-                    isRotatingClockwise = !isRotatingClockwise;
-                    StopAllCoroutines();
-                    StartCoroutine(Rotate(isRotatingClockwise));
-
-                    rotateTimer = Random.Range(min, max);
+                    //checks to see if the rotation as stopped or not
+                    hasStoppedRotation = !hasStoppedRotation;
+                    //resets the rotate counter back to 0
+                    rotateCounter = 0;
+                    //picks a random number between set values for min and max
+                    rotateToggle = Random.Range(minNumberOfTurns, maxNumberOfTurns);
                 }
 
+                if (rotateTimer < 0.0f)
+                {
+                    rotateTimer = Random.Range(minTurnValue, maxTurnValue);
+                    StartCoroutine(Rotate(hasStoppedRotation));
+                }
+                
                 break;
         }
     }
@@ -127,6 +106,7 @@ public class Rotator : MonoBehaviour
     /// <returns>the coroutine</returns>
     private IEnumerator Rotate(bool counterClockwise = false)
     {
+        rotateCounter++;
         Quaternion desiredRotation;
         if (counterClockwise == true)
         {
@@ -138,13 +118,13 @@ public class Rotator : MonoBehaviour
             // get desired rotation quaternion
             desiredRotation = Quaternion.Euler(0, rotationAngle, 0) * transform.rotation;
         }
-        yield return new WaitForSeconds(5.0f);
 
         // loop until the desired rotation is reached
         while (transform.rotation != desiredRotation)
         {
             // perform rotation
             transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime * rotateSpeed);
+            yield return null;
         }
     }
     #endregion
@@ -168,13 +148,13 @@ public class Rotator : MonoBehaviour
             //setting stop rotation to the transformed rotation
             stopRotation = transform.rotation;
         }
-        
+
         //loops untill the stopped rotation is reached
         while (transform.rotation != stopRotation)
         {
             //preforms the rotation
             transform.rotation = Quaternion.Lerp(transform.rotation, stopRotation, Time.deltaTime * rotateSpeed);
-        yield return null;
+            yield return null;
         }
     }
     #endregion
