@@ -761,7 +761,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1100130918758846}
-  m_LocalRotation: {x: -0.55874425, y: -0.3039345, z: 0.5375172, w: 0.55362815}
+  m_LocalRotation: {x: -0.5587442, y: -0.30393448, z: 0.53751713, w: 0.5536281}
   m_LocalPosition: {x: -0.0213084, y: -0.025585867, z: -0.09237468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1469,8 +1469,9 @@ MonoBehaviour:
   actorType: 0
   canMove: 1
   speed: 10
-  dashSpeed: 3
+  dashSpeed: 2
   dashCooldown: 0.5
+  dashFriction: 0.9
   stunned: 0
   canSnap: 1
   interactionBox: {fileID: 65844882543617470}
