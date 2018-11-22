@@ -21,7 +21,7 @@ public class RamManager : MonoBehaviour
     #region prefab
     [Header("Prefab")]
     [SerializeField]
-    private GameObject ramPrefab; // reference to ram
+    private GameObject ramPrefab;  //Reference to first Ram
     #endregion
 
     // ram spawning variables
@@ -30,7 +30,7 @@ public class RamManager : MonoBehaviour
     [Header("Spawning")]
     [SerializeField]
     [Tooltip("Fill this with a transform (empty game object)")]
-    private Transform ramSpawnPoint;
+    private Transform ramSpawnPoint;  //Reference to first Ram's spawnpoint
     #endregion
 
 
@@ -45,6 +45,7 @@ public class RamManager : MonoBehaviour
 
         // create the ram
         ram = Instantiate(ramPrefab, new Vector3(0, 100, 0), new Quaternion());
+        
         ram.SetActive(false); // hide by default
 
         InitialiseRam();
@@ -59,9 +60,7 @@ public class RamManager : MonoBehaviour
         //ram.transform.position.Set(0, 100, 0);
         ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         ram.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
-        ram.SetActive(true);
-
-    }
+        ram.SetActive(true);    }
 
     // sets the single ram in scene to inactive  
     public void DestroyRam()

@@ -10,8 +10,11 @@ public class Goal : MonoBehaviour
     private ParticleSystem fireWorksTrail;
     [SerializeField]
     private ParticleSystem fireWorksWhiteNoise;
-    //[SerializeField]
-    //private ParticleSystem[] scoreParticles;
+
+    [Header("Sheep Scoring Effects")]
+    public GameObject[] scoreParticles;
+    private GameObject[] sceneParticles;
+    private float[] particleTimer = { 0, 0, 0, 0 };
 
     /// <summary>
     /// handles the collision of a sheep with the goal
@@ -44,20 +47,42 @@ public class Goal : MonoBehaviour
             fireWorksTrail.Play();
             fireWorksWhiteNoise.Play();
 
-            //switch (sheepScript.score)
+            //Creating the score particle effects when a sheep is scored
+            switch (sheepScript.score)
+            {
+                case -15:
+                    sceneParticles[0] = Instantiate(scoreParticles[0], GetComponentInParent<Transform>().position,
+                                        new Quaternion(-0.7071068f, 0, 0, 0.7071068f)); //Upright rotation
+                    break;
+                case 10:
+                    sceneParticles[1] = Instantiate(scoreParticles[1], GetComponentInParent<Transform>().position,
+                                        new Quaternion(-0.7071068f, 0, 0, 0.7071068f)); //Upright rotation
+                    break;
+                case 20:
+                    sceneParticles[2] = Instantiate(scoreParticles[2], GetComponentInParent<Transform>().position,
+                                        new Quaternion(-0.7071068f, 0, 0, 0.7071068f)); //Upright rotation
+                    break;
+                case 30:
+                    sceneParticles[3] = Instantiate(scoreParticles[3], GetComponentInParent<Transform>().position,
+                                        new Quaternion(-0.7071068f, 0, 0, 0.7071068f)); //Upright rotation
+                    break;
+            }
+        }
+    }
+
+    //Small update function so that we know when the destroy the score particle effects. We don't want to create unneccesary clutter
+    private void Update()
+    {
+        for(int num = 0; num < 3; num++)
+        {
+            //if (sceneParticles[num] != null)
             //{
-            //    case -15:
-            //        scoreParticles[0].Play();
-            //        break;
-            //    case 10:
-            //        scoreParticles[1].Play();
-            //        break;
-            //    case 20:
-            //        scoreParticles[2].Play();
-            //        break;
-            //    case 30:
-            //        scoreParticles[3].Play();
-            //        break;
+            //    particleTimer[num] += Time.deltaTime;
+
+            //    if(particleTimer[num] >= 3)
+            //    {
+            //        Destroy(sceneParticles[num]);
+            //    }
             //}
         }
     }

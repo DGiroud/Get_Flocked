@@ -31,7 +31,7 @@ public class GoalRadius : MonoBehaviour {
         {
             //Find the direction from the sheep's position the the goal's centre, and apply a force in the opposite direction
             Vector3 heading = transform.position - other.transform.position;
-            other.GetComponent<Rigidbody>().AddForce(-heading, ForceMode.Force);
+            other.GetComponent<Rigidbody>().AddForce(-heading * 1.5f, ForceMode.Acceleration);
         }
     }
 }

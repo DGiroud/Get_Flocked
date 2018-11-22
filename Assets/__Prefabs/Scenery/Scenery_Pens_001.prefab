@@ -4469,6 +4469,14 @@ MonoBehaviour:
   goalID: 3
   fireWorksTrail: {fileID: 198695909982419052}
   fireWorksWhiteNoise: {fileID: 198796845365414080}
+  smallSheepEffect: {fileID: 1254095455304352, guid: 338c52aa96743784cb7b6f5b64bd1406,
+    type: 2}
+  mediumSheepEffect: {fileID: 1988011093990680, guid: f0a04c66f25fc1740a2d5de091c8a7bc,
+    type: 2}
+  largeSheepEffect: {fileID: 1473759985391938, guid: 927c0300f4ca09f48a4c5e8a89a39366,
+    type: 2}
+  blackSheepEffect: {fileID: 1721260728086340, guid: 5c1f47c50ccf04b4c8af48b222a7cbd3,
+    type: 2}
 --- !u!114 &114315960936832546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4483,9 +4491,10 @@ MonoBehaviour:
   rotateMode: 1
   rotateSpeed: 3
   rotationAngle: 45
-  rotateTime: {x: 3, y: 5}
-  min: 0
-  max: 0
+  minTurnValue: 0
+  maxTurnValue: 0
+  minNumberOfTurns: 1
+  maxNumberOfTurns: 5
 --- !u!114 &114388972469671838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4595,6 +4604,14 @@ MonoBehaviour:
   goalID: 0
   fireWorksTrail: {fileID: 198685427826870602}
   fireWorksWhiteNoise: {fileID: 198480562934197708}
+  smallSheepEffect: {fileID: 1254095455304352, guid: 338c52aa96743784cb7b6f5b64bd1406,
+    type: 2}
+  mediumSheepEffect: {fileID: 1988011093990680, guid: f0a04c66f25fc1740a2d5de091c8a7bc,
+    type: 2}
+  largeSheepEffect: {fileID: 1473759985391938, guid: 927c0300f4ca09f48a4c5e8a89a39366,
+    type: 2}
+  blackSheepEffect: {fileID: 1721260728086340, guid: 5c1f47c50ccf04b4c8af48b222a7cbd3,
+    type: 2}
 --- !u!114 &114577586662419934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4637,6 +4654,14 @@ MonoBehaviour:
   goalID: 2
   fireWorksTrail: {fileID: 198408977548733572}
   fireWorksWhiteNoise: {fileID: 198642885807329484}
+  smallSheepEffect: {fileID: 1254095455304352, guid: 338c52aa96743784cb7b6f5b64bd1406,
+    type: 2}
+  mediumSheepEffect: {fileID: 1988011093990680, guid: f0a04c66f25fc1740a2d5de091c8a7bc,
+    type: 2}
+  largeSheepEffect: {fileID: 1473759985391938, guid: 927c0300f4ca09f48a4c5e8a89a39366,
+    type: 2}
+  blackSheepEffect: {fileID: 1721260728086340, guid: 5c1f47c50ccf04b4c8af48b222a7cbd3,
+    type: 2}
 --- !u!114 &114641881288736912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4679,6 +4704,14 @@ MonoBehaviour:
   goalID: 1
   fireWorksTrail: {fileID: 198496171985645204}
   fireWorksWhiteNoise: {fileID: 198092042110374770}
+  smallSheepEffect: {fileID: 1254095455304352, guid: 338c52aa96743784cb7b6f5b64bd1406,
+    type: 2}
+  mediumSheepEffect: {fileID: 1988011093990680, guid: f0a04c66f25fc1740a2d5de091c8a7bc,
+    type: 2}
+  largeSheepEffect: {fileID: 1473759985391938, guid: 927c0300f4ca09f48a4c5e8a89a39366,
+    type: 2}
+  blackSheepEffect: {fileID: 1721260728086340, guid: 5c1f47c50ccf04b4c8af48b222a7cbd3,
+    type: 2}
 --- !u!114 &114764090973019870
 MonoBehaviour:
   m_ObjectHideFlags: 1

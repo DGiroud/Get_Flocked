@@ -19,43 +19,35 @@ public class Rotator : MonoBehaviour
 
     [Header("Rotate Speed")]
     [Tooltip("the speed that the object rotates")]
-    public float rotateSpeed;                   // how fast go
+    public float rotateSpeed; // how fast go
 
     // periodic rotation relevent variables
     [Header("Periodic Rotation")]
     [Tooltip("the angle in degrees that each periodic rotation rotates")]
-    public float rotationAngle;                 //setting the rotation angle 
-                                                //(eg. 45°, 90° ect.) 
+    public float rotationAngle;
     [Tooltip("the range of times with which the rotation may start")]
-    private float rotateTimer;                  // timer used to determine when to rotate
-    private int rotateCounter;                  //how many times before the rotate changes 
-                                                //clockwise or anti-clockwise
+    private float rotateTimer; // timer used to determine when to rotate
+    private int rotateCounter;
+    private int rotateToggle; //toggles between timer
+    
+    public float minTurnValue;       //min range
+    public float maxTurnValue;       //max range
+    public int minNumberOfTurns = 1;       //min range of turns
+    public int maxNumberOfTurns = 5;       //max range of turns
 
-    private int rotateToggle;                   //toggles between timer
-    [Tooltip("min range for turn values(INPUT VALUE OTHER THAN 0)")]
-    public float minTurnValue;                  //min range
-    [Tooltip("max range for turn values(INPUT VALUE OTHER THAN 0)")]
-    public float maxTurnValue;                  //max range
-    [Tooltip("The range of min value for how many turns can happen")]
-    public int minNumberOfTurns = 1;            //min range of turns
-    [Tooltip("The range of max value for how many turns can happen")]
-    public int maxNumberOfTurns = 5;            //max range of turns
-
-    bool isRotatingClockwise;                   //is it rotating clockwise?
+    bool isRotatingClockwise;   //is it rotating clockwise?
     private bool hasStoppedRotation = false;    //has it stopped rotating? 
                                                 //this is always set to false
 
 
     /// <summary>
-    /// Initialise rotateTimer and rotateToggle time to a random float in given range.
+    /// initialise rotateTimer time to a random float in given range
     /// </summary>
     void Awake()
     {
         rotateTimer = Random.Range(minTurnValue, maxTurnValue);
         rotateToggle = Random.Range(minNumberOfTurns, maxNumberOfTurns);
-        //Setting clockwise rotation to false
         isRotatingClockwise = false;
-        //Setting stopped rotation to true
         hasStoppedRotation = true;
 
     }
@@ -67,34 +59,27 @@ public class Rotator : MonoBehaviour
     {
         switch (rotateMode)
         {
-            #region Constant
             // constant rotation, easy
             case RotateMode.Constant:
-                //transforming the rotation
                 transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
                 break;
-            #endregion
-            #region Periodic
-            //periodic rotation
+                //periodic rotation
             case RotateMode.Periodic:
                 rotateTimer -= Time.deltaTime; // decrement timer
+
+
+                rotateTimer -= Time.deltaTime; //decrement timer
 
                 // if timer runs out
                 if (rotateTimer < 0.0f)
                 {
-                    //picks a random number between set values for minimum and maximum
-                    //turn values for rotateTimer
                     rotateTimer = Random.Range(minTurnValue, maxTurnValue);
-                    //starting the coroutine for Rotate
                     StartCoroutine(Rotate(hasStoppedRotation));
-                    //stops all current coroutines
                     StopAllCoroutines();
-                    //coroutine "Rotate" starts again
                     StartCoroutine(Rotate());
                 }
+
                 break;
-            #endregion
-            #region PeriodicRandom
             // periodic rotation, not as easy
             case RotateMode.PeriodicRandom:
                 rotateTimer -= Time.deltaTime; // decrement timer
@@ -106,21 +91,17 @@ public class Rotator : MonoBehaviour
                     hasStoppedRotation = !hasStoppedRotation;
                     //resets the rotate counter back to 0
                     rotateCounter = 0;
-                    //picks a random number between set values for minimum and maximum
-                    //number of turns for rotateToggle
+                    //picks a random number between set values for min and max
                     rotateToggle = Random.Range(minNumberOfTurns, maxNumberOfTurns);
                 }
 
                 if (rotateTimer < 0.0f)
                 {
-                    //picks a random number between set values for minimum and maximum
-                    //turn values for rotateTimer
                     rotateTimer = Random.Range(minTurnValue, maxTurnValue);
-                    //starting the coroutine for Rotate
                     StartCoroutine(Rotate(hasStoppedRotation));
-                }         
+                }
+                
                 break;
-                #endregion
         }
     }
 

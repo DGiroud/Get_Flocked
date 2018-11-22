@@ -13,7 +13,7 @@ public class RamSpawnMovement : MonoBehaviour {
     }
 
     private GameObject sphere;
-    private GameObject sineSphere;
+    private GameObject sineSphere1;
     private GameObject innerSphere;
     public SphereRotation sphereRotation;
     Vector3 debugLine;
@@ -28,7 +28,8 @@ public class RamSpawnMovement : MonoBehaviour {
 	void Start () {
         //Initialising all 3 rotating spheres for reference throughout this script
         sphere = GameObject.Find("RamSphere");
-        sineSphere = GameObject.Find("SineSphere");
+        sineSphere1 = GameObject.Find("SineSphere1");
+
         innerSphere = GameObject.Find("InnerSphere");
 
         //Finding a random speed for the spheres to rotate with
@@ -43,14 +44,7 @@ public class RamSpawnMovement : MonoBehaviour {
         rangeTimer += Time.deltaTime;
 
         sphere.transform.Rotate(0, -innerRange, 0);
-        sineSphere.transform.Rotate(0, -middleRange, 0);
-
-        //-------------------------------------------------------------------
-        //Draws a line from the Ram's spawnpoint directly down to the ground 
-        // to map exactly where the spawn point sits above the scene
-        debugLine = transform.position;
-        debugLine.y = debugLine.y - transform.position.y;
-        //-------------------------------------------------------------------
+        sineSphere1.transform.Rotate(0, -middleRange, 0);
 
         Debug.DrawLine(transform.position, debugLine, Color.red);
 

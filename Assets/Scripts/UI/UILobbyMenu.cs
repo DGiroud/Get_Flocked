@@ -74,7 +74,6 @@ public class UILobbyMenu : MonoBehaviour
     private bool[] ready; // has the player readied up?
     private int[] colourID; // which colour from the colour array did each player pick?
     private WasButtonPressed[] wasButtonPressed; // are they pressing buttons? 
-    private bool wasSpacePressed = false;
     static private PlayerPreferences[] playerPrefs;
     static public PlayerPreferences[] GetPlayerPrefs { get { return playerPrefs; } }
 
@@ -132,8 +131,6 @@ public class UILobbyMenu : MonoBehaviour
         // check each unjoined/ready player for start input (game start)
         // (doesn't work if anybody is still selecting colour)
         CheckForStart();
-
-        wasSpacePressed = false;
     }
     
     /// <summary>
@@ -144,7 +141,6 @@ public class UILobbyMenu : MonoBehaviour
     {
         joined[playerID] = true; // joined
         wasButtonPressed[playerID].A = true;
-        wasSpacePressed = true;
     }
 
     /// <summary>
@@ -178,7 +174,6 @@ public class UILobbyMenu : MonoBehaviour
         joined[playerID] = false; // not joined
         ready[playerID] = true; // but ready!
         wasButtonPressed[playerID].A = true;
-        wasSpacePressed = true;
     }
 
     /// <summary>
@@ -200,11 +195,6 @@ public class UILobbyMenu : MonoBehaviour
                 if (gamePad.Buttons.Y == ButtonState.Pressed)
                     SceneManager.LoadScene(mainMenuID);
             }
-            else if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                // otherwise, escape to go back to main menu
-                SceneManager.LoadScene(mainMenuID);
-            }
         }
     }
 
@@ -224,16 +214,17 @@ public class UILobbyMenu : MonoBehaviour
             if (gamePad.IsConnected)
             {
                 // if the player hasn't joined
-                if (IsPlayerCPU(i))
+                if (!joined[i] && !ready[i])
                 {
                     // allow A input to join
                     if (gamePad.Buttons.A == ButtonState.Pressed)
                         joinButtons[i].onClick.Invoke();
+                    
+                    // B input to go back to the main menu
+                    if (gamePad.Buttons.Y == ButtonState.Pressed)
+                        SceneManager.LoadScene(mainMenuID);
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.Space) && !wasSpacePressed)
-                if (IsPlayerCPU(0))
-                    joinButtons[0].onClick.Invoke();
         }
     }
 
@@ -253,9 +244,6 @@ public class UILobbyMenu : MonoBehaviour
                     readyButtons[i].onClick.Invoke();
                 else if (gamePad.Buttons.A == ButtonState.Released)
                     wasButtonPressed[i].A = false; // button released
-
-                if (Input.GetKeyDown(KeyCode.Space) && !wasSpacePressed)
-                    readyButtons[i].onClick.Invoke();
             }
         }
     }
@@ -276,9 +264,6 @@ public class UILobbyMenu : MonoBehaviour
                     unJoinButtons[i].onClick.Invoke();
                 else if (gamePad.Buttons.B == ButtonState.Released)
                     wasButtonPressed[i].B = false; // button released
-
-                if (Input.GetKeyDown(KeyCode.Backspace))
-                    unJoinButtons[i].onClick.Invoke();
             }
         }
     }
@@ -299,9 +284,6 @@ public class UILobbyMenu : MonoBehaviour
                     unReadyButtons[i].onClick.Invoke();
                 else if (gamePad.Buttons.B == ButtonState.Released)
                     wasButtonPressed[i].B = false; // button released
-
-                if (Input.GetKeyDown(KeyCode.Backspace))
-                    unReadyButtons[i].onClick.Invoke();
             }
         }
     }
@@ -322,17 +304,12 @@ public class UILobbyMenu : MonoBehaviour
                     NextColour(i);
                 else if (gamePad.DPad.Right == ButtonState.Released)
                     wasButtonPressed[i].Right = false; // button released
-                
+
                 // left button functionality for scrolling through preset colours
                 if (gamePad.DPad.Left == ButtonState.Pressed && !wasButtonPressed[i].Left)
                     NextColour(i, true);
                 else if (gamePad.DPad.Left == ButtonState.Released)
                     wasButtonPressed[i].Left = false; // button released
-
-                if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-                    NextColour(i);
-                if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-                    NextColour(i, true);
             }
         }
     }
@@ -356,44 +333,22 @@ public class UILobbyMenu : MonoBehaviour
         // everyone is ready, ungrey out button
         startButton.interactable = true;
 
-        // iterate over all the CPUs
-        for (int i = 0; i <= (int)PlayerIndex.Four; i++)
-            if (IsPlayerCPU(i))
-                while (IsElsewhereInArray(colourID, i)) // if the CPU's colour is already taken
-                    NextColour(i); // assign the CPU a new colour
-
         // check for input from all ready players
         for (int i = 0; i <= (int)PlayerIndex.Four; i++)
         {
             GamePadState gamePad = GamePad.GetState((PlayerIndex)i);
 
-            if (gamePad.IsConnected)
-                if (gamePad.Buttons.Start == ButtonState.Pressed) // on start pressed
+            if (gamePad.IsConnected) 
+                if (gamePad.Buttons.Start == ButtonState.Pressed)
                 {
-                    // initialise home made player preferences array
                     playerPrefs = new PlayerPreferences[4];
 
                     for (int j = 0; j < 4; j++)
                     {
-                        playerPrefs[j].isReady = ready[j]; // boolean used to decide which players to assign controllers to in-game
-                        playerPrefs[j].playerColour = selectableColours[colourID[j]]; // each player's colour
+                        playerPrefs[j].isReady = ready[j];
+                        playerPrefs[j].playerColour = selectableColours[colourID[j]];
                     }
 
-                    // load the game
-                    SceneManager.LoadScene(mainGameID);
-                }
-            if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    // initialise home made player preferences array
-                    playerPrefs = new PlayerPreferences[4];
-
-                    for (int j = 0; j < 4; j++)
-                    {
-                        playerPrefs[j].isReady = ready[j]; // boolean used to decide which players to assign controllers to in-game
-                        playerPrefs[j].playerColour = selectableColours[colourID[j]]; // each player's colour
-                    }
-
-                    // load the game
                     SceneManager.LoadScene(mainGameID);
                 }
         }
@@ -473,25 +428,6 @@ public class UILobbyMenu : MonoBehaviour
                 if (colourID[i] == colour)
                     return true;
             }
-        }
-
-        return false;
-    }
-
-    private bool IsPlayerCPU(int actorID)
-    {
-        return (!joined[actorID] && !ready[actorID]);
-    }
-
-    private bool IsElsewhereInArray(int[] array, int index)
-    {
-        for (int i = 0; i < array.Length; i++)
-        {
-            if (i == index)
-                continue;
-
-            if (array[index] == array[i])
-                return true;
         }
 
         return false;

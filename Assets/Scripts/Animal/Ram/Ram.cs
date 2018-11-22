@@ -6,10 +6,8 @@ using UnityEngine.AI;
 
 public class Ram : MonoBehaviour {
 
-    //************************
-    //******* RAMPAGE ********
-    //************************
-
+    //Settings to determine when and how the Rams should spawn
+    #region Ram Spawn Requirements
     [Header("Spawn Requirements")]
     [Tooltip("What round the Ram will spawn after. IE if 2, the Ram will not spawn in Round 1, but will spawn in all rounds after that")]
     public int roundSpawn;
@@ -20,7 +18,9 @@ public class Ram : MonoBehaviour {
     [Tooltip("How quickly the Ram will fall into the field once it has spawned")]
     [Range(0, 1)]
     public float landingSpeed;
+    #endregion
 
+    #region Ram Properties
     [Header("Ram Properties")]
     [Tooltip("The duration that the Ram will be stunned for after charging and landing")]
     [Range(0, 10)]
@@ -31,11 +31,14 @@ public class Ram : MonoBehaviour {
     [Tooltip("How long the Ram waits (in seconds) before finding a new location after reaching it's original")]
     public float idleTime;
 
-    //References to our different particle effects
-    public GameObject crashEffect;      //Ram landing into the scene
-    public GameObject chargeEffect;     //Ram hitting a target after charging
-    public GameObject stunnedEffect;    //Ram stunning a player
+    //Wander properties
+    [HideInInspector] // We want to access the field box in ramCharge
+    public GameObject[] fieldBox;
+    private int previousNum;
+    private int rand;
+    #endregion
 
+    #region Charging Properties
     [Header("Charging Properties")]
     [Tooltip("Charge Cooldown is how long the Ram waits before charging the same player. There is no cooldown if the Ram charges 1 player," +
         "and then immediately finds another player within it's charge sphere.")]
@@ -55,13 +58,14 @@ public class Ram : MonoBehaviour {
     [HideInInspector]
     public GameObject lastPlayerCharged;    //Reference for the ChargeTrigger, so that we can ignore
     private ChargeTrigger chargeTrigger;
+    #endregion    
 
-    [HideInInspector] // We want to access the field box in ramCharge
-    public GameObject[] fieldBox;
-    private int previousNum;
-    private int rand;
+    #region Particles and Colliders
+    //References to our different particle effects
+    public GameObject crashEffect;      //Ram landing into the scene
+    public GameObject chargeEffect;     //Ram hitting a target after charging
+    public GameObject stunnedEffect;    //Ram stunning a player
 
-    
     [Header("Ram Colliders")]
     [Tooltip("Sphere collider that the Ram uses during it's initial descent, knocks all actors away if they come too close")]
     public SphereCollider meteorSphere;
@@ -73,7 +77,6 @@ public class Ram : MonoBehaviour {
     [Tooltip("Box collider that becomes active whilst the Ram is charging, interacts with players and sheep if they are hit by the Ram")]
     public BoxCollider hitCollider;
 
-
     [HideInInspector]                              //We don't want these to be accessed by anyone or anything except other scripts
     public GameObject player;                      //Reference to the player we're charging
     [HideInInspector]
@@ -82,6 +85,7 @@ public class Ram : MonoBehaviour {
     public bool sheepHit = false;                  //If we hit a sheep, this becomes true and the sheep gets knocked out of the way.
     [HideInInspector]
     public bool boundaryHit = false;               //If we charge into the outer boundaries, this becomes true and we halt our charge
+    #endregion
 
 
     private void Start () {

@@ -12,13 +12,6 @@ public class UIGameOver : MonoBehaviour
     [SerializeField]
     private int gameLevelID;
 
-    [SerializeField]
-    private GameObject[] playerPrefabs;
-    private int winnerID;
-    [SerializeField]
-    private Vector2 cheerSpacing;
-    private float cheerTimer = 0.0f;
-
     // all end game UI elements
     [SerializeField]
     private Text playerWinText;
@@ -71,22 +64,7 @@ public class UIGameOver : MonoBehaviour
         UpdateFinalScoreTexts();
 
         // determine the winner and print it in the form of "Player _ WINS!"
-        winnerID = EvaluateWinner();
-    }
-
-    /// <summary>
-    /// have the winner randomly cheer from time to time
-    /// </summary>
-    private void Update()
-    {
-        // decrement timer
-        cheerTimer -= Time.deltaTime;
-        
-        if (cheerTimer < 0.0f)
-        {
-            playerPrefabs[winnerID].GetComponent<Animator>().SetTrigger("Cheer"); // cheer
-            cheerTimer = Random.Range(cheerSpacing.x, cheerSpacing.y); // reset timer
-        }
+        EvaluateWinner();
     }
 
     /// <summary>
@@ -223,7 +201,7 @@ public class UIGameOver : MonoBehaviour
         finalScores[mostGoalsPlayer]++;
         finalScores[mostKicksPlayer]++;
         finalScores[mostInterceptsPlayer]++;
-        finalScores[highestDistancePlayer]++;
+        finalScores[highestScoringPlayer]++;
     }
 
     /// <summary>
@@ -243,9 +221,9 @@ public class UIGameOver : MonoBehaviour
     /// iterates over all final scores and simple determines the highest
     /// </summary>
     /// <returns>returns the ID of the winning player</returns>
-    private int EvaluateWinner()
+    private void EvaluateWinner()
     {
-        int winner = 0;
+        int winnerID = 0;
 
         // iterate over all players/final scores
         for (int i = 0; i < finalScores.Length; i++)
@@ -256,8 +234,7 @@ public class UIGameOver : MonoBehaviour
         }
 
         // update the UI text in the form "Player _ WINS!"
-        playerWinText.text = "Player " + (winner + 1).ToString() + " WINS!";
-        return winner;
+        playerWinText.text = "Player " + (winnerID + 1).ToString() + " WINS!";
     }
 
     /// <summary>

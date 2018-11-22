@@ -7,21 +7,21 @@ public class RamSpawn : StateMachineBehaviour {
     //This state is the Ram's intitial behaviour state, which can only be accessed when the Ram is created. 
     // This state leads into:
     //  Stunned: When the Ram has successfully landed after it's descent, it will change to it's "stunned" behaviour
-
-
-    Light spotlight;
+    
     float timer = 0.0f;
     float spawnTimer = 0.0f;
     private float spawnTimerEnd;
     public float landingSpeed;
 
-    private int round;          //The round we need to be at before the Ram will spawn
-    private int sheepScored;    //The amount of sheep that need to be scored before the Ram will spawn
+    private int round;          //The round we need to be at before the first Ram will spawn
+    private int sheepScored;    //The amount of sheep that need to be scored before the first Ram will spawn
 
     private GameObject crashEffect;
 
     private GameObject ram;
     private GameObject ramSpawnPoint;
+    private Light spotlight;
+
     private Vector3 ramTarget;
     private bool destination = false;
     private bool spawned     = false;
@@ -33,32 +33,31 @@ public class RamSpawn : StateMachineBehaviour {
     {
         //Initialise the ram object for us to reference throughout this script
         ram = animator.gameObject;
-        //Initialise the spawn point for us the reference throughout this script
+
+        //Initialise the spawn points for us the reference throughout this script
         ramSpawnPoint = GameObject.Find("RamSpawnPoint");
 
         ram.GetComponent<Ram>().hitCollider.enabled = false;
 
         landingSpeed = ram.GetComponent<Ram>().landingSpeed;
 
-        //Finding the light object within the RamManager hierarchy 
+        //Finding the light objects within the RamManager hierarchy 
         spotlight = RamManager.Instance.GetComponentInChildren<Light>();
-        spotlight.enabled = false;
 
         //Pulling our customisable variable from the Ram prefab
         spawnTimerEnd = animator.GetComponent<Ram>().spawnTimer;
 
         crashEffect = ram.GetComponent<Ram>().crashEffect;
 
+        //Setting up variables for both Ram's spawning properties
         round = ram.GetComponent<Ram>().roundSpawn;
         sheepScored = (int)Random.Range(ram.GetComponent<Ram>().sheepTilSpawn.x, ram.GetComponent<Ram>().sheepTilSpawn.y);
     }
-    
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //When the round begins, so too should the spotlight. This is a temporary add until we've worked out when exactly to start the Ram
-        // event
-        if (LevelManager.GetCurrentRound() >= round)  //If we have reached teh round specified, spawn Ram
+        //If conditions for the spawning of our first Ram
+        if (LevelManager.GetCurrentRound() >= round)  //If we have reached the round specified, spawn Ram
         {
             if (ScoreManager.Instance.CurrentSheep >= sheepScored)  //If we have scored the specified amount of sheep, Spawn Ram
             {
@@ -73,14 +72,12 @@ public class RamSpawn : StateMachineBehaviour {
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         DynamicCamera.RemoveObjectOfInterest(ram);
-
-        //Once the Ram has landed, we don't want it being able to move alone the y axis at all
-        //animator.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
     }
 
-
+    #region Update Spotlight
     //----------------------------------------------------------------------------------------------------------|
     //                                          UPDATE SPOTLIGHT
+    //  Here we pass in which spotlight we want to be updating
     //----------------------------------------------------------------------------------------------------------|
     public void updateSpotlight()
     {
@@ -120,8 +117,8 @@ public class RamSpawn : StateMachineBehaviour {
 
             if (spotlight.spotAngle == 1 && !spawned)
             {
-                //We want to spawn the ram at the start, so that the spotlight begins it's function, however we don't want the Ram to be seen yet
                 SpawnRam();
+
                 //So that we don't have to run this segment of code again
                 spawned = true;
                 //Makes the light dissapear when the Ram spawns  
@@ -164,7 +161,7 @@ public class RamSpawn : StateMachineBehaviour {
         }
     }
     //----------------------------------------------------------------------------------------------------------|
-
+    #endregion
 
     //Makes the spotlight flash between red and white
     void FlashRed()
@@ -179,7 +176,7 @@ public class RamSpawn : StateMachineBehaviour {
     public void SpawnRam()
     {
         // set ram position to spawn point
-        ram.transform.position = ramSpawnPoint.transform.position;
+            ram.transform.position = ramSpawnPoint.transform.position;
 
         //Let's see that beaut
         ram.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;

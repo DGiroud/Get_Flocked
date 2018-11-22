@@ -30,9 +30,6 @@ public class BaseActor : MonoBehaviour
     private float currentDashSpeed;
     [SerializeField]
     private float dashCooldown = 0.5f; // time until next dash
-    [SerializeField]
-    [Range(0, 1.0f)]
-    private float dashFriction = 0.9f;
     private float dashTimer;
 
     private Vector3 translation;
@@ -125,7 +122,7 @@ public class BaseActor : MonoBehaviour
         // get the direction vector
         translation.x = xAxis;
         translation.z = yAxis;
-        translation *= Mathf.Lerp(1, dashSpeed, currentDashSpeed *= dashFriction);
+        translation *= Mathf.Lerp(1, dashSpeed, currentDashSpeed *= 0.9f);
 
         // record the last position (for distance travelled)
         lastPosition = transform.position;

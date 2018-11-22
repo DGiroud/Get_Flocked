@@ -53,7 +53,9 @@ public class WanderBehaviour : StateMachineBehaviour {
            sheep.transform.position.z >= newPos.z - 1 && sheep.transform.position.z <= newPos.z + 1)
         {
             newPos = sheep.GetComponent<Sheep>().GetNewDestination();
-        }      
+        }
+
+        Debug.DrawLine(sheep.transform.position, newPos); 
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

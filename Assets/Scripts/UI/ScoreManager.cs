@@ -176,7 +176,7 @@ public class ScoreManager : MonoBehaviour
         {
             // get this particular player's score for THIS round
             PlayerScores playerRoundScores = playerScores[i][currentRound];
-            int roundPlacement = 1; // 1st place by default
+            int roundPlacement = 4; // 4th place by default
 
             // iterate over all the other players
             for (int j = 0; j < playerScores.Length; j++)
@@ -187,9 +187,9 @@ public class ScoreManager : MonoBehaviour
                 // get the other player's score for this round
                 int otherPlayerScore = playerScores[j][currentRound].score;
 
-                // if the current player has a lower score than the other player
-                if (playerRoundScores.score < otherPlayerScore)
-                    roundPlacement++; // higher round placement
+                // if the current player has a higher score than the other player
+                if (playerRoundScores.score > otherPlayerScore)
+                    roundPlacement--; // higher round placement
             }
 
             // set round placement for each player

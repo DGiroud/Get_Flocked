@@ -27,21 +27,8 @@ public class SpawnBehaviour : StateMachineBehaviour {
         sheep.GetComponent<Sheep>().currentBehaviour = "Spawn Behaviour";
 
         sheep.GetComponent<Sheep>().SetWanderTrue();
-
-        //Second animator being removed from sheep, commenting these out in case we revert this decision
-            //sheep.GetComponentInChildren<Animator>().SetBool("isWandering", true);
-            //sheep.GetComponentInChildren<Animator>().SetBool("isKicked", false);
-            //sheep.GetComponentInChildren<Animator>().SetBool("isPushed", false);
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        //timer += Time.deltaTime;
-
-        //if(timer >= 2.5f)
-        //As soon as the sheep is reset, we use this state to reset all of it's variables before moving it straight into it's wander state
-    }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
