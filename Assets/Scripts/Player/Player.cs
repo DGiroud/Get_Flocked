@@ -233,6 +233,7 @@ public class Player : BaseActor
                 {
                     KeyboardKick();
                     KeyboardMovement();
+                    KeyboardDash();
                     break;
                 }
             case GameState.RoundEnd:
@@ -289,6 +290,26 @@ public class Player : BaseActor
 
                 animator.SetTrigger("Kick");
             }
+        }
+    }
+
+    private void KeyboardDash()
+    {
+        // if A was pressed (not held down)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // don't allow dash if holding a sheep or interacting with a held sheep
+            if (HeldSheep || interactionSheep)
+                return;
+
+            wasAPressed = true; // A was pressed
+
+            // get the normalized translation vector (direction)
+            Vector3 translation = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+            translation.Normalize();
+
+            // x & z translation mapped to horizontal & vertical respectively
+            Move(translation.x, translation.z, true);
         }
     }
 

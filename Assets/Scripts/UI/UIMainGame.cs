@@ -15,6 +15,7 @@ public struct MainGamePanel
     public Text roundText;
     public Text timerText;
     public Text[] scoreTexts;
+    public Image[] scoreImages;
 }
 
 [System.Serializable]
@@ -100,6 +101,11 @@ public class UIMainGame : MonoBehaviour
 
         // choose a random starting phrase (e.g. GO! Start! etc.)
         randomStartText = countDownPanel.startTexts[Random.Range(0, countDownPanel.startTexts.Length)];
+
+        for (int i = 0; i < mainGamePanel.scoreImages.Length; i++)
+        {
+            mainGamePanel.scoreImages[i].color = UILobbyMenu.GetPlayerPrefs[i].playerColour;
+        }
     }
 
     /// <summary>
