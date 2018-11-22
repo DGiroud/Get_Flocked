@@ -13,7 +13,7 @@ public class Goal : MonoBehaviour
 
     [Header("Sheep Scoring Effects")]
     public GameObject[] scoreParticles;
-    private GameObject[] sceneParticles;
+    private GameObject[] sceneParticles = { null, null, null, null };
     private float[] particleTimer = { 0, 0, 0, 0 };
 
     /// <summary>
@@ -67,23 +67,6 @@ public class Goal : MonoBehaviour
                                         new Quaternion(-0.7071068f, 0, 0, 0.7071068f)); //Upright rotation
                     break;
             }
-        }
-    }
-
-    //Small update function so that we know when the destroy the score particle effects. We don't want to create unneccesary clutter
-    private void Update()
-    {
-        for(int num = 0; num < 3; num++)
-        {
-            //if (sceneParticles[num] != null)
-            //{
-            //    particleTimer[num] += Time.deltaTime;
-
-            //    if(particleTimer[num] >= 3)
-            //    {
-            //        Destroy(sceneParticles[num]);
-            //    }
-            //}
         }
     }
 }

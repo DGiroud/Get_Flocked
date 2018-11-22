@@ -107,6 +107,14 @@ public class Ram : MonoBehaviour {
 
         if(playerHit == true)
         {
+            if(player == null)
+            {
+                player = null;
+                playerHit = false;
+                lastPlayerCharged = null;
+                return;
+            }
+
             playerStunTimer += Time.deltaTime;
 
             if(playerStunTimer >= playerStunTime)
@@ -128,6 +136,14 @@ public class Ram : MonoBehaviour {
         //If the Ram has charged someone, we want there to be a cooldown before he can charge them again
         if (GetComponentInChildren<ChargeTrigger>().lastPlayerCharged != null)
         {
+            if(player == null)
+            {
+                player = null;
+                playerHit = false;
+                lastPlayerCharged = null;
+                return;
+            }
+
             samePlayerTimer += Time.deltaTime;
 
             if(samePlayerTimer >= samePlayerCooldown)

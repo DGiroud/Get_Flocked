@@ -10,6 +10,9 @@ public class HitTrigger : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")   //We want different reactions for when the Ram hits either a player or a sheep
         {
+            if (other.gameObject != GetComponentInParent<Ram>().player)
+                GetComponentInParent<Ram>().player = other.gameObject;
+
             //If the player we hit is different from the player we were charging, we want to change the Ram's player reference so that 
             // we don't stun the wrong player
             if (other.gameObject != GetComponentInParent<Ram>().player)

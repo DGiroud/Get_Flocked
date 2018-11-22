@@ -13,7 +13,7 @@ public class RamSpawnMovement : MonoBehaviour {
     }
 
     private GameObject sphere;
-    private GameObject sineSphere1;
+    private GameObject sineSphere;
     private GameObject innerSphere;
     public SphereRotation sphereRotation;
     Vector3 debugLine;
@@ -28,7 +28,7 @@ public class RamSpawnMovement : MonoBehaviour {
 	void Start () {
         //Initialising all 3 rotating spheres for reference throughout this script
         sphere = GameObject.Find("RamSphere");
-        sineSphere1 = GameObject.Find("SineSphere1");
+        sineSphere = GameObject.Find("SineSphere");
 
         innerSphere = GameObject.Find("InnerSphere");
 
@@ -44,7 +44,7 @@ public class RamSpawnMovement : MonoBehaviour {
         rangeTimer += Time.deltaTime;
 
         sphere.transform.Rotate(0, -innerRange, 0);
-        sineSphere1.transform.Rotate(0, -middleRange, 0);
+        sineSphere.transform.Rotate(0, -middleRange, 0);
 
         Debug.DrawLine(transform.position, debugLine, Color.red);
 
