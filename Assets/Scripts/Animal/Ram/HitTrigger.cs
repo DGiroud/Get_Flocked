@@ -10,9 +10,6 @@ public class HitTrigger : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")   //We want different reactions for when the Ram hits either a player or a sheep
         {
-            if (other.gameObject != GetComponentInParent<Ram>().player)
-                GetComponentInParent<Ram>().player = other.gameObject;
-
             //If the player we hit is different from the player we were charging, we want to change the Ram's player reference so that 
             // we don't stun the wrong player
             if (other.gameObject != GetComponentInParent<Ram>().player)
@@ -31,17 +28,5 @@ public class HitTrigger : MonoBehaviour {
             //Enables the boundary hit functionality in the Ram script
             GetComponentInParent<Ram>().boundaryHit = true;
         }
-
-        //Note, we do not need a case for sheep here, as they are simply pushed out of the way if they get in the way of the Ram
-    }
-
-    public void OnTriggerStay(Collider other)
-    {
-
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        
     }
 }

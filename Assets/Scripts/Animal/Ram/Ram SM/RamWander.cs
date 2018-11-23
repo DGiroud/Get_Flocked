@@ -51,7 +51,7 @@ public class RamWander : StateMachineBehaviour {
         if (navMesh.enabled == false)
             navMesh.enabled = true;
 
-        
+        Debug.DrawLine(ram.transform.position, newPos); //Debug
 
         //Possible fix for the Ram getting stuck in a wander behaviour, where it was trying to find a path to the position it was already at.
         // This way, we check if we're already at the position we're trying to seek to, and if so, we find a new destination

@@ -6,6 +6,17 @@ using UnityEngine.AI;
 
 public class Ram : MonoBehaviour {
 
+    [Header("DEBUG LOG")]
+    public GameObject lastPlayerCharged;    //Reference for the ChargeTrigger, so that we can ignore
+    //[HideInInspector]                              //We don't want these to be accessed by anyone or anything except other scripts
+    public GameObject player;                      //Reference to the player we're charging
+    //[HideInInspector]
+    public bool playerHit = false;                 //If we hit the player, this becomes true and the player is stunned for a duration.
+    //[HideInInspector]
+    public bool sheepHit = false;                  //If we hit a sheep, this becomes true and the sheep gets knocked out of the way.
+    //[HideInInspector]
+    public bool boundaryHit = false;               //If we charge into the outer boundaries, this becomes true and we halt our charge
+
     //Settings to determine when and how the Rams should spawn
     #region Ram Spawn Requirements
     [Header("Spawn Requirements")]
@@ -56,7 +67,6 @@ public class Ram : MonoBehaviour {
     public float samePlayerCooldown;
     private float samePlayerTimer = 0f;     //Timer to reference against the samePlayerCooldown
     [HideInInspector]
-    public GameObject lastPlayerCharged;    //Reference for the ChargeTrigger, so that we can ignore
     private ChargeTrigger chargeTrigger;
     #endregion    
 
@@ -77,14 +87,7 @@ public class Ram : MonoBehaviour {
     [Tooltip("Box collider that becomes active whilst the Ram is charging, interacts with players and sheep if they are hit by the Ram")]
     public BoxCollider hitCollider;
 
-    [HideInInspector]                              //We don't want these to be accessed by anyone or anything except other scripts
-    public GameObject player;                      //Reference to the player we're charging
-    [HideInInspector]
-    public bool playerHit = false;                 //If we hit the player, this becomes true and the player is stunned for a duration.
-    [HideInInspector]
-    public bool sheepHit = false;                  //If we hit a sheep, this becomes true and the sheep gets knocked out of the way.
-    [HideInInspector]
-    public bool boundaryHit = false;               //If we charge into the outer boundaries, this becomes true and we halt our charge
+   
     #endregion
 
 
@@ -109,9 +112,6 @@ public class Ram : MonoBehaviour {
         {
             if(player == null)
             {
-                player = null;
-                playerHit = false;
-                lastPlayerCharged = null;
                 return;
             }
 
@@ -136,21 +136,12 @@ public class Ram : MonoBehaviour {
         //If the Ram has charged someone, we want there to be a cooldown before he can charge them again
         if (GetComponentInChildren<ChargeTrigger>().lastPlayerCharged != null)
         {
-            if(player == null)
-            {
-                player = null;
-                playerHit = false;
-                lastPlayerCharged = null;
-                return;
-            }
-
             samePlayerTimer += Time.deltaTime;
 
             if(samePlayerTimer >= samePlayerCooldown)
             {
                 samePlayerTimer = 0;
                 GetComponentInChildren<ChargeTrigger>().stopIgnoring = true;
-                Physics.IgnoreCollision(player.GetComponent<Collider>(), chargeTrigger.GetComponent<Collider>(), false);
                 GetComponentInChildren<ChargeTrigger>().lastPlayerCharged = null;
             }
         }
@@ -158,7 +149,7 @@ public class Ram : MonoBehaviour {
         //If the ram somehow finds it's wya off the field, destroy it so that it doesn't mess with the dynamic camera
         if (transform.position.y <= -10)
         {
-            Destroy(this);
+            Destroy(GetComponent<Ram>());
         }
     }
 

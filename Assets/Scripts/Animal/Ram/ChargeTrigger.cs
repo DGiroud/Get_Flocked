@@ -10,18 +10,23 @@ public class ChargeTrigger : MonoBehaviour {
         //We only want to look for the player
         if (other.gameObject.tag == "Player")
         {
-            //PLAYER BEING IGNORED
-            //If we've triggered the event in Ram to stop ingoring the lastPlayerCharged, we want to enable that here.
-            if (stopIgnoring == true)
-            {
-                Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), false);
-            }
-
             //If this is the same player we had just stunned, we want to ignore it
             if (other.gameObject == lastPlayerCharged)
             {
                 //Handy little trick to completely ignore a collider
                 Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), true);
+            }
+
+            //*******************
+            // Potential issue here, the function above sets the player to be ignored, yet the one underneat h reverts that the logic
+            // throughout the rest of the code is flawed in a way that sometimes these are both called, rendering one useless
+            //*******************
+
+            //PLAYER BEING IGNORED
+            //If we've triggered the event in Ram to stop ingoring the lastPlayerCharged, we want to enable that here.
+            if (stopIgnoring == true)
+            {
+                Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), false);
             }
 
             else
@@ -54,10 +59,13 @@ public class ChargeTrigger : MonoBehaviour {
                 GetComponentInParent<Ram>().player = other.gameObject;
                 GetComponentInParent<Ram>().chargePlayer();
             }
-        }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
+            //PLAYER BEING IGNORED
+            //If we've triggered the event in Ram to stop ingoring the lastPlayerCharged, we want to enable that here.
+            if (stopIgnoring == true)
+            {
+                Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>(), false);
+            }            
+        }
     }
 }

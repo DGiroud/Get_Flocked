@@ -18,8 +18,6 @@ public class MeteorTrigger : MonoBehaviour {
         //Rigidbody and charactor controller don't mix
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("player sighted");
-
             impulse.x = 1;
             impulse.y = 1;
 

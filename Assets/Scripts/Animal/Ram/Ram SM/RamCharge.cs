@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 public class RamCharge : StateMachineBehaviour {
 
+    #region Charge Variables
     private Transform player;       //Player reference
     private GameObject ram;         //Ram reference
     private Vector3 temp;           //temp for newDir;
@@ -11,10 +12,14 @@ public class RamCharge : StateMachineBehaviour {
     private GameObject sceneStunnedEffect;   //Where we store the stunned effect that we've created
     private bool charged = false;            //Check that we don't
     private float forceOut = 0f;             //If the ram gets stuck in this state, this will force it out
+    #endregion
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //Initiliasing our player for easier access throughout this script
+        if (animator.GetComponent<Ram>().player == null)
+            return;
+
         player = animator.GetComponent<Ram>().player.transform;
         ram = animator.gameObject;
         //Whilst the Ram is charging, we don't want it turning, we want it to continuously face the direction it's charging.
@@ -100,7 +105,6 @@ public class RamCharge : StateMachineBehaviour {
     private void PlayerHit()
     {
         //We stun the player through baseActor's functionality, then we activate it again based on a timer in the base Ram class
-        //player.GetComponent<Player>().isStunned = true;  //Set this to true so that the Ram knows whether or not to ignore it
         player.GetComponent<BaseActor>().stunned = true;
 
         //Now that we've hit and stunned a player, throw up the stunned particle effectss to convey this to the player
@@ -108,7 +112,6 @@ public class RamCharge : StateMachineBehaviour {
 
         if (ram.GetComponent<Ram>().playerHit == true)
         ram.GetComponent<Ram>().playerHit = false;    //Reset so that we don't keep stunning the player
-        //ram.GetComponent<Ram>().player = null;      //Reset so that we don't keep charging the player
 
         //Before the Ram leaves this state, we want to reset it's velocity, bringing it to a halt. 
         // this should fix the error where the Ram constantly builds up momentum and starts "sliding" around the scene
@@ -142,11 +145,5 @@ public class RamCharge : StateMachineBehaviour {
 
         //Change state to continue the behavioural lööp, bröther
         ram.GetComponent<Animator>().SetBool("isStunned", true);
-    }
-
-    //On the more than likely chance that a sheep happens to get in the way of the Ram
-    private void SheepHit()
-    {
-
     }
 }

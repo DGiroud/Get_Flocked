@@ -1219,7 +1219,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1678835840802110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.4558518, y: -0.15313023, z: -9.245581}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4289020179370428}
@@ -1434,7 +1434,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.2, z: 1.44}
+  m_Size: {x: 1, y: 1.1, z: 1.44}
   m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!65 &65362965626449064
 BoxCollider:
@@ -1446,7 +1446,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.2, z: 1.44}
+  m_Size: {x: 1, y: 1.1, z: 1.44}
   m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!95 &95458545451303812
 Animator:
@@ -1500,8 +1500,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6913416a435d04187ad87e203a89ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastPlayerCharged: {fileID: 0}
+  player: {fileID: 0}
+  playerHit: 0
+  sheepHit: 0
+  boundaryHit: 0
   roundSpawn: 0
-  sheepTilSpawn: {x: 0, y: 0}
+  sheepTilSpawn: {x: 5, y: 5}
   spawnTimer: 2
   landingSpeed: 0.3
   stunDuration: 1
@@ -1513,7 +1518,6 @@ MonoBehaviour:
   chargeDelay: 1.1
   playerStunTime: 3
   samePlayerCooldown: 4
-  lastPlayerCharged: {fileID: 0}
   crashEffect: {fileID: 1242820699891550, guid: 010b36774882533459f83d336666add2,
     type: 2}
   chargeEffect: {fileID: 1522029054898604, guid: 4bfdba8cb1ee4074085467c99afb6754,
@@ -1523,10 +1527,6 @@ MonoBehaviour:
   meteorSphere: {fileID: 135995869553713194}
   chargeSphere: {fileID: 135953769963331588}
   hitCollider: {fileID: 65362965626449064}
-  player: {fileID: 0}
-  playerHit: 0
-  sheepHit: 0
-  boundaryHit: 0
 --- !u!114 &114868362228479100
 MonoBehaviour:
   m_ObjectHideFlags: 1

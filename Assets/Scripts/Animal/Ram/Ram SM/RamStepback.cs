@@ -14,10 +14,6 @@ public class RamStepback : StateMachineBehaviour {
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //******************************************
-        //Set animator for charge preparation here *
-        //******************************************
-
         //Initialising our player and ram gameObjects for easier accessibility throughout this script
         player = animator.GetComponent<Ram>().player;
      
@@ -38,10 +34,6 @@ public class RamStepback : StateMachineBehaviour {
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //******************************
-        //STEPBACK ANIMATION HERE
-        //******************************
-
         timer += Time.deltaTime;
 
         //If our player reference exists, continue as normal
@@ -74,9 +66,7 @@ public class RamStepback : StateMachineBehaviour {
     {
         //If we move from StepBack back into Wander, then we need to reset this back to false to continue the behavioural loop
         if (ram.GetComponent<Ram>().boundaryHit == true)
-            ram.GetComponent<Ram>().boundaryHit = false;
-
-        
+            ram.GetComponent<Ram>().boundaryHit = false;        
 
         //Make sure we turn this state off when we leave, otherwise we'll get weird results
         ram.GetComponent<Animator>().SetBool("isStepback", false);
