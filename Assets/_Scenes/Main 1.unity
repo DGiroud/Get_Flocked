@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18165524, g: 0.22731154, b: 0.30741698, a: 1}
+  m_IndirectSpecularColor: {r: 0.46332926, g: 0.5140862, b: 0.5903654, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1524,9 +1524,9 @@ Transform:
   - {fileID: 1971122759}
   - {fileID: 1366837188}
   - {fileID: 98466209}
-  - {fileID: 825465372}
   - {fileID: 459132505}
   - {fileID: 1528518153}
+  - {fileID: 825465372}
   - {fileID: 1614171417}
   - {fileID: 234457771}
   - {fileID: 937182563}
@@ -16515,7 +16515,7 @@ Transform:
   m_Children:
   - {fileID: 1230050536}
   m_Father: {fileID: 67745718}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
 --- !u!65 &459132506
 BoxCollider:
@@ -17292,7 +17292,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -25651,7 +25651,7 @@ Transform:
   m_Children:
   - {fileID: 806957319}
   m_Father: {fileID: 67745718}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
 --- !u!65 &825465373
 BoxCollider:
@@ -31969,11 +31969,6 @@ MonoBehaviour:
     - {fileID: 1794592}
     - {fileID: 942300178}
     - {fileID: 1938079737}
-    scoreImages:
-    - {fileID: 588042826}
-    - {fileID: 798878235}
-    - {fileID: 1446386724}
-    - {fileID: 195334568}
   countDownPanel:
     countDownPanel: {fileID: 152975576}
     countDownText: {fileID: 1893163099}
@@ -41328,7 +41323,7 @@ Transform:
   m_Children:
   - {fileID: 452338471}
   m_Father: {fileID: 67745718}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1528518154
 BoxCollider:
@@ -41426,13 +41421,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1536042331}
-  m_LocalRotation: {x: -0, y: 0.97427696, z: -0, w: 0.22535415}
+  m_LocalRotation: {x: -0, y: -0.9953565, z: -0, w: -0.09625718}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1341712252}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 153.953, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -191.047, z: 0}
 --- !u!23 &1536042333
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -41546,13 +41541,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1539906716}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.79970115, z: -0, w: -0.6003983}
+  m_LocalPosition: {x: 0.054803614, y: 0, z: -0.022088837}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1666537779}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 253.797, z: 0}
 --- !u!23 &1539906718
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -43809,6 +43804,7 @@ MonoBehaviour:
   goalID: 1
   fireWorksTrail: {fileID: 436328026}
   fireWorksWhiteNoise: {fileID: 113407328}
+  scoreParticles: []
 --- !u!23 &1666003733
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -43988,6 +43984,7 @@ MonoBehaviour:
   goalID: 0
   fireWorksTrail: {fileID: 619609974}
   fireWorksWhiteNoise: {fileID: 1936242518}
+  scoreParticles: []
 --- !u!23 &1674060367
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -44923,6 +44920,7 @@ MonoBehaviour:
   goalID: 2
   fireWorksTrail: {fileID: 1900554796}
   fireWorksWhiteNoise: {fileID: 1905798487}
+  scoreParticles: []
 --- !u!23 &1723735782
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -61622,6 +61620,7 @@ MonoBehaviour:
   goalID: 3
   fireWorksTrail: {fileID: 173880972}
   fireWorksWhiteNoise: {fileID: 839540805}
+  scoreParticles: []
 --- !u!23 &2118789260
 MeshRenderer:
   m_ObjectHideFlags: 0
