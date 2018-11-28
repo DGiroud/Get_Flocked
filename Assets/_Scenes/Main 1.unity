@@ -10779,6 +10779,7 @@ GameObject:
   - component: {fileID: 231362126}
   - component: {fileID: 231362125}
   - component: {fileID: 231362124}
+  - component: {fileID: 231362128}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10864,6 +10865,18 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &231362128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 231362122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 328cb71232e50ea40bd34916a6b75841, type: 2}
 --- !u!1 &234457770
 GameObject:
   m_ObjectHideFlags: 0
@@ -43809,6 +43822,7 @@ MonoBehaviour:
   goalID: 1
   fireWorksTrail: {fileID: 436328026}
   fireWorksWhiteNoise: {fileID: 113407328}
+  scoreParticles: []
 --- !u!23 &1666003733
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -43988,6 +44002,7 @@ MonoBehaviour:
   goalID: 0
   fireWorksTrail: {fileID: 619609974}
   fireWorksWhiteNoise: {fileID: 1936242518}
+  scoreParticles: []
 --- !u!23 &1674060367
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -44923,6 +44938,7 @@ MonoBehaviour:
   goalID: 2
   fireWorksTrail: {fileID: 1900554796}
   fireWorksWhiteNoise: {fileID: 1905798487}
+  scoreParticles: []
 --- !u!23 &1723735782
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -61622,6 +61638,7 @@ MonoBehaviour:
   goalID: 3
   fireWorksTrail: {fileID: 173880972}
   fireWorksWhiteNoise: {fileID: 839540805}
+  scoreParticles: []
 --- !u!23 &2118789260
 MeshRenderer:
   m_ObjectHideFlags: 0
