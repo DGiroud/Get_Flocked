@@ -75,6 +75,9 @@ public class Player : BaseActor
                     GamePadMovement(input); // movement
                     GamePadDash(input); // dash
                     GamePadPause(input); //pause
+                    GamePadPause(input);
+                    GamePadPause(input); //pause
+
                     break;
                 }
             case GameState.RoundEnd: // round end, so...
@@ -205,6 +208,8 @@ public class Player : BaseActor
     }
 
     /// <summary>
+    /// If the "A" button is pressed, it will toggle if player is ready
+    /// 
     /// CONTROLLER
     /// lobby menu ready
     /// </summary>
@@ -233,7 +238,6 @@ public class Player : BaseActor
                 {
                     KeyboardKick();
                     KeyboardMovement();
-                    KeyboardDash();
                     break;
                 }
             case GameState.RoundEnd:
@@ -293,6 +297,9 @@ public class Player : BaseActor
         }
     }
 
+    /// <summary>
+    /// Keyboard ready
+    /// </summary>
     private void KeyboardDash()
     {
         // if A was pressed (not held down)
@@ -312,7 +319,6 @@ public class Player : BaseActor
             Move(translation.x, translation.z, true);
         }
     }
-
     private void KeyboardReady()
     {
         if (Input.GetKeyDown(KeyCode.Space))

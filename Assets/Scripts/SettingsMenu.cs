@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour {
 
+    [Tooltip("Main Audio mixer/master volume")]
     public AudioMixer audioMixer;       //audio
     Resolution[] resolution;            //array of resolutions
+    [Tooltip("Resolution Drop Down Box (1920 x 1080, ect...)")]
     public Dropdown resDropDown;        //dropdown of resolutions
     void Start()
     {

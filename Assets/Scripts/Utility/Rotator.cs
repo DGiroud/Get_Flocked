@@ -27,17 +27,21 @@ public class Rotator : MonoBehaviour
     public float rotationAngle;
     [Tooltip("the range of times with which the rotation may start")]
     private float rotateTimer; // timer used to determine when to rotate
-    private int rotateCounter;
+    private int rotateCounter; //keeps track of how many times it has rotated
     private int rotateToggle; //toggles between timer
-    
-    public float minTurnValue;       //min range
-    public float maxTurnValue;       //max range
-    public int minNumberOfTurns = 1;       //min range of turns
-    public int maxNumberOfTurns = 5;       //max range of turns
 
-    bool isRotatingClockwise;   //is it rotating clockwise?
-    private bool hasStoppedRotation = false;    //has it stopped rotating? 
-                                                //this is always set to false
+    [Tooltip("min range for turn values(INPUT VALUE OTHER THAN 0)")]
+    public float minTurnValue;                  //min range
+    [Tooltip("max range for turn values(INPUT VALUE OTHER THAN 0)")]
+    public float maxTurnValue;                  //max range
+    [Tooltip("The range of min value for how many turns can happen")]
+    public int minNumberOfTurns = 1;            //min range of turns
+    [Tooltip("The range of max value for how many turns can happen")]
+    public int maxNumberOfTurns = 5;            //max range of turns
+
+    bool isRotatingClockwise;   //is it rotating clockwise? (true/false)
+    private bool hasStoppedRotation = false;    //has it stopped rotating? (this is always set to false)
+
 
 
     /// <summary>
@@ -45,8 +49,12 @@ public class Rotator : MonoBehaviour
     /// </summary>
     void Awake()
     {
+        //picks a min and max turn value for the rotate timer
         rotateTimer = Random.Range(minTurnValue, maxTurnValue);
+        //picks a min and max number of turns for rotate toggle
         rotateToggle = Random.Range(minNumberOfTurns, maxNumberOfTurns);
+
+        //assigning bool variables to true or false
         isRotatingClockwise = false;
         hasStoppedRotation = true;
 
@@ -67,14 +75,15 @@ public class Rotator : MonoBehaviour
             case RotateMode.Periodic:
                 rotateTimer -= Time.deltaTime; // decrement timer
 
-
-                rotateTimer -= Time.deltaTime; //decrement timer
-
                 // if timer runs out
                 if (rotateTimer < 0.0f)
                 {
+                    //picks a random number between set values for min and max
                     rotateTimer = Random.Range(minTurnValue, maxTurnValue);
+                    //starting the "Rotate" coroutine with paramerters if it has
+                    //stopped rotation or not
                     StartCoroutine(Rotate(hasStoppedRotation));
+                    //stop the "Rotate" coroutine then starts it again
                     StopAllCoroutines();
                     StartCoroutine(Rotate());
                 }
@@ -94,10 +103,13 @@ public class Rotator : MonoBehaviour
                     //picks a random number between set values for min and max
                     rotateToggle = Random.Range(minNumberOfTurns, maxNumberOfTurns);
                 }
-
+                // if the timer runs out
                 if (rotateTimer < 0.0f)
                 {
+                    //picks a random number between min and max turn values
                     rotateTimer = Random.Range(minTurnValue, maxTurnValue);
+                    //starts the "Rotate" coroutine with paramaerters to see if it has
+                    //stopped rotation or not
                     StartCoroutine(Rotate(hasStoppedRotation));
                 }
                 

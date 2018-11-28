@@ -1,8 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using XInputDotNetPure;
 
 public enum GameState
 {
@@ -42,7 +40,7 @@ public class LevelManager : MonoBehaviour
     public float countDown;
     [HideInInspector]
     public bool gameStart = false; //used to begin the ramspawner in RamSpawn
-
+    [Tooltip("What's the max round")]
     public int maxRounds; //Max rounds per game
     static int currentRound = 0; //Show current round
     [SerializeField]
@@ -51,9 +49,8 @@ public class LevelManager : MonoBehaviour
     public float timesUpPauseDuration = 2.0f;
 
     public static bool gameIsPaused = false;  //will always be false unless toggled for pause menu ingame
-    public GameObject pauseMenuUI;
-
-    private GameObject resumeButton;
+    public GameObject pauseMenuUI;            //activates the pause menu
+    private GameObject resumeButton;          //re-activates game to full time 
 
     private void Awake()
     {
@@ -208,7 +205,7 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Ends the round and sets the time to a freeze point
     /// </summary>
     private void RoundEnd()
     {
@@ -219,7 +216,7 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// beginning of a new round
     /// </summary>
     public void NewRound()
     {
@@ -230,7 +227,7 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// End of game and setting the current round to 0
     /// </summary>
     private void GameOver()
     {
@@ -239,13 +236,13 @@ public class LevelManager : MonoBehaviour
     }
     
     /// <summary>
-    /// 
+    /// getting access to the current round
     /// </summary>
     /// <returns></returns>
     static public int GetCurrentRound()
     {
         //returning currentRound
-                return currentRound;
+        return currentRound;
     }
 
 }
