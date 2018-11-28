@@ -18,6 +18,8 @@ public class Sheep : MonoBehaviour {
     public int score;
     [Range(0, 1.0f)]
     public float speedModifier;
+    private bool isPaused;
+    private Vector3 pauseVelocity;
 
     public float distToGround;                  //Variable used for IsGrounded();
     [Tooltip("The range of force that the sheep will be moved at when spawned")]
@@ -54,6 +56,19 @@ public class Sheep : MonoBehaviour {
 
         if (transform.position.y < -1)
             SheepManager.Instance.DestroySheep(gameObject);
+
+        if (Time.timeScale == 0 && isPaused == false)
+        {
+            isPaused = true;
+            pauseVelocity = GetComponent<Rigidbody>().velocity;
+            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        }
+
+        if (isPaused == true && Time.timeScale != 0)
+        {
+            GetComponent<Rigidbody>().velocity = pauseVelocity;
+            isPaused = false;
+        }
     }
 
     #region Set Sheep Behaviours Functions

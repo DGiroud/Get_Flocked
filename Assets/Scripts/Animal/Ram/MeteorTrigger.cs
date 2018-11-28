@@ -22,6 +22,7 @@ public class MeteorTrigger : MonoBehaviour {
             impulse.y = 1;
 
             Vector3 newDir;
+            //current - destination
             newDir = (transform.position - other.transform.position).normalized;
 
             newDir.x += impulse.x;

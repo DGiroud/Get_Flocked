@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class Ram : MonoBehaviour {
 
     [Header("DEBUG LOG")]
-    public GameObject lastPlayerCharged;    //Reference for the ChargeTrigger, so that we can ignore
     //[HideInInspector]                              //We don't want these to be accessed by anyone or anything except other scripts
     public GameObject player;                      //Reference to the player we're charging
     //[HideInInspector]
@@ -41,6 +40,8 @@ public class Ram : MonoBehaviour {
     public float wanderSpeed;
     [Tooltip("How long the Ram waits (in seconds) before finding a new location after reaching it's original")]
     public float idleTime;
+    private Vector3 pauseVelocity;  //When we pause the game, we can store the Ram's velocity in here
+    private bool isPaused;
 
     //Wander properties
     [HideInInspector] // We want to access the field box in ramCharge
@@ -66,6 +67,7 @@ public class Ram : MonoBehaviour {
     [Tooltip("How long the Ram must wait before charging the same player twice in a row. Gives the stunned player time to escape the Ram")]
     public float samePlayerCooldown;
     private float samePlayerTimer = 0f;     //Timer to reference against the samePlayerCooldown
+    public GameObject lastPlayerCharged;    //Reference for the ChargeTrigger, so that we can ignore
     [HideInInspector]
     private ChargeTrigger chargeTrigger;
     #endregion    
@@ -132,20 +134,34 @@ public class Ram : MonoBehaviour {
         if (boundaryHit == true)
             player = null;
 
-
-        //If the Ram has charged someone, we want there to be a cooldown before he can charge them again
-        if (GetComponentInChildren<ChargeTrigger>().lastPlayerCharged != null)
+        if(Time.timeScale == 0 && isPaused == false)
         {
-            samePlayerTimer += Time.deltaTime;
-
-            if(samePlayerTimer >= samePlayerCooldown)
-            {
-                samePlayerTimer = 0;
-                GetComponentInChildren<ChargeTrigger>().stopIgnoring = true;
-                GetComponentInChildren<ChargeTrigger>().lastPlayerCharged = null;
-            }
+            isPaused = true;
+            pauseVelocity = GetComponent<Rigidbody>().velocity;
+            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         }
-        
+
+        if (isPaused == true && Time.timeScale != 0)
+        {
+            GetComponent<Rigidbody>().velocity = pauseVelocity;
+            isPaused = false;
+        }
+
+        ////If the Ram has charged someone, we want there to be a cooldown before he can charge them again
+        //if (lastPlayerCharged != null)
+        //{
+        //    samePlayerTimer += Time.deltaTime;
+
+        //    if(samePlayerTimer >= samePlayerCooldown)
+        //    {
+        //        samePlayerTimer = 0;
+
+        //        lastPlayerCharged = null;
+        //    }
+        //}
+
+        //else if()
+
         //If the ram somehow finds it's wya off the field, destroy it so that it doesn't mess with the dynamic camera
         if (transform.position.y <= -10)
         {

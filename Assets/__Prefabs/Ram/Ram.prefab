@@ -1296,7 +1296,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1897085502929782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4647643236634796}
@@ -1476,8 +1476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b87521c840b5348a8c16fa72921636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastPlayerCharged: {fileID: 0}
-  stopIgnoring: 0
 --- !u!114 &114218243633946252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1500,13 +1498,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6913416a435d04187ad87e203a89ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastPlayerCharged: {fileID: 0}
   player: {fileID: 0}
   playerHit: 0
   sheepHit: 0
   boundaryHit: 0
   roundSpawn: 0
-  sheepTilSpawn: {x: 5, y: 5}
+  sheepTilSpawn: {x: 0, y: 0}
   spawnTimer: 2
   landingSpeed: 0.3
   stunDuration: 1
@@ -1518,6 +1515,7 @@ MonoBehaviour:
   chargeDelay: 1.1
   playerStunTime: 3
   samePlayerCooldown: 4
+  lastPlayerCharged: {fileID: 0}
   crashEffect: {fileID: 1242820699891550, guid: 010b36774882533459f83d336666add2,
     type: 2}
   chargeEffect: {fileID: 1522029054898604, guid: 4bfdba8cb1ee4074085467c99afb6754,

@@ -28,5 +28,14 @@ public class HitTrigger : MonoBehaviour {
             //Enables the boundary hit functionality in the Ram script
             GetComponentInParent<Ram>().boundaryHit = true;
         }
+
+        if (other.gameObject.tag == "Sheep")
+        {
+            Vector3 newDir;
+
+            newDir = (GetComponentInParent<Ram>().transform.position - other.transform.position)/*.normalized*/;
+
+            other.GetComponent<Rigidbody>().AddForce(newDir, ForceMode.Impulse);
+        }
     }
 }

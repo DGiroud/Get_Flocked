@@ -77,7 +77,8 @@ public class RamCharge : StateMachineBehaviour {
             //Before the Ram leaves this state, we want to reset it's velocity, bringing it to a halt. 
             // this should fix the error where the Ram constantly builds up momentum and starts "sliding" around the scene
             ram.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-            ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ |
+                                                        RigidbodyConstraints.FreezePositionY;
 
             ram.GetComponent<Animator>().SetBool("isWandering", true);
         }
@@ -88,7 +89,8 @@ public class RamCharge : StateMachineBehaviour {
     {
         charged = false;    //Simple boolean to ensure we don't instantiate the same crash effect more than once during update
 
-        ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ |
+                                                    RigidbodyConstraints.FreezePositionY;
 
         //Now that our charge is complete, regardless of whether we hit our player or not, we want to turn off our hitCollider
         // so that we can't interact with the player anymore, and we want to reenable our charge sphere so that we can start
