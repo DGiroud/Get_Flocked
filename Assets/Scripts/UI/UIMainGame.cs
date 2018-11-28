@@ -15,6 +15,7 @@ public struct MainGamePanel
     public Text roundText;
     public Text timerText;
     public Text[] scoreTexts;
+    public Image[] scoreImages;
 }
 
 [System.Serializable]
@@ -89,6 +90,19 @@ public class UIMainGame : MonoBehaviour
     /// </summary>
     void Start ()
     {
+        switch (LevelManager.GetCurrentRound())
+        {
+            case 0:
+                BGMManager.Instance.bgmPhase = BGMPhase.Round1;
+                break;
+            case 1:
+                BGMManager.Instance.bgmPhase = BGMPhase.Round2;
+                break;
+            case 2:
+                BGMManager.Instance.bgmPhase = BGMPhase.Round3;
+                break;
+        }
+        
         // assign singleton instance
         instance = this;
 
@@ -100,6 +114,11 @@ public class UIMainGame : MonoBehaviour
 
         // choose a random starting phrase (e.g. GO! Start! etc.)
         randomStartText = countDownPanel.startTexts[Random.Range(0, countDownPanel.startTexts.Length)];
+
+        for (int i = 0; i < mainGamePanel.scoreImages.Length; i++)
+        {
+            mainGamePanel.scoreImages[i].color = UILobbyMenu.GetPlayerPrefs[i].playerColour;
+        }
     }
 
     /// <summary>
@@ -130,13 +149,21 @@ public class UIMainGame : MonoBehaviour
             case GameState.TimesUp:
             {
                 if (roundEndPanel.timesUpPanel.activeSelf == false)
-                    ToggleRoundEndUI(true); // turn on the UI panel if it's not already active                    
+                    {
+                        BGMManager.Instance.bgmPhase = BGMPhase.RoundEnd;
+                        ToggleRoundEndUI(true); // turn on the UI panel if it's not already active
+                    }
+
                 break;
-            }
+
+                }
             case GameState.RoundEnd: // round end UI
             {
                 if (roundEndPanel.readyUpPanel.activeSelf == false)
-                    ToggleRoundEndUI(false); // turn on the UI panel if it's not already active
+                    {
+                        BGMManager.Instance.bgmPhase = BGMPhase.MainMenu;
+                        ToggleRoundEndUI(false); // turn on the UI panel if it's not already active
+                    }
                 break;
             }
         }
