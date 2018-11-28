@@ -107,10 +107,12 @@ public class RamCharge : StateMachineBehaviour {
     private void PlayerHit()
     {
         //We stun the player through baseActor's functionality, then we activate it again based on a timer in the base Ram class
-        player.GetComponent<BaseActor>().stunned = true;
+        //The reason we're not using our preset player reference is because outside sources can change the player from the time this
+        // script is initiated to the time the player is hit
+        ram.GetComponent<Ram>().player.GetComponent<BaseActor>().stunned = true;
 
         //Now that we've hit and stunned a player, throw up the stunned particle effectss to convey this to the player
-        sceneStunnedEffect = Instantiate(ram.GetComponent<Ram>().stunnedEffect, player.transform);
+        sceneStunnedEffect = Instantiate(ram.GetComponent<Ram>().stunnedEffect, ram.GetComponent<Ram>().player.transform);
 
         if (ram.GetComponent<Ram>().playerHit == true)
         ram.GetComponent<Ram>().playerHit = false;    //Reset so that we don't keep stunning the player

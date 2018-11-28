@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Sheep : MonoBehaviour {
 
+    #region Sheep Properties
     GameObject fieldObject;     //Reference to the field, so that we can find a new position relative to it's dimensions
     private float fieldPosX;
     private float fieldPosZ;
@@ -33,8 +34,8 @@ public class Sheep : MonoBehaviour {
 
     public Animator animAnim;
     private Animator sheepAnim;
+    #endregion
 
-    // Use this for initialization
     void Start() {
 
         //Creating the FieldBox array;
