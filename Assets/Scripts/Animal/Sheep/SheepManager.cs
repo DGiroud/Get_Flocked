@@ -103,12 +103,9 @@ public class SheepManager : MonoBehaviour
         // spawn cooldown check
         if (sheepSpawnTimer > variance && spawnedSheep.Count < maximumSheep)
         {
-            if (spawnedSheep.Count <= sheepLimit)
-            {
-                SpawnSheep(); // spawn normal sheep
-                sheepSpawnTimer = 0.0f;
-                sheepLimit = (ScoreManager.Instance.RequiredSheep) - (ScoreManager.Instance.CurrentSheep) - spawnedSheep.Count;
-            }
+            SpawnSheep(); // spawn normal sheep
+            sheepSpawnTimer = 0.0f;
+            sheepLimit = (ScoreManager.Instance.RequiredSheep) - (ScoreManager.Instance.CurrentSheep) - spawnedSheep.Count;
         }
     }
 
