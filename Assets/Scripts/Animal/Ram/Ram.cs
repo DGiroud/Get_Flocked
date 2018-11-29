@@ -8,7 +8,7 @@ public class Ram : MonoBehaviour {
 
     [Header("DEBUG LOG")]
     //[HideInInspector]                              //We don't want these to be accessed by anyone or anything except other scripts
-    public GameObject player;                      //Reference to the player we're charging
+    public GameObject playerRef;                      //Reference to the player we're charging
     //[HideInInspector]
     public bool playerHit = false;                 //If we hit the player, this becomes true and the player is stunned for a duration.
     //[HideInInspector]
@@ -77,6 +77,10 @@ public class Ram : MonoBehaviour {
     public GameObject crashEffect;      //Ram landing into the scene
     public GameObject chargeEffect;     //Ram hitting a target after charging
     public GameObject stunnedEffect;    //Ram stunning a player
+    [HideInInspector]
+    public Vector3 chargeTemp;       //Turning colliders on and off causes issues, so instead we just shrink them temporarily
+    [HideInInspector]
+    public Vector3 hitTemp;
 
     [Header("Ram Colliders")]
     [Tooltip("Sphere collider that the Ram uses during it's initial descent, knocks all actors away if they come too close")]
@@ -112,10 +116,10 @@ public class Ram : MonoBehaviour {
 
         if(playerHit == true)
         {
-            if(player == null)
-            {
-                return;
-            }
+            //if(playerRef == null)
+            //{
+            //    return;
+            //}
 
             playerStunTimer += Time.deltaTime;
 
@@ -123,16 +127,16 @@ public class Ram : MonoBehaviour {
             {
                 //Once the player has been stunned for the desired duration, reenable their movement and reset our variables
                 //player.GetComponent<Player>().isStunned = false;
-                player.GetComponent<BaseActor>().stunned = false;
+                playerRef.GetComponent<BaseActor>().stunned = false;
 
-                player = null;
+                playerRef = null;
                 playerHit = false;
                 playerStunTimer = 0f;
             }
         }
 
-        if (boundaryHit == true)
-            player = null;
+        //if (boundaryHit == true)
+        //    playerRef = null;
 
         if(Time.timeScale == 0 && isPaused == false)
         {
@@ -208,7 +212,7 @@ public class Ram : MonoBehaviour {
     //Function to help us check i fwe are trying to charge the same player
     public bool IsSamePlayer(GameObject inPlayer)
     {
-        if (inPlayer == player)
+        if (inPlayer == playerRef)
             return true;
 
         else return false;

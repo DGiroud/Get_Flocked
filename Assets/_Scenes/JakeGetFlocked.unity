@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 29247199}
   m_Layer: 13
   m_Name: Goal_Player4
-  m_TagString: Goal
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 35118533}
   m_Layer: 0
   m_Name: Trail
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,7 +361,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1748637023
+  randomSeed: 444764945
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3791,7 +3791,7 @@ GameObject:
   - component: {fileID: 61555795}
   m_Layer: 13
   m_Name: Goal_Player1
-  m_TagString: Goal
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4140,7 +4140,7 @@ GameObject:
   - component: {fileID: 104613738}
   m_Layer: 13
   m_Name: Goal_Player2
-  m_TagString: Goal
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4304,7 +4304,7 @@ GameObject:
   - component: {fileID: 122164537}
   m_Layer: 0
   m_Name: GoalRadius
-  m_TagString: GoalRadius
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5628,6 +5628,18 @@ Prefab:
     - target: {fileID: 100000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2300000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
@@ -7712,6 +7724,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00027549267, y: -1.2336197, z: 0}
     m_Extent: {x: 0.89599144, y: 1.57353, z: 0.89599144}
   m_DirtyAABB: 0
+--- !u!64 &253006960
+MeshCollider:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 253006955}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
 --- !u!1001 &260057776
 Prefab:
   m_ObjectHideFlags: 0
@@ -8437,7 +8463,7 @@ GameObject:
   - component: {fileID: 330124161}
   m_Layer: 0
   m_Name: Fire Works Particle
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8684,6 +8710,18 @@ Prefab:
     - target: {fileID: 100000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2300000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
@@ -10779,7 +10817,7 @@ GameObject:
   - component: {fileID: 357747430}
   m_Layer: 0
   m_Name: Fire Works Particle
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11814,7 +11852,7 @@ GameObject:
   - component: {fileID: 470441336}
   m_Layer: 0
   m_Name: White Noise
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11949,7 +11987,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1738443207
+  randomSeed: -2120763572
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -16500,7 +16538,7 @@ GameObject:
   - component: {fileID: 669029422}
   m_Layer: 0
   m_Name: Fire Works Particle
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16534,7 +16572,7 @@ GameObject:
   - component: {fileID: 671057524}
   m_Layer: 13
   m_Name: Pen_001
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16607,7 +16645,7 @@ GameObject:
   - component: {fileID: 682788315}
   m_Layer: 0
   m_Name: Fire Works Particle
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17316,7 +17354,7 @@ GameObject:
   - component: {fileID: 759941586}
   m_Layer: 0
   m_Name: Goal Trigger
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17776,7 +17814,7 @@ GameObject:
   - component: {fileID: 799970766}
   m_Layer: 0
   m_Name: Goal Trigger
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17994,7 +18032,7 @@ GameObject:
   - component: {fileID: 804439005}
   m_Layer: 13
   m_Name: Pen_001
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18069,7 +18107,7 @@ GameObject:
   - component: {fileID: 806840700}
   m_Layer: 0
   m_Name: Trail
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18204,7 +18242,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -713281593
+  randomSeed: -2122375053
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -21700,7 +21738,7 @@ GameObject:
   - component: {fileID: 845963153}
   m_Layer: 13
   m_Name: Pen_001
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21773,7 +21811,7 @@ GameObject:
   - component: {fileID: 858494785}
   m_Layer: 13
   m_Name: Scenery_Castle_001
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22106,7 +22144,7 @@ GameObject:
   - component: {fileID: 883642490}
   m_Layer: 0
   m_Name: Goal Trigger
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22402,7 +22440,7 @@ GameObject:
   - component: {fileID: 931487887}
   m_Layer: 0
   m_Name: Scenery_Pens_001
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22580,7 +22618,7 @@ GameObject:
   - component: {fileID: 934913880}
   m_Layer: 13
   m_Name: Pen_001
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23066,7 +23104,7 @@ GameObject:
   - component: {fileID: 994196845}
   m_Layer: 0
   m_Name: White Noise
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23201,7 +23239,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1738443207
+  randomSeed: 66037207
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -26611,7 +26649,7 @@ GameObject:
   - component: {fileID: 996348304}
   m_Layer: 0
   m_Name: Trail
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26746,7 +26784,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1748637023
+  randomSeed: 234595488
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -30493,6 +30531,18 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2300000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
@@ -32587,7 +32637,7 @@ GameObject:
   - component: {fileID: 1050924396}
   m_Layer: 13
   m_Name: Goal_Player3
-  m_TagString: Goal
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32910,7 +32960,7 @@ GameObject:
   - component: {fileID: 1092259310}
   m_Layer: 0
   m_Name: White Noise
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33045,7 +33095,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1738443207
+  randomSeed: 837443460
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -38526,7 +38576,7 @@ GameObject:
   - component: {fileID: 1483778662}
   m_Layer: 13
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39172,6 +39222,7 @@ MonoBehaviour:
     - {fileID: 1816528678}
     - {fileID: 843488779}
     - {fileID: 1241091840}
+    scoreImages: []
   countDownPanel:
     countDownPanel: {fileID: 1116450683}
     countDownText: {fileID: 1617800032}
@@ -39410,7 +39461,7 @@ GameObject:
   - component: {fileID: 1616275359}
   m_Layer: 0
   m_Name: GoalRadius
-  m_TagString: GoalRadius
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39467,7 +39518,7 @@ GameObject:
   - component: {fileID: 1616364250}
   m_Layer: 0
   m_Name: White Noise
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39602,7 +39653,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1198591775
+  randomSeed: 1240374642
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -43569,6 +43620,18 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2300000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: bfa51a29d483748488a2e391e8efd7fc, type: 3}
@@ -46240,7 +46303,7 @@ GameObject:
   - component: {fileID: 1793764581}
   m_Layer: 0
   m_Name: Trail
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46375,7 +46438,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1748637023
+  randomSeed: 928073861
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -49734,7 +49797,7 @@ GameObject:
   - component: {fileID: 1794889627}
   m_Layer: 13
   m_Name: Castle_Model
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50116,7 +50179,7 @@ GameObject:
   - component: {fileID: 1878582218}
   m_Layer: 13
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50287,7 +50350,7 @@ GameObject:
   - component: {fileID: 1907476514}
   m_Layer: 0
   m_Name: GoalRadius
-  m_TagString: GoalRadius
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50580,7 +50643,7 @@ GameObject:
   - component: {fileID: 1967785305}
   m_Layer: 13
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50685,7 +50748,7 @@ GameObject:
   - component: {fileID: 1974920088}
   m_Layer: 0
   m_Name: Goal Trigger
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51149,7 +51212,7 @@ GameObject:
   - component: {fileID: 2055488437}
   m_Layer: 0
   m_Name: GoalRadius
-  m_TagString: GoalRadius
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51346,7 +51409,7 @@ GameObject:
   - component: {fileID: 2093687608}
   m_Layer: 13
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -34,6 +34,8 @@ public class BaseActor : MonoBehaviour
     [Range(0, 1.0f)]
     private float dashFriction = 0.9f;
     private float dashTimer;
+    public GameObject dashEffect;
+    private GameObject sceneDash;
 
     private Vector3 translation;
     private Vector3 lastPosition;
@@ -133,8 +135,11 @@ public class BaseActor : MonoBehaviour
         // dash functionality
         if (dashTimer > dashCooldown && isDashing)
         {
+            if (sceneDash != null)
+                Destroy(sceneDash);
             currentDashSpeed = dashSpeed; // speed up
             dashTimer = 0.0f; // start cooldown
+            sceneDash = Instantiate(dashEffect, transform.position, new Quaternion(-0.7071068f, 0, 0, 0.7071068f));
             return;
         }
         dashTimer += Time.deltaTime; // increment dash cooldown timer

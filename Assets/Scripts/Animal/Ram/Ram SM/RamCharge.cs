@@ -17,10 +17,10 @@ public class RamCharge : StateMachineBehaviour {
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //Initiliasing our player for easier access throughout this script
-        if (animator.GetComponent<Ram>().player == null)
-            return;
+        //if (animator.GetComponent<Ram>().playerRef == null)
+        //    animator.SetBool("isWandering", true);
 
-        player = animator.GetComponent<Ram>().player.transform;
+        player = animator.GetComponent<Ram>().playerRef.transform;
         ram = animator.gameObject;
         //Whilst the Ram is charging, we don't want it turning, we want it to continuously face the direction it's charging.
         ram.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
@@ -30,6 +30,8 @@ public class RamCharge : StateMachineBehaviour {
         temp = (player.position - ram.transform.position);
         newDir = temp.normalized;
         ram.GetComponent<Rigidbody>().isKinematic = false;
+
+        ram.GetComponent<Ram>().hitCollider.transform.localScale = ram.GetComponent<Ram>().hitTemp;
 
         chargeEffect = ram.GetComponent<Ram>().chargeEffect;
 
@@ -59,7 +61,6 @@ public class RamCharge : StateMachineBehaviour {
         {
             PlayerHit();
         }
-
 
         //*****************************************************************************************************
         //                              IF THE RAM MISSES THE PLAYER
@@ -95,7 +96,7 @@ public class RamCharge : StateMachineBehaviour {
         //Now that our charge is complete, regardless of whether we hit our player or not, we want to turn off our hitCollider
         // so that we can't interact with the player anymore, and we want to reenable our charge sphere so that we can start
         // looking for more daring players who wander too close
-        ram.GetComponent<Ram>().hitCollider.enabled = false;
+        //ram.GetComponent<Ram>().hitCollider.enabled = false;
         ram.GetComponent<Ram>().chargeSphere.enabled = true;
 
         //Reset our boolean value so that we don't immediately charge the next time we enter the StepBack state
@@ -109,10 +110,13 @@ public class RamCharge : StateMachineBehaviour {
         //We stun the player through baseActor's functionality, then we activate it again based on a timer in the base Ram class
         //The reason we're not using our preset player reference is because outside sources can change the player from the time this
         // script is initiated to the time the player is hit
-        ram.GetComponent<Ram>().player.GetComponent<BaseActor>().stunned = true;
+        if (ram.GetComponent<Ram>().playerRef != null)
+        {
+            ram.GetComponent<Ram>().playerRef.GetComponent<BaseActor>().stunned = true;
 
-        //Now that we've hit and stunned a player, throw up the stunned particle effectss to convey this to the player
-        sceneStunnedEffect = Instantiate(ram.GetComponent<Ram>().stunnedEffect, ram.GetComponent<Ram>().player.transform);
+            //Now that we've hit and stunned a player, throw up the stunned particle effectss to convey this to the player
+            sceneStunnedEffect = Instantiate(ram.GetComponent<Ram>().stunnedEffect, ram.GetComponent<Ram>().playerRef.transform);
+        }
 
         if (ram.GetComponent<Ram>().playerHit == true)
         ram.GetComponent<Ram>().playerHit = false;    //Reset so that we don't keep stunning the player
@@ -129,7 +133,7 @@ public class RamCharge : StateMachineBehaviour {
     private void PlayerMissed()
     {
         ram.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0); //Halt the Ram's movement and momentum
-        ram.GetComponent<Ram>().player = player.gameObject;
+        ram.GetComponent<Ram>().playerRef = player.gameObject;
 
         //bool check as we only want to create the cracks on the ground once - when the ram hits. 
         if (!charged)

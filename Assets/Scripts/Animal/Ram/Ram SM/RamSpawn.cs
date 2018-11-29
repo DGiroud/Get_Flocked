@@ -37,7 +37,9 @@ public class RamSpawn : StateMachineBehaviour {
         //Initialise the spawn points for us the reference throughout this script
         ramSpawnPoint = GameObject.Find("RamSpawnPoint");
 
-        ram.GetComponent<Ram>().hitCollider.enabled = false;
+        //ram.GetComponent<Ram>().hitCollider.enabled = false;
+        ram.GetComponent<Ram>().hitTemp = ram.GetComponent<Ram>().hitCollider.transform.localScale;
+        ram.GetComponent<Ram>().hitCollider.transform.localScale.Set(0.1f, 0.1f, 0.1f);
 
         landingSpeed = ram.GetComponent<Ram>().landingSpeed;
 

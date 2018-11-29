@@ -1,11 +1,15 @@
 fileFormatVersion: 2
 guid: 23bdc8d6948a7844a911a1830a4a3bdd
-timeCreated: 1537404822
+timeCreated: 1543458658
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - dashEffect: {fileID: 1343201081402356, guid: d6ba463ec99a8184d8562b5c000d72a3,
+      type: 2}
+  - interactionBox: {instanceID: 0}
+  - interactionSheep: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

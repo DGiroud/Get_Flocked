@@ -18,7 +18,9 @@ public class ChargeTrigger : MonoBehaviour {
                 GetComponentInParent<Ram>().lastPlayerCharged = other.gameObject;
 
                 //Here we set the Ram's gameObject reference to the player, so that it will always know where the player is when it charges
-                GetComponentInParent<Ram>().player = other.gameObject;
+                if(other.gameObject != null)
+                GetComponentInParent<Ram>().playerRef = other.gameObject;
+
                 GetComponentInParent<Ram>().chargePlayer();
             }           
         }

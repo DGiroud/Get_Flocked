@@ -12,11 +12,16 @@ public class HitTrigger : MonoBehaviour {
         {
             //If the player we hit is different from the player we were charging, we want to change the Ram's player reference so that 
             // we don't stun the wrong player
-            if (other.gameObject != GetComponentInParent<Ram>().player)
-                GetComponentInParent<Ram>().player = other.gameObject;
+            if (other.gameObject != GetComponentInParent<Ram>().playerRef)
+            {
+                if(other.gameObject != null)
+                GetComponentInParent<Ram>().playerRef = other.gameObject;
 
-            //Enables the stun functionality in the Ram script
-            GetComponentInParent<Ram>().playerHit = true;
+                GetComponentInParent<Ram>().lastPlayerCharged = other.gameObject;
+
+                //Enables the stun functionality in the Ram script
+                GetComponentInParent<Ram>().playerHit = true;
+            }            
 
             //If the player is holding a sheep, make them drop it
             if(other.GetComponent<BaseActor>().HeldSheep)
@@ -29,13 +34,19 @@ public class HitTrigger : MonoBehaviour {
             GetComponentInParent<Ram>().boundaryHit = true;
         }
 
-        if (other.gameObject.tag == "Sheep")
+        //If we hit a sheep, we want to apply an impulse force to help move them out of the way
+        else if (other.gameObject.tag == "Sheep")
         {
             Vector3 newDir;
 
             newDir = (GetComponentInParent<Ram>().transform.position - other.transform.position)/*.normalized*/;
 
             other.GetComponent<Rigidbody>().AddForce(newDir, ForceMode.Impulse);
+        }
+
+        else
+        {
+            GetComponentInParent<Animator>().GetComponent<Animator>().SetBool("isWandering", true);
         }
     }
 }
