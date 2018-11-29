@@ -74,6 +74,22 @@ public class UIGameOver : MonoBehaviour
 
         // determine the winner and print it in the form of "Player _ WINS!"
         winnerID = EvaluateWinner();
+
+        for (int i = 0; i < playerPrefabs.Length; i++)
+        {
+            Animator actorAnimator = playerPrefabs[i].GetComponent<Animator>();
+
+            if (i == winnerID)
+            {
+                int randomWinAnimation = Random.Range(0, 7);
+                actorAnimator.SetInteger("winValue", randomWinAnimation);
+            }
+            else
+            {
+                int randomLoseAnimation = Random.Range(0, 7);
+                actorAnimator.SetInteger("loseValue", randomLoseAnimation);
+            }
+        }
     }
 
     /// <summary>

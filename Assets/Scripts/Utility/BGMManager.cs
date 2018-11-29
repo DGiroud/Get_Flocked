@@ -54,11 +54,12 @@ public class BGMManager : MonoBehaviour
     void Start ()
     {
         if (instance == null)
+        {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
-            Destroy(this);
-
-        DontDestroyOnLoad(this);
+            Destroy(gameObject);
 
         audioSource = GetComponent<AudioSource>();
 
