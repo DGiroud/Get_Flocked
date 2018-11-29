@@ -57,7 +57,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1078114582240900
 GameObject:
   m_ObjectHideFlags: 1
@@ -134,7 +134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1277462799019452
 GameObject:
   m_ObjectHideFlags: 1
@@ -271,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1456273366113594
 GameObject:
   m_ObjectHideFlags: 1
@@ -318,7 +318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1543570261893228
 GameObject:
   m_ObjectHideFlags: 1
@@ -830,7 +830,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1757085147226340}
-  m_LocalRotation: {x: -0.55874425, y: -0.3039345, z: 0.5375172, w: 0.55362815}
+  m_LocalRotation: {x: -0.5587442, y: -0.30393448, z: 0.53751713, w: 0.5536281}
   m_LocalPosition: {x: -0.0213084, y: -0.025585867, z: -0.09237468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1461,6 +1461,8 @@ MonoBehaviour:
   speed: 10
   dashSpeed: 3
   dashCooldown: 0.5
+  dashFriction: 0.9
+  dashEffect: {fileID: 0}
   stunned: 0
   canSnap: 1
   interactionBox: {fileID: 65187717445715530}
@@ -1469,6 +1471,12 @@ MonoBehaviour:
   canKick: 1
   kickHeight: 5
   kickForce: 5
+  equippedStaff: {fileID: 0}
+  staffs:
+  - {fileID: 1275092303984192}
+  - {fileID: 1528323528042804}
+  - {fileID: 1427425471584464}
+  - {fileID: 1061857590291576}
   cpuSeekMode: 0
   roomForError: 10
   artificialThinkTime: 0.5

@@ -34,9 +34,27 @@ public class Sheep : MonoBehaviour {
 
     public Animator animAnim;
     private Animator sheepAnim;
+
+    [SerializeField]
+    private AudioClip[] sheepSFX;
+    private AudioClip prevSFX;
     #endregion
 
-    void Start() {
+    void Start()
+    {
+        AudioClip randomSFX = sheepSFX[Random.Range(0, sheepSFX.Length - 1)];
+        int diceRoll = Random.Range(0, 6);
+
+        if (diceRoll < 2)
+        {
+            while (randomSFX == prevSFX)
+                randomSFX = sheepSFX[Random.Range(0, sheepSFX.Length - 1)];
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.clip = randomSFX;
+            audioSource.Play();
+            prevSFX = randomSFX;
+        }
 
         //Creating the FieldBox array;
         fieldBox = new GameObject[4];

@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1073092884842870
 GameObject:
   m_ObjectHideFlags: 1
@@ -164,7 +164,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1230922189694210
 GameObject:
   m_ObjectHideFlags: 1
@@ -286,7 +286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1362147007594046
 GameObject:
   m_ObjectHideFlags: 1
@@ -468,7 +468,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1754838548190648
 GameObject:
   m_ObjectHideFlags: 1
@@ -833,7 +833,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1946791718678068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.008126259, y: 11.585066, z: -16.511887}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4944993198560580}
@@ -1481,6 +1481,15 @@ MonoBehaviour:
   canKick: 1
   kickHeight: 2
   kickForce: 20
+  equippedStaff: {fileID: 0}
+  staffs:
+  - {fileID: 1736799996834584}
+  - {fileID: 1215523107209050}
+  - {fileID: 1012356709251520}
+  - {fileID: 1334606088868604}
+  vibrationRightMotor: 0.25
+  vibrationLeftMotor: 0.75
+  vibrationLength: 1.5
 --- !u!137 &137004233377567858
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

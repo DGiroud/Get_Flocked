@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,7 +54,7 @@ public class RamSpawn : StateMachineBehaviour {
 
         //Setting up variables for both Ram's spawning properties
         round = ram.GetComponent<Ram>().roundSpawn;
-        sheepScored = (int)Random.Range(ram.GetComponent<Ram>().sheepTilSpawn.x, ram.GetComponent<Ram>().sheepTilSpawn.y);
+        sheepScored = (int)UnityEngine.Random.Range(ram.GetComponent<Ram>().sheepTilSpawn.x, ram.GetComponent<Ram>().sheepTilSpawn.y);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -151,6 +152,9 @@ public class RamSpawn : StateMachineBehaviour {
                     //Creating the ram, he should be facing in the same direction as he lands (spoiler: he doesn't)
                     Instantiate(crashEffect, new Vector3(ram.transform.position.x, 0.1f, ram.transform.position.z),
                                                          new Quaternion(-0.7071068f, 0, 0, 0.7071068f));
+                    
+                    PlayerManager.Instance.VibrateAllControllers();
+
                     //Turn on the crash particle effects
                     crashEffect.SetActive(true);
                     //Make sure that we never come here again
@@ -162,6 +166,7 @@ public class RamSpawn : StateMachineBehaviour {
             }
         }
     }
+
     //----------------------------------------------------------------------------------------------------------|
     #endregion
 

@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public enum BGMPhase
 {
@@ -38,6 +36,8 @@ public class BGMManager : MonoBehaviour
 
     public BGMPhase bgmPhase;
 
+    public float volume;
+
     // the different BGM for each relevant scene
     [SerializeField]
     private AudioClip mainMenuBGM;
@@ -61,6 +61,8 @@ public class BGMManager : MonoBehaviour
         DontDestroyOnLoad(this);
 
         audioSource = GetComponent<AudioSource>();
+
+        volume = audioSource.volume;
 	}
 	
 	// Update is called once per frame
@@ -69,7 +71,7 @@ public class BGMManager : MonoBehaviour
         switch (bgmPhase)
         {
             case BGMPhase.MainMenu: // main menu BGM
-                audioSource.volume = 1.0f;
+                audioSource.volume = volume;
                 audioSource.clip = mainMenuBGM;
                 break;
             case BGMPhase.Round1: // round 1 BGM
@@ -94,10 +96,10 @@ public class BGMManager : MonoBehaviour
                 audioSource.clip = round3;
                 break;
             case BGMPhase.RoundEnd:
-                StartCoroutine(FadeOut(Time.deltaTime * 0.01f));
+                StartCoroutine(FadeOut(Time.deltaTime * 0.005f));
                 break;
             case BGMPhase.GameOver: // game over BGM
-                audioSource.volume = 1.0f;
+                audioSource.volume = volume;
                 audioSource.clip = gameOverJingle;
                 break;
         }

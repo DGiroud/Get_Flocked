@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
@@ -173,6 +174,8 @@ public class PlayerManager : MonoBehaviour
 
         Player script = player.GetComponent<Player>();
         script.actorID = playerID;
+        script.equippedStaff = script.Staffs[playerID];
+        script.equippedStaff.SetActive(true);
         script.SetPlayerInput(playerInput);
 
         return player;
@@ -197,7 +200,22 @@ public class PlayerManager : MonoBehaviour
 
         CPU script = cpu.GetComponent<CPU>();
         script.actorID = cpuID;
+        script.equippedStaff = script.Staffs[cpuID];
+        script.equippedStaff.SetActive(true);
 
         return cpu;
+    }
+
+    public void VibrateAllControllers()
+    {
+        for (int i = 0; i <= (int)PlayerIndex.Four; i++)
+        {
+            Player player = players[i].GetComponent<Player>();
+
+            if (player != null)
+            {
+                player.StartCoroutine(player.GamePadVibrate());
+            }
+        }
     }
 }

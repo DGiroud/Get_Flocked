@@ -71,7 +71,12 @@ public class BaseActor : MonoBehaviour
     public float kickHeight = 5.0f; //kick height of sheep
     public float kickForce = 5.0f; //how much force given when sheep is kicked
     #endregion
-
+    
+    [HideInInspector]
+    public GameObject equippedStaff;
+    [SerializeField]
+    private GameObject[] staffs;
+    public GameObject[] Staffs { get { return staffs; } }
 
     /// <summary>
     /// Ensures all relevant actor variables are reset upon start-up

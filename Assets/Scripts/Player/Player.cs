@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using XInputDotNetPure;
 
 public enum PlayerInput
@@ -9,6 +10,14 @@ public enum PlayerInput
 
 public class Player : BaseActor
 {
+    [SerializeField]
+    [Range(0, 1.0f)]
+    private float vibrationRightMotor = 0.25f;
+    [SerializeField]
+    [Range(0, 1.0f)]
+    private float vibrationLeftMotor = 0.75f;
+    [SerializeField]
+    private float vibrationLength = 1.5f;
     private Animator animator;
 
     // player input variables
@@ -222,6 +231,21 @@ public class Player : BaseActor
             //toggles the players status to ready
             UIMainGame.Instance.ToggleReady(actorID);
         }
+    }
+
+    public IEnumerator GamePadVibrate(float length = -1.0f, float left = -1.0f, float right = -1.0f)
+    {
+        if (left < 0 && right < 0)
+            GamePad.SetVibration((PlayerIndex)actorID, vibrationLeftMotor, vibrationRightMotor);
+        else
+            GamePad.SetVibration((PlayerIndex)actorID, left, right);
+
+        if (length < 0)
+            yield return new WaitForSecondsRealtime(vibrationLength);
+        else
+            yield return new WaitForSecondsRealtime(length);
+
+        GamePad.SetVibration((PlayerIndex)actorID, 0, 0);
     }
 
 

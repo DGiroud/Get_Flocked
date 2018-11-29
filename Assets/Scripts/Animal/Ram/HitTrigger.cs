@@ -26,6 +26,11 @@ public class HitTrigger : MonoBehaviour {
             //If the player is holding a sheep, make them drop it
             if(other.GetComponent<BaseActor>().HeldSheep)
             other.GetComponent<BaseActor>().ReleaseSheep();
+
+            Player player = other.GetComponent<Player>();
+
+            if (player != null)
+                player.StartCoroutine(player.GamePadVibrate(0.25f, 0.25f, 0.75f));
         }
 
         else if (other.gameObject.tag == "Boundary")
