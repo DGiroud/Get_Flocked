@@ -1815,7 +1815,7 @@ GameObject:
   - component: {fileID: 71138076}
   m_Layer: 0
   m_Name: Scenery_Pens_001
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10763,7 +10763,7 @@ GameObject:
   - component: {fileID: 226380030}
   m_Layer: 11
   m_Name: Invisible Wall Top
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32906,7 +32906,7 @@ GameObject:
   - component: {fileID: 904180140}
   m_Layer: 13
   m_Name: Scenery_Fence_002 (7)
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -35322,7 +35322,7 @@ GameObject:
   - component: {fileID: 1013865224}
   m_Layer: 11
   m_Name: Invisible Wall Bottom
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40802,7 +40802,7 @@ GameObject:
   - component: {fileID: 1375556334}
   m_Layer: 13
   m_Name: Scenery_Fence_002 (6)
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -41353,6 +41353,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[3]
       value: 
       objectReference: {fileID: 2100000, guid: a996c86880051014288ee090a596271d, type: 2}
+    - target: {fileID: 100000, guid: 87ae0e1828204174b8e81c35490ed0e1, type: 3}
+      propertyPath: m_TagString
+      value: Boundary
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 87ae0e1828204174b8e81c35490ed0e1, type: 3}
   m_IsPrefabParent: 0
@@ -41757,7 +41761,7 @@ GameObject:
   - component: {fileID: 1410955162}
   m_Layer: 13
   m_Name: Scenery_Fence_002 (4)
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42758,7 +42762,7 @@ GameObject:
   - component: {fileID: 1464923061}
   m_Layer: 11
   m_Name: Invisible Wall Right
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43378,7 +43382,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.3
   m_Range: 1000
   m_SpotAngle: 179
   m_CookieSize: 10
@@ -49638,7 +49642,7 @@ GameObject:
   - component: {fileID: 1732102862}
   m_Layer: 13
   m_Name: Scenery_Fence_001 (9)
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -50230,7 +50234,7 @@ GameObject:
   - component: {fileID: 1804411352}
   m_Layer: 11
   m_Name: Invisible Wall Left
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65873,7 +65877,7 @@ GameObject:
   - component: {fileID: 1967197828}
   m_Layer: 13
   m_Name: Scenery_Wall_004 (6)
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -69308,7 +69312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2145375931
 Transform:
   m_ObjectHideFlags: 0
@@ -69317,7 +69321,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2145375930}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -37.7, z: 0}
+  m_LocalPosition: {x: 0, y: -33.9, z: 0}
   m_LocalScale: {x: 30, y: 0.29374, z: 30}
   m_Children: []
   m_Father: {fileID: 67745718}
