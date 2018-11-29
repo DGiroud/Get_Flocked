@@ -814,6 +814,7 @@ GameObject:
   - component: {fileID: 114675399791647424}
   - component: {fileID: 95510922966189372}
   - component: {fileID: 135266093374921322}
+  - component: {fileID: 82940395186611398}
   m_Layer: 9
   m_Name: Large_Sheep_001
   m_TagString: Sheep
@@ -2898,6 +2899,86 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!82 &82940395186611398
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1729914717936634}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95010632418426494
 Animator:
   serializedVersion: 3
@@ -3020,6 +3101,17 @@ MonoBehaviour:
   spawnRangeForce: {x: 2.5, y: 5}
   currentBehaviour: 
   animAnim: {fileID: 0}
+  sheepSFX:
+  - {fileID: 8300000, guid: ca24efefc96abda4f8f69c20b1dbc47d, type: 3}
+  - {fileID: 8300000, guid: 12df013fe6becc94ca3d28984d45d441, type: 3}
+  - {fileID: 8300000, guid: 2225caabdcfb61843a3efc6106166c9b, type: 3}
+  - {fileID: 8300000, guid: a48130e3fb2373c4791f86762a87d5e8, type: 3}
+  - {fileID: 8300000, guid: e0621ecd58a8e6d4fb133564aba9f917, type: 3}
+  - {fileID: 8300000, guid: 59646c03f8e4e824ea98df0566ff5e6d, type: 3}
+  - {fileID: 8300000, guid: b72cc1f27dc7f7a469508913e6a6ed41, type: 3}
+  - {fileID: 8300000, guid: dd2ebf9054d95cf479c6a48726d3281b, type: 3}
+  - {fileID: 8300000, guid: 962578bb9596f6442b03accfcef9a7e9, type: 3}
+  - {fileID: 8300000, guid: 6fe0a1e6eeb1bbd40af91d65b8bf800c, type: 3}
 --- !u!135 &135266093374921322
 SphereCollider:
   m_ObjectHideFlags: 1

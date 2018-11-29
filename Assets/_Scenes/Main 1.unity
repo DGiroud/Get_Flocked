@@ -34227,7 +34227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b33bc901c2f057e418c72259e7defec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: f6057e56be17d2c4d92219435ee861c5, type: 2}
+  audioMixer: {fileID: 24100000, guid: 603a5cda3936414409bcbe74f410a524, type: 2}
   resDropDown: {fileID: 625078285}
 --- !u!1 &946141775
 GameObject:
@@ -34667,7 +34667,7 @@ Prefab:
     - target: {fileID: 114657500251631062, guid: 50c78cd8a92c1234aa66e3d58f38a408,
         type: 2}
       propertyPath: sheep.Array.data[1].spawnChance.y
-      value: 80
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 114657500251631062, guid: 50c78cd8a92c1234aa66e3d58f38a408,
         type: 2}
@@ -36452,7 +36452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc43561425941940bc711d0f880bded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverLevelID: 3
+  gameOverLevelID: 2
   gameState: 0
   countDown: 0
   gameStart: 0
@@ -38147,7 +38147,7 @@ MonoBehaviour:
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1328120801}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
 --- !u!4 &1227670847
@@ -39790,6 +39790,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d96280ea48191c64fa86ed97c1a2363c, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1328120801 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1716181342011868, guid: d96280ea48191c64fa86ed97c1a2363c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1328120800}
 --- !u!1 &1340240165
 GameObject:
   m_ObjectHideFlags: 0
