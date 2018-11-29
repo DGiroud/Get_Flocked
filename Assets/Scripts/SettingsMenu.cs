@@ -2,6 +2,7 @@
 using UnityEngine.Audio;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class SettingsMenu : MonoBehaviour {
 
@@ -12,7 +13,8 @@ public class SettingsMenu : MonoBehaviour {
     public Dropdown resDropDown;        //dropdown of resolutions
     void Start()
     {
-        resolution = Screen.resolutions;
+
+        resolution = Screen.resolutions.Where(resolution => resolution.refreshRate == 59).ToArray();
         //clear out the options in resdropdown
         resDropDown.ClearOptions();
         //list of strings in which is the options
@@ -37,6 +39,17 @@ public class SettingsMenu : MonoBehaviour {
         resDropDown.value = currentResIndex;
         resDropDown.RefreshShownValue();
 
+    }
+
+    /// <summary>
+    /// Setting a Screen Resolution
+    /// </summary>
+    /// <param name="ResoIndex"></param>
+    public void SetReso (int ResoIndex)
+    {
+        Resolution Resolution = resolution[ResoIndex];
+        //getting the values of the screen
+        Screen.SetResolution(Resolution.width, Resolution.height, Screen.fullScreen);
     }
 
     /// <summary>
