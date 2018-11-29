@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1456,7 +1456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuID: 0
-  mainGameID: 3
+  mainGameID: 2
   selectableColours:
   - {r: 1, g: 0.18431373, b: 0, a: 1}
   - {r: 0, g: 0.7921569, b: 1, a: 1}
@@ -1469,12 +1469,16 @@ MonoBehaviour:
   playerMaterials:
   - shepherd: {fileID: 2100000, guid: 58b5eace635df4e4a929516adc2a2805, type: 2}
     goal: {fileID: 2100000, guid: 03890b45277a09542872a9f2e97e2477, type: 2}
+    ground: {fileID: 2100000, guid: efcd0b2d64b40294f9663ba629829284, type: 2}
   - shepherd: {fileID: 2100000, guid: 2d504da699c59194d928a9ab3ef59891, type: 2}
     goal: {fileID: 2100000, guid: e4af04569866b67479d6edf2c1846c71, type: 2}
+    ground: {fileID: 2100000, guid: 11f20dd7965a431428ce5d338517102a, type: 2}
   - shepherd: {fileID: 2100000, guid: b7185e036b3232b46976a0caa7dad1a5, type: 2}
     goal: {fileID: 2100000, guid: a996c86880051014288ee090a596271d, type: 2}
+    ground: {fileID: 2100000, guid: 5855b972815a6af4698b4499b73955f0, type: 2}
   - shepherd: {fileID: 2100000, guid: f75a684543d428f47b64748c3de9ce08, type: 2}
     goal: {fileID: 2100000, guid: 04685a2c85098d147a757939d86dedfa, type: 2}
+    ground: {fileID: 2100000, guid: 87f4c750ec0ef424db4b22fa5ec152b1, type: 2}
   joinButtons:
   - {fileID: 1071564030}
   - {fileID: 1618736865}

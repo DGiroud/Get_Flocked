@@ -1,7 +1,7 @@
 // Shader created with Shader Forge v1.37 
 // Shader Forge (c) Neat Corporation / Joachim Holmer - http://www.acegikmo.com/shaderforge/
 // Note: Manually altering this data may prevent you from opening it in Shader Forge
-/*SF_DATA;ver:1.37;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,cgin:,lico:1,lgpr:1,limd:3,spmd:1,trmd:0,grmd:0,uamb:True,mssp:True,bkdf:True,hqlp:False,rprd:True,enco:False,rmgx:True,imps:True,rpth:0,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:2,bsrc:3,bdst:7,dpts:2,wrdp:True,dith:0,atcv:False,rfrpo:True,rfrpn:Refraction,coma:15,ufog:True,aust:True,igpj:False,qofs:0,qpre:2,rntp:3,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,stcl:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False,fsmp:False;n:type:ShaderForge.SFN_Final,id:2865,x:32919,y:32447,varname:node_2865,prsc:2|diff-7513-RGB,spec-2362-OUT,gloss-2362-OUT,clip-7513-A;n:type:ShaderForge.SFN_Vector1,id:2362,x:32920,y:32231,varname:node_2362,prsc:2,v1:0;n:type:ShaderForge.SFN_Tex2d,id:7513,x:32148,y:32229,ptovrint:False,ptlb:Texture,ptin:_Texture,varname:node_7513,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:dfbdb1c5c3f17ac488af61e343b44bcf,ntxv:0,isnm:False;proporder:7513;pass:END;sub:END;*/
+/*SF_DATA;ver:1.37;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,cgin:,lico:1,lgpr:1,limd:3,spmd:1,trmd:0,grmd:0,uamb:True,mssp:True,bkdf:True,hqlp:False,rprd:True,enco:False,rmgx:True,imps:True,rpth:0,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:2,bsrc:0,bdst:1,dpts:2,wrdp:True,dith:0,atcv:False,rfrpo:True,rfrpn:Refraction,coma:15,ufog:True,aust:True,igpj:False,qofs:0,qpre:2,rntp:3,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,stcl:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False,fsmp:False;n:type:ShaderForge.SFN_Final,id:2865,x:32919,y:32447,varname:node_2865,prsc:2|diff-7513-RGB,spec-2362-OUT,gloss-2362-OUT,clip-7513-A;n:type:ShaderForge.SFN_Vector1,id:2362,x:32920,y:32231,varname:node_2362,prsc:2,v1:0;n:type:ShaderForge.SFN_Tex2d,id:7513,x:32148,y:32229,ptovrint:False,ptlb:Texture,ptin:_Texture,varname:node_7513,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:dfbdb1c5c3f17ac488af61e343b44bcf,ntxv:0,isnm:False;proporder:7513;pass:END;sub:END;*/
 
 Shader "Shader Forge/Plant" {
     Properties {
@@ -18,7 +18,6 @@ Shader "Shader Forge/Plant" {
             Tags {
                 "LightMode"="ForwardBase"
             }
-            Blend SrcAlpha OneMinusSrcAlpha
             Cull Off
             
             
@@ -107,8 +106,9 @@ Shader "Shader Forge/Plant" {
                 float Pi = 3.141592654;
                 float InvPi = 0.31830988618;
 ///////// Gloss:
-                float gloss = 0.0;
-                float perceptualRoughness = 1.0 - 0.0;
+                float node_2362 = 0.0;
+                float gloss = node_2362;
+                float perceptualRoughness = 1.0 - node_2362;
                 float roughness = perceptualRoughness * perceptualRoughness;
                 float specPow = exp2( gloss * 10.0 + 1.0 );
 /////// GI Data:
@@ -154,7 +154,7 @@ Shader "Shader Forge/Plant" {
 ////// Specular:
                 float NdotL = saturate(dot( normalDirection, lightDirection ));
                 float LdotH = saturate(dot(lightDirection, halfDirection));
-                float3 specularColor = 0.0;
+                float3 specularColor = node_2362;
                 float specularMonochrome;
                 float3 diffuseColor = _Texture_var.rgb; // Need this for specular when using metallic
                 diffuseColor = DiffuseAndSpecularFromMetallic( diffuseColor, specularColor, specularColor, specularMonochrome );
@@ -284,14 +284,15 @@ Shader "Shader Forge/Plant" {
                 float Pi = 3.141592654;
                 float InvPi = 0.31830988618;
 ///////// Gloss:
-                float gloss = 0.0;
-                float perceptualRoughness = 1.0 - 0.0;
+                float node_2362 = 0.0;
+                float gloss = node_2362;
+                float perceptualRoughness = 1.0 - node_2362;
                 float roughness = perceptualRoughness * perceptualRoughness;
                 float specPow = exp2( gloss * 10.0 + 1.0 );
 ////// Specular:
                 float NdotL = saturate(dot( normalDirection, lightDirection ));
                 float LdotH = saturate(dot(lightDirection, halfDirection));
-                float3 specularColor = 0.0;
+                float3 specularColor = node_2362;
                 float specularMonochrome;
                 float3 diffuseColor = _Texture_var.rgb; // Need this for specular when using metallic
                 diffuseColor = DiffuseAndSpecularFromMetallic( diffuseColor, specularColor, specularColor, specularMonochrome );
@@ -449,8 +450,9 @@ Shader "Shader Forge/Plant" {
                 float3 diffColor = _Texture_var.rgb;
                 float specularMonochrome;
                 float3 specColor;
-                diffColor = DiffuseAndSpecularFromMetallic( diffColor, 0.0, specColor, specularMonochrome );
-                float roughness = 1.0 - 0.0;
+                float node_2362 = 0.0;
+                diffColor = DiffuseAndSpecularFromMetallic( diffColor, node_2362, specColor, specularMonochrome );
+                float roughness = 1.0 - node_2362;
                 o.Albedo = diffColor + specColor * roughness * roughness * 0.5;
                 
                 return UnityMetaFragment( o );

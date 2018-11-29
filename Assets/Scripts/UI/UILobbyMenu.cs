@@ -20,6 +20,7 @@ public struct PlayerMaterials
 {
     public Material shepherd;
     public Material goal;
+    public Material ground;
 }
 
 /// <summary>
@@ -103,6 +104,7 @@ public class UILobbyMenu : MonoBehaviour
 
             playerMaterials[i].shepherd.SetColor("_PlayerColour", selectableColours[i]);
             playerMaterials[i].goal.SetColor("_PlayerColour", selectableColours[i]);
+            playerMaterials[i].ground.SetColor("_PlayerColour", selectableColours[i]);
             colourPickers[i].color = playerMaterials[i].shepherd.GetColor("_PlayerColour");
         }
     }
@@ -434,6 +436,7 @@ public class UILobbyMenu : MonoBehaviour
 
         playerMaterials[playerID].shepherd.SetColor("_PlayerColour", newColour);
         playerMaterials[playerID].goal.SetColor("_PlayerColour", newColour);
+        playerMaterials[playerID].ground.SetColor("_PlayerColour", newColour);
     }
 
     /// <summary>
