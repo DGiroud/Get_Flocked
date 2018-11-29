@@ -13,7 +13,7 @@ public class SettingsMenu : MonoBehaviour {
     public Dropdown resDropDown;        //dropdown of resolutions
     void Start()
     {
-
+        
         resolution = Screen.resolutions.Where(resolution => resolution.refreshRate == 59).ToArray();
         //clear out the options in resdropdown
         resDropDown.ClearOptions();
