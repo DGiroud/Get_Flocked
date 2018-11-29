@@ -20,9 +20,6 @@ public class WanderBehaviour : StateMachineBehaviour {
         sheepPos = sheep.GetComponent<Transform>();
         sheepSpeed = sheep.GetComponent<Sheep>().speed * sheep.GetComponent<Sheep>().speedModifier;
 
-        //Allows us to see what state we're in during runtime for debug
-        sheep.GetComponent<Sheep>().currentBehaviour = "Wander Behaviour";
-
         //Finding each of the radius' surrounding the goals, where the sheep will be forced away from should they enter the perimeter 
         goalRadius = GameObject.FindWithTag("GoalRadius");
 
@@ -46,7 +43,7 @@ public class WanderBehaviour : StateMachineBehaviour {
 
         //Add force using direction * speed
         if(sheep.GetComponent<Rigidbody>())
-        sheep.GetComponent<Rigidbody>().AddForce(newDir * sheepSpeed, ForceMode.Force);
+        sheep.GetComponent<Rigidbody>().AddForce((newDir * sheepSpeed) * Time.deltaTime, ForceMode.Force);
 
         //Every frame we check whether the sheep is within an acceptable range or not, wherein we change to our Idle state
         if (sheep.transform.position.x >= newPos.x - 1 && sheep.transform.position.x <= newPos.x + 1 &&
@@ -54,8 +51,6 @@ public class WanderBehaviour : StateMachineBehaviour {
         {
             newPos = sheep.GetComponent<Sheep>().GetNewDestination();
         }
-
-        Debug.DrawLine(sheep.transform.position, newPos); 
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

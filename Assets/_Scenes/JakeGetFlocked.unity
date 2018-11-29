@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 29247199}
   m_Layer: 13
   m_Name: Goal_Player4
-  m_TagString: Boundary
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3791,7 +3791,7 @@ GameObject:
   - component: {fileID: 61555795}
   m_Layer: 13
   m_Name: Goal_Player1
-  m_TagString: Boundary
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4140,7 +4140,7 @@ GameObject:
   - component: {fileID: 104613738}
   m_Layer: 13
   m_Name: Goal_Player2
-  m_TagString: Boundary
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4304,7 +4304,7 @@ GameObject:
   - component: {fileID: 122164537}
   m_Layer: 0
   m_Name: GoalRadius
-  m_TagString: Boundary
+  m_TagString: GoalRadius
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5372,7 +5372,7 @@ GameObject:
   - component: {fileID: 225157030}
   m_Layer: 11
   m_Name: Invisible Wall Right
-  m_TagString: Boundary
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -11530,7 +11530,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 432427260}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.4, y: -0.6668644, z: -9.548367}
+  m_LocalPosition: {x: 4.4, y: -0.75, z: -9.548367}
   m_LocalScale: {x: 7, y: 0.43372, z: 28.5}
   m_Children: []
   m_Father: {fileID: 751520736}
@@ -15350,7 +15350,7 @@ GameObject:
   - component: {fileID: 494770110}
   m_Layer: 11
   m_Name: Invisible Wall Middle
-  m_TagString: Boundary
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -16759,7 +16759,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 705573729}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.4071116, y: -0.6668644, z: -20.3}
+  m_LocalPosition: {x: -6.4071116, y: -0.75, z: -20.3}
   m_LocalScale: {x: 28.5, y: 0.43372, z: 7}
   m_Children: []
   m_Father: {fileID: 751520736}
@@ -17315,7 +17315,7 @@ GameObject:
   - component: {fileID: 751520736}
   m_Layer: 0
   m_Name: Field
-  m_TagString: Untagged
+  m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -21842,7 +21842,7 @@ GameObject:
   - component: {fileID: 858945780}
   m_Layer: 11
   m_Name: Invisible Walls
-  m_TagString: Boundary
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32637,7 +32637,7 @@ GameObject:
   - component: {fileID: 1050924396}
   m_Layer: 13
   m_Name: Goal_Player3
-  m_TagString: Boundary
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37301,7 +37301,7 @@ GameObject:
   - component: {fileID: 1249595308}
   m_Layer: 11
   m_Name: Invisible Wall Bottom
-  m_TagString: Boundary
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -38113,7 +38113,7 @@ GameObject:
   - component: {fileID: 1449576317}
   m_Layer: 11
   m_Name: Invisible Wall Top
-  m_TagString: Boundary
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -39461,7 +39461,7 @@ GameObject:
   - component: {fileID: 1616275359}
   m_Layer: 0
   m_Name: GoalRadius
-  m_TagString: Boundary
+  m_TagString: GoalRadius
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43204,7 +43204,7 @@ GameObject:
   - component: {fileID: 1645581619}
   m_Layer: 11
   m_Name: Invisible Wall Left
-  m_TagString: Boundary
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -50350,7 +50350,7 @@ GameObject:
   - component: {fileID: 1907476514}
   m_Layer: 0
   m_Name: GoalRadius
-  m_TagString: Boundary
+  m_TagString: GoalRadius
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50887,7 +50887,7 @@ GameObject:
   - component: {fileID: 1996877854}
   m_Layer: 0
   m_Name: Ground (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -51212,7 +51212,7 @@ GameObject:
   - component: {fileID: 2055488437}
   m_Layer: 0
   m_Name: GoalRadius
-  m_TagString: Boundary
+  m_TagString: GoalRadius
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51282,7 +51282,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2057644386}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.4071116, y: -0.6668644, z: 1.2}
+  m_LocalPosition: {x: -6.4071116, y: -0.75, z: 1.2}
   m_LocalScale: {x: 28.5, y: 0.43372, z: 7}
   m_Children: []
   m_Father: {fileID: 751520736}
@@ -51509,7 +51509,7 @@ GameObject:
   - component: {fileID: 2101397113}
   m_Layer: 11
   m_Name: Invisible Wall Middle
-  m_TagString: Boundary
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -51778,7 +51778,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2132092332}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.25, y: -0.6668644, z: -9.548367}
+  m_LocalPosition: {x: -17.25, y: -0.75, z: -9.548367}
   m_LocalScale: {x: 7, y: 0.43372, z: 28.5}
   m_Children: []
   m_Father: {fileID: 751520736}

@@ -68,6 +68,8 @@ public class BGMManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        Debug.Log(audioSource.time + " / " + audioSource.clip.length);
+
         switch (bgmPhase)
         {
             case BGMPhase.MainMenu: // main menu BGM
@@ -75,24 +77,12 @@ public class BGMManager : MonoBehaviour
                 audioSource.clip = mainMenuBGM;
                 break;
             case BGMPhase.Round1: // round 1 BGM
-
-                if (audioSource.time < audioSource.clip.length)
-                    return;
-
                 audioSource.clip = round1; 
                 break;
             case BGMPhase.Round2: // round 2 BGM
-
-                if (audioSource.time < audioSource.clip.length)
-                    return;
-
                 audioSource.clip = round2;
                 break;
             case BGMPhase.Round3: // round 3 BGM
-
-                if (audioSource.time < audioSource.clip.length)
-                    return;
-
                 audioSource.clip = round3;
                 break;
             case BGMPhase.RoundEnd:
@@ -103,18 +93,21 @@ public class BGMManager : MonoBehaviour
                 audioSource.clip = gameOverJingle;
                 break;
         }
-        
+
         if (!audioSource.isPlaying)
+        {
+            StopAllCoroutines();
             StartCoroutine(PlayBGM());
+
+            if (audioSource.clip == gameOverJingle)
+                bgmPhase = BGMPhase.MainMenu;
+        }
     }
 
     IEnumerator PlayBGM()
     {
         audioSource.Play();
         yield return new WaitForSecondsRealtime(audioSource.clip.length);
-
-        if (audioSource.clip == gameOverJingle)
-            bgmPhase = BGMPhase.MainMenu;
     }
 
     public IEnumerator FadeOut(float value)

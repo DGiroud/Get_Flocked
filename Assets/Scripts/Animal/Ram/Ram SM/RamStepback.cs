@@ -65,9 +65,7 @@ public class RamStepback : StateMachineBehaviour {
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //If we move from StepBack back into Wander, then we need to reset this back to false to continue the behavioural loop
-        if (ram.GetComponent<Ram>().boundaryHit == true)
-            ram.GetComponent<Ram>().boundaryHit = false;
+        
 
         ram.GetComponent<Ram>().chargeSphere.transform.localScale.Set(ram.chargeTemp.x, ram.chargeTemp.y, ram.chargeTemp.z);
         ram.GetComponent<Ram>().hitCollider.transform.localScale.Set(ram.hitTemp.x, ram.hitTemp.y, ram.hitTemp.z);

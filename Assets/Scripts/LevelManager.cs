@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour
         //controller pause
         ControllerPause();
 
-        if (ScoreManager.Instance.CurrentSheep == ScoreManager.Instance.RequiredSheep)
+        if (ScoreManager.Instance.CurrentSheep >= ScoreManager.Instance.RequiredSheep)
         {
             if (gameState != GameState.TimesUp && gameState != GameState.RoundEnd)
             {

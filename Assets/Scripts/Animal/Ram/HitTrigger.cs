@@ -17,14 +17,14 @@ public class HitTrigger : MonoBehaviour {
                 if(other.gameObject != null)
                 GetComponentInParent<Ram>().playerRef = other.gameObject;
 
-                GetComponentInParent<Ram>().lastPlayerCharged = other.gameObject;
+                GetComponentInParent<Ram>().lastPlayerCharged = other.gameObject;                
+            }
 
-                //Enables the stun functionality in the Ram script
-                GetComponentInParent<Ram>().playerHit = true;
-            }            
+            //Enables the stun functionality in the Ram script
+            GetComponentInParent<Ram>().playerHit = true;
 
             //If the player is holding a sheep, make them drop it
-            if(other.GetComponent<BaseActor>().HeldSheep)
+            if (other.GetComponent<BaseActor>().HeldSheep)
             other.GetComponent<BaseActor>().ReleaseSheep();
 
             Player player = other.GetComponent<Player>();
@@ -47,11 +47,6 @@ public class HitTrigger : MonoBehaviour {
             newDir = (GetComponentInParent<Ram>().transform.position - other.transform.position)/*.normalized*/;
 
             other.GetComponent<Rigidbody>().AddForce(newDir, ForceMode.Impulse);
-        }
-
-        else
-        {
-            GetComponentInParent<Animator>().GetComponent<Animator>().SetBool("isWandering", true);
         }
     }
 }

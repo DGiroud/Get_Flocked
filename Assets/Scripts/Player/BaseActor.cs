@@ -147,6 +147,8 @@ public class BaseActor : MonoBehaviour
             sceneDash = Instantiate(dashEffect, transform.position, new Quaternion(-0.7071068f, 0, 0, 0.7071068f));
             return;
         }
+
+
         dashTimer += Time.deltaTime; // increment dash cooldown timer
 
         // rotation handling

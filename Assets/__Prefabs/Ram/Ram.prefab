@@ -1423,7 +1423,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &65250427803918190
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1446,7 +1446,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.74, y: 0.92, z: 0.83}
+  m_Size: {x: 0.74, y: 0.92, z: 1.23}
   m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!95 &95458545451303812
 Animator:
@@ -1522,6 +1522,8 @@ MonoBehaviour:
     type: 2}
   stunnedEffect: {fileID: 1218433877475988, guid: 57f979c72b0dd6a4589a121ad53af201,
     type: 2}
+  chargeTemp: {x: 0, y: 0, z: 0}
+  hitTemp: {x: 0, y: 0, z: 0}
   meteorSphere: {fileID: 135995869553713194}
   chargeSphere: {fileID: 135953769963331588}
   hitCollider: {fileID: 65362965626449064}
@@ -1635,7 +1637,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1678835840802110}
   m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 3
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

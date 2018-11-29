@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class Ram : MonoBehaviour {
 
-    [Header("DEBUG LOG")]
     //[HideInInspector]                              //We don't want these to be accessed by anyone or anything except other scripts
     public GameObject playerRef;                      //Reference to the player we're charging
     //[HideInInspector]

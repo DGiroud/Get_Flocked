@@ -35,7 +35,10 @@ public class RamCharge : StateMachineBehaviour {
 
         chargeEffect = ram.GetComponent<Ram>().chargeEffect;
 
-        if(sceneChargeEffect != null)
+        //If we move from StepBack back into Wander, then we need to reset this back to false to continue the behavioural loop
+        ram.GetComponent<Ram>().boundaryHit = false;
+
+        if (sceneChargeEffect != null)
         {
             Destroy(sceneChargeEffect);     //Everytime we enter this state, we want to remove the leftover charge effect
             //Stops us from clogging up the scene with inactive particle systems
@@ -52,7 +55,7 @@ public class RamCharge : StateMachineBehaviour {
     {
         forceOut += Time.deltaTime;
         
-        ram.GetComponent<Rigidbody>().AddForce(newDir * 50, ForceMode.Acceleration);      //Ram charging        
+        ram.GetComponent<Rigidbody>().AddForce(newDir * 25, ForceMode.Acceleration);      //Ram charging        
 
         //*****************************************************************************************************
         //                              IF THE RAM HITS THE PLAYER
@@ -71,7 +74,7 @@ public class RamCharge : StateMachineBehaviour {
         }
 
         //If for some reason, the ram gets stuck in this state, we have a timer that will force it back into the loop.
-        if (forceOut >= 4)
+        if (forceOut >= 2.5f)
         {
             forceOut = 0;
 
@@ -103,7 +106,7 @@ public class RamCharge : StateMachineBehaviour {
         ram.GetComponent<Animator>().SetBool("isCharging", false);
     }
 
-
+    #region PlayerHit
     //If the Ram hits the player during it's charge, run this function
     private void PlayerHit()
     {
@@ -128,7 +131,10 @@ public class RamCharge : StateMachineBehaviour {
         //When the Ram hit's a player, we want it to immediately start wandering again
         ram.GetComponent<Animator>().SetBool("isWandering", true);
     }
+    #endregion
 
+
+    #region PlayerMissed
     //Else if the Ram misses the player during it's charge, run this function
     private void PlayerMissed()
     {
@@ -154,4 +160,6 @@ public class RamCharge : StateMachineBehaviour {
         //Change state to continue the behavioural lööp, bröther
         ram.GetComponent<Animator>().SetBool("isStunned", true);
     }
+    #endregion
+
 }
