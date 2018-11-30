@@ -191,6 +191,7 @@ public class BaseActor : MonoBehaviour
         heldSheep = sheep; // update sheep reference
 
         Sheep sheepScript = heldSheep.GetComponent<Sheep>();
+        sheepScript.lastPlayer = gameObject;
         sheepScript.SetPushedTrue();
 
         //                               position                         direction                offset

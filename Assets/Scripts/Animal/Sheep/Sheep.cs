@@ -38,6 +38,9 @@ public class Sheep : MonoBehaviour {
     [SerializeField]
     private AudioClip[] sheepSFX;
     private AudioClip prevSFX;
+
+    [HideInInspector]
+    public GameObject lastPlayer;
     #endregion
 
     void Start()

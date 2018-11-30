@@ -25,15 +25,12 @@ public class Goal : MonoBehaviour
         // if the collided object is a sheep
         if (other.CompareTag("Sheep"))
         {
-            // get the player that's parenting the colliding sheep
-            BaseActor player = other.GetComponentInParent<BaseActor>();
-
-            // if the colliding sheep has no parent (e.g. it's scoring itself) then...
-            if (player != null)
-                ScoreManager.Instance.IncrementGoalCount(player.actorID); // increment goal count
-            
             // get sheep's script for ease of access
             Sheep sheepScript = other.GetComponent<Sheep>();
+
+            // if the colliding sheep has no parent (e.g. it's scoring itself) then...
+            if (sheepScript.lastPlayer != null)
+                ScoreManager.Instance.IncrementGoalCount(sheepScript.lastPlayer.GetComponent<BaseActor>().actorID); // increment goal count
 
             // if this is a golden sheep, increment gold sheep count (for this goal)
             if (sheepScript.IsGoldSheep)
