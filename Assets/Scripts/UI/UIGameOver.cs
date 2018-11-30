@@ -93,21 +93,6 @@ public class UIGameOver : MonoBehaviour
     }
 
     /// <summary>
-    /// have the winner randomly cheer from time to time
-    /// </summary>
-    private void Update()
-    {
-        // decrement timer
-        cheerTimer -= Time.deltaTime;
-        
-        if (cheerTimer < 0.0f)
-        {
-            playerPrefabs[winnerID].GetComponent<Animator>().SetTrigger("Cheer"); // cheer
-            cheerTimer = Random.Range(cheerSpacing.x, cheerSpacing.y); // reset timer
-        }
-    }
-
-    /// <summary>
     /// iterate over all players and rounds. Add up their scores and print/set the text 
     /// values of all fields (points, gold sheep, goals, etc.)
     /// </summary>
