@@ -16,9 +16,6 @@ public class CPU : BaseActor
     // cpu mode which determines aggression
     [Header("CPU Specific")]
     public CPUSeekMode cpuSeekMode;
-    [SerializeField]
-    [Range(0, 100)]
-    private float roomForError = 10.0f;
 
     // other relevant A.I variables
     [SerializeField]

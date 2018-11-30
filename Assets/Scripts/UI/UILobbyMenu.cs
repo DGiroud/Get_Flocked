@@ -54,6 +54,8 @@ public class UILobbyMenu : MonoBehaviour
     [SerializeField]
     private Color[] selectableColours;
     [SerializeField]
+    private GameObject[] lobbyPlayers;
+    [SerializeField]
     private PlayerMaterials[] playerMaterials;
     
     [Header("Button References")]
@@ -106,6 +108,9 @@ public class UILobbyMenu : MonoBehaviour
             playerMaterials[i].goal.SetColor("_PlayerColour", selectableColours[i]);
             playerMaterials[i].ground.SetColor("_PlayerColour", selectableColours[i]);
             colourPickers[i].color = playerMaterials[i].shepherd.GetColor("_PlayerColour");
+
+            if (lobbyPlayers.Length > 0)
+                lobbyPlayers[i].GetComponent<Animator>().SetInteger("lobbyValue", i);
         }
     }
 
