@@ -68,9 +68,7 @@ public class BGMManager : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update ()
-    {
-        Debug.Log(audioSource.time + " / " + audioSource.clip.length);
-
+    { 
         switch (bgmPhase)
         {
             case BGMPhase.MainMenu: // main menu BGM

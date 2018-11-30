@@ -28,6 +28,7 @@ public class RamSpawn : StateMachineBehaviour {
     private bool spawned     = false;
     private bool finished    = false;
     private bool crashed     = false;
+    private bool addedToCamera = false;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -62,12 +63,13 @@ public class RamSpawn : StateMachineBehaviour {
         //If conditions for the spawning of our first Ram
         if (LevelManager.GetCurrentRound() >= round)  //If we have reached the round specified, spawn Ram
         {
-            if (ScoreManager.Instance.CurrentSheep >= sheepScored)  //If we have scored the specified amount of sheep, Spawn Ram
+            if (ScoreManager.Instance.CurrentSheep >= sheepScored && !addedToCamera)  //If we have scored the specified amount of sheep, Spawn Ram
             {
                 DynamicCamera.AddObjectOfInterest(ram);
                 spotlight.enabled = true;
-                updateSpotlight();
+                addedToCamera = true;
             }
+            updateSpotlight();
         }
     }
 
